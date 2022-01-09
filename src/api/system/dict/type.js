@@ -10,17 +10,18 @@ export function listType(query) {
 }
 
 // 查询字典类型详细
-export function getType(dictId) {
+export function getType(params) {
   return request({
-    url: '/system/dict/type/' + dictId,
-    method: 'get'
+    url: '/system/dict/type/get_by_id',
+    method: 'get',
+    params
   })
 }
 
 // 新增字典类型
 export function addType(data) {
   return request({
-    url: '/system/dict/type',
+    url: '/system/dict/type/add',
     method: 'post',
     data: data
   })
@@ -29,17 +30,18 @@ export function addType(data) {
 // 修改字典类型
 export function updateType(data) {
   return request({
-    url: '/system/dict/type',
+    url: '/system/dict/type/edit',
     method: 'put',
-    data: data
+    data
   })
 }
 
 // 删除字典类型
-export function delType(dictId) {
+export function delType(data) {
   return request({
-    url: '/system/dict/type/' + dictId,
-    method: 'delete'
+    url: '/system/dict/type/delete',
+    method: 'delete',
+    data
   })
 }
 

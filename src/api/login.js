@@ -3,13 +3,13 @@ import request from '@/utils/request'
 // 登录方法
 export function login(username, password, code, uuid) {
   const data = {
-    username,
-    password,
+    user_name: username,
+    user_password: password,
     code,
     uuid
   }
   return request({
-    url: '/login',
+    url: '/comm/login',
     headers: {
       isToken: false
     },
@@ -33,7 +33,7 @@ export function register(data) {
 // 获取用户详细信息
 export function getInfo() {
   return request({
-    url: '/getInfo',
+    url: '/system/user/get_info',
     method: 'get'
   })
 }
@@ -49,7 +49,7 @@ export function logout() {
 // 获取验证码
 export function getCodeImg() {
   return request({
-    url: '/captchaImage',
+    url: '/comm/get_captcha',
     headers: {
       isToken: false
     },

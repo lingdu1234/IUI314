@@ -10,10 +10,12 @@ export function listMenu(query) {
 }
 
 // 查询菜单详细
-export function getMenu(menuId) {
+export function getMenu(query) {
+  console.log(`query`, query)
   return request({
-    url: '/system/menu/' + menuId,
-    method: 'get'
+    url: '/system/menu/get_by_id',
+    method: 'get',
+    params: query
   })
 }
 
@@ -36,7 +38,7 @@ export function roleMenuTreeselect(roleId) {
 // 新增菜单
 export function addMenu(data) {
   return request({
-    url: '/system/menu',
+    url: '/system/menu/add',
     method: 'post',
     data: data
   })
@@ -45,16 +47,17 @@ export function addMenu(data) {
 // 修改菜单
 export function updateMenu(data) {
   return request({
-    url: '/system/menu',
+    url: '/system/menu/edit',
     method: 'put',
     data: data
   })
 }
 
 // 删除菜单
-export function delMenu(menuId) {
+export function delMenu(data) {
   return request({
-    url: '/system/menu/' + menuId,
-    method: 'delete'
+    url: '/system/menu/delete',
+    method: 'delete',
+    data
   })
 }

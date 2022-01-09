@@ -41,16 +41,16 @@ const permission = {
       return new Promise(resolve => {
         // 向后端请求路由数据
         getRouters().then(res => {
-          const sdata = JSON.parse(JSON.stringify(res.data))
-          const rdata = JSON.parse(JSON.stringify(res.data))
-          const defaultData = JSON.parse(JSON.stringify(res.data))
+          const sdata = JSON.parse(JSON.stringify(res))
+          const rdata = JSON.parse(JSON.stringify(res))
+          const defaultData = JSON.parse(JSON.stringify(res))
           const sidebarRoutes = filterAsyncRouter(sdata)
           const rewriteRoutes = filterAsyncRouter(rdata, false, true)
           const defaultRoutes = filterAsyncRouter(defaultData)
           commit('SET_ROUTES', rewriteRoutes)
           commit('SET_SIDEBAR_ROUTERS', constantRoutes.concat(sidebarRoutes))
-          commit('SET_DEFAULT_ROUTES', sidebarRoutes)
-          commit('SET_TOPBAR_ROUTES', defaultRoutes)
+          commit('SET_DEFAULT_ROUTES', defaultRoutes)
+          commit('SET_TOPBAR_ROUTES', sidebarRoutes)
           resolve(rewriteRoutes)
         })
       })
@@ -64,9 +64,12 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
+    if (route.pid === '0') {
+      route.component = "Layout"
+    }
     if (route.component) {
       // Layout ParentView 组件特殊处理
-      if (route.component === 'Layout') {
+      if (route.component == "Layout") {
         route.component = Layout
       } else if (route.component === 'ParentView') {
         route.component = ParentView
@@ -74,8 +77,10 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
         route.component = InnerLink
       } else {
         route.component = loadView(route.component)
+        
       }
     }
+    
     if (route.children != null && route.children && route.children.length) {
       route.children = filterAsyncRouter(route.children, route, type)
     } else {
@@ -92,7 +97,7 @@ function filterChildren(childrenMap, lastRouter = false) {
     if (el.children && el.children.length) {
       if (el.component === 'ParentView' && !lastRouter) {
         el.children.forEach(c => {
-          c.path = el.path + '/' + c.path
+          c.path = c.path? el.path + '/' + c.path:c.path
           if (c.children && c.children.length) {
             children = children.concat(filterChildren(c.children, c))
             return

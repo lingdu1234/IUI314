@@ -8,8 +8,8 @@ export function useDict(...args) {
   return (() => {
     args.forEach((d, index) => {
       res.value[d] = [];
-      getDicts(d).then(resp => {
-        res.value[d] = resp.data.map(p => ({ label: p.dictLabel, value: p.dictValue, elTagType: p.listClass }))
+      getDicts({dict_type:d}).then(resp => {
+        res.value[d] = resp.map(p => ({ label: p.dict_label, value: p.dict_value, elTagType: p.list_class }))
       })
     })
     return toRefs(res.value);

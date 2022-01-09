@@ -60,7 +60,7 @@ const user = {
           } else {
             commit('SET_ROLES', ['ROLE_DEFAULT'])
           }
-          commit('SET_NAME', user.userName)
+          commit('SET_NAME', user.user_name)
           commit('SET_AVATAR', avatar)
           resolve(res)
         }).catch(error => {

@@ -71,8 +71,8 @@ const router = useRouter();
 const { proxy } = getCurrentInstance();
 
 const loginForm = ref({
-  username: "admin",
-  password: "admin123",
+  username: "lingdu1234",
+  password: "123456",
   rememberMe: false,
   code: "",
   uuid: ""
@@ -121,14 +121,13 @@ function handleLogin() {
   });
 }
 
-function getCode() {
-  getCodeImg().then(res => {
-    captchaOnOff.value = res.captchaOnOff === undefined ? true : res.captchaOnOff;
-    if (captchaOnOff.value) {
-      codeUrl.value = "data:image/gif;base64," + res.img;
-      loginForm.value.uuid = res.uuid;
-    }
-  });
+async function getCode() {
+  let res = await getCodeImg();
+  captchaOnOff.value = res.captchaOnOff === undefined ? true : res.captchaOnOff;
+  if (captchaOnOff.value) {
+    codeUrl.value = res.img;
+    loginForm.value.uuid = res.uuid;
+  }
 }
 
 function getCookie() {
