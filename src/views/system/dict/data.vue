@@ -93,7 +93,7 @@
 
       <el-table v-loading="loading" :data="dataList" @selection-change="handleSelectionChange">
          <el-table-column type="selection" width="55" align="center" />
-         <el-table-column label="字典编码" align="center" prop="dict_data_id" />
+         <el-table-column label="字典编码" align="center" prop="dict_data_id" width="100" show-overflow-tooltip/>
          <el-table-column label="字典标签" align="center" prop="dict_label">
             <template #default="scope">
                <span v-if="scope.row.list_class == '' || scope.row.list_class == 'default'">{{ scope.row.dict_label }}</span>

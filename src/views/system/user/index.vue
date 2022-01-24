@@ -5,7 +5,7 @@
          <el-col :span="4" :xs="24">
             <div class="head-container">
                <el-input
-                  v-model="deptName"
+                  v-model="dept_name"
                   placeholder="请输入部门名称"
                   clearable
                   size="small"
@@ -16,7 +16,7 @@
             <div class="head-container">
                <el-tree
                   :data="deptOptions"
-                  :props="{ label: 'label', children: 'children' }"
+                  :props="{ label: 'dept_name', children: 'children' }"
                   :expand-on-click-node="false"
                   :filter-node-method="filterNode"
                   ref="deptTreeRef"
@@ -28,9 +28,9 @@
          <!--用户数据-->
          <el-col :span="20" :xs="24">
             <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-               <el-form-item label="用户名称" prop="userName">
+               <el-form-item label="用户名称" prop="user_name">
                   <el-input
-                     v-model="queryParams.userName"
+                     v-model="queryParams.user_name"
                      placeholder="请输入用户名称"
                      clearable
                      size="small"
@@ -38,9 +38,9 @@
                      @keyup.enter="handleQuery"
                   />
                </el-form-item>
-               <el-form-item label="手机号码" prop="phonenumber">
+               <el-form-item label="手机号码" prop="phone_num">
                   <el-input
-                     v-model="queryParams.phonenumber"
+                     v-model="queryParams.phone_num"
                      placeholder="请输入手机号码"
                      clearable
                      size="small"
@@ -48,9 +48,9 @@
                      @keyup.enter="handleQuery"
                   />
                </el-form-item>
-               <el-form-item label="状态" prop="status">
+               <el-form-item label="状态" prop="user_status">
                   <el-select
-                     v-model="queryParams.status"
+                     v-model="queryParams.user_status"
                      placeholder="用户状态"
                      clearable
                      size="small"
@@ -140,31 +140,31 @@
 
             <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
                <el-table-column type="selection" width="50" align="center" />
-               <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-               <el-table-column label="用户名称" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
-               <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
-               <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
-               <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
-               <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
+               <el-table-column label="用户编号" align="center" key="id" prop="id" v-if="columns[0].visible" width = "100" show-overflow-tooltip/>
+               <el-table-column label="用户名称" align="center" key="user_name" prop="user_name" v-if="columns[1].visible" :show-overflow-tooltip="true" />
+               <el-table-column label="用户昵称" align="center" key="user_nickname" prop="user_nickname" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+               <el-table-column label="部门" align="center" key="dept_name" prop="dept.dept_name" v-if="columns[3].visible" :show-overflow-tooltip="true" />
+               <el-table-column label="手机号码" align="center" key="phone_num" prop="phone_num" v-if="columns[4].visible" width="120" />
+               <el-table-column label="状态" align="center" key="user_status" v-if="columns[5].visible">
                   <template #default="scope">
                      <el-switch
-                        v-model="scope.row.status"
-                        active-value="0"
-                        inactive-value="1"
+                        v-model="scope.row.user_status"
+                        active-value="1"
+                        inactive-value="0"
                         @change="handleStatusChange(scope.row)"
                      ></el-switch>
                   </template>
                </el-table-column>
-               <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="150">
+               <el-table-column label="创建时间" align="center" prop="created_at" v-if="columns[6].visible" width="150">
                   <template #default="scope">
-                     <span>{{ parseTime(scope.row.createTime) }}</span>
+                     <span>{{ parseTime(scope.row.created_at) }}</span>
                   </template>
                </el-table-column>
                <el-table-column label="操作" align="center" width="180" class-name="small-padding fixed-width">
                   <template #default="scope">
                      <el-button
                         size="mini"
-                        v-if="scope.row.userId !== 1"
+                        v-if="scope.row.user_id !== 1"
                         type="text"
                         icon="Edit"
                         @click="handleUpdate(scope.row)"
@@ -172,13 +172,13 @@
                      >修改</el-button>
                      <el-button
                         size="mini"
-                        v-if="scope.row.userId !== 1"
+                        v-if="scope.row.user_id !== 1"
                         type="text"
                         icon="Delete"
                         @click="handleDelete(scope.row)"
                         v-hasPermi="['system:user:remove']"
                      >删除</el-button>
-                     <el-dropdown v-if="scope.row.userId !== 1" @command="(command) => handleCommand(command, scope.row)">
+                     <el-dropdown v-if="scope.row.user_id !== 1" @command="(command) => handleCommand(command, scope.row)">
                         <span class="el-dropdown-link" v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
                            <el-icon><d-arrow-right /></el-icon>更多
                         </span>
@@ -197,8 +197,8 @@
             <pagination
                v-show="total > 0"
                :total="total"
-               v-model:page="queryParams.pageNum"
-               v-model:limit="queryParams.pageSize"
+               v-model:page="queryParams.page_num"
+               v-model:limit="queryParams.page_size"
                @pagination="getList"
             />
          </el-col>
@@ -209,25 +209,25 @@
          <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="用户昵称" prop="nickName">
-                     <el-input v-model="form.nickName" placeholder="请输入用户昵称" maxlength="30" />
+                  <el-form-item label="用户昵称" prop="user_nickname">
+                     <el-input v-model="form.user_nickname" placeholder="请输入用户昵称" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
-                  <el-form-item label="归属部门" prop="deptId">
+                  <el-form-item label="归属部门" prop="dept_id">
                      <tree-select
-                        v-model:value="form.deptId"
+                        v-model:value="form.dept_id"
                         :options="deptOptions"
                         placeholder="请选择归属部门"
-                        :objMap="{ value: 'id', label: 'label', children: 'children' }"
+                        :objMap="{ value: 'dept_id', label: 'dept_name', children: 'children' }"
                      />
                   </el-form-item>
                </el-col>
             </el-row>
             <el-row>
                <el-col :span="12">
-                  <el-form-item label="手机号码" prop="phonenumber">
-                     <el-input v-model="form.phonenumber" placeholder="请输入手机号码" maxlength="11" />
+                  <el-form-item label="手机号码" prop="phone_num">
+                     <el-input v-model="form.phone_num" placeholder="请输入手机号码" maxlength="11" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -238,8 +238,8 @@
             </el-row>
             <el-row>
                <el-col :span="12">
-                  <el-form-item v-if="form.userId == undefined" label="用户名称" prop="userName">
-                     <el-input v-model="form.userName" placeholder="请输入用户名称" maxlength="30" />
+                  <el-form-item v-if="form.userId == undefined" label="用户名称" prop="user_name">
+                     <el-input v-model="form.user_name" placeholder="请输入用户名称" maxlength="30" />
                   </el-form-item>
                </el-col>
                <el-col :span="12">
@@ -372,7 +372,7 @@ const multiple = ref(true);
 const total = ref(0);
 const title = ref("");
 const dateRange = ref([]);
-const deptName = ref("");
+const dept_name = ref("");
 const deptOptions = ref(undefined);
 const initPassword = ref(undefined);
 const postOptions = ref([]);
@@ -406,19 +406,19 @@ const columns = ref([
 const data = reactive({
   form: {},
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
-    userName: undefined,
-    phonenumber: undefined,
-    status: undefined,
-    deptId: undefined
+    page_num: 1,
+    page_size: 10,
+    user_name: undefined,
+    phone_num: undefined,
+    user_status: undefined,
+    dept_id: undefined
   },
   rules: {
-    userName: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
+    user_name: [{ required: true, message: "用户名称不能为空", trigger: "blur" }, { min: 2, max: 20, message: "用户名称长度必须介于 2 和 20 之间", trigger: "blur" }],
     nickName: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
     password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
     email: [{ type: "email", message: "'请输入正确的邮箱地址", trigger: ["blur", "change"] }],
-    phonenumber: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
+    phone_num: [{ pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }]
   }
 });
 
@@ -430,13 +430,13 @@ const filterNode = (value, data) => {
   return data.label.indexOf(value) !== -1;
 };
 /** 根据名称筛选部门树 */
-watch(deptName, val => {
+watch(dept_name, val => {
   proxy.$refs["deptTreeRef"].filter(val);
 });
 /** 查询部门下拉树结构 */
 function getTreeselect() {
   treeselect().then(response => {
-    deptOptions.value = response.data;
+    deptOptions.value = response;
   });
 };
 /** 查询用户列表 */
@@ -444,18 +444,18 @@ function getList() {
   loading.value = true;
   listUser(proxy.addDateRange(queryParams.value, dateRange.value)).then(res => {
     loading.value = false;
-    userList.value = res.rows;
+    userList.value = res.list;
     total.value = res.total;
   });
 };
 /** 节点单击事件 */
 function handleNodeClick(data) {
-  queryParams.value.deptId = data.id;
+  queryParams.value.dept_id = data.dept_id;
   handleQuery();
 };
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.page_num = 1;
   getList();
 };
 /** 重置按钮操作 */
@@ -483,7 +483,7 @@ function handleExport() {
 /** 用户状态修改  */
 function handleStatusChange(row) {
   let text = row.status === "0" ? "启用" : "停用";
-  proxy.$modal.confirm('确认要"' + text + '""' + row.userName + '"用户吗?').then(function () {
+  proxy.$modal.confirm('确认要"' + text + '""' + row.user_name + '"用户吗?').then(function () {
     return changeUserStatus(row.userId, row.status);
   }).then(() => {
     proxy.$modal.msgSuccess(text + "成功");
@@ -511,7 +511,7 @@ function handleAuthRole(row) {
 };
 /** 重置密码按钮操作 */
 function handleResetPwd(row) {
-  proxy.$prompt('请输入"' + row.userName + '"的新密码', "提示", {
+  proxy.$prompt('请输入"' + row.user_name + '"的新密码', "提示", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     closeOnClickModal: false,
@@ -560,7 +560,7 @@ function initTreeData() {
   // 判断部门的数据是否存在，存在不获取，不存在则获取
   if (deptOptions.value === undefined) {
     treeselect().then(response => {
-      deptOptions.value = response.data;
+      deptOptions.value = response;
     });
   }
 };
@@ -568,11 +568,11 @@ function initTreeData() {
 function reset() {
   form.value = {
     userId: undefined,
-    deptId: undefined,
-    userName: undefined,
+    dept_id: undefined,
+    user_name: undefined,
     nickName: undefined,
     password: undefined,
-    phonenumber: undefined,
+    phone_num: undefined,
     email: undefined,
     sex: undefined,
     status: "0",

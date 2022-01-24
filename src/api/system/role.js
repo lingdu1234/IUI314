@@ -10,17 +10,18 @@ export function listRole(query) {
 }
 
 // 查询角色详细
-export function getRole(roleId) {
+export function getRole(query) {
   return request({
-    url: '/system/role/' + roleId,
-    method: 'get'
+    url: '/system/role/get_by_id',
+    method: 'get',
+    params: query
   })
 }
 
 // 新增角色
 export function addRole(data) {
   return request({
-    url: '/system/role',
+    url: '/system/role/add',
     method: 'post',
     data: data
   })
@@ -29,7 +30,7 @@ export function addRole(data) {
 // 修改角色
 export function updateRole(data) {
   return request({
-    url: '/system/role',
+    url: '/system/role/edit',
     method: 'put',
     data: data
   })
@@ -38,7 +39,7 @@ export function updateRole(data) {
 // 角色数据权限
 export function dataScope(data) {
   return request({
-    url: '/system/role/dataScope',
+    url: '/system/role/set_data_scope',
     method: 'put',
     data: data
   })
@@ -58,10 +59,11 @@ export function changeRoleStatus(roleId, status) {
 }
 
 // 删除角色
-export function delRole(roleId) {
+export function delRole(data) {
   return request({
-    url: '/system/role/' + roleId,
-    method: 'delete'
+    url: '/system/role/delete',
+    method: 'delete',
+    data
   })
 }
 
@@ -107,5 +109,24 @@ export function authUserSelectAll(data) {
     url: '/system/role/authUser/selectAll',
     method: 'put',
     params: data
+  })
+}
+
+
+// 获取角色的菜单权限
+export function getRoleMenus(query) {
+  return request({
+    url: '/system/role/get_role_menu',
+    method: 'get',
+    params: query
+  })
+}
+
+// 获取角色的部门权限
+export function getRoleDepts(query) {
+  return request({
+    url: '/system/role/get_role_dept',
+    method: 'get',
+    params: query
   })
 }

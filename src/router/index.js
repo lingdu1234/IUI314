@@ -100,7 +100,8 @@ export const constantRoutes = [
     hidden: true,
     children: [
       {
-        path: 'user/:roleId(\\d+)',
+        // path: 'user/:roleId(\\d+)',
+        path: 'user/:roleId',
         component: () => import('@/views/system/role/authUser'),
         name: 'AuthUser',
         meta: { title: '分配用户', activeMenu: '/system/role' }

@@ -10,17 +10,18 @@ export function listPost(query) {
 }
 
 // 查询岗位详细
-export function getPost(postId) {
+export function getPost(query) {
   return request({
-    url: '/system/post/' + postId,
-    method: 'get'
+    url: '/system/post/get_by_id',
+    method: 'get',
+    params: query
   })
 }
 
 // 新增岗位
 export function addPost(data) {
   return request({
-    url: '/system/post',
+    url: '/system/post/add',
     method: 'post',
     data: data
   })
@@ -29,16 +30,17 @@ export function addPost(data) {
 // 修改岗位
 export function updatePost(data) {
   return request({
-    url: '/system/post',
+    url: '/system/post/edit',
     method: 'put',
     data: data
   })
 }
 
 // 删除岗位
-export function delPost(postId) {
+export function delPost(data) {
   return request({
-    url: '/system/post/' + postId,
-    method: 'delete'
+    url: '/system/post/delete',
+    method: 'delete',
+    data
   })
 }
