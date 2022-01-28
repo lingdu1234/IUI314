@@ -11,17 +11,18 @@ export function listUser(query) {
 }
 
 // 查询用户详细
-export function getUser(userId) {
+export function getUser(query) {
   return request({
-    url: '/system/user/' + parseStrEmpty(userId),
-    method: 'get'
+    url: '/system/user/get_by_id',
+    method: 'get',
+    params: query
   })
 }
 
 // 新增用户
 export function addUser(data) {
   return request({
-    url: '/system/user',
+    url: '/system/user/add',
     method: 'post',
     data: data
   })
@@ -30,41 +31,42 @@ export function addUser(data) {
 // 修改用户
 export function updateUser(data) {
   return request({
-    url: '/system/user',
+    url: '/system/user/edit',
     method: 'put',
     data: data
   })
 }
 
-// 删除用户
-export function delUser(userId) {
+// 删除用户打扰
+export function delUser(data) {
   return request({
-    url: '/system/user/' + userId,
-    method: 'delete'
+    url: '/system/user/delete',
+    method: 'delete',
+    data
   })
 }
 
 // 用户密码重置
-export function resetUserPwd(userId, password) {
+export function resetUserPwd(user_id, new_passwd) {
   const data = {
-    userId,
-    password
+    user_id,
+    new_passwd
   }
   return request({
-    url: '/system/user/resetPwd',
+    url: '/system/user/reset_passwd',
     method: 'put',
-    data: data
+    data
   })
 }
 
 // 用户状态修改
-export function changeUserStatus(userId, status) {
+export function changeUserStatus(user_id, status) {
   const data = {
-    userId,
+    user_id,
     status
   }
   return request({
-    url: '/system/user/changeStatus',
+    url: '/system/user/change_status',
     method: 'put',
     data: data
   })
@@ -120,8 +122,8 @@ export function getAuthRole(userId) {
 // 保存授权角色
 export function updateAuthRole(data) {
   return request({
-    url: '/system/user/authRole',
+    url: '/system/role/update_auth_role',
     method: 'put',
-    params: data
+    data
   })
 }

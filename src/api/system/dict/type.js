@@ -46,12 +46,12 @@ export function delType(data) {
 }
 
 // 刷新字典缓存
-export function refreshCache() {
-  return request({
-    url: '/system/dict/type/refreshCache',
-    method: 'delete'
-  })
-}
+// export function refreshCache() {
+//   return request({
+//     url: '/system/dict/type/refreshCache',
+//     method: 'delete'
+//   })
+// }
 
 // 获取字典选择框列表
 export function optionselect() {

@@ -46,15 +46,15 @@ export function dataScope(data) {
 }
 
 // 角色状态修改
-export function changeRoleStatus(roleId, status) {
+export function changeRoleStatus(role_id, status) {
   const data = {
-    roleId,
+    role_id,
     status
   }
   return request({
-    url: '/system/role/changeStatus',
+    url: '/system/role/change_status',
     method: 'put',
-    data: data
+    data
   })
 }
 
@@ -70,7 +70,7 @@ export function delRole(data) {
 // 查询角色已授权用户列表
 export function allocatedUserList(query) {
   return request({
-    url: '/system/role/authUser/allocatedList',
+    url: '/system/role/get_auth_users_by_role_id',
     method: 'get',
     params: query
   })
@@ -79,36 +79,29 @@ export function allocatedUserList(query) {
 // 查询角色未授权用户列表
 export function unallocatedUserList(query) {
   return request({
-    url: '/system/role/authUser/unallocatedList',
+    url: '/system/role/get_un_auth_users_by_role_id',
     method: 'get',
     params: query
   })
 }
 
-// 取消用户授权角色
+// 取消用户授权角色 / 批量
 export function authUserCancel(data) {
   return request({
-    url: '/system/role/authUser/cancel',
+    url: '/system/role/cancel_auth_user',
     method: 'put',
     data: data
   })
 }
 
-// 批量取消用户授权角色
-export function authUserCancelAll(data) {
-  return request({
-    url: '/system/role/authUser/cancelAll',
-    method: 'put',
-    params: data
-  })
-}
+
 
 // 授权用户选择
 export function authUserSelectAll(data) {
   return request({
-    url: '/system/role/authUser/selectAll',
+    url: '/system/role/add_auth_user',
     method: 'put',
-    params: data
+    data
   })
 }
 

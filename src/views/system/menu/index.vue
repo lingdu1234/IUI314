@@ -485,7 +485,7 @@ function cancel() {
 function reset() {
   form.value = {
     id: undefined,
-    pid: 0,
+    pid: "0",
     menu_name: undefined,
     icon: undefined,
     menu_type: 'M',
@@ -525,7 +525,7 @@ async function handleAdd(row) {
   if (row != null && row.id) {
     form.value.pid = row.id;
   } else {
-    form.value.pid = 0;
+    form.value.pid = "0";
   }
   open.value = true;
   title.value = '添加菜单';

@@ -226,7 +226,6 @@ import {
   delDept,
   addDept,
   updateDept,
-  listDeptExcludeChild,
 } from '@/api/system/dept';
 
 const { proxy } = getCurrentInstance();

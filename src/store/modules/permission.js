@@ -64,9 +64,14 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
-    if (route.pid === '0') {
-      route.component = "Layout"
+    if(route.menu_type === 'M') {
+      if (route.pid === '0') {
+        route.component = "Layout"
+      } else {
+        route.component = "ParentView"
+      }
     }
+    
     if (route.component) {
       // Layout ParentView 组件特殊处理
       if (route.component == "Layout") {
