@@ -312,7 +312,7 @@ function reset() {
     dict_type_id: undefined,
     dict_name: undefined,
     dict_type: undefined,
-    status: '0',
+    status: '1',
     remark: undefined,
   };
   proxy.resetForm('dictRef');

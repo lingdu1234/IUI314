@@ -124,7 +124,7 @@
             >新增</el-button
           >
           <el-button
-            v-if="scope.row.parent_id != 0"
+            v-if="scope.row.parent_id != '0'"
             size="mini"
             type="text"
             icon="Delete"
@@ -140,7 +140,7 @@
     <el-dialog :title="title" v-model="open" width="600px" append-to-body>
       <el-form ref="deptRef" :model="form" :rules="rules" label-width="80px">
         <el-row>
-          <el-col :span="24" v-if="form.parent_id !== 0">
+          <el-col :span="24" v-if="form.parent_id !== '0'">
             <el-form-item label="上级部门" prop="parent_id">
               <tree-select
                 v-model:value="form.parent_id"
@@ -298,7 +298,7 @@ function reset() {
     leader: undefined,
     phone: undefined,
     email: undefined,
-    status: '0',
+    status: '1',
   };
   proxy.resetForm('deptRef');
 }
@@ -316,7 +316,7 @@ async function handleAdd(row) {
   reset();
   const res = await listDept(queryParams.value);
   deptOptions.value = proxy.handleTree(res.list, 'dept_id', 'parent_id');
-  if (row != undefined) {
+  if (row != undefined && row.dept_id != undefined) {
     form.value.parent_id = row.dept_id;
   }
   open.value = true;

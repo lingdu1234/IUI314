@@ -361,7 +361,7 @@ function reset() {
     list_class: 'default',
     dict_sort: 0,
     is_default: 'N',
-    status: '0',
+    status: '1',
     remark: undefined,
   };
   proxy.resetForm('dataRef');

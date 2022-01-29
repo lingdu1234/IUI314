@@ -393,6 +393,7 @@ const open = ref(false);
 const loading = ref(true);
 const showSearch = ref(true);
 const ids = ref([]);
+const role_names = ref([]);
 const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
@@ -465,11 +466,12 @@ function resetQuery() {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const role_ids = row.role_id || ids.value;
+  const role_ids = row.role_id ? [row.role_id] : ids.value;
+  const roleNames = row.role_id  ? row.role_name : role_names.value;
   proxy.$modal
-    .confirm('是否确认删除角色编号为"' + role_ids + '"的数据项?')
+    .confirm('是否确认删除角色编号为"' + roleNames + '"的数据项?')
     .then(function () {
-      return delRole(role_ids);
+      return delRole({role_ids});
     })
     .then(() => {
       getList();
@@ -490,6 +492,7 @@ function handleExport() {
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
   ids.value = selection.map((item) => item.role_id);
+  role_names.value = selection.map((item) => item.role_name);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
@@ -580,7 +583,7 @@ function handleAdd() {
 /** 修改角色 */
 async function handleUpdate(row) {
   reset();
-  const role_id = row.role_id || ids.value;
+  const role_id = row.role_id || ids.value[0];
   getMenuTreeselect();
   const roleMenu = await getRoleMenus({ role_id });
   getRole({ role_id }).then((response) => {

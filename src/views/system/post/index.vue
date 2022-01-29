@@ -171,6 +171,7 @@ const open = ref(false);
 const loading = ref(true);
 const showSearch = ref(true);
 const ids = ref([]);
+const post_names = ref([]);
 const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
@@ -233,6 +234,7 @@ function resetQuery() {
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.post_id);
+  post_names.value = selection.map(item => item.post_name);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
@@ -245,7 +247,7 @@ function handleAdd() {
 /** 修改按钮操作 */
 function handleUpdate(row) {
   reset();
-  const post_id = row.post_id || ids.value;
+  const post_id = row.post_id || ids.value[0];
   getPost({post_id}).then(response => {
     form.value = response;
     open.value = true;
@@ -274,9 +276,10 @@ function submitForm() {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const post_ids = row.post_id || ids.value;
-  proxy.$modal.confirm('是否确认删除岗位编号为"' + post_ids + '"的数据项？').then(function() {
-    return delPost(post_ids);
+    const post_ids = row.post_id ? [row.post_id] : ids.value;
+  const postNames = row.post_id  ? row.post_name : post_names.value;
+  proxy.$modal.confirm('是否确认删除岗位编号为"' + postNames + '"的数据项？').then(function() {
+    return delPost({post_ids});
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
