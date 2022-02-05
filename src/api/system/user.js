@@ -127,3 +127,11 @@ export function updateAuthRole(data) {
     data
   })
 }
+
+// 刷新token
+export function freshToken() {
+  return request({
+    url: '/system/user/fresh_token',
+    method: 'put',
+  })
+}

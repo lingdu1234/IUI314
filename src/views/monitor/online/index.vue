@@ -25,24 +25,26 @@
       </el-form>
       <el-table
          v-loading="loading"
-         :data="onlineList.slice((pageNum - 1) * pageSize, pageNum * pageSize)"
+         :data="onlineList.slice((page_num - 1) * page_size, page_num * page_size)"
          style="width: 100%;"
       >
          <el-table-column label="序号" type="index" align="center">
             <template #default="scope">
-               <span>{{ (pageNum - 1) * pageSize + scope.$index + 1 }}</span>
+               <span>{{ (page_num - 1) * page_size + scope.$index + 1 }}</span>
             </template>
          </el-table-column>
-         <el-table-column label="会话编号" align="center" prop="tokenId" :show-overflow-tooltip="true" />
-         <el-table-column label="登录名称" align="center" prop="userName" :show-overflow-tooltip="true" />
-         <el-table-column label="所属部门" align="center" prop="deptName" :show-overflow-tooltip="true" />
+         <el-table-column label="会话编号" align="center" prop="id" :show-overflow-tooltip="true" />
+         <el-table-column label="登录名称" align="center" prop="user_name" :show-overflow-tooltip="true" />
+         <el-table-column label="所属部门" align="center" prop="dept_name" :show-overflow-tooltip="true" />
+         <el-table-column label="网络" align="center" prop="net" :show-overflow-tooltip="true" />
          <el-table-column label="主机" align="center" prop="ipaddr" :show-overflow-tooltip="true" />
-         <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
+         <el-table-column label="登录地点" align="center" prop="login_location" :show-overflow-tooltip="true" />
          <el-table-column label="操作系统" align="center" prop="os" :show-overflow-tooltip="true" />
          <el-table-column label="浏览器" align="center" prop="browser" :show-overflow-tooltip="true" />
-         <el-table-column label="登录时间" align="center" prop="loginTime" width="180">
+         <el-table-column label="设备" align="center" prop="device" :show-overflow-tooltip="true" />
+         <el-table-column label="登录时间" align="center" prop="login_time" width="180">
             <template #default="scope">
-               <span>{{ parseTime(scope.row.loginTime) }}</span>
+               <span>{{ parseTime(scope.row.login_time) }}</span>
             </template>
          </el-table-column>
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -58,7 +60,7 @@
          </el-table-column>
       </el-table>
 
-      <pagination v-show="total > 0" :total="total" v-model:page="pageNum" v-model:limit="pageSize" />
+      <pagination v-show="total > 0" :total="total" v-model:page="page_num" v-model:limit="page_size" />
    </div>
 </template>
 
@@ -70,26 +72,26 @@ const { proxy } = getCurrentInstance();
 const onlineList = ref([]);
 const loading = ref(true);
 const total = ref(0);
-const pageNum = ref(1);
-const pageSize = ref(10);
+const page_num = ref(1);
+const page_size = ref(10);
 
 const queryParams = ref({
   ipaddr: undefined,
-  userName: undefined
+  user_name: undefined
 });
 
 /** 查询登录日志列表 */
 function getList() {
   loading.value = true;
   initData(queryParams.value).then(response => {
-    onlineList.value = response.rows;
+    onlineList.value = response.list;
     total.value = response.total;
     loading.value = false;
   });
 }
 /** 搜索按钮操作 */
 function handleQuery() {
-  pageNum.value = 1;
+  page_num.value = 1;
   getList();
 }
 /** 重置按钮操作 */
@@ -99,11 +101,12 @@ function resetQuery() {
 }
 /** 强退按钮操作 */
 function handleForceLogout(row) {
-    proxy.$modal.confirm('是否确认强退名称为"' + row.userName + '"的用户?').then(function () {
-  return forceLogout(row.tokenId);
+   let ids = [row.id];
+    proxy.$modal.confirm('是否确认强退名称为"' + row.user_name + '"的用户?').then(function () {
+  return forceLogout({ids});
   }).then(() => {
     getList();
-    proxy.$modal.msgSuccess("删除成功");
+    proxy.$modal.msgSuccess("强退成功");
   }).catch(() => {});
 }
 

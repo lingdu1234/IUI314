@@ -186,7 +186,7 @@ async function getList() {
 }
 // 返回按钮
 function handleClose() {
-  proxy.$router.back(-1);
+  proxy.$router.back();
   proxy.$tab.closeOpenPage();
 }
 /** 搜索按钮操作 */

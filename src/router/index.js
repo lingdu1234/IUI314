@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from 'vue-router'
+import { createWebHashHistory, createRouter } from 'vue-router'
 import Layout from '@/layout'
 
 /**
@@ -128,7 +128,7 @@ export const constantRoutes = [
     hidden: true,
     children: [
       {
-        path: 'index',
+        path: 'index/:job_id/:rand_key',
         component: () => import('@/views/monitor/job/log'),
         name: 'JobLog',
         meta: { title: '调度日志', activeMenu: '/monitor/job' }
@@ -151,7 +151,8 @@ export const constantRoutes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  // history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: constantRoutes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {

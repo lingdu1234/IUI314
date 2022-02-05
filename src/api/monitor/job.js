@@ -1,56 +1,54 @@
 import request from '@/utils/request'
 
 // 查询定时任务调度列表
-export function listJob(query) {
+export function listJob (query) {
   return request({
-    url: '/monitor/job/list',
+    url: '/system/job/list',
     method: 'get',
     params: query
   })
 }
 
 // 查询定时任务调度详细
-export function getJob(jobId) {
+export function getJob (query) {
   return request({
-    url: '/monitor/job/' + jobId,
-    method: 'get'
+    url: '/system/job/get_by_id',
+    method: 'get',
+    params: query
   })
 }
 
 // 新增定时任务调度
-export function addJob(data) {
+export function addJob (data) {
   return request({
-    url: '/monitor/job',
+    url: '/system/job/add',
     method: 'post',
     data: data
   })
 }
 
 // 修改定时任务调度
-export function updateJob(data) {
+export function updateJob (data) {
   return request({
-    url: '/monitor/job',
+    url: '/system/job/edit',
     method: 'put',
     data: data
   })
 }
 
 // 删除定时任务调度
-export function delJob(jobId) {
+export function delJob (data) {
   return request({
-    url: '/monitor/job/' + jobId,
-    method: 'delete'
+    url: '/system/job/delete',
+    method: 'delete',
+    data
   })
 }
 
 // 任务状态修改
-export function changeJobStatus(jobId, status) {
-  const data = {
-    jobId,
-    status
-  }
+export function changeJobStatus (data) {
   return request({
-    url: '/monitor/job/changeStatus',
+    url: '/system/job/change_status',
     method: 'put',
     data: data
   })
@@ -58,13 +56,10 @@ export function changeJobStatus(jobId, status) {
 
 
 // 定时任务立即执行一次
-export function runJob(jobId, jobGroup) {
-  const data = {
-    jobId,
-    jobGroup
-  }
+export function runJob (job_id,task_id) {
+  const data = {job_id,task_id}
   return request({
-    url: '/monitor/job/run',
+    url: '/system/job/run_task_once',
     method: 'put',
     data: data
   })

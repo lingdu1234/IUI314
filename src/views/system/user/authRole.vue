@@ -107,7 +107,7 @@ function getRowKey(row) {
 }
 /** 关闭按钮 */
 function close() {
-  proxy.$router.back(-1);
+  proxy.$router.back();
   proxy.$tab.closeOpenPage();
 }
 /** 提交按钮 */

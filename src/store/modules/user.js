@@ -1,5 +1,6 @@
 import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { freshToken} from '@/api/system/user'
+import { getToken, setToken, removeToken,setTokenExp,removeTokenExp,setTokenExpStatus } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
 
 const user = {
@@ -38,7 +39,25 @@ const user = {
       const uuid = userInfo.uuid
       return new Promise((resolve, reject) => {
         login(username, password, code, uuid).then(res => {
-          setToken(res.token)
+          let exp = res.exp_in/1440 // 计算token过期时间 exp_in是分钟，除以1440转换成天
+          setTokenExp(res.exp)
+          setTokenExpStatus(1)
+          setToken(res.token,exp)
+          commit('SET_TOKEN', res.token)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
+    FreshToken({ commit }) {
+      return new Promise((resolve, reject) => {
+        freshToken().then(res => {
+          let exp = res.exp_in/1440 // 计算token过期时间 exp_in是分钟，除以1440转换成天
+          setTokenExp(res.exp)
+          setTokenExpStatus(1)
+          setToken(res.token,exp)
           commit('SET_TOKEN', res.token)
           resolve()
         }).catch(error => {
@@ -48,7 +67,7 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit, state }) {
+    GetInfo({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
           const user = res.user
@@ -70,13 +89,14 @@ const user = {
     },
 
     // 退出系统
-    LogOut({ commit, state }) {
+    LogOut({ commit }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
+        logout().then(() => {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           commit('SET_PERMISSIONS', [])
           removeToken()
+          removeTokenExp()
           resolve()
         }).catch(error => {
           reject(error)

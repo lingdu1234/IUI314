@@ -373,7 +373,7 @@ function handleQuery() {
 }
 /** 返回按钮操作 */
 function handleClose() {
-  proxy.$router.back(-1);
+  proxy.$router.back();
   proxy.$tab.closeOpenPage();
 }
 /** 重置按钮操作 */
