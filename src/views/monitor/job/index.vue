@@ -113,7 +113,13 @@
         >
       </el-col>
       <el-col :span="1.5">
-<el-checkbox border v-model="fresh_enabled" label="自动刷新" size="mini" @change="fresh_option_changed"></el-checkbox>
+        <el-checkbox
+          border
+          v-model="fresh_enabled"
+          label="自动刷新"
+          size="mini"
+          @change="fresh_option_changed"
+        ></el-checkbox>
       </el-col>
       <right-toolbar
         v-model:showSearch="showSearch"
@@ -178,9 +184,10 @@
           <span v-else>{{ scope.row.next_time }}</span>
         </template>
       </el-table-column>
-            <el-table-column
+      <el-table-column
         label="批次数"
         align="center"
+        width="100"
         :show-overflow-tooltip="true"
       >
         <template #default="scope">
@@ -188,6 +195,13 @@
           <span v-else>{{ scope.row.task_count }}</span>
         </template>
       </el-table-column>
+      <el-table-column
+        label="已执行"
+        align="center"
+        prop="run_count"
+        width="100"
+        :show-overflow-tooltip="true"
+      />
       <el-table-column label="状态" align="center">
         <template #default="scope">
           <el-switch
@@ -526,6 +540,7 @@
 </template>
 
 <script setup name="Job">
+import {onActivated,onDeactivated} from 'vue';
 import {
   listJob,
   getJob,
@@ -535,6 +550,7 @@ import {
   runJob,
   changeJobStatus,
 } from '@/api/monitor/job';
+
 
 const router = useRouter();
 const { proxy } = getCurrentInstance();
@@ -558,6 +574,15 @@ const openCron = ref(false);
 const expression = ref('');
 const fresh_enabled = ref(false);
 const timer = ref(null);
+
+onActivated(() => {
+  getList();
+  fresh_option_changed(fresh_enabled.value);
+});
+onDeactivated(() => {
+  clearInterval(proxy.timer);
+  timer.value = null;
+});
 
 const data = reactive({
   form: {},
@@ -698,11 +723,9 @@ function crontabFill(value) {
 }
 /** 任务日志列表查询 */
 function handleJobLog(row) {
-  const job_id = row.job_id || "all";
+  const job_id = row.job_id || 'all';
   // const rand_key = new Date().getTime();
-  router.push({ path: '/monitor/job-log/index/' + job_id
-  // , query: { key: rand_key }  
-  });
+  router.push({ path: '/monitor/job-log/index/', query: { job_id: job_id } });
 }
 /** 新增按钮操作 */
 function handleAdd() {
@@ -756,14 +779,14 @@ function handleDelete(row) {
     .catch(() => {});
 }
 
-function fresh_option_changed(v){
-  if(v){
+function fresh_option_changed(v) {
+  if (v) {
     proxy.timer = setInterval(() => {
-       setTimeout(getList, 0)
-   }, 1000*5)
-  }else{
-    clearInterval(proxy.timer)
-    timer.value = null
+      setTimeout(getList, 0);
+    }, 1000 * 5);
+  } else {
+    clearInterval(proxy.timer);
+    timer.value = null;
   }
 }
 /** 导出按钮操作 */

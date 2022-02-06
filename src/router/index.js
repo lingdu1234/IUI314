@@ -128,10 +128,10 @@ export const constantRoutes = [
     hidden: true,
     children: [
       {
-        path: 'index/:job_id',
+        path: 'index',
         component: () => import('@/views/monitor/job/log'),
         name: 'JobLog',
-        meta: { title: '调度日志', activeMenu: '/monitor/job',no_cache: true }
+        meta: { title: '调度日志', activeMenu: '/monitor/job' }
       }
     ]
   },

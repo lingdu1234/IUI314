@@ -316,6 +316,7 @@
 </template>
 
 <script setup name="JobLog">
+import {onActivated,onDeactivated} from 'vue';
 import { getJob, listJob } from '@/api/monitor/job';
 import { listJobLog, delJobLog, cleanJobLog } from '@/api/monitor/jobLog';
 import { number } from 'echarts';
@@ -341,6 +342,15 @@ const fresh_enabled = ref(false);
 const timer = ref(null);
 const jobs = ref([]);
 const jobs_map = ref({});
+
+onActivated(() => {
+  init();
+  fresh_option_changed(fresh_enabled.value);
+});
+onDeactivated(() => {
+  clearInterval(proxy.timer);
+  timer.value = null;
+});
 
 const data = reactive({
   form: {},
@@ -491,7 +501,7 @@ function job_group_changed(v){
 }
 
 function init() {
-  const job_id = route.params && route.params.job_id;
+  const job_id = route.query.job_id;
   if (job_id !== 'all') {
     getJob({ job_id }).then((res) => {
       // queryParams.value.job_id = job_id;
