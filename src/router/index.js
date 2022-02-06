@@ -90,7 +90,7 @@ export const constantRoutes = [
         path: 'role/:userId',
         component: () => import('@/views/system/user/authRole'),
         name: 'AuthRole',
-        meta: { title: '分配角色', activeMenu: '/system/user' }
+        meta: { title: '分配角色', activeMenu: '/system/user',no_cache: true }
       }
     ]
   },
@@ -118,7 +118,7 @@ export const constantRoutes = [
         path: 'index/:dict_type_id',
         component: () => import('@/views/system/dict/data'),
         name: 'Data',
-        meta: { title: '字典数据', activeMenu: '/system/dict' }
+        meta: { title: '字典数据', activeMenu: '/system/dict',no_cache: true }
       }
     ]
   },
@@ -128,10 +128,10 @@ export const constantRoutes = [
     hidden: true,
     children: [
       {
-        path: 'index/:job_id/:rand_key',
+        path: 'index/:job_id',
         component: () => import('@/views/monitor/job/log'),
         name: 'JobLog',
-        meta: { title: '调度日志', activeMenu: '/monitor/job' }
+        meta: { title: '调度日志', activeMenu: '/monitor/job',no_cache: true }
       }
     ]
   },

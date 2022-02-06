@@ -698,9 +698,11 @@ function crontabFill(value) {
 }
 /** 任务日志列表查询 */
 function handleJobLog(row) {
-  const job_id = row.job_id || 0;
-  const rand_key = new Date().getTime();
-  router.push({ path: '/monitor/job-log/index/' + job_id + '/' + rand_key });
+  const job_id = row.job_id || "all";
+  // const rand_key = new Date().getTime();
+  router.push({ path: '/monitor/job-log/index/' + job_id
+  // , query: { key: rand_key }  
+  });
 }
 /** 新增按钮操作 */
 function handleAdd() {

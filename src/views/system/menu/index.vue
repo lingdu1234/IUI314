@@ -474,7 +474,6 @@ async function getTreeselect() {
   const menu = { id: 0, menu_name: '主类目', children: [] };
   menu.children = proxy.handleTree(data, 'id', 'pid');
   menuOptions.value.push(menu);
-  console.log(`object`, menuOptions.value);
 }
 /** 取消按钮 */
 function cancel() {

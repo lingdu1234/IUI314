@@ -7,17 +7,6 @@
       v-show="showSearch"
       label-width="68px"
     >
-      <el-form-item label="任务名称" prop="job_name">
-        <el-input
-          v-model="queryParams.job_name"
-          placeholder="请输入任务名称"
-          clearable
-          size="small"
-          style="width: 240px"
-          @keyup.enter="handleQuery"
-          disabled
-        />
-      </el-form-item>
       <el-form-item label="任务组名" prop="job_group">
         <el-select
           v-model="queryParams.job_group"
@@ -25,12 +14,30 @@
           clearable
           size="small"
           style="width: 240px"
+          @change="job_group_changed"
         >
           <el-option
             v-for="dict in sys_job_group"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+            <el-form-item label="任务名称" prop="job_name">
+        <el-select
+          v-model="queryParams.job_name"
+          placeholder="请输入任务名称"
+          clearable
+          size="small"
+          style="width: 240px"
+          @change="getList"
+        >
+          <el-option
+            v-for="dict in jobs"
+            :key="dict.job_id"
+            :label="dict.job_name"
+            :value="dict.job_name"
           />
         </el-select>
       </el-form-item>
@@ -117,8 +124,14 @@
           >关闭</el-button
         >
       </el-col>
-            <el-col :span="1.5">
-<el-checkbox border v-model="fresh_enabled" label="自动刷新" size="mini" @change="fresh_option_changed"></el-checkbox>
+      <el-col :span="1.5">
+        <el-checkbox
+          border
+          v-model="fresh_enabled"
+          label="自动刷新"
+          size="mini"
+          @change="fresh_option_changed"
+        ></el-checkbox>
       </el-col>
       <right-toolbar
         v-model:showSearch="showSearch"
@@ -237,7 +250,7 @@
                 :content="form.job_log_id"
                 placement="top-start"
               >
-               <span> {{ form.job_log_id.slice(0,10) + " ..." }}</span>
+                <span> {{ form.job_log_id.slice(0, 10) + ' ...' }}</span>
               </el-tooltip>
             </el-form-item>
           </el-col>
@@ -254,7 +267,7 @@
               form.created_at
             }}</el-form-item>
           </el-col>
-                    <el-col :span="12">
+          <el-col :span="12">
             <el-form-item label="执行状态：">
               <dict-tag :options="sys_common_status" :value="form.status" />
             </el-form-item>
@@ -271,7 +284,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="消耗时间：">{{
-              form.elapsed_time + " ms"
+              form.elapsed_time + ' ms'
             }}</el-form-item>
           </el-col>
           <el-col :span="24">
@@ -303,20 +316,20 @@
 </template>
 
 <script setup name="JobLog">
-import { getJob } from '@/api/monitor/job';
+import { getJob, listJob } from '@/api/monitor/job';
 import { listJobLog, delJobLog, cleanJobLog } from '@/api/monitor/jobLog';
+import { number } from 'echarts';
 
 const { proxy } = getCurrentInstance();
-const { sys_common_status, sys_job_group, sys_task_is_once } =
-  proxy.useDict(
-    'sys_common_status',
-    'sys_job_group',
-    'sys_task_is_once',
-  );
+const { sys_common_status, sys_job_group, sys_task_is_once } = proxy.useDict(
+  'sys_common_status',
+  'sys_job_group',
+  'sys_task_is_once'
+);
 
 const jobLogList = ref([]);
 const open = ref(false);
-const jobId = ref("");
+const jobId = ref('');
 const loading = ref(true);
 const showSearch = ref(true);
 const ids = ref([]);
@@ -326,13 +339,15 @@ const dateRange = ref([]);
 const route = useRoute();
 const fresh_enabled = ref(false);
 const timer = ref(null);
+const jobs = ref([]);
+const jobs_map = ref({});
 
 const data = reactive({
   form: {},
   queryParams: {
     page_num: 1,
     page_size: 10,
-   //  job_id: undefined,
+    //  job_id: undefined,
     job_name: undefined,
     job_group: undefined,
     status: undefined,
@@ -383,7 +398,7 @@ function handleView(row) {
 /** 删除按钮操作 */
 function handleDelete(row) {
   let job_log_ids = row.job_log_id ? [row.job_log_id] : ids.value;
-  const msg = ""
+  const msg = '';
   proxy.$modal
     .confirm('是否确认删除调度日志编号为"' + job_log_ids + '"的数据项?')
     .then(function () {
@@ -397,11 +412,11 @@ function handleDelete(row) {
 }
 /** 清空按钮操作 */
 function handleClean() {
-   let job_id = jobId.value;
+  let job_id = jobId.value;
   proxy.$modal
     .confirm('是否确认清空当前任务调度日志数据项?')
     .then(function () {
-      return cleanJobLog({job_id});
+      return cleanJobLog({ job_id });
     })
     .then(() => {
       getList();
@@ -410,14 +425,14 @@ function handleClean() {
     .catch(() => {});
 }
 
-function fresh_option_changed(v){
-  if(v){
+function fresh_option_changed(v) {
+  if (v) {
     proxy.timer = setInterval(() => {
-       setTimeout(getList, 0)
-   }, 1000*5)
-  }else{
-    clearInterval(proxy.timer)
-    timer.value = null
+      setTimeout(getList, 0);
+    }, 1000 * 5);
+  } else {
+    clearInterval(proxy.timer);
+    timer.value = null;
   }
 }
 /** 导出按钮操作 */
@@ -430,10 +445,54 @@ function handleExport() {
     `job_log_${new Date().getTime()}.xlsx`
   );
 }
+async function get_all_job() {
+  const queryParams = {
+    page_num: 1,
+    page_size: number.MAX_SAFE_INTEGER,
+  };
+  let { list: jobs } = await listJob(queryParams);
+  return jobs;
+}
 
-function init (){
+async function get_job_map() {
+  const jobs_data = await get_all_job();
+  const job_groups = [];
+  const job_map = {};
+
+  jobs_data.forEach((item) => {
+    if (!job_groups.includes(item.job_group)) {
+      job_groups.push(item.job_group);
+      let jobs = [];
+      const job = {
+        job_name: item.job_name,
+        job_id: item.job_id,
+      };
+      jobs.push(job);
+      job_map[item.job_group] = jobs;
+    } else {
+      const job = {
+        job_name: item.job_name,
+        job_id: item.job_id,
+      };
+      job_map[item.job_group].push(job);
+    }
+  });
+  jobs_map.value = job_map;
+  jobs.value = jobs_map.value[queryParams.value.job_group];
+}
+function job_group_changed(v){
+  if (v == '') {
+    queryParams.value.job_name = undefined;
+  }else{
+    jobs.value = jobs_map.value[v];
+  queryParams.value.job_name = jobs.value[0].job_name;
+  }
+  getList();
+}
+
+function init() {
   const job_id = route.params && route.params.job_id;
-  if (job_id !== undefined) {
+  if (job_id !== 'all') {
     getJob({ job_id }).then((res) => {
       // queryParams.value.job_id = job_id;
       jobId.value = job_id;
@@ -441,10 +500,11 @@ function init (){
       queryParams.value.job_group = res.job_group;
       getList();
     });
-  } else {
+  } else  {
     getList();
   }
-};
+}
 init();
+get_job_map();
 // getList();
 </script>
