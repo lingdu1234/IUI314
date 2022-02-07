@@ -353,6 +353,7 @@
                 v-model="form.task_count"
                 controls-position="right"
                 :min="0"
+                :max="max_task_count"
               />
             </el-form-item>
           </el-col>
@@ -399,6 +400,7 @@
                 v-model="form.task_id"
                 controls-position="right"
                 :min="0"
+                :disabled="form.status == '1'"
               />
             </el-form-item>
           </el-col>
@@ -522,7 +524,9 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="备注：">{{ form.remark }}</el-form-item>
+            <el-form-item label="备注：">
+              <pre>{{ form.remark }}</pre>
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -540,7 +544,7 @@
 </template>
 
 <script setup name="Job">
-import {onActivated,onDeactivated} from 'vue';
+import { onActivated, onDeactivated } from 'vue';
 import {
   listJob,
   getJob,
@@ -550,7 +554,6 @@ import {
   runJob,
   changeJobStatus,
 } from '@/api/monitor/job';
-
 
 const router = useRouter();
 const { proxy } = getCurrentInstance();
@@ -573,6 +576,7 @@ const openView = ref(false);
 const openCron = ref(false);
 const expression = ref('');
 const fresh_enabled = ref(false);
+const max_task_count = ref(9999);
 const timer = ref(null);
 
 onActivated(() => {

@@ -24,7 +24,7 @@
           />
         </el-select>
       </el-form-item>
-            <el-form-item label="任务名称" prop="job_name">
+      <el-form-item label="任务名称" prop="job_name">
         <el-select
           v-model="queryParams.job_name"
           placeholder="请输入任务名称"
@@ -51,6 +51,22 @@
         >
           <el-option
             v-for="dict in sys_common_status"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="任务属性" prop="is_once">
+        <el-select
+          v-model="queryParams.is_once"
+          placeholder="请选择任务属性"
+          clearable
+          size="small"
+          style="width: 240px"
+        >
+          <el-option
+            v-for="dict in sys_task_is_once"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -316,10 +332,9 @@
 </template>
 
 <script setup name="JobLog">
-import {onActivated,onDeactivated} from 'vue';
+import { onActivated, onDeactivated } from 'vue';
 import { getJob, listJob } from '@/api/monitor/job';
 import { listJobLog, delJobLog, cleanJobLog } from '@/api/monitor/jobLog';
-import { number } from 'echarts';
 
 const { proxy } = getCurrentInstance();
 const { sys_common_status, sys_job_group, sys_task_is_once } = proxy.useDict(
@@ -357,14 +372,14 @@ const data = reactive({
   queryParams: {
     page_num: 1,
     page_size: 10,
-    //  job_id: undefined,
+    is_once: undefined,
     job_name: undefined,
     job_group: undefined,
     status: undefined,
   },
 });
 
-const { queryParams, form, rules } = toRefs(data);
+const { queryParams, form } = toRefs(data);
 
 /** 查询调度日志列表 */
 function getList() {
@@ -458,7 +473,7 @@ function handleExport() {
 async function get_all_job() {
   const queryParams = {
     page_num: 1,
-    page_size: number.MAX_SAFE_INTEGER,
+    page_size: Number.MAX_SAFE_INTEGER,
   };
   let { list: jobs } = await listJob(queryParams);
   return jobs;
@@ -490,12 +505,12 @@ async function get_job_map() {
   jobs_map.value = job_map;
   jobs.value = jobs_map.value[queryParams.value.job_group];
 }
-function job_group_changed(v){
+function job_group_changed(v) {
   if (v == '') {
     queryParams.value.job_name = undefined;
-  }else{
+  } else {
     jobs.value = jobs_map.value[v];
-  queryParams.value.job_name = jobs.value[0].job_name;
+    queryParams.value.job_name = jobs.value[0].job_name;
   }
   getList();
 }
@@ -510,7 +525,7 @@ function init() {
       queryParams.value.job_group = res.job_group;
       getList();
     });
-  } else  {
+  } else {
     getList();
   }
 }
