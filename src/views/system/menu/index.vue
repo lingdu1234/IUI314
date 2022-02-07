@@ -93,8 +93,8 @@
         width="60"
       ></el-table-column>
       <el-table-column
-        prop="perms"
-        label="权限标识"
+        prop="api"
+        label="唯一标识"
         :show-overflow-tooltip="true"
       ></el-table-column>
       <el-table-column
@@ -102,12 +102,17 @@
         label="组件路径"
         :show-overflow-tooltip="true"
       ></el-table-column>
+      <el-table-column prop="method" label="方法" width="80">
+        <template #default="scope">
+          <dict-tag :options="sys_api_method" :value="scope.row.method" />
+        </template>
+      </el-table-column>
       <el-table-column prop="status" label="状态" width="80">
         <template #default="scope">
           <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column label="创建时间" align="center" prop="created_at">
+      <el-table-column label="创建时间" align="center" prop="created_at" show-overflow-tooltip>
         <template #default="scope">
           <span>{{ parseTime(scope.row.created_at) }}</span>
         </template>
@@ -226,7 +231,7 @@
                     content="选择是外链则路由地址需要以`http(s)://`开头"
                     placement="top"
                   >
-                    <i class="el-icon-question"></i> </el-tooltip
+                    <el-icon><info-filled /></el-icon> </el-tooltip
                   >是否外链
                 </span>
               </template>
@@ -244,7 +249,7 @@
                     content="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头"
                     placement="top"
                   >
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   路由地址
                 </span>
@@ -260,7 +265,7 @@
                     content="访问的组件路径，如：`system/user/index`，默认在`views`目录下"
                     placement="top"
                   >
-                    <i class="el-icon-question"></i>
+                  <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   组件路径
                 </span>
@@ -268,24 +273,69 @@
               <el-input v-model="form.component" placeholder="请输入组件路径" />
             </el-form-item>
           </el-col>
-          <el-col :span="12" v-if="form.menu_type != 'M'">
-            <el-form-item>
+          <el-col :span="12" >
+            <el-form-item prop="api">
               <el-input
-                v-model="form.perms"
-                placeholder="请输入权限标识"
+                v-model="form.api"
+                placeholder="请输入唯一标识"
                 maxlength="100"
               />
               <template #label>
                 <span>
                   <el-tooltip
-                    content="控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasPermi('system:user:list')`)"
+                  v-if="form.menu_type == 'M'"
+                    content="目录的唯一标志，建议格式M_name，如：`M_system`,`M_system_auth`"
                     placement="top"
                   >
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
-                  权限字符
+                  <el-tooltip
+                  v-else-if="form.menu_type == 'C'"
+                    content="菜单唯一标志，唯一`/`分割的api路径，如：`system/user/list`"
+                    placement="top"
+                  >
+                    <el-icon><info-filled /></el-icon>
+                  </el-tooltip>
+                  <el-tooltip
+                  v-else-if="form.menu_type == 'F'"
+                    content="按钮的唯一标志，可为API,如：`system/user/add`,若只是单纯控制按钮显示，建议B_name，如：`B_export`"
+                    placement="top"
+                  >
+                    <el-icon><info-filled /></el-icon>
+                  </el-tooltip>
+                  <span v-if="form.menu_type == 'M'">目录标志</span>
+                  <span v-else-if="form.menu_type == 'C'">菜单API</span>
+                  <span v-else-if="form.menu_type == 'F'">按钮标志</span>
                 </span>
               </template>
+            </el-form-item>
+          </el-col>
+                    <el-col :span="12" v-if="form.menu_type != 'M'">
+            <el-form-item prop="method">
+              <template #label>
+                <span>
+                  <el-tooltip
+                    content="API 请求方法，如：`GET`,`POST`，`PUT`,`DELETE`"
+                    placement="top"
+                  >
+                  <el-icon><info-filled /></el-icon>
+                  </el-tooltip>
+                  请求方法
+                </span>
+              </template>
+              <el-select
+          v-model="form.method"
+          placeholder="请求方法"
+          clearable
+          size="small"
+        >
+          <el-option
+            v-for="dict in sys_api_method"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12" v-if="form.menu_type == 'C'">
@@ -301,7 +351,7 @@
                     content='访问路由的默认传递参数，如：`{"id": 1, "name": "ry"}`'
                     placement="top"
                   >
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   路由参数
                 </span>
@@ -316,7 +366,7 @@
                     content="选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致"
                     placement="top"
                   >
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   是否缓存
                 </span>
@@ -335,7 +385,7 @@
                     content="是否开启数据权限,开启后可以设置数据权限"
                     placement="top"
                   >
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   数据权限
                 </span>
@@ -354,7 +404,7 @@
                     content="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问"
                     placement="top"
                   >
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   显示状态
                 </span>
@@ -377,7 +427,7 @@
                     content="选择停用则路由将不会出现在侧边栏，也不能被访问"
                     placement="top"
                   >
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   菜单状态
                 </span>
@@ -425,9 +475,9 @@ import SvgIcon from '@/components/SvgIcon';
 import IconSelect from '@/components/IconSelect';
 
 const { proxy } = getCurrentInstance();
-const { sys_show_hide, sys_normal_disable } = proxy.useDict(
+const { sys_show_hide, sys_normal_disable,sys_api_method } = proxy.useDict(
   'sys_show_hide',
-  'sys_normal_disable'
+  'sys_normal_disable','sys_api_method'
 );
 
 const menuList = ref([]);
@@ -455,6 +505,7 @@ const data = reactive({
       { required: true, message: '菜单顺序不能为空', trigger: 'blur' },
     ],
     path: [{ required: true, message: '路由地址不能为空', trigger: 'blur' }],
+    api: [{ required: true, message: '菜单的唯一标志不能为空', trigger: 'blur' }],
   },
 });
 

@@ -132,7 +132,7 @@
               >删除</el-button
             >
           </el-col>
-          <!-- <el-col :span="1.5">
+          <el-col :span="1.5">
             <el-button
               type="info"
               plain
@@ -153,7 +153,7 @@
               v-hasPermi="['system:user:export']"
               >导出</el-button
             >
-          </el-col> -->
+          </el-col>
           <right-toolbar
             v-model:showSearch="showSearch"
             @queryTable="getList"
@@ -266,8 +266,9 @@
               >
                 <span
                   class="el-dropdown-link"
-                  v-hasPermi="['system:user:resetPwd', 'system:user:edit']"
+                
                 >
+                  <!-- v-hasPermi="['system:user:resetPwd', 'system:user:edit']" -->
                   <el-icon><d-arrow-right /></el-icon>更多
                 </span>
                 <template #dropdown>
@@ -275,15 +276,16 @@
                     <el-dropdown-item
                       command="handleResetPwd"
                       icon="Key"
-                      v-hasPermi="['system:user:resetPwd']"
                       >重置密码</el-dropdown-item
                     >
+                    <!-- v-hasPermi="['system:user:resetPwd']" -->
                     <el-dropdown-item
                       command="handleAuthRole"
                       icon="CircleCheck"
-                      v-hasPermi="['system:user:edit']"
+                      
                       >分配角色</el-dropdown-item
                     >
+                    <!-- v-hasPermi="['system:user:edit']" -->
                   </el-dropdown-menu>
                 </template>
               </el-dropdown>
@@ -453,7 +455,7 @@
     </el-dialog>
 
     <!-- 用户导入对话框 -->
-    <!-- <el-dialog
+    <el-dialog
       :title="upload.title"
       v-model="upload.open"
       width="400px"
@@ -497,7 +499,7 @@
           <el-button @click="upload.open = false">取 消</el-button>
         </div>
       </template>
-    </el-dialog> -->
+    </el-dialog>
   </div>
 </template>
 
@@ -540,20 +542,20 @@ const initPassword = ref(undefined);
 const postOptions = ref([]);
 const roleOptions = ref([]);
 /*** 用户导入参数 */
-// const upload = reactive({
-//   // 是否显示弹出层（用户导入）
-//   open: false,
-//   // 弹出层标题（用户导入）
-//   title: '',
-//   // 是否禁用上传
-//   isUploading: false,
-//   // 是否更新已经存在的用户数据
-//   updateSupport: 0,
-//   // 设置上传的请求头部
-//   headers: { Authorization: 'Bearer ' + getToken() },
-//   // 上传的地址
-//   url: import.meta.env.VITE_APP_BASE_API + 'system/user/importData',
-// });
+const upload = reactive({
+  // 是否显示弹出层（用户导入）
+  open: false,
+  // 弹出层标题（用户导入）
+  title: '',
+  // 是否禁用上传
+  isUploading: false,
+  // 是否更新已经存在的用户数据
+  updateSupport: 0,
+  // 设置上传的请求头部
+  headers: { Authorization: 'Bearer ' + getToken() },
+  // 上传的地址
+  url: import.meta.env.VITE_APP_BASE_API + 'system/user/importData',
+});
 // 列显隐信息
 const columns = ref([
   { key: 0, label: `用户编号`, visible: true },
@@ -636,9 +638,9 @@ function getList() {
   loading.value = true;
   listUser(proxy.addDateRange(queryParams.value, dateRange.value)).then(
     (res) => {
-      loading.value = false;
       userList.value = res.list;
       total.value = res.total;
+      loading.value = false;
     }
   );
 }
@@ -742,40 +744,40 @@ function handleSelectionChange(selection) {
   multiple.value = !selection.length;
 }
 /** 导入按钮操作 */
-// function handleImport() {
-//   upload.title = '用户导入';
-//   upload.open = true;
-// }
+function handleImport() {
+  upload.title = '用户导入';
+  upload.open = true;
+}
 /** 下载模板操作 */
-// function importTemplate() {
-//   proxy.download(
-//     'system/user/importTemplate',
-//     {},
-//     `user_template_${new Date().getTime()}.xlsx`
-//   );
-// }
+function importTemplate() {
+  proxy.download(
+    'system/user/importTemplate',
+    {},
+    `user_template_${new Date().getTime()}.xlsx`
+  );
+}
 /**文件上传中处理 */
-// const handleFileUploadProgress = (event, file, fileList) => {
-//   upload.isUploading = true;
-// };
+const handleFileUploadProgress = (event, file, fileList) => {
+  upload.isUploading = true;
+};
 /** 文件上传成功处理 */
-// const handleFileSuccess = (response, file, fileList) => {
-//   upload.open = false;
-//   upload.isUploading = false;
-//   proxy.$refs['uploadRef'].clearFiles();
-//   proxy.$alert(
-//     "<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" +
-//       response.msg +
-//       '</div>',
-//     '导入结果',
-//     { dangerouslyUseHTMLString: true }
-//   );
-//   getList();
-// };
+const handleFileSuccess = (response, file, fileList) => {
+  upload.open = false;
+  upload.isUploading = false;
+  proxy.$refs['uploadRef'].clearFiles();
+  proxy.$alert(
+    "<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" +
+      response.msg +
+      '</div>',
+    '导入结果',
+    { dangerouslyUseHTMLString: true }
+  );
+  getList();
+};
 /** 提交上传文件 */
-// function submitFileForm() {
-//   proxy.$refs['uploadRef'].submit();
-// }
+function submitFileForm() {
+  proxy.$refs['uploadRef'].submit();
+}
 /** 初始化部门数据 */
 function initTreeData() {
   // 判断部门的数据是否存在，存在不获取，不存在则获取
@@ -836,7 +838,7 @@ async function handleUpdate(row) {
 async function get_options() {
   let queryParams = {
     page_num: 1,
-    page_size: 999999999,
+    page_size: Number.MAX_SAFE_INTEGER,
   };
   const { list: posts } = await listPost(queryParams);
   const { list: roles } = await listRole(queryParams);
