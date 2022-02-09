@@ -82,7 +82,7 @@ const defaultExpandedKey = ref([]);
 function initHandle() {
   nextTick(() => {
     const selectedValue = valueId.value;
-    if(selectedValue !== null && typeof (selectedValue) !== "undefined"){
+    if(selectedValue && selectedValue !== null && typeof (selectedValue) !== "undefined"){
       const node = proxy.$refs.selectTree.getNode(selectedValue)
       if (node) {
         valueTitle.value = node.data[props.objMap.label]

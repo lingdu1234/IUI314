@@ -8,6 +8,13 @@ export function listMenu(query) {
     params: query
   })
 }
+export function listAuthMenu(query) {
+  return request({
+    url: '/system/menu/auth_list',
+    method: 'get',
+    params: query
+  })
+}
 
 // 查询菜单详细
 export function getMenu(query) {

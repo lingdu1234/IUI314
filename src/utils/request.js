@@ -32,6 +32,7 @@ service.interceptors.request.use(config => {
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
+    config.params['_t'] = new Date().getTime()
     let url = config.url + '?' + tansParams(config.params);
     url = url.slice(0, -1);
     config.params = {};
@@ -108,9 +109,19 @@ service.interceptors.response.use(res => {
   error => {
     let status_code = error.response.status
     if (status_code === 401) {
+      let message = error.response.data
+      ElMessage({
+        message: message,
+        type: 'error',
+        duration: 5 * 1000
+      })
       return re_login()
     }
     let { message } = error;
+    if (status_code === 403) {
+      message = error.response.data
+    }
+    
     if (message == "Network Error") {
       message = "后端接口连接异常";
     }

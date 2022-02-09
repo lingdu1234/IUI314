@@ -175,7 +175,7 @@
               <el-radio-group v-model="form.menu_type">
                 <el-radio label="M">目录</el-radio>
                 <el-radio label="C">菜单</el-radio>
-                <el-radio label="F">按钮</el-radio>
+                <el-radio label="F">api/按钮</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -284,33 +284,33 @@
                 <span>
                   <el-tooltip
                   v-if="form.menu_type == 'M'"
-                    content="目录的唯一标志，建议格式M_name，如：`M_system`,`M_system_auth`"
+                    content="目录的唯一标志，建议格式M-name，如：`M-sys`,`M-system-menu`"
                     placement="top"
                   >
                     <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   <el-tooltip
                   v-else-if="form.menu_type == 'C'"
-                    content="菜单唯一标志，唯一`/`分割的api路径，如：`system/user/list`"
+                    content="菜单唯一标志，同目录标志，如：`M-system-menu`"
                     placement="top"
                   >
                     <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   <el-tooltip
                   v-else-if="form.menu_type == 'F'"
-                    content="按钮的唯一标志，可为API,如：`system/user/add`,若只是单纯控制按钮显示，建议B_name，如：`B_export`"
+                    content="API/按钮的唯一标志，可为API,如：`system/user/add`,若只是单纯控制按钮显示，建议B-name，如：`B-export`"
                     placement="top"
                   >
                     <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   <span v-if="form.menu_type == 'M'">目录标志</span>
                   <span v-else-if="form.menu_type == 'C'">菜单API</span>
-                  <span v-else-if="form.menu_type == 'F'">按钮标志</span>
+                  <span v-else-if="form.menu_type == 'F'">api标志</span>
                 </span>
               </template>
             </el-form-item>
           </el-col>
-                    <el-col :span="12" v-if="form.menu_type != 'M'">
+                    <el-col :span="12" v-if="form.menu_type == 'F'">
             <el-form-item prop="method">
               <template #label>
                 <span>
