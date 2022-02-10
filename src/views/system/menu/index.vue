@@ -188,11 +188,13 @@
                 trigger="click"
                 @show="showSelectIcon"
               >
-                <icon-select ref="iconSelectRef" @selected="selected" />
+
+
                 <template #reference>
                   <el-input
                     v-model="form.icon"
                     placeholder="点击选择图标"
+                    @click="showSelectIcon"
                     readonly
                   >
                     <template #prefix>
@@ -202,10 +204,11 @@
                         class="el-input__icon"
                         style="height: 32px; width: 16px"
                       />
-                      <i v-else class="el-icon-search el-input__icon" />
+                      <el-icon v-else style="height: 32px;width: 16px;"><search /></el-icon>
                     </template>
                   </el-input>
                 </template>
+                <icon-select ref="iconSelectRef" @selected="selected" />
               </el-popover>
             </el-form-item>
           </el-col>
