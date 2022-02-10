@@ -89,6 +89,8 @@ function initHandle() {
         proxy.$refs.selectTree.setCurrentKey(selectedValue) // 设置默认选中
         defaultExpandedKey.value = [selectedValue] // 设置默认展开
       }
+    } else {
+      clearHandle()
     }
   })
 }
