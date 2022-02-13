@@ -620,11 +620,11 @@ function submitForm() {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-   const ids = [row.id];
+   const id = row.id;
   proxy.$modal
     .confirm('是否确认删除名称为"' + row.menu_name + '"的数据项?')
     .then(function () {
-      return delMenu({ids});
+      return delMenu({id});
     })
     .then(() => {
       getList();
