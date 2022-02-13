@@ -12,7 +12,7 @@
           v-model="queryParams.job_name"
           placeholder="请输入任务名称"
           clearable
-          size="small"
+
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -45,10 +45,10 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" size="mini" @click="handleQuery"
+        <el-button type="primary" icon="Search"   @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh" size="mini" @click="resetQuery"
+        <el-button icon="Refresh"   @click="resetQuery"
           >重置</el-button
         >
       </el-form-item>
@@ -60,7 +60,7 @@
           type="primary"
           plain
           icon="Plus"
-          size="mini"
+
           @click="handleAdd"
           v-hasPermi="['monitor:job:add']"
           >新增</el-button
@@ -71,7 +71,7 @@
           type="success"
           plain
           icon="Edit"
-          size="mini"
+
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['monitor:job:edit']"
@@ -83,7 +83,7 @@
           type="danger"
           plain
           icon="Delete"
-          size="mini"
+
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['monitor:job:remove']"
@@ -95,7 +95,7 @@
           type="warning"
           plain
           icon="Download"
-          size="mini"
+
           @click="handleExport"
           v-hasPermi="['monitor:job:export']"
           >导出</el-button
@@ -106,7 +106,7 @@
           type="info"
           plain
           icon="Operation"
-          size="mini"
+
           @click="handleJobLog"
           v-hasPermi="['monitor:job:query']"
           >日志</el-button
@@ -117,7 +117,7 @@
           border
           v-model="fresh_enabled"
           label="自动刷新"
-          size="mini"
+
           @change="fresh_option_changed"
         ></el-checkbox>
       </el-col>
@@ -228,7 +228,7 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
@@ -236,7 +236,7 @@
             >修改</el-button
           >
           <el-button
-            size="mini"
+
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"
@@ -244,7 +244,7 @@
             >删除</el-button
           >
           <el-dropdown
-            size="mini"
+
             @command="(command) => handleCommand(command, scope.row)"
           >
             <span
@@ -421,7 +421,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="执行策略" prop="misfire_policy">
-              <el-radio-group v-model="form.misfire_policy" size="small">
+              <el-radio-group v-model="form.misfire_policy"   >
                 <el-radio-button label="1">立即执行</el-radio-button>
                 <el-radio-button label="2">执行一次</el-radio-button>
                 <el-radio-button label="3">放弃执行</el-radio-button>
@@ -430,7 +430,7 @@
           </el-col>
           <!-- <el-col :span="12">
             <el-form-item label="是否并发" prop="concurrent">
-              <el-radio-group v-model="form.concurrent" size="small">
+              <el-radio-group v-model="form.concurrent"   >
                 <el-radio-button label="0">允许</el-radio-button>
                 <el-radio-button label="1">禁止</el-radio-button>
               </el-radio-group>
@@ -460,7 +460,7 @@
 
     <!-- 任务日志详细 -->
     <el-dialog title="任务详细" v-model="openView" width="700px" append-to-body>
-      <el-form :model="form" label-width="120px" size="mini">
+      <el-form :model="form" label-width="120px"  >
         <el-row>
           <el-col :span="12">
             <el-form-item label="任务ID：">{{ form.task_id }}</el-form-item>

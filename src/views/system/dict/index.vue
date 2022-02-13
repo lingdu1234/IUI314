@@ -12,7 +12,7 @@
           v-model="queryParams.dict_name"
           placeholder="请输入字典名称"
           clearable
-          size="small"
+
           style="width: 240px"
           @keyup.enter="handleQuery"
         />
@@ -22,7 +22,7 @@
           v-model="queryParams.dict_type"
           placeholder="请输入字典类型"
           clearable
-          size="small"
+
           style="width: 240px"
           @keyup.enter="handleQuery"
         />
@@ -32,7 +32,7 @@
           v-model="queryParams.status"
           placeholder="字典状态"
           clearable
-          size="small"
+
           style="width: 240px"
         >
           <el-option
@@ -46,7 +46,7 @@
       <el-form-item label="创建时间">
         <el-date-picker
           v-model="dateRange"
-          size="small"
+
           style="width: 240px"
           value-format="YYYY-MM-DD"
           type="daterange"
@@ -56,10 +56,10 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" size="mini" @click="handleQuery"
+        <el-button type="primary" icon="Search"   @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh" size="mini" @click="resetQuery"
+        <el-button icon="Refresh"   @click="resetQuery"
           >重置</el-button
         >
       </el-form-item>
@@ -71,7 +71,7 @@
           type="primary"
           plain
           icon="Plus"
-          size="mini"
+
           @click="handleAdd"
           v-hasPermi="['system:dict:add']"
           >新增</el-button
@@ -82,7 +82,7 @@
           type="success"
           plain
           icon="Edit"
-          size="mini"
+
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:dict:edit']"
@@ -94,7 +94,7 @@
           type="danger"
           plain
           icon="Delete"
-          size="mini"
+
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:dict:remove']"
@@ -106,7 +106,7 @@
           type="warning"
           plain
           icon="Download"
-          size="mini"
+
           @click="handleExport"
           v-hasPermi="['system:dict:export']"
           >导出</el-button
@@ -117,7 +117,7 @@
           type="danger"
           plain
           icon="Refresh"
-          size="mini"
+
           @click="handleRefreshCache"
           v-hasPermi="['system:dict:remove']"
           >刷新缓存</el-button
@@ -184,7 +184,7 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
@@ -192,7 +192,7 @@
             >修改</el-button
           >
           <el-button
-            size="mini"
+
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"

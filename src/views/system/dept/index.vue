@@ -11,7 +11,7 @@
           v-model="queryParams.dept_name"
           placeholder="请输入部门名称"
           clearable
-          size="small"
+
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -20,7 +20,7 @@
           v-model="queryParams.status"
           placeholder="部门状态"
           clearable
-          size="small"
+
         >
           <el-option
             v-for="dict in sys_normal_disable"
@@ -31,10 +31,10 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" size="mini" @click="handleQuery"
+        <el-button type="primary" icon="Search"   @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh" size="mini" @click="resetQuery"
+        <el-button icon="Refresh"   @click="resetQuery"
           >重置</el-button
         >
       </el-form-item>
@@ -46,7 +46,7 @@
           type="primary"
           plain
           icon="Plus"
-          size="mini"
+
           @click="handleAdd"
           v-hasPermi="['system:dept:add']"
           >新增</el-button
@@ -57,7 +57,7 @@
           type="info"
           plain
           icon="Sort"
-          size="mini"
+
           @click="toggleExpandAll"
           >展开/折叠</el-button
         >
@@ -108,7 +108,7 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
@@ -116,7 +116,7 @@
             >修改</el-button
           >
           <el-button
-            size="mini"
+
             type="text"
             icon="Plus"
             @click="handleAdd(scope.row)"
@@ -125,7 +125,7 @@
           >
           <el-button
             v-if="scope.row.parent_id != '0'"
-            size="mini"
+
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"

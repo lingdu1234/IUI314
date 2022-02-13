@@ -8,7 +8,7 @@
             v-model="dept_name"
             placeholder="请输入部门名称"
             clearable
-            size="small"
+
             prefix-icon="el-icon-search"
             style="margin-bottom: 20px"
           />
@@ -39,7 +39,7 @@
               v-model="queryParams.user_name"
               placeholder="请输入用户名称"
               clearable
-              size="small"
+
               style="width: 240px"
               @keyup.enter="handleQuery"
             />
@@ -49,7 +49,7 @@
               v-model="queryParams.phone_num"
               placeholder="请输入手机号码"
               clearable
-              size="small"
+
               style="width: 240px"
               @keyup.enter="handleQuery"
             />
@@ -59,7 +59,7 @@
               v-model="queryParams.user_status"
               placeholder="用户状态"
               clearable
-              size="small"
+
               style="width: 240px"
             >
               <el-option
@@ -73,7 +73,7 @@
           <el-form-item label="创建时间">
             <el-date-picker
               v-model="dateRange"
-              size="small"
+
               style="width: 240px"
               value-format="YYYY-MM-DD"
               type="daterange"
@@ -86,11 +86,11 @@
             <el-button
               type="primary"
               icon="Search"
-              size="mini"
+
               @click="handleQuery"
               >搜索</el-button
             >
-            <el-button icon="Refresh" size="mini" @click="resetQuery"
+            <el-button icon="Refresh"   @click="resetQuery"
               >重置</el-button
             >
           </el-form-item>
@@ -102,7 +102,7 @@
               type="primary"
               plain
               icon="Plus"
-              size="mini"
+
               @click="handleAdd"
               v-hasPermi="['system:user:add']"
               >新增</el-button
@@ -113,7 +113,7 @@
               type="success"
               plain
               icon="Edit"
-              size="mini"
+
               :disabled="single"
               @click="handleUpdate"
               v-hasPermi="['system:user:edit']"
@@ -125,7 +125,7 @@
               type="danger"
               plain
               icon="Delete"
-              size="mini"
+
               :disabled="multiple"
               @click="handleDelete"
               v-hasPermi="['system:user:remove']"
@@ -137,7 +137,7 @@
               type="info"
               plain
               icon="Upload"
-              size="mini"
+
               @click="handleImport"
               v-hasPermi="['system:user:import']"
               >导入</el-button
@@ -148,7 +148,7 @@
               type="warning"
               plain
               icon="Download"
-              size="mini"
+
               @click="handleExport"
               v-hasPermi="['system:user:export']"
               >导出</el-button
@@ -238,57 +238,46 @@
           <el-table-column
             label="操作"
             align="center"
-            width="180"
+            width="150"
             class-name="small-padding fixed-width"
           >
             <template #default="scope">
-              <el-button
-                size="mini"
-                v-if="scope.row.user_id !== 1"
-                type="text"
-                icon="Edit"
-                @click="handleUpdate(scope.row)"
-                v-hasPermi="['system:user:edit']"
-                >修改</el-button
-              >
-              <el-button
-                size="mini"
-                v-if="scope.row.user_id !== 1"
-                type="text"
-                icon="Delete"
-                @click="handleDelete(scope.row)"
-                v-hasPermi="['system:user:remove']"
-                >删除</el-button
-              >
-              <el-dropdown
-                v-if="scope.row.user_id !== 1"
-                @command="(command) => handleCommand(command, scope.row)"
-              >
-                <span
-                  class="el-dropdown-link"
-                
-                >
-                  <!-- v-hasPermi="['system:user:resetPwd', 'system:user:edit']" -->
-                  <el-icon><d-arrow-right /></el-icon>更多
-                </span>
-                <template #dropdown>
-                  <el-dropdown-menu>
-                    <el-dropdown-item
-                      command="handleResetPwd"
-                      icon="Key"
-                      >重置密码</el-dropdown-item
-                    >
-                    <!-- v-hasPermi="['system:user:resetPwd']" -->
-                    <el-dropdown-item
-                      command="handleAuthRole"
-                      icon="CircleCheck"
-                      
-                      >分配角色</el-dropdown-item
-                    >
-                    <!-- v-hasPermi="['system:user:edit']" -->
-                  </el-dropdown-menu>
-                </template>
-              </el-dropdown>
+              <el-tooltip content="修改" placement="top">
+                <el-button
+                    v-if="scope.row.userId !== 1"
+                    type="text"
+                    icon="Edit"
+                    @click="handleUpdate(scope.row)"
+                    v-hasPermi="['system:user:edit']"
+                ></el-button>
+              </el-tooltip>
+              <el-tooltip content="删除" placement="top">
+                <el-button
+                    v-if="scope.row.userId !== 1"
+                    type="text"
+                    icon="Delete"
+                    @click="handleDelete(scope.row)"
+                    v-hasPermi="['system:user:remove']"
+                ></el-button>
+              </el-tooltip>
+              <el-tooltip content="重置密码" placement="top">
+                <el-button
+                    v-if="scope.row.userId !== 1"
+                    type="text"
+                    icon="Key"
+                    @click="handleResetPwd(scope.row)"
+                    v-hasPermi="['system:user:resetPwd']"
+                ></el-button>
+              </el-tooltip>
+              <el-tooltip content="分配角色" placement="top">
+                <el-button
+                    v-if="scope.row.userId !== 1"
+                    type="text"
+                    icon="CircleCheck"
+                    @click="handleAuthRole(scope.row)"
+                    v-hasPermi="['system:user:edit']"
+                ></el-button>
+              </el-tooltip>
             </template>
           </el-table-column>
         </el-table>
@@ -408,6 +397,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
+
             <el-form-item label="岗位">
               <el-select v-model="form.post_ids" multiple placeholder="请选择">
                 <el-option

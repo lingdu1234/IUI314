@@ -12,7 +12,7 @@
           v-model="queryParams.job_group"
           placeholder="请任务组名"
           clearable
-          size="small"
+
           style="width: 240px"
           @change="job_group_changed"
         >
@@ -29,7 +29,7 @@
           v-model="queryParams.job_name"
           placeholder="请输入任务名称"
           clearable
-          size="small"
+
           style="width: 240px"
           @change="getList"
         >
@@ -46,7 +46,7 @@
           v-model="queryParams.status"
           placeholder="请选择执行状态"
           clearable
-          size="small"
+
           style="width: 240px"
         >
           <el-option
@@ -62,7 +62,7 @@
           v-model="queryParams.is_once"
           placeholder="请选择任务属性"
           clearable
-          size="small"
+
           style="width: 240px"
         >
           <el-option
@@ -76,7 +76,7 @@
       <el-form-item label="执行时间">
         <el-date-picker
           v-model="dateRange"
-          size="small"
+
           style="width: 240px"
           value-format="YYYY-MM-DD"
           type="daterange"
@@ -86,10 +86,10 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" size="mini" @click="handleQuery"
+        <el-button type="primary" icon="Search"   @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh" size="mini" @click="resetQuery"
+        <el-button icon="Refresh"   @click="resetQuery"
           >重置</el-button
         >
       </el-form-item>
@@ -101,7 +101,7 @@
           type="danger"
           plain
           icon="Delete"
-          size="mini"
+
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['monitor:job:remove']"
@@ -113,7 +113,7 @@
           type="danger"
           plain
           icon="Delete"
-          size="mini"
+
           @click="handleClean"
           v-hasPermi="['monitor:job:remove']"
           >清空</el-button
@@ -124,7 +124,7 @@
           type="warning"
           plain
           icon="Download"
-          size="mini"
+
           @click="handleExport"
           v-hasPermi="['monitor:job:export']"
           >导出</el-button
@@ -135,7 +135,7 @@
           type="warning"
           plain
           icon="Close"
-          size="mini"
+
           @click="handleClose"
           >关闭</el-button
         >
@@ -145,7 +145,7 @@
           border
           v-model="fresh_enabled"
           label="自动刷新"
-          size="mini"
+
           @change="fresh_option_changed"
         ></el-checkbox>
       </el-col>
@@ -235,7 +235,7 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             icon="View"
             @click="handleView(scope.row)"
@@ -256,7 +256,7 @@
 
     <!-- 调度日志详细 -->
     <el-dialog title="调度日志详细" v-model="open" width="700px" append-to-body>
-      <el-form :model="form" label-width="100px" size="mini">
+      <el-form :model="form" label-width="100px"  >
         <el-row>
           <el-col :span="12">
             <el-form-item label="日志序号：">

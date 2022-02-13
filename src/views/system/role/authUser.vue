@@ -11,7 +11,7 @@
           v-model="queryParams.user_name"
           placeholder="请输入用户名称"
           clearable
-          size="small"
+
           style="width: 240px"
           @keyup.enter="handleQuery"
         />
@@ -21,16 +21,16 @@
           v-model="queryParams.phone_num"
           placeholder="请输入手机号码"
           clearable
-          size="small"
+
           style="width: 240px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" size="mini" @click="handleQuery"
+        <el-button type="primary" icon="Search"   @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh" size="mini" @click="resetQuery"
+        <el-button icon="Refresh"   @click="resetQuery"
           >重置</el-button
         >
       </el-form-item>
@@ -42,7 +42,7 @@
           type="primary"
           plain
           icon="Plus"
-          size="mini"
+
           @click="openSelectUser"
           v-hasPermi="['system:role:add']"
           >添加用户</el-button
@@ -53,7 +53,7 @@
           type="danger"
           plain
           icon="CircleClose"
-          size="mini"
+
           :disabled="multiple"
           @click="cancelAuthUserAll"
           v-hasPermi="['system:role:remove']"
@@ -65,7 +65,7 @@
           type="warning"
           plain
           icon="Close"
-          size="mini"
+
           @click="handleClose"
           >关闭</el-button
         >
@@ -124,7 +124,7 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             icon="CircleClose"
             @click="cancelAuthUser(scope.row)"
