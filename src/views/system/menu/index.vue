@@ -11,7 +11,7 @@
           v-model="queryParams.menu_name"
           placeholder="请输入菜单名称"
           clearable
-          size="small"
+
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -20,7 +20,7 @@
           v-model="queryParams.status"
           placeholder="菜单状态"
           clearable
-          size="small"
+
         >
           <el-option
             v-for="dict in sys_normal_disable"
@@ -31,10 +31,10 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" size="mini" @click="handleQuery"
+        <el-button type="primary" icon="Search"   @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh" size="mini" @click="resetQuery"
+        <el-button icon="Refresh"   @click="resetQuery"
           >重置</el-button
         >
       </el-form-item>
@@ -46,7 +46,7 @@
           type="primary"
           plain
           icon="Plus"
-          size="mini"
+
           @click="handleAdd"
           v-hasPermi="['system:menu:add']"
           >新增</el-button
@@ -57,7 +57,7 @@
           type="info"
           plain
           icon="Sort"
-          size="mini"
+
           @click="toggleExpandAll"
           >展开/折叠</el-button
         >
@@ -90,7 +90,7 @@
       <el-table-column
         prop="order_sort"
         label="排序"
-        width="60"
+        width="100"
       ></el-table-column>
       <el-table-column
         prop="api"
@@ -125,7 +125,7 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
@@ -133,7 +133,7 @@
           >
           <!-- v-hasPermi="['system:menu:edit']" -->
           <el-button
-            size="mini"
+
             type="text"
             icon="Plus"
             @click="handleAdd(scope.row)"
@@ -141,7 +141,7 @@
           >
           <!-- v-hasPermi="['system:menu:add']" -->
           <el-button
-            size="mini"
+
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"
@@ -153,7 +153,7 @@
     </el-table>
 
     <!-- 添加或修改菜单对话框 -->
-    <el-dialog :title="title" v-model="open" width="680px" append-to-body>
+    <el-dialog :title="title" v-model="open" width="680px" :before-close="handleClose" append-to-body>
       <el-form ref="menuRef" :model="form" :rules="rules" label-width="100px">
         <el-row>
           <el-col :span="24">
@@ -323,7 +323,7 @@
           v-model="form.method"
           placeholder="请求方法"
           clearable
-          size="small"
+
         >
           <el-option
             v-for="dict in sys_api_method"

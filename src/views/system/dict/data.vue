@@ -8,7 +8,7 @@
       label-width="68px"
     >
       <el-form-item label="字典名称" prop="dictType">
-        <el-select v-model="queryParams.dict_type" size="small">
+        <el-select v-model="queryParams.dict_type"   >
           <el-option
             v-for="item in typeOptions"
             :key="item.dict_id"
@@ -22,7 +22,7 @@
           v-model="queryParams.dict_label"
           placeholder="请输入字典标签"
           clearable
-          size="small"
+
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -31,7 +31,7 @@
           v-model="queryParams.status"
           placeholder="数据状态"
           clearable
-          size="small"
+
         >
           <el-option
             v-for="dict in sys_normal_disable"
@@ -42,10 +42,10 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" size="mini" @click="handleQuery"
+        <el-button type="primary" icon="Search"   @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh" size="mini" @click="resetQuery"
+        <el-button icon="Refresh"   @click="resetQuery"
           >重置</el-button
         >
       </el-form-item>
@@ -57,7 +57,7 @@
           type="primary"
           plain
           icon="Plus"
-          size="mini"
+
           @click="handleAdd"
           v-hasPermi="['system:dict:add']"
           >新增</el-button
@@ -68,7 +68,7 @@
           type="success"
           plain
           icon="Edit"
-          size="mini"
+
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:dict:edit']"
@@ -80,7 +80,7 @@
           type="danger"
           plain
           icon="Delete"
-          size="mini"
+
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:dict:remove']"
@@ -92,7 +92,7 @@
           type="warning"
           plain
           icon="Download"
-          size="mini"
+
           @click="handleExport"
           v-hasPermi="['system:dict:export']"
           >导出</el-button
@@ -103,7 +103,7 @@
           type="warning"
           plain
           icon="Close"
-          size="mini"
+
           @click="handleClose"
           >关闭</el-button
         >
@@ -175,7 +175,7 @@
       >
         <template #default="scope">
           <el-button
-            size="mini"
+
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
@@ -183,7 +183,7 @@
             >修改</el-button
           >
           <el-button
-            size="mini"
+
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"

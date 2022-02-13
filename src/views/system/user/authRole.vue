@@ -63,15 +63,13 @@
       v-model:limit="pageSize"
     />
 
-    <el-form label-width="100px">
-      <el-form-item
-        style="text-align: center; margin-left: -120px; margin-top: 30px"
-      >
-        <el-button type="primary" @click="submitForm()">提交</el-button>
-        <el-button @click="close()">返回</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+      <el-form label-width="100px">
+         <div style="text-align: center;margin-left:-120px;margin-top:30px;">
+            <el-button type="primary" @click="submitForm()">提交</el-button>
+            <el-button @click="close()">返回</el-button>
+         </div>
+      </el-form>
+   </div>
 </template>
 
 <script setup name="AuthRole">
