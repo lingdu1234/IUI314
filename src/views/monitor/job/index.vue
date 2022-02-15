@@ -71,7 +71,6 @@
           type="success"
           plain
           icon="Edit"
-
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['monitor:job:edit']"
@@ -227,55 +226,46 @@
         class-name="small-padding fixed-width"
       >
         <template #default="scope">
-          <el-button
-
-            type="text"
-            icon="Edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['monitor:job:edit']"
-            >修改</el-button
-          >
-          <el-button
-
-            type="text"
-            icon="Delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['monitor:job:remove']"
-            >删除</el-button
-          >
-          <el-dropdown
-
-            @command="(command) => handleCommand(command, scope.row)"
-          >
-            <span
-              class="el-dropdown-link"
-              v-hasPermi="['monitor:job:changeStatus', 'monitor:job:query']"
-            >
-              <i class="el-icon-d-arrow-right el-icon--right"></i>更多
-            </span>
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item
-                  command="handleRun"
-                  icon="CaretRight"
-                  v-hasPermi="['monitor:job:changeStatus']"
-                  >执行一次</el-dropdown-item
-                >
-                <el-dropdown-item
-                  command="handleView"
-                  icon="View"
-                  v-hasPermi="['monitor:job:query']"
-                  >任务详细</el-dropdown-item
-                >
-                <el-dropdown-item
-                  command="handleJobLog"
-                  icon="Operation"
-                  v-hasPermi="['monitor:job:query']"
-                  >调度日志</el-dropdown-item
-                >
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown>
+          <el-tooltip v-if="scope.row.status == '0'" content="修改" placement="top">
+            <el-button
+                type="text"
+                icon="Edit"
+                @click="handleUpdate(scope.row)"
+                v-hasPermi="['monitor:job:edit']"
+            ></el-button>
+          </el-tooltip>
+          <el-tooltip  content="删除" placement="top">
+            <el-button
+                type="text"
+                icon="Delete"
+                @click="handleDelete(scope.row)"
+                v-hasPermi="['monitor:job:remove']"
+            ></el-button>
+          </el-tooltip>
+          <el-tooltip content="执行一次" placement="top">
+            <el-button
+                type="text"
+                icon="CaretRight"
+                @click="handleRun(scope.row)"
+                v-hasPermi="['monitor:job:changeStatus']"
+            ></el-button>
+          </el-tooltip>
+          <el-tooltip content="任务详细" placement="top">
+            <el-button
+                type="text"
+                icon="View"
+                @click="handleView(scope.row)"
+                v-hasPermi="['monitor:job:query']"
+            ></el-button>
+          </el-tooltip>
+          <el-tooltip content="调度日志" placement="top">
+            <el-button
+                type="text"
+                icon="Operation"
+                @click="handleJobLog(scope.row)"
+                v-hasPermi="['monitor:job:query']"
+            ></el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
@@ -317,12 +307,10 @@
                   <el-tooltip placement="top">
                     <template #content>
                       <div>
-                        Bean调用示例：ryTask.ryParams('ry')
-                        <br />Class类调用示例：com.ruoyi.quartz.task.RyTask.ryParams('ry')
-                        <br />参数说明：支持字符串，布尔类型，长整型，浮点型，整型
+                        调用方法：如test_a,就是唯一的定义好的方法代号
                       </div>
                     </template>
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                 </span>
               </template>
@@ -345,7 +333,7 @@
                         <br />0 -> 无限循环运行 <br />n -> 循环运行n次
                       </div>
                     </template>
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                 </span>
               </template>
@@ -370,7 +358,7 @@
                         <br />复查类型：json字符串 {"a":11,"b":"你好"}
                       </div>
                     </template>
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                 </span>
               </template>
@@ -392,7 +380,7 @@
                         <br />整数类型 <br />为任务运行时的唯一标识
                       </div>
                     </template>
-                    <i class="el-icon-question"></i>
+                    <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                 </span>
               </template>
@@ -419,7 +407,7 @@
               </el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="24">
             <el-form-item label="执行策略" prop="misfire_policy">
               <el-radio-group v-model="form.misfire_policy"   >
                 <el-radio-button label="1">立即执行</el-radio-button>
@@ -660,7 +648,8 @@ function resetQuery() {
 function handleSelectionChange(selection) {
   ids.value = selection.map((item) => item.job_id);
   names.value = selection.map((item) => item.job_name);
-  single.value = selection.length != 1;
+ const  status = selection.map((item) => item.status);
+  single.value = selection.length != 1 || status[0] == '1';
   multiple.value = !selection.length;
 }
 // 更多操作触发

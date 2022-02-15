@@ -229,7 +229,7 @@
                 content="控制器中定义的权限字符，如：@PreAuthorize(`@ss.hasRole('admin')`)"
                 placement="top"
               >
-                <i class="el-icon-question"></i>
+                <el-icon><info-filled /></el-icon>
               </el-tooltip>
               权限字符
             </span>
