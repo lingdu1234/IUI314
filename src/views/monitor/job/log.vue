@@ -523,6 +523,7 @@ function init() {
       jobId.value = job_id;
       queryParams.value.job_name = res.job_name;
       queryParams.value.job_group = res.job_group;
+      queryParams.value.is_once = undefined;
       getList();
     });
   } else {
