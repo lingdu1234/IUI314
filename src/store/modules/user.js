@@ -2,6 +2,7 @@ import { login, logout, getInfo } from '@/api/login'
 import { freshToken} from '@/api/system/user'
 import { getToken, setToken, removeToken,setTokenExp,removeTokenExp,setTokenExpStatus } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
+import  md5  from 'blueimp-md5'
 
 const user = {
   state: {
@@ -34,7 +35,7 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       const username = userInfo.username.trim()
-      const password = userInfo.password
+      const password = md5(userInfo.password)
       const code = userInfo.code
       const uuid = userInfo.uuid
       return new Promise((resolve, reject) => {

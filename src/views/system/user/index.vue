@@ -363,7 +363,7 @@
                 v-model="form.user_password"
                 placeholder="请输入用户密码"
                 type="password"
-                maxlength="20"
+                maxlength="32"
                 show-password
               />
             </el-form-item>
@@ -498,6 +498,7 @@ import { getToken } from '@/utils/auth';
 import { treeselect } from '@/api/system/dept';
 import { listPost } from '@/api/system/post';
 import { listRole } from '@/api/system/role';
+import  md5  from 'blueimp-md5'
 import {
   changeUserStatus,
   listUser,
@@ -584,8 +585,8 @@ const data = reactive({
       { required: true, message: '用户密码不能为空', trigger: 'blur' },
       {
         min: 5,
-        max: 20,
-        message: '用户密码长度必须介于 5 和 20 之间',
+        max: 32,
+        message: '用户密码长度必须介于 5 和 32 之间',
         trigger: 'blur',
       },
     ],
@@ -716,11 +717,11 @@ function handleResetPwd(row) {
       confirmButtonText: '确定',
       cancelButtonText: '取消',
       closeOnClickModal: false,
-      inputPattern: /^.{5,20}$/,
-      inputErrorMessage: '用户密码长度必须介于 5 和 20 之间',
+      inputPattern: /^.{5,32}$/,
+      inputErrorMessage: '用户密码长度必须介于 5 和 32 之间',
     })
     .then(({ value }) => {
-      resetUserPwd(row.id, value).then((response) => {
+      resetUserPwd(row.id, md5(value)).then((response) => {
         proxy.$modal.msgSuccess('修改成功，新密码是：' + value);
       });
     })
@@ -839,6 +840,7 @@ async function get_options() {
 function submitForm() {
   proxy.$refs['userRef'].validate((valid) => {
     if (valid) {
+      form.value.user_password = md5(form.value.user_password);
       if (form.value.id != undefined) {
         updateUser(form.value).then((response) => {
           proxy.$modal.msgSuccess('修改成功');

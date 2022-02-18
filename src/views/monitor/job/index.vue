@@ -180,7 +180,7 @@
       >
         <template #default="scope">
           <span v-if="scope.row.status == '0'">任务未运行</span>
-          <span v-else>{{ scope.row.next_time }}</span>
+          <span v-else>{{ parseTime(scope.row.next_time) }}</span>
         </template>
       </el-table-column>
       <el-table-column
