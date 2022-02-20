@@ -37,6 +37,7 @@ const sideTheme = computed(() => store.state.settings.sideTheme);
 const theme = computed(() => store.state.settings.theme);
 const isCollapse = computed(() => !store.state.app.sidebar.opened);
 
+
 const activeMenu = computed(() => {
   const { meta, path } = route;
   // if set path, the sidebar will highlight the path you set

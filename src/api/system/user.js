@@ -72,6 +72,18 @@ export function changeUserStatus(user_id, status) {
   })
 }
 
+// 切换用户角色
+export function changeUserRole(user_id, role_id) {
+  const data = {
+    user_id,
+    role_id
+  }
+  return request({
+    url: '/system/user/change_role',
+    method: 'put',
+    data: data
+  })
+}
 // 查询用户个人信息
 export function getUserProfile() {
   return request({

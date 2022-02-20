@@ -11,7 +11,6 @@
           v-model="queryParams.role_name"
           placeholder="请输入角色名称"
           clearable
-
           style="width: 240px"
           @keyup.enter="handleQuery"
         />
@@ -21,7 +20,6 @@
           v-model="queryParams.role_key"
           placeholder="请输入权限字符"
           clearable
-
           style="width: 240px"
           @keyup.enter="handleQuery"
         />
@@ -31,7 +29,6 @@
           v-model="queryParams.status"
           placeholder="角色状态"
           clearable
-
           style="width: 240px"
         >
           <el-option
@@ -45,7 +42,6 @@
       <el-form-item label="创建时间">
         <el-date-picker
           v-model="dateRange"
-
           style="width: 240px"
           value-format="YYYY-MM-DD"
           type="daterange"
@@ -55,21 +51,18 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search"   @click="handleQuery"
+        <el-button type="primary" icon="Search" @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh"   @click="resetQuery"
-          >重置</el-button
-        >
+        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-row :gutter="10" class="mb8">
+    <el-row :gutter="10" class="mb8" style="height: 35px;">
       <el-col :span="1.5">
         <el-button
           type="primary"
           plain
           icon="Plus"
-
           @click="handleAdd"
           v-hasPermi="['system:role:add']"
           >新增</el-button
@@ -80,7 +73,6 @@
           type="success"
           plain
           icon="Edit"
-
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system:role:edit']"
@@ -92,7 +84,6 @@
           type="danger"
           plain
           icon="Delete"
-
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system:role:remove']"
@@ -104,13 +95,13 @@
           type="warning"
           plain
           icon="Download"
-
           @click="handleExport"
           v-hasPermi="['system:role:export']"
           >导出</el-button
         >
       </el-col>
-      <right-toolbar
+
+      <right-toolbar>
         v-model:showSearch="showSearch"
         @queryTable="getList"
       ></right-toolbar>
@@ -156,7 +147,7 @@
         label="创建时间"
         align="center"
         prop="created_at"
-        width="150"
+        width="160"
       >
         <template #default="scope">
           <span>{{ parseTime(scope.row.created_at) }}</span>
@@ -170,38 +161,38 @@
         <template #default="scope">
           <el-tooltip content="修改" placement="top">
             <el-button
-                v-if="scope.row.role_id !== 1"
-                type="text"
-                icon="Edit"
-                @click="handleUpdate(scope.row)"
-                v-hasPermi="['system:role:edit']"
+              v-if="scope.row.role_id !== 1"
+              type="text"
+              icon="Edit"
+              @click="handleUpdate(scope.row)"
+              v-hasPermi="['system:role:edit']"
             ></el-button>
           </el-tooltip>
           <el-tooltip content="删除" placement="top">
             <el-button
-                v-if="scope.row.role_id !== 1"
-                type="text"
-                icon="Delete"
-                @click="handleDelete(scope.row)"
-                v-hasPermi="['system:role:remove']"
+              v-if="scope.row.role_id !== 1"
+              type="text"
+              icon="Delete"
+              @click="handleDelete(scope.row)"
+              v-hasPermi="['system:role:remove']"
             ></el-button>
           </el-tooltip>
           <el-tooltip content="数据权限" placement="top">
             <el-button
-                v-if="scope.row.role_id !== 1"
-                type="text"
-                icon="CircleCheck"
-                @click="handleDataScope(scope.row)"
-                v-hasPermi="['system:role:edit']"
+              v-if="scope.row.role_id !== 1"
+              type="text"
+              icon="CircleCheck"
+              @click="handleDataScope(scope.row)"
+              v-hasPermi="['system:role:edit']"
             ></el-button>
           </el-tooltip>
           <el-tooltip content="分配用户" placement="top">
             <el-button
-                v-if="scope.row.role_id !== 1"
-                type="text"
-                icon="User"
-                @click="handleAuthUser(scope.row)"
-                v-hasPermi="['system:role:edit']"
+              v-if="scope.row.role_id !== 1"
+              type="text"
+              icon="User"
+              @click="handleAuthUser(scope.row)"
+              v-hasPermi="['system:role:edit']"
             ></el-button>
           </el-tooltip>
         </template>
@@ -368,14 +359,11 @@ import {
   getRole,
   listRole,
   updateRole,
-  getRoleMenus,getRoleDepts,
+  getRoleMenus,
+  getRoleDepts,
 } from '@/api/system/role';
-import {
-  treeselect as menuTreeselect,
-} from '@/api/system/menu';
-import {
-  treeselect as deptTreeselect,
-} from '@/api/system/dept';
+import { treeselect as menuTreeselect } from '@/api/system/menu';
+import { treeselect as deptTreeselect } from '@/api/system/dept';
 
 const router = useRouter();
 const { proxy } = getCurrentInstance();
@@ -460,11 +448,11 @@ function resetQuery() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const role_ids = row.role_id ? [row.role_id] : ids.value;
-  const roleNames = row.role_id  ? row.role_name : role_names.value;
+  const roleNames = row.role_id ? row.role_name : role_names.value;
   proxy.$modal
     .confirm('是否确认删除角色编号为"' + roleNames + '"的数据项?')
     .then(function () {
-      return delRole({role_ids});
+      return delRole({ role_ids });
     })
     .then(() => {
       getList();
@@ -590,7 +578,6 @@ async function handleUpdate(row) {
     });
     title.value = '修改角色';
   });
-  
 }
 
 /** 树权限（展开/折叠）*/
@@ -669,19 +656,19 @@ function dataScopeSelectChange(value) {
 /** 分配数据权限操作 */
 async function handleDataScope(row) {
   reset();
-  const role_id =  row.role_id;
+  const role_id = row.role_id;
   getDeptTreeselect();
-  const roleDepts = await getRoleDepts({role_id});
-  getRole({role_id}).then((response) => {
+  const roleDepts = await getRoleDepts({ role_id });
+  getRole({ role_id }).then((response) => {
     form.value = response;
     openDataScope.value = true;
-        nextTick(() => {
-          if (deptRef.value) {
-            deptRef.value.setCheckedKeys(roleDepts);
-          }
-        });
+    nextTick(() => {
+      if (deptRef.value) {
+        deptRef.value.setCheckedKeys(roleDepts);
+      }
     });
-    title.value = '分配数据权限';
+  });
+  title.value = '分配数据权限';
 }
 /** 提交按钮（数据权限） */
 function submitDataScope() {

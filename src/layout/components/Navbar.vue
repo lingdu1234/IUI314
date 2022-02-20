@@ -1,8 +1,21 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="getters.sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!$store.state.settings.topNav" />
-    <top-nav id="topmenu-container" class="topmenu-container" v-if="$store.state.settings.topNav" />
+    <hamburger
+      id="hamburger-container"
+      :is-active="getters.sidebar.opened"
+      class="hamburger-container"
+      @toggleClick="toggleSideBar"
+    />
+    <breadcrumb
+      id="breadcrumb-container"
+      class="breadcrumb-container"
+      v-if="!$store.state.settings.topNav"
+    />
+    <top-nav
+      id="topmenu-container"
+      class="topmenu-container"
+      v-if="$store.state.settings.topNav"
+    />
 
     <div class="right-menu">
       <template v-if="getters.device !== 'mobile'">
@@ -23,13 +36,30 @@
         </el-tooltip>
       </template>
       <div class="avatar-container">
-        <el-dropdown @command="handleCommand" class="right-menu-item hover-effect" trigger="click">
+        <el-dropdown
+          @command="handleCommand"
+          class="right-menu-item hover-effect"
+          trigger="click"
+        >
           <div class="avatar-wrapper">
             <img :src="getters.avatar" class="user-avatar" />
             <el-icon><caret-bottom /></el-icon>
           </div>
           <template #dropdown>
             <el-dropdown-menu>
+              <el-popover placement="left-start">
+                <template #reference>
+                  <span><el-dropdown-item>角色切换</el-dropdown-item></span>
+                </template>
+                <el-radio-group v-model="role_id" @change="roleChanged" :disabled="roleChangeDisabled">
+                  <el-radio
+                    v-for="item in roleOptions"
+                    :label="item.role_id"
+                    :value="item.role_id"
+                    >{{ item.role_name }}</el-radio
+                  >
+                </el-radio-group>
+              </el-popover>
               <router-link to="/user/profile">
                 <el-dropdown-item>个人中心</el-dropdown-item>
               </router-link>
@@ -48,29 +78,64 @@
 </template>
 
 <script setup>
-import { ElMessageBox } from 'element-plus'
-import Breadcrumb from '@/components/Breadcrumb'
-import TopNav from '@/components/TopNav'
-import Hamburger from '@/components/Hamburger'
-import Screenfull from '@/components/Screenfull'
-import SizeSelect from '@/components/SizeSelect'
-import HeaderSearch from '@/components/HeaderSearch'
-import RuoYiGit from '@/components/RuoYi/Git'
-import RuoYiDoc from '@/components/RuoYi/Doc'
+import { ElMessageBox } from 'element-plus';
+import Breadcrumb from '@/components/Breadcrumb';
+import TopNav from '@/components/TopNav';
+import Hamburger from '@/components/Hamburger';
+import Screenfull from '@/components/Screenfull';
+import SizeSelect from '@/components/SizeSelect';
+import HeaderSearch from '@/components/HeaderSearch';
+import RuoYiGit from '@/components/RuoYi/Git';
+import RuoYiDoc from '@/components/RuoYi/Doc';
+
+import { listRole } from '@/api/system/role';
+import { changeUserRole } from '@/api/system/user';
 
 const store = useStore();
 const getters = computed(() => store.getters);
+const { proxy } = getCurrentInstance();
 
+const role_id = ref(null);
+const roleOptions = ref([]);
+const roleChangeDisabled = ref(false);
+
+async function get_options() {
+  let queryParams = {
+    page_num: 1,
+    page_size: Number.MAX_SAFE_INTEGER,
+  };
+  const { list: roles } = await listRole(queryParams);
+  let r = roles.filter((item, index, arr) => {
+    return getters.value.roles.includes(item.role_id);
+  });
+  roleOptions.value = r;
+  role_id.value = getters.value.role;
+}
+
+get_options();
+
+async function roleChanged(v) {
+  roleChangeDisabled.value = true;
+  await changeUserRole(getters.value.uid, v);
+  store.dispatch('GetInfo').then(() => {
+    store
+      .dispatch('GenerateRoutes')
+      .then(proxy.$modal.msgSuccess('角色切换成功'));
+  });
+  setTimeout(() => {
+    roleChangeDisabled.value = false;
+  }, 2000);
+}
 function toggleSideBar() {
-  store.dispatch('app/toggleSideBar')
+  store.dispatch('app/toggleSideBar');
 }
 
 function handleCommand(command) {
   switch (command) {
-    case "setLayout":
+    case 'setLayout':
       setLayout();
       break;
-    case "logout":
+    case 'logout':
       logout();
       break;
     default:
@@ -82,21 +147,23 @@ function logout() {
   ElMessageBox.confirm('确定注销并退出系统吗？', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
-    type: 'warning'
-  }).then(() => {
-    store.dispatch('LogOut').then(() => {
-      location.href = '/index';
+    type: 'warning',
+  })
+    .then(() => {
+      store.dispatch('LogOut').then(() => {
+        location.href = '/index';
+      });
     })
-  }).catch(() => { });
+    .catch(() => {});
 }
 
-const emits = defineEmits(['setLayout'])
+const emits = defineEmits(['setLayout']);
 function setLayout() {
   emits('setLayout');
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .navbar {
   height: 50px;
   overflow: hidden;

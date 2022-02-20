@@ -95,7 +95,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8">
+     <el-row :gutter="10" class="mb8" style="height: 35px;">
       <el-col :span="1.5">
         <el-button
           type="danger"
