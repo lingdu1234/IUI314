@@ -51,7 +51,7 @@
                 <template #reference>
                   <span><el-dropdown-item>角色切换</el-dropdown-item></span>
                 </template>
-                <el-radio-group v-model="role_id" @change="roleChanged" :disabled="roleChangeDisabled">
+                <el-radio-group v-model="role_id" @change="roleChanged">
                   <el-radio
                     v-for="item in roleOptions"
                     :label="item.role_id"
@@ -97,7 +97,6 @@ const { proxy } = getCurrentInstance();
 
 const role_id = ref(null);
 const roleOptions = ref([]);
-const roleChangeDisabled = ref(false);
 
 async function get_options() {
   let queryParams = {
@@ -115,16 +114,17 @@ async function get_options() {
 get_options();
 
 async function roleChanged(v) {
-  roleChangeDisabled.value = true;
   await changeUserRole(getters.value.uid, v);
-  store.dispatch('GetInfo').then(() => {
-    store
-      .dispatch('GenerateRoutes')
-      .then(proxy.$modal.msgSuccess('角色切换成功'));
-  });
+  proxy.$modal.msgSuccess('角色切换成功,马上重载界面')
+  
   setTimeout(() => {
-    roleChangeDisabled.value = false;
-  }, 2000);
+    window.location.reload(false);
+  }, 1000);
+  // store.dispatch('GetInfo').then(() => {
+  //   store
+  //     .dispatch('GenerateRoutes')
+  //     .then(proxy.$modal.msgSuccess('角色切换成功'));
+  // });
 }
 function toggleSideBar() {
   store.dispatch('app/toggleSideBar');
