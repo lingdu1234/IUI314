@@ -259,7 +259,7 @@ const data = reactive({
     email: [
       {
         type: 'email',
-        message: "'请输入正确的邮箱地址",
+        message: "请输入正确的邮箱地址",
         trigger: ['blur', 'change'],
       },
     ],
