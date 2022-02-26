@@ -38,6 +38,10 @@ router.beforeEach((to, from, next) => {
           store.dispatch('LogOut').then(() => {
             ElMessage.error(err)
             next({ path: '/' })
+          }).catch(err=>{
+            store.dispatch('FedLogOut').then(
+              next({ path: '/' })
+            )
           })
         })
       } else {

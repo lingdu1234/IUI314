@@ -6,6 +6,14 @@ import createVitePlugins from './vite/plugins'
 export default defineConfig(({ mode, command }) => {
   const env = loadEnv(mode, process.cwd())
   return {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          // 关闭编译时 字符编码 报错问题
+          charset: false,
+        }
+      },
+    },
     plugins: createVitePlugins(env, command === 'build'),
     resolve: {
       // https://cn.vitejs.dev/config/#resolve-alias
@@ -18,7 +26,7 @@ export default defineConfig(({ mode, command }) => {
       // https://cn.vitejs.dev/config/#resolve-extensions
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
     },
-	// vite 相关配置
+    // vite 相关配置
     server: {
       port: 80,
       host: true,

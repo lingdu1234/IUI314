@@ -32,7 +32,7 @@ service.interceptors.request.use(config => {
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
-    config.params['_t'] = new Date().getTime()
+    // config.params['_t'] = new Date().getTime()
     let url = config.url + '?' + tansParams(config.params);
     url = url.slice(0, -1);
     config.params = {};
@@ -149,8 +149,8 @@ function re_login () {
     }
     ).then(() => {
       isRelogin.show = false
-      store.dispatch('LogOut').then(() => {
-        location.href = '/index';
+      store.dispatch('FedLogOut').then(() => {
+        location.href = '';
       })
     }).catch(() => {
       isRelogin.show = false
