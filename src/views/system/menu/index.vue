@@ -80,7 +80,7 @@
         prop="menu_name"
         label="菜单名称"
         :show-overflow-tooltip="true"
-        width="160"
+        width="200"
       ></el-table-column>
       <el-table-column prop="icon" label="图标" align="center" width="100">
         <template #default="scope">
@@ -572,6 +572,17 @@ async function handleAdd(row) {
   } else {
     form.value.pid = "0";
   }
+  form.value.menu_name = row.menu_type == 'C'?row.menu_name+"-":undefined;
+  let t = undefined;
+  if (row.menu_type==undefined){
+    t = "M";
+  }else if(row.menu_type == 'M'){
+    t = "C";
+  }else{
+    t = "F";
+  }
+
+  form.value.menu_type = t;
   open.value = true;
   title.value = '添加菜单';
 }

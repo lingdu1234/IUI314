@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 import { parseStrEmpty } from "@/utils/ruoyi";
-
+import md5 from 'blueimp-md5';
 // 查询用户列表
 export function listUser(query) {
   return request({
@@ -30,6 +30,7 @@ export function addUser(data) {
 
 // 修改用户
 export function updateUser(data) {
+  data.user_password = md5(data.user_password);
   return request({
     url: '/system/user/edit',
     method: 'put',
@@ -50,7 +51,7 @@ export function delUser(data) {
 export function resetUserPwd(user_id, new_passwd) {
   const data = {
     user_id,
-    new_passwd
+    new_passwd:md5(new_passwd)
   }
   return request({
     url: '/system/user/reset_passwd',
@@ -87,7 +88,7 @@ export function changeUserRole(user_id, role_id) {
 // 查询用户个人信息
 export function getUserProfile() {
   return request({
-    url: '/system/user/profile',
+    url: '/system/user/get_profile',
     method: 'get'
   })
 }
@@ -95,7 +96,7 @@ export function getUserProfile() {
 // 修改用户个人信息
 export function updateUserProfile(data) {
   return request({
-    url: '/system/user/profile',
+    url: '/system/user/update_profile',
     method: 'put',
     data: data
   })
@@ -104,32 +105,32 @@ export function updateUserProfile(data) {
 // 用户密码重置
 export function updateUserPwd(oldPassword, newPassword) {
   const data = {
-    oldPassword,
-    newPassword
+    old_passwd:md5(oldPassword),
+    new_passwd:md5(newPassword)
   }
   return request({
-    url: '/system/user/profile/updatePwd',
+    url: '/system/user/update_passwd',
     method: 'put',
-    params: data
+    data
   })
 }
 
 // 用户头像上传
 export function uploadAvatar(data) {
   return request({
-    url: '/system/user/profile/avatar',
+    url: '/system/user/update_avatar',
     method: 'post',
-    data: data
+    data
   })
 }
 
 // 查询授权角色
-export function getAuthRole(userId) {
-  return request({
-    url: '/system/user/authRole/' + userId,
-    method: 'get'
-  })
-}
+// export function getAuthRole(userId) {
+//   return request({
+//     url: '/system/user/authRole/' + userId,
+//     method: 'get'
+//   })
+// }
 
 // 保存授权角色
 export function updateAuthRole(data) {

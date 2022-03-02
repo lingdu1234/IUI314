@@ -73,7 +73,7 @@
                icon="Delete"
                :disabled="multiple"
                @click="handleDelete"
-               v-hasPermi="['system:operlog:remove']"
+               v-hasPermi="['system/oper_log/delete']"
             >删除</el-button>
          </el-col>
          <el-col :span="1.5">
@@ -82,7 +82,7 @@
                plain
                icon="Delete"
                @click="handleClean"
-               v-hasPermi="['system:operlog:remove']"
+               v-hasPermi="['system/oper_log/delete']"
             >清空</el-button>
          </el-col>
          <el-col :span="1.5">
@@ -91,7 +91,7 @@
                plain
                icon="Download"
                @click="handleExport"
-               v-hasPermi="['system:operlog:export']"
+               v-hasPermi="['system/oper_log/export']"
             >导出</el-button>
          </el-col>
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
@@ -129,7 +129,7 @@
                   type="text"
                   icon="View"
                   @click="handleView(scope.row, scope.index)"
-                  v-hasPermi="['system:operlog:query']"
+                  v-hasPermi="['sys-operlog-query']"
                >详细</el-button>
             </template>
          </el-table-column>

@@ -1,10 +1,11 @@
 import request from '@/utils/request'
+import md5 from 'blueimp-md5';
 
 // 登录方法
 export function login(username, password, code, uuid) {
   const data = {
     user_name: username,
-    user_password: password,
+    user_password: md5(password),
     code,
     uuid
   }

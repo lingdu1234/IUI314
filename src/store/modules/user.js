@@ -2,7 +2,6 @@ import { login, logout, getInfo } from '@/api/login'
 import { freshToken} from '@/api/system/user'
 import { getToken, setToken, removeToken,setTokenExp,removeTokenExp,setTokenExpStatus } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
-import  md5  from 'blueimp-md5'
 
 const user = {
   state: {
@@ -43,7 +42,7 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       const username = userInfo.username.trim()
-      const password = md5(userInfo.password)
+      const password = userInfo.password
       const code = userInfo.code
       const uuid = userInfo.uuid
       return new Promise((resolve, reject) => {
@@ -80,7 +79,8 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
           const user = res.user
-          const avatar = user.avatar == "" ? defAva : import.meta.env.VITE_APP_BASE_API + user.avatar;
+          // const avatar = user.avatar == "" ? defAva : import.meta.env.VITE_APP_BASE_API + user.avatar;
+          const avatar = user.avatar == "" ? defAva : user.avatar;
 
           if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', res.roles)

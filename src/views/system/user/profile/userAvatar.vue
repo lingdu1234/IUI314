@@ -71,7 +71,7 @@ const options = reactive({
   fixedBox: true, // 固定截图框大小 不允许改变
   previews: {} //预览数据
 });
-
+const old_url = ref("");
 /** 编辑头像 */
 function editCropper() {
   open.value = true;
@@ -101,6 +101,7 @@ function beforeUpload(file) {
   if (file.type.indexOf("image/") == -1) {
     proxy.$modal.msgError("文件格式错误，请上传图片类型,如：JPG，PNG后缀的文件。");
   } else {
+    old_url.value = options.img;
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
@@ -112,10 +113,11 @@ function beforeUpload(file) {
 function uploadImg() {
   proxy.$refs.cropper.getCropBlob(data => {
     let formData = new FormData();
-    formData.append("avatarfile", data);
+    formData.append("avatarfile", data,old_url.value);
     uploadAvatar(formData).then(response => {
       open.value = false;
-      options.img = import.meta.env.VITE_APP_BASE_API + response.imgUrl;
+      // options.img = import.meta.env.VITE_APP_BASE_API + response.imgUrl;
+      options.img = response;
       store.commit("SET_AVATAR", options.img);
       proxy.$modal.msgSuccess("修改成功");
       visible.value = false;

@@ -10,7 +10,7 @@ export function listMenu(query) {
 }
 export function listAuthMenu(query) {
   return request({
-    url: '/system/menu/auth_list',
+    url: '/system/menu/get_auth_list',
     method: 'get',
     params: query
   })
