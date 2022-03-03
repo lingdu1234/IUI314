@@ -92,7 +92,7 @@
               plain
               icon="Plus"
               @click="handleAdd"
-              v-hasPermi="['system:user:add']"
+              v-hasPermi="['system/user/add']"
               >新增</el-button
             >
           </el-col>
@@ -103,7 +103,7 @@
               icon="Edit"
               :disabled="single"
               @click="handleUpdate"
-              v-hasPermi="['system:user:edit']"
+              v-hasPermi="['system/user/edit']"
               >修改</el-button
             >
           </el-col>
@@ -114,7 +114,7 @@
               icon="Delete"
               :disabled="multiple"
               @click="handleDelete"
-              v-hasPermi="['system:user:remove']"
+              v-hasPermi="['system/user/delete']"
               >删除</el-button
             >
           </el-col>
@@ -124,7 +124,7 @@
               plain
               icon="Upload"
               @click="handleImport"
-              v-hasPermi="['system:user:import']"
+              v-hasPermi="['system/user/import']"
               >导入</el-button
             >
           </el-col>
@@ -134,7 +134,7 @@
               plain
               icon="Download"
               @click="handleExport"
-              v-hasPermi="['system:user:export']"
+              v-hasPermi="['system/user/export']"
               >导出</el-button
             >
           </el-col>
@@ -224,6 +224,7 @@
             align="center"
             width="150"
             class-name="small-padding fixed-width"
+            v-hasPermi="['system/user/edit','system/user/delete','system/user/delete','system/user/reset_passwd']"
           >
             <template #default="scope">
               <el-tooltip content="修改" placement="top">
@@ -232,7 +233,7 @@
                   type="text"
                   icon="Edit"
                   @click="handleUpdate(scope.row)"
-                  v-hasPermi="['system:user:edit']"
+                  v-hasPermi="['system/user/edit']"
                 ></el-button>
               </el-tooltip>
               <el-tooltip content="删除" placement="top">
@@ -241,7 +242,7 @@
                   type="text"
                   icon="Delete"
                   @click="handleDelete(scope.row)"
-                  v-hasPermi="['system:user:remove']"
+                  v-hasPermi="['system/user/delete']"
                 ></el-button>
               </el-tooltip>
               <el-tooltip content="重置密码" placement="top">
@@ -250,7 +251,7 @@
                   type="text"
                   icon="Key"
                   @click="handleResetPwd(scope.row)"
-                  v-hasPermi="['system:user:resetPwd']"
+                  v-hasPermi="['system/user/reset_passwd']"
                 ></el-button>
               </el-tooltip>
               <el-tooltip content="分配角色" placement="top">
@@ -259,7 +260,7 @@
                   type="text"
                   icon="CircleCheck"
                   @click="handleAuthRole(scope.row)"
-                  v-hasPermi="['system:user:edit']"
+                  v-hasPermi="['system/user/edit']"
                 ></el-button>
               </el-tooltip>
             </template>

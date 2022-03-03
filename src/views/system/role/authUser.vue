@@ -44,7 +44,7 @@
           icon="Plus"
 
           @click="openSelectUser"
-          v-hasPermi="['system:role:add']"
+          v-hasPermi="['system/role/add_auth_user']"
           >添加用户</el-button
         >
       </el-col>
@@ -56,7 +56,7 @@
 
           :disabled="multiple"
           @click="cancelAuthUserAll"
-          v-hasPermi="['system:role:remove']"
+          v-hasPermi="['system/role/cancel_auth_user']"
           >批量取消授权</el-button
         >
       </el-col>
@@ -121,6 +121,7 @@
         label="操作"
         align="center"
         class-name="small-padding fixed-width"
+        v-hasPermi="['system/role/cancel_auth_user']"
       >
         <template #default="scope">
           <el-button
@@ -128,7 +129,6 @@
             type="text"
             icon="CircleClose"
             @click="cancelAuthUser(scope.row)"
-            v-hasPermi="['system:role:remove']"
             >取消授权</el-button
           >
         </template>

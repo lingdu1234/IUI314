@@ -12,7 +12,6 @@
           v-model="queryParams.menu_name"
           placeholder="请输入菜单名称"
           clearable
-
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -21,7 +20,6 @@
           v-model="queryParams.status"
           placeholder="菜单状态"
           clearable
-
         >
           <el-option
             v-for="dict in sys_normal_disable"
@@ -31,13 +29,25 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="方法" prop="method">
+        <el-select
+          v-model="queryParams.method"
+          placeholder="菜单状态"
+          clearable
+        >
+          <el-option
+            v-for="dict in sys_api_method"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search"   @click="handleQuery"
+        <el-button type="primary" icon="Search" @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh"   @click="resetQuery"
-          >重置</el-button
-        >
+        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -54,6 +64,15 @@
       <el-table-column label="请求方法" align="center" prop="method">
         <template #default="scope">
           <dict-tag :options="sys_api_method" :value="scope.row.method" />
+        </template>
+      </el-table-column>
+      <el-table-column prop="method" label="数据权限" width="80">
+        <template #default="scope">
+          <dict-tag
+            v-if="scope.row.method == 'GET'"
+            :options="sys_normal_disable"
+            :value="scope.row.is_data_scope"
+          />
         </template>
       </el-table-column>
       <el-table-column label="状态" align="center" prop="status">
@@ -120,7 +139,7 @@ function getList() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.page_num = 1;
   getList();
 }
 /** 重置按钮操作 */

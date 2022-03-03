@@ -19,9 +19,9 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="类型" prop="business_type">
+         <el-form-item label="操作类型" prop="operator_type">
             <el-select
-               v-model="queryParams.business_type"
+               v-model="queryParams.operator_type"
                placeholder="操作类型"
                clearable
                style="width: 240px"
@@ -118,6 +118,7 @@
                <dict-tag :options="sys_common_status" :value="scope.row.status" />
             </template>
          </el-table-column>
+         <el-table-column label="耗时(μs)" align="center" prop="duration"></el-table-column>
          <el-table-column label="操作日期" align="center" prop="oper_time" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
             <template #default="scope">
                <span>{{ parseTime(scope.row.oper_time) }}</span>
@@ -162,6 +163,9 @@
                </el-col>
                <el-col :span="24">
                   <el-form-item label="请求参数：">{{ form.oper_param }}</el-form-item>
+               </el-col>
+               <el-col :span="24">
+                  <el-form-item label="操作耗时：">{{ form.duration }} 微秒</el-form-item>
                </el-col>
                <el-col :span="24">
                   <el-form-item label="返回参数：">{{ form.json_result }}</el-form-item>
@@ -214,7 +218,7 @@ const data = reactive({
     page_size: 10,
     title: undefined,
     oper_name: undefined,
-    business_type: undefined,
+    operator_type: undefined,
     status: undefined
   }
 });

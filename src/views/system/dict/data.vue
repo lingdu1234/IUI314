@@ -59,7 +59,7 @@
           icon="Plus"
 
           @click="handleAdd"
-          v-hasPermi="['system:dict:add']"
+          v-hasPermi="['system/dict/data/add']"
           >新增</el-button
         >
       </el-col>
@@ -71,7 +71,7 @@
 
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['system:dict:edit']"
+          v-hasPermi="['system/dict/data/edit']"
           >修改</el-button
         >
       </el-col>
@@ -83,7 +83,7 @@
 
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['system:dict:remove']"
+          v-hasPermi="['system/dict/data/delete']"
           >删除</el-button
         >
       </el-col>
@@ -94,7 +94,7 @@
           icon="Download"
 
           @click="handleExport"
-          v-hasPermi="['system:dict:export']"
+          v-hasPermi="['system/dict/data/export']"
           >导出</el-button
         >
       </el-col> -->
@@ -172,6 +172,7 @@
         align="center"
         width="150"
         class-name="small-padding fixed-width"
+        v-hasPermi="['system/dict/data/edit','system/dict/data/delete']"
       >
         <template #default="scope">
           <el-button
@@ -179,7 +180,7 @@
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:dict:edit']"
+            v-hasPermi="['system/dict/data/edit']"
             >修改</el-button
           >
           <el-button
@@ -187,7 +188,7 @@
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['system:dict:remove']"
+            v-hasPermi="['system/dict/data/delete']"
             >删除</el-button
           >
         </template>

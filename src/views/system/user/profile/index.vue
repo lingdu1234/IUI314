@@ -10,7 +10,7 @@
                </template>
                <div>
                   <div class="text-center">
-                     <userAvatar :user="state.user" />
+                     <userAvatar  />
                   </div>
                   <ul class="list-group list-group-striped">
                      <li class="list-group-item">
@@ -31,7 +31,7 @@
                      </li>
                      <li class="list-group-item">
                         <svg-icon icon-class="peoples" />所属角色
-                        <div class="pull-bottom"><el-tag :type="v==roleOptions[state.user.role_id]?'default':'info'" style="margin-left: 2px; margin-top: 3px;" v-for="v in state.roleGroup" :key="v">{{v}}</el-tag></div>
+                        <div class="pull-bottom"><el-tag :type="v==roleOptions[state.user.role_id]?'':'info'" style="margin-left: 2px; margin-top: 3px;" v-for="v in state.roleGroup" :key="v">{{v}}</el-tag></div>
                      </li>
                      <li class="list-group-item">
                         <svg-icon icon-class="date" />创建日期
@@ -53,7 +53,7 @@
                      <userInfo :user="state.user" />
                   </el-tab-pane>
                   <el-tab-pane label="修改密码" name="resetPwd">
-                     <resetPwd :user="state.user" />
+                     <resetPwd />
                   </el-tab-pane>
                </el-tabs>
             </el-card>
