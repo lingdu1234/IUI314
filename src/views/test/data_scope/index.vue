@@ -130,8 +130,10 @@ import {
   addData,
   delData,
 } from '@/api/test/data_scope';
+import { useStore } from 'vuex';
 
 const { proxy } = getCurrentInstance();
+const store = useStore()
 
 const dataList = ref([]);
 const open = ref(false);
@@ -150,6 +152,7 @@ const data = reactive({
     page_size: 10,
     data_a: undefined,
     data_b: undefined,
+    __r__:store.getters.role
   },
   rules: {
     data_a: [
