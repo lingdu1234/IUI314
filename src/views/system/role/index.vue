@@ -180,7 +180,6 @@
           </el-tooltip>
           <el-tooltip content="数据权限" placement="top">
             <el-button
-              v-if="scope.row.role_id !== 1"
               type="text"
               icon="CircleCheck"
               @click="handleDataScope(scope.row)"
@@ -325,6 +324,7 @@
           >
           <el-checkbox
             v-model="form.deptCheckStrictly"
+            disabled
             @change="handleCheckedTreeConnect($event, 'dept')"
             >父子联动</el-checkbox
           >
@@ -533,7 +533,7 @@ function reset() {
     menu_ids: [],
     dept_ids: [],
     menuCheckStrictly: true,
-    deptCheckStrictly: true,
+    deptCheckStrictly: false,
     remark: undefined,
   };
   proxy.resetForm('roleRef');
@@ -553,6 +553,7 @@ async function handleUpdate(row) {
   const roleMenu = await getRoleMenus({ role_id });
   const response = await getRole({ role_id });
   form.value = response;
+  form.value.menuCheckStrictly = true;
   form.value.list_order = Number(form.value.list_order);
   open.value = true;
   roleMenu.forEach((v) => {
@@ -641,6 +642,7 @@ async function handleDataScope(row) {
   const roleDepts = await getRoleDepts({ role_id });
   const response = await getRole({ role_id });
   form.value = response;
+  form.value.deptCheckStrictly = false;
   openDataScope.value = true;
   nextTick(() => {
     if (deptRef.value) {
