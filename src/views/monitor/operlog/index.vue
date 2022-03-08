@@ -150,19 +150,26 @@
             <el-row>
                <el-col :span="12">
                   <el-form-item label="操作模块：">{{ form.title }} / {{ typeFormat(form) }}</el-form-item>
-                  <el-form-item
+               </el-col>
+               <el-col :span="12">
+                  <el-form-item label="请求方式：">{{ form.request_method }}</el-form-item>
+               </el-col>
+               <el-col :span="24">
+                 <el-form-item
                     label="登录信息："
                   >{{ form.oper_name }} / {{ form.oper_ip }} / {{ form.oper_location }}</el-form-item>
                </el-col>
-               <el-col :span="12">
+               <el-col :span="24">
                   <el-form-item label="请求地址：">{{ form.oper_url }}</el-form-item>
-                  <el-form-item label="请求方式：">{{ form.request_method }}</el-form-item>
                </el-col>
                <el-col :span="24">
                   <el-form-item label="操作方法：">{{ form.method }}</el-form-item>
                </el-col>
-               <el-col :span="24">
+               <el-col v-if="form.request_method !='GET'" :span="24">
                   <el-form-item label="请求参数：">{{ form.oper_param }}</el-form-item>
+               </el-col>
+               <el-col v-if="form.request_method =='GET'" :span="24">
+                  <el-form-item label="路径参数：">{{ form.path_param }}</el-form-item>
                </el-col>
                <el-col :span="24">
                   <el-form-item label="操作耗时：">{{ form.duration }} 微秒</el-form-item>

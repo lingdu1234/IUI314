@@ -12,7 +12,7 @@
           v-model="queryParams.post_code"
           placeholder="请输入岗位编码"
           clearable
-          @keyup.enter="handleQuery"
+          @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item label="岗位名称" prop="post_name">
@@ -20,7 +20,7 @@
           v-model="queryParams.post_name"
           placeholder="请输入岗位名称"
           clearable
-          @keyup.enter="handleQuery"
+          @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item label="状态" prop="status">
@@ -38,7 +38,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" @click="handleQuery"
+        <el-button type="primary" icon="Search" @click="getList"
           >搜索</el-button
         >
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
@@ -250,13 +250,12 @@ const data = reactive({
 const { queryParams, form, rules } = toRefs(data);
 
 /** 查询岗位列表 */
-function getList() {
+async function getList() {
   loading.value = true;
-  listPost(queryParams.value).then((response) => {
-    postList.value = response.list;
-    total.value = response.total;
-    loading.value = false;
-  });
+  const response = await listPost(queryParams.value);
+  postList.value = response.list;
+  total.value = response.total;
+  loading.value = false;
 }
 /** 取消按钮 */
 function cancel() {
@@ -275,16 +274,13 @@ function reset() {
   };
   proxy.resetForm('postRef');
 }
-/** 搜索按钮操作 */
-function handleQuery() {
-  queryParams.value.page_num = 1;
-  getList();
-}
+
 /** 重置按钮操作 */
-function resetQuery() {
+const resetQuery = async () => {
   proxy.resetForm('queryRef');
-  handleQuery();
-}
+  queryParams.value.page_num = 1;
+  await getList();
+};
 /** 多选框选中数据 */
 function handleSelectionChange(selection) {
   ids.value = selection.map((item) => item.post_id);
@@ -299,14 +295,13 @@ function handleAdd() {
   title.value = '添加岗位';
 }
 /** 修改按钮操作 */
-function handleUpdate(row) {
+async function handleUpdate(row) {
   reset();
   const post_id = row.post_id || ids.value[0];
-  getPost({ post_id }).then((response) => {
-    form.value = response;
-    open.value = true;
-    title.value = '修改岗位';
-  });
+  const response = getPost({ post_id });
+  form.value = response;
+  open.value = true;
+  title.value = '修改岗位';
 }
 /** 提交按钮 */
 function submitForm() {
