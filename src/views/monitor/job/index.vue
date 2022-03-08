@@ -226,7 +226,8 @@
         class-name="small-padding fixed-width"
       >
         <template #default="scope">
-          <el-tooltip v-if="scope.row.status == '0'" content="修改" placement="top">
+        <!-- v-if="scope.row.status == '0'" -->
+          <el-tooltip  content="修改" placement="top">
             <el-button
                 type="text"
                 icon="Edit"
@@ -387,7 +388,8 @@
               <el-input-number
                 v-model="form.task_id"
                 controls-position="right"
-                :min="0"
+                 :min="0"
+                :max="max_task_id"
                 :disabled="form.status == '1'"
               />
             </el-form-item>
@@ -565,6 +567,7 @@ const openCron = ref(false);
 const expression = ref('');
 const fresh_enabled = ref(false);
 const max_task_count = ref(9999);
+const max_task_id = ref(99999);
 const timer = ref(null);
 
 onActivated(() => {

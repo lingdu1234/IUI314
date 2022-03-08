@@ -112,7 +112,7 @@
             </template>
          </el-table-column>
          <el-table-column label="操作人员" align="center" prop="oper_name" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" width="100" />
-         <el-table-column label="主机" align="center" prop="operIp" width="130" :show-overflow-tooltip="true" />
+         <el-table-column label="地址" align="center" prop="oper_location" width="130" :show-overflow-tooltip="true" />
          <el-table-column label="操作状态" align="center" prop="status">
             <template #default="scope">
                <dict-tag :options="sys_common_status" :value="scope.row.status" />

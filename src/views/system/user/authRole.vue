@@ -23,11 +23,11 @@
       @row-click="clickRow"
       ref="roleRef"
       @selection-change="handleSelectionChange"
-      :data="roles.slice((pageNum - 1) * pageSize, pageNum * pageSize)"
+      :data="roles.slice((page_num - 1) * page_size, page_num * page_size)"
     >
       <el-table-column label="序号" type="index" align="center">
         <template #default="scope">
-          <span>{{ (pageNum - 1) * pageSize + scope.$index + 1 }}</span>
+          <span>{{ (page_num - 1) * page_size + scope.$index + 1 }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -59,8 +59,8 @@
     <pagination
       v-show="total > 0"
       :total="total"
-      v-model:page="pageNum"
-      v-model:limit="pageSize"
+      v-model:page="page_num"
+      v-model:limit="page_size"
     />
 
       <el-form label-width="100px">
@@ -81,8 +81,8 @@ const { proxy } = getCurrentInstance();
 
 const loading = ref(true);
 const total = ref(0);
-const pageNum = ref(1);
-const pageSize = ref(10);
+const page_num = ref(1);
+const page_size = ref(10);
 const roleIds = ref([]);
 const roles = ref([]);
 const form = ref({

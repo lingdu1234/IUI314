@@ -79,7 +79,7 @@
       <el-table-column type="selection" align="center" width="55"></el-table-column>
       <el-table-column label="序号" type="index" width="50" align="center">
         <template #default="scope">
-          <span>{{(queryParams.pageNum - 1) * queryParams.pageSize + scope.$index + 1}}</span>
+          <span>{{(queryParams.page_num - 1) * queryParams.page_size + scope.$index + 1}}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -150,8 +150,8 @@
     <pagination
       v-show="total>0"
       :total="total"
-      v-model:page="queryParams.pageNum"
-      v-model:limit="queryParams.pageSize"
+      v-model:page="queryParams.page_num"
+      v-model:limit="queryParams.page_size"
       @pagination="getList"
     />
     <!-- 预览界面 -->
@@ -192,8 +192,8 @@ const uniqueId = ref("");
 
 const data = reactive({
   queryParams: {
-    pageNum: 1,
-    pageSize: 10,
+    page_num: 1,
+    page_size: 10,
     tableName: undefined,
     tableComment: undefined
   },
@@ -211,7 +211,7 @@ onActivated(() => {
   const time = route.query.t;
   if (time != null && time != uniqueId.value) {
     uniqueId.value = time;
-    queryParams.value.pageNum = Number(route.query.pageNum);
+    queryParams.value.page_num = Number(route.query.page_num);
     dateRange.value = [];
     proxy.resetForm("queryForm");
     getList();
@@ -229,7 +229,7 @@ function getList() {
 }
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
+  queryParams.value.page_num = 1;
   getList();
 }
 /** 生成代码操作 */
@@ -284,7 +284,7 @@ function handleSelectionChange(selection) {
 /** 修改按钮操作 */
 function handleEditTable(row) {
   const tableId = row.tableId || ids.value[0];
-  router.push({ path: "/tool/gen-edit/index/" + tableId, query: { pageNum: queryParams.value.pageNum } });
+  router.push({ path: "/tool/gen-edit/index/" + tableId, query: { page_num: queryParams.value.page_num } });
 }
 /** 删除按钮操作 */
 function handleDelete(row) {

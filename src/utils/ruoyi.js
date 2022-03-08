@@ -204,6 +204,64 @@ export function handleTree(data, id, parentId, children) {
 }
 
 /**
+ * 构造树型结构数据
+ * @param {*} data 数据源
+ * @param {*} id id字段 默认 'id'
+ * @param {*} parentId 父节点字段 默认 'parentId'
+ * @param {*} children 孩子节点字段 默认 'children'
+ */
+export function handleTreeLazy(data, id, parentId, children) {
+ const  sid = id || 'id';
+ const pid =  parentId || 'parentId';
+ const childrenList = children || 'children';
+  // 1.先是制作字典能够获得每一行的信息
+  const newArr = []
+  const map = []
+  data.forEach(item => {
+    // 为了方便给每一项都添加上children
+    // 对象是直接.就可以添加属性的
+    item[childrenList] = []
+    const key = item[sid]
+    map[key] = item
+  });
+
+  // 2.遍历每一项,然后有父级的添加到父级的children中,没有父级的直接添加到新的数组中
+  data.forEach(item => {
+    const parent = map[item[pid]]
+    if (parent) {
+      parent[childrenList].push(item)
+    } else {
+      newArr.push(item)
+    }
+  })
+  const mainTree = []
+  const mapTree = {}
+  
+  data.forEach(item => {
+    if (map[item[sid]][childrenList].length === 0) {
+      delete map[item[sid]][childrenList]
+    }else{
+      map[item[sid]]["hasChildren"] = true
+    }
+    const parent = map[item[pid]]
+    if (!parent) {
+      let it = JSON.parse(JSON.stringify(item))
+      delete it[childrenList]
+      mainTree.push(it)
+    }else{
+      const parent = mapTree[item[pid]]
+      if (parent) {
+        parent.push(item)
+      }else{
+        mapTree[item[pid]] = [item]
+      }
+      
+    } 
+  })
+  return {mainTree,mapTree}
+}
+
+/**
 * 参数处理
 * @param {*} params  参数
 */

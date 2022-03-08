@@ -176,7 +176,7 @@ function getFormPromise(form) {
   });
 }
 function close() {
-  const obj = { path: "/tool/gen", query: { t: Date.now(), pageNum: route.query.pageNum } };
+  const obj = { path: "/tool/gen", query: { t: Date.now(), page_num: route.query.page_num } };
   proxy.$tab.closeOpenPage(obj);
 }
 

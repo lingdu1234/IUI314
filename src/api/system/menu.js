@@ -8,6 +8,15 @@ export function listMenu(query) {
     params: query
   })
 }
+
+export function listMenuTree(query) {
+  return request({
+    url: '/system/menu/get_menu_tree',
+    method: 'get',
+    params: query
+  })
+}
+
 export function listAuthMenu(query) {
   return request({
     url: '/system/menu/get_auth_list',
@@ -28,7 +37,7 @@ export function getMenu(query) {
 // 查询菜单下拉树结构
 export function treeselect() {
   return request({
-    url: '/system/menu/get_all_menu_tree',
+    url: '/system/menu/get_all_enabled_menu_tree',
     method: 'get'
   })
 }
