@@ -71,7 +71,6 @@ const options = reactive({
   fixedBox: true, // 固定截图框大小 不允许改变
   previews: {} //预览数据
 });
-const old_url = ref("");
 /** 编辑头像 */
 function editCropper() {
   open.value = true;
@@ -112,11 +111,11 @@ function beforeUpload(file) {
 function uploadImg() {
   proxy.$refs.cropper.getCropBlob(data => {
     let formData = new FormData();
-    formData.append("avatarfile", data,old_url.value);
+   const  old_url = store.getters.avatar.replace(import.meta.env.VITE_APP_BASE_API, "");
+    formData.append("avatarfile", data,old_url);
     uploadAvatar(formData).then(response => {
       open.value = false;
       options.img = import.meta.env.VITE_APP_BASE_API + response;
-      old_url.value = response;
       // options.img = response;
       store.commit("SET_AVATAR", options.img);
       proxy.$modal.msgSuccess("修改成功");
