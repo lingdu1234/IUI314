@@ -48,11 +48,11 @@
           >新增</el-button
         >
       </el-col>
-      <!-- <el-col :span="1.5">
+      <el-col :span="1.5">
         <el-button type="info" plain icon="Sort" @click="toggleExpandAll"
           >展开/折叠</el-button
         >
-      </el-col> -->
+      </el-col>
       <right-toolbar
         v-model:showSearch="showSearch"
         @queryTable="getList"
@@ -63,8 +63,6 @@
       v-loading="loading"
       :data="menuList"
       row-key="id"
-      lazy
-      :load="load"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column
@@ -146,6 +144,15 @@
               style="color: chocolate"
               @click="handleUpdate(scope.row)"
               v-hasPermi="['system/menu/edit']"
+            />
+          </el-tooltip>
+          <el-tooltip content="复制" placement="top">
+            <el-button
+              type="text"
+              icon="copy-document"
+              style="color: violet"
+              @click="handleAddByCopy(scope.row)"
+              v-hasPermi="['system/menu/add']"
             />
           </el-tooltip>
           <el-tooltip content="新增" placement="top">
@@ -564,7 +571,7 @@ const showSearch = ref(true);
 const title = ref('');
 const menuOptions = ref([]);
 const isExpandAll = ref(false);
-// const refreshTable = ref(true);
+const refreshTable = ref(true);
 const showChooseIcon = ref(false);
 const iconSelectRef = ref(null);
 
@@ -602,12 +609,18 @@ watch(
 );
 
 /** 查询菜单列表 */
+// async function getList() {
+//   loading.value = true;
+//   const { list: data } = await listMenu(queryParams.value);
+//   const { mainTree,mapTree } = proxy.handleTreeLazy(data, 'id', 'pid');
+//   menuList.value = mainTree;
+//   menuMap.value = mapTree;
+//   loading.value = false;
+// }
 async function getList() {
   loading.value = true;
   const { list: data } = await listMenu(queryParams.value);
-  const { mainTree,mapTree } = proxy.handleTreeLazy(data, 'id', 'pid');
-  menuList.value = mainTree;
-  menuMap.value = mapTree;
+  menuList.value = proxy.handleTree(data, 'id', 'pid');
   loading.value = false;
 }
 /** 查询菜单下拉树结构 */
@@ -620,11 +633,11 @@ async function getTreeselect() {
 }
 
 // lazy load 表格菜单数据
-const load = (row, treeNode, resolve) => {
-  setTimeout(() => {
-    resolve(menuMap.value[row.id]);
-  }, 1);
-};
+// const load = (row, treeNode, resolve) => {
+//   setTimeout(() => {
+//     resolve(menuMap.value[row.id]);
+//   }, 1);
+// };
 /** 取消按钮 */
 function cancel() {
   open.value = false;
@@ -698,14 +711,22 @@ async function handleAdd(row) {
   open.value = true;
   title.value = '添加菜单';
 }
+async function handleAddByCopy(row) {
+  reset();
+  await getTreeselect();
+  form.value = row;
+  form.value.id = undefined;
+  open.value = true;
+  title.value = '添加菜单';
+}
 /** 展开/折叠操作 */
-// function toggleExpandAll() {
-//   refreshTable.value = false;
-//   isExpandAll.value = !isExpandAll.value;
-//   nextTick(() => {
-//     refreshTable.value = true;
-//   });
-// }
+function toggleExpandAll() {
+  refreshTable.value = false;
+  isExpandAll.value = !isExpandAll.value;
+  nextTick(() => {
+    refreshTable.value = true;
+  });
+}
 /** 修改按钮操作 */
 async function handleUpdate(row) {
   reset();

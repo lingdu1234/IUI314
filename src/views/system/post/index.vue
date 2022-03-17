@@ -298,7 +298,7 @@ function handleAdd() {
 async function handleUpdate(row) {
   reset();
   const post_id = row.post_id || ids.value[0];
-  const response = getPost({ post_id });
+  const response = await getPost({ post_id });
   form.value = response;
   open.value = true;
   title.value = '修改岗位';
