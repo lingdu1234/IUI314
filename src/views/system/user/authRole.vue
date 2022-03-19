@@ -112,8 +112,6 @@ function close() {
 function submitForm() {
   const user_id = form.value.id;
   const role_ids = roleIds.value;
-  console.log('user_id', user_id);
-  console.log('role_ids', role_ids);
   updateAuthRole({ user_id, role_ids }).then((response) => {
     proxy.$modal.msgSuccess('授权成功');
     close()

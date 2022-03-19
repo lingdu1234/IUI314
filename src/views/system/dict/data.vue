@@ -410,7 +410,6 @@ function handleUpdate(row) {
 /** 提交按钮 */
 function submitForm() {
   proxy.$refs['dataRef'].validate((valid) => {
-    console.log(`form.value`, form.value);
     if (valid) {
       if (form.value.dict_data_id != undefined) {
         updateData(form.value).then((response) => {
