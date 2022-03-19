@@ -197,7 +197,7 @@ async function handleDbRelation(row) {
   const res = await getApiDb({ api_id: api_id.value });
   db_checkList.value = res.map((item) => item.db);
   open_db_relation.value = true;
-  title.value = '数据库关联';
+  title.value = '数据库关联:'+ row.menu_name;
 }
 
 /** 搜索按钮操作 */
