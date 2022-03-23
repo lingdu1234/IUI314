@@ -60,9 +60,12 @@
     </el-row>
 
     <el-table
+      ref="menuTable"
       v-loading="loading"
       :data="menuList"
       row-key="id"
+      lazy
+      :load="load"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
       <el-table-column
@@ -609,20 +612,20 @@ watch(
 );
 
 /** 查询菜单列表 */
-// async function getList() {
-//   loading.value = true;
-//   const { list: data } = await listMenu(queryParams.value);
-//   const { mainTree,mapTree } = proxy.handleTreeLazy(data, 'id', 'pid');
-//   menuList.value = mainTree;
-//   menuMap.value = mapTree;
-//   loading.value = false;
-// }
 async function getList() {
   loading.value = true;
   const { list: data } = await listMenu(queryParams.value);
-  menuList.value = proxy.handleTree(data, 'id', 'pid');
+  const { mainTree, mapTree } = proxy.handleTreeLazy(data, 'id', 'pid');
+  menuList.value = mainTree;
+  menuMap.value = mapTree;
   loading.value = false;
 }
+// async function getList() {
+//   loading.value = true;
+//   const { list: data } = await listMenu(queryParams.value);
+//   menuList.value = proxy.handleTree(data, 'id', 'pid');
+//   loading.value = false;
+// }
 /** 查询菜单下拉树结构 */
 async function getTreeselect() {
   menuOptions.value = [];
@@ -633,11 +636,18 @@ async function getTreeselect() {
 }
 
 // lazy load 表格菜单数据
-// const load = (row, treeNode, resolve) => {
-//   setTimeout(() => {
-//     resolve(menuMap.value[row.id]);
-//   }, 1);
-// };
+const tree_map = new Map();
+function upchildrenDom(parentId) {
+  const { tree, treeNode, resolve } = tree_map.get(parentId); //根据pid取出对应的节
+  load(tree, treeNode, resolve);
+}
+const load = (tree, treeNode, resolve) => {
+  const pid = tree.id;
+  tree_map.set(pid, { tree, treeNode, resolve });
+  setTimeout(() => {
+    resolve(menuMap.value[tree.id]);
+  }, 1);
+};
 /** 取消按钮 */
 function cancel() {
   open.value = false;
@@ -747,16 +757,20 @@ function submitForm() {
         return;
       }
       if (form.value.id != undefined) {
-        updateMenu(form.value).then((response) => {
+        updateMenu(form.value).then(async (response) => {
           proxy.$modal.msgSuccess('修改成功');
           open.value = false;
-          getList();
+          await getList();
+          let pid = form.value.pid;
+          upchildrenDom(pid);
         });
       } else {
-        addMenu(form.value).then((response) => {
+        addMenu(form.value).then(async (response) => {
           proxy.$modal.msgSuccess('新增成功');
           open.value = false;
-          getList();
+          await getList();
+          let pid = form.value.pid;
+         upchildrenDom(pid);
         });
       }
     }
@@ -770,8 +784,10 @@ function handleDelete(row) {
     .then(function () {
       return delMenu({ id });
     })
-    .then(() => {
-      getList();
+    .then(async () => {
+      await getList();
+      let pid = form.value.pid;
+      upchildrenDom(pid);
       proxy.$modal.msgSuccess('删除成功');
     })
     .catch(() => {});
