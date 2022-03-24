@@ -578,6 +578,9 @@ const refreshTable = ref(true);
 const showChooseIcon = ref(false);
 const iconSelectRef = ref(null);
 
+const copy_add_id = ref(null);
+const edit_pid = ref(null);
+
 const data = reactive({
   form: {},
   queryParams: {
@@ -637,9 +640,12 @@ async function getTreeselect() {
 
 // lazy load 表格菜单数据
 const tree_map = new Map();
-function upchildrenDom(parentId) {
-  const { tree, treeNode, resolve } = tree_map.get(parentId); //根据pid取出对应的节
-  load(tree, treeNode, resolve);
+async function upchildrenDom(parentId) {
+  let v = tree_map.get(parentId);
+  if (v) {
+    const { tree, treeNode, resolve } = v; //根据pid取出对应的节
+    load(tree, treeNode, resolve);
+  }
 }
 const load = (tree, treeNode, resolve) => {
   const pid = tree.id;
@@ -650,6 +656,7 @@ const load = (tree, treeNode, resolve) => {
 };
 /** 取消按钮 */
 function cancel() {
+  form.value.id = copy_add_id.value;
   open.value = false;
   reset();
 }
@@ -700,6 +707,7 @@ function resetQuery() {
 }
 /** 新增按钮操作 */
 async function handleAdd(row) {
+  edit_pid.value = row.pid;
   reset();
   await getTreeselect();
   if (row != null && row.id) {
@@ -722,6 +730,8 @@ async function handleAdd(row) {
   title.value = '添加菜单';
 }
 async function handleAddByCopy(row) {
+  copy_add_id.value = row.id;
+  edit_pid.value = row.pid;
   reset();
   await getTreeselect();
   form.value = row;
@@ -739,6 +749,7 @@ function toggleExpandAll() {
 }
 /** 修改按钮操作 */
 async function handleUpdate(row) {
+  edit_pid.value = row.pid;
   reset();
   await getTreeselect();
   const query_params = { id: row.id };
@@ -761,19 +772,22 @@ function submitForm() {
           proxy.$modal.msgSuccess('修改成功');
           open.value = false;
           await getList();
-          let pid = form.value.pid;
-          upchildrenDom(pid);
+          upchildrenDom(form.value.pid);
+          upchildrenDom(edit_pid.value);
+          edit_pid.value = undefined;
         });
       } else {
         addMenu(form.value).then(async (response) => {
           proxy.$modal.msgSuccess('新增成功');
           open.value = false;
           await getList();
-          let pid = form.value.pid;
-         upchildrenDom(pid);
+          upchildrenDom(form.value.pid);
+          upchildrenDom(edit_pid.value);
+          edit_pid.value = undefined;
         });
       }
     }
+    copy_add_id.value = undefined;
   });
 }
 /** 删除按钮操作 */
@@ -786,8 +800,7 @@ function handleDelete(row) {
     })
     .then(async () => {
       await getList();
-      let pid = form.value.pid;
-      upchildrenDom(pid);
+      await upchildrenDom(form.value.pid);
       proxy.$modal.msgSuccess('删除成功');
     })
     .catch(() => {});
