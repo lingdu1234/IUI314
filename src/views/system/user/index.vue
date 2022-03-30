@@ -279,6 +279,36 @@
     <!-- 添加或修改用户配置对话框 -->
     <el-dialog :title="title" v-model="open" width="600px" append-to-body>
       <el-form :model="form" :rules="rules" ref="userRef" label-width="80px">
+              <el-row>
+          <el-col :span="12">
+            <el-form-item
+              v-if="form.id == undefined"
+              label="用户名称"
+              prop="user_name"
+            >
+              <el-input
+                v-model="form.user_name"
+                placeholder="请输入用户名称"
+                maxlength="30"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              v-if="form.id == undefined"
+              label="用户密码"
+              prop="user_password"
+            >
+              <el-input
+                v-model="form.user_password"
+                placeholder="请输入用户密码"
+                type="password"
+                maxlength="32"
+                show-password
+              />
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row>
           <el-col :span="12">
             <el-form-item label="用户昵称" prop="user_nickname">
@@ -326,37 +356,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item
-              v-if="form.id == undefined"
-              label="用户名称"
-              prop="user_name"
-            >
-              <el-input
-                v-model="form.user_name"
-                placeholder="请输入用户名称"
-                maxlength="30"
-              />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item
-              v-if="form.id == undefined"
-              label="用户密码"
-              prop="user_password"
-            >
-              <el-input
-                v-model="form.user_password"
-                placeholder="请输入用户密码"
-                type="password"
-                maxlength="32"
-                show-password
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="用户性别">
+            <el-form-item label="用户性别" prop="sex">
               <el-select v-model="form.sex" placeholder="请选择">
                 <el-option
                   v-for="dict in sys_user_sex"
@@ -382,7 +382,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="岗位">
+            <el-form-item label="岗位" prop="post_ids">
               <el-select v-model="form.post_ids" multiple placeholder="请选择">
                 <el-option
                   v-for="item in postOptions"
@@ -397,7 +397,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="角色">
+            <el-form-item label="角色" prop="role_ids">
               <el-select v-model="form.role_ids" multiple placeholder="请选择">
                 <el-option
                   v-for="item in roleOptions"
@@ -410,7 +410,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="激活角色">
+            <el-form-item label="激活角色" prop="role_id">
               <el-select v-model="form.role_id" placeholder="请选择">
                 <el-option
                   v-for="item in roleOptions"
@@ -592,7 +592,35 @@ const data = reactive({
     user_email: [
       {
         type: 'email',
-        message: "'请输入正确的邮箱地址",
+        message: "请输入正确的邮箱地址",
+        trigger: ['blur', 'change'],
+      },
+    ],
+    dept_id: [
+      {
+        required: true,
+        message: "用户部门ID不能为空",
+        trigger: ['blur', 'change'],
+      },
+    ],
+    sex: [
+      {
+        required: true,
+        message: "用户性别不能为空",
+        trigger: ['blur', 'change'],
+      },
+    ],
+    role_ids: [
+      {
+        required: true,
+        message: "用户角色不能为空",
+        trigger: ['blur', 'change'],
+      },
+    ],
+    role_id: [
+      {
+        required: true,
+        message: "用户激活角色不能为空",
         trigger: ['blur', 'change'],
       },
     ],

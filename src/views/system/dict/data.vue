@@ -8,7 +8,7 @@
       label-width="68px"
     >
       <el-form-item label="字典名称" prop="dictType">
-        <el-select v-model="queryParams.dict_type"   >
+        <el-select v-model="queryParams.dict_type">
           <el-option
             v-for="item in typeOptions"
             :key="item.dict_id"
@@ -22,7 +22,6 @@
           v-model="queryParams.dict_label"
           placeholder="请输入字典标签"
           clearable
-
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -31,7 +30,6 @@
           v-model="queryParams.status"
           placeholder="数据状态"
           clearable
-
         >
           <el-option
             v-for="dict in sys_normal_disable"
@@ -42,22 +40,19 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search"   @click="handleQuery"
+        <el-button type="primary" icon="Search" @click="handleQuery"
           >搜索</el-button
         >
-        <el-button icon="Refresh"   @click="resetQuery"
-          >重置</el-button
-        >
+        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
-     <el-row :gutter="10" class="mb8" style="height: 35px;">
+    <el-row :gutter="10" class="mb8" style="height: 35px">
       <el-col :span="1.5">
         <el-button
           type="primary"
           plain
           icon="Plus"
-
           @click="handleAdd"
           v-hasPermi="['system/dict/data/add']"
           >新增</el-button
@@ -68,7 +63,6 @@
           type="success"
           plain
           icon="Edit"
-
           :disabled="single"
           @click="handleUpdate"
           v-hasPermi="['system/dict/data/edit']"
@@ -80,7 +74,6 @@
           type="danger"
           plain
           icon="Delete"
-
           :disabled="multiple"
           @click="handleDelete"
           v-hasPermi="['system/dict/data/delete']"
@@ -99,12 +92,7 @@
         >
       </el-col> -->
       <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="Close"
-
-          @click="handleClose"
+        <el-button type="warning" plain icon="Close" @click="handleClose"
           >关闭</el-button
         >
       </el-col>
@@ -172,11 +160,10 @@
         align="center"
         width="150"
         class-name="small-padding fixed-width"
-        v-hasPermi="['system/dict/data/edit','system/dict/data/delete']"
+        v-hasPermi="['system/dict/data/edit', 'system/dict/data/delete']"
       >
         <template #default="scope">
           <el-button
-
             type="text"
             icon="Edit"
             @click="handleUpdate(scope.row)"
@@ -184,7 +171,6 @@
             >修改</el-button
           >
           <el-button
-
             type="text"
             icon="Delete"
             @click="handleDelete(scope.row)"
@@ -309,13 +295,13 @@ const data = reactive({
     status: undefined,
   },
   rules: {
-    dictLabel: [
+    dict_label: [
       { required: true, message: '数据标签不能为空', trigger: 'blur' },
     ],
-    dictValue: [
+    dict_value: [
       { required: true, message: '数据键值不能为空', trigger: 'blur' },
     ],
-    dictSort: [
+    dict_sort: [
       { required: true, message: '数据顺序不能为空', trigger: 'blur' },
     ],
   },
@@ -333,10 +319,9 @@ function getTypes(dictId) {
 }
 
 /** 查询字典类型列表 */
-function getTypeList() {
-  listType().then((response) => {
-    typeOptions.value = response.list;
-  });
+async function getTypeList() {
+  const { list: data } = await listType({ page_size: Number.MAX_SAFE_INTEGER });
+  typeOptions.value = data;
 }
 /** 查询字典数据列表 */
 function getList() {
