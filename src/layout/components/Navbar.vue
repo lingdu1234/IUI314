@@ -60,8 +60,21 @@
                   >
                 </el-radio-group>
               </el-popover>
+              <el-popover placement="left-start">
+                <template #reference>
+                  <span><el-dropdown-item>部门切换</el-dropdown-item></span>
+                </template>
+                <el-radio-group v-model="dept_id" @change="roleChanged">
+                  <el-radio
+                    v-for="item in deptOptions"
+                    :label="item.dept_id"
+                    :value="item.dept_id"
+                    >{{ item.dept_name }}</el-radio
+                  >
+                </el-radio-group>
+              </el-popover>
               <router-link to="/user/profile">
-                <el-dropdown-item>个人中心</el-dropdown-item>
+                <el-dropdown-item divided>个人中心</el-dropdown-item>
               </router-link>
               <el-dropdown-item command="setLayout">
                 <span>布局设置</span>
@@ -89,6 +102,7 @@ import RuoYiGit from '@/components/RuoYi/Git';
 import RuoYiDoc from '@/components/RuoYi/Doc';
 
 import { listRole } from '@/api/system/role';
+import { listDept } from '@/api/system/dept';
 import { changeUserRole } from '@/api/system/user';
 
 const store = useStore();
@@ -97,18 +111,27 @@ const { proxy } = getCurrentInstance();
 
 const role_id = ref(null);
 const roleOptions = ref([]);
+const dept_id = ref(null);
+const deptOptions = ref([]);
 
 async function get_options() {
   let queryParams = {
     page_num: 1,
     page_size: Number.MAX_SAFE_INTEGER,
   };
-  const { list: roles } = await listRole(queryParams);
+  const [{ list: roles },{list:depts}] = await Promise.all(
+    [ listRole(queryParams), listDept(queryParams)]
+  );
   let r = roles.filter((item, index, arr) => {
     return getters.value.roles.includes(item.role_id);
   });
+  let d = depts.filter((item, index, arr) => {
+    return getters.value.depts.includes(item.dept_id);
+  });
   roleOptions.value = r;
   role_id.value = getters.value.role;
+  deptOptions.value = d;
+  dept_id.value = getters.value.dept;
 }
 
 get_options();
