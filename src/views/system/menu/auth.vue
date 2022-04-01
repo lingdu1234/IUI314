@@ -59,8 +59,18 @@
         show-overflow-tooltip
         prop="order_sort"
       />
-      <el-table-column label="菜单名称" align="center" prop="menu_name" />
-      <el-table-column label="菜单api" align="center" prop="api" />
+      <el-table-column
+        label="菜单名称"
+        align="center"
+        prop="menu_name"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        label="菜单api"
+        align="center"
+        prop="api"
+        show-overflow-tooltip
+      />
       <el-table-column label="请求方法" align="center" prop="method">
         <template #default="scope">
           <dict-tag :options="sys_api_method" :value="scope.row.method" />
@@ -75,12 +85,57 @@
           />
         </template>
       </el-table-column>
+      <el-table-column align="center" label="数据库">
+        <template #default="scope">
+          <el-popover
+            placement="top-start"
+            title="数据库"
+            trigger="hover"
+            :width="get_max_length(scope.row.dbs) * 9 + 5"
+          >
+            <template #reference>
+              <span>
+                {{
+                  scope.row.dbs.length > 1
+                    ? scope.row.dbs[0] + ' ↑ '
+                    : scope.row.dbs.length == 0
+                    ? ''
+                    : scope.row.dbs[0]
+                }}</span
+              >
+            </template>
+            <li v-for="it in scope.row.dbs" :key="it">{{ it }}</li>
+          </el-popover>
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="APIs" width="200">
+        <template #default="scope">
+          <el-popover
+            placement="top-start"
+            title="APIs"
+            trigger="hover"
+            :width="get_max_length(scope.row.apis) * 9 + 5"
+          >
+            <template #reference>
+              <span>
+                {{
+                  scope.row.apis.length > 1
+                    ? scope.row.apis[0] + ' ↑ '
+                    : scope.row.apis.length == 0
+                    ? ''
+                    : scope.row.apis[0]
+                }}</span
+              >
+            </template>
+            <li v-for="it in scope.row.apis" :key="it">{{ it }}</li>
+          </el-popover>
+        </template>
+      </el-table-column>
       <el-table-column label="状态" align="center" prop="status">
         <template #default="scope">
           <dict-tag :options="sys_normal_disable" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column
         label="创建时间"
         align="center"
@@ -177,10 +232,19 @@ const data = reactive({
     page_size: 10,
     menu_name: undefined,
     status: undefined,
+    menu_type: 'F',
   },
 });
 
 const { queryParams } = toRefs(data);
+
+function get_max_length(v) {
+  let l = 0;
+  v.forEach((element) => {
+    l = Math.max(l, element.length);
+  });
+  return l;
+}
 
 /** 查询岗位列表 */
 function getList() {
@@ -197,7 +261,7 @@ async function handleDbRelation(row) {
   const res = await getApiDb({ api_id: api_id.value });
   db_checkList.value = res.map((item) => item.db);
   open_db_relation.value = true;
-  title.value = '数据库关联:'+ row.menu_name;
+  title.value = '数据库关联:' + row.menu_name;
 }
 
 /** 搜索按钮操作 */
@@ -220,7 +284,7 @@ async function submitForm() {
   let data = {
     api_id: api_id.value,
     dbs: db_checkList.value,
-  }
+  };
   await addEditApiDb(data);
   proxy.$modal.msgSuccess('数据库关联更新成功');
   open_db_relation.value = false;

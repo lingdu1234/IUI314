@@ -9,6 +9,7 @@ export function listMenu(query) {
   })
 }
 
+
 export function listMenuTree(query) {
   return request({
     url: '/system/menu/get_menu_tree',
