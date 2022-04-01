@@ -64,12 +64,16 @@
                 <template #reference>
                   <span><el-dropdown-item>部门切换</el-dropdown-item></span>
                 </template>
-                <el-radio-group v-model="dept_id" @change="roleChanged">
+                <el-radio-group v-model="dept_id" @change="deptChanged">
                   <el-radio
                     v-for="item in deptOptions"
                     :label="item.dept_id"
                     :value="item.dept_id"
-                    >{{ item.dept_name }}</el-radio
+                    >{{
+                      (item.parent_id != '0'
+                        ? deptMapOptions[item.parent_id] + '-'
+                        : '') + item.dept_name
+                    }}</el-radio
                   >
                 </el-radio-group>
               </el-popover>
@@ -103,7 +107,7 @@ import RuoYiDoc from '@/components/RuoYi/Doc';
 
 import { listRole } from '@/api/system/role';
 import { listDept } from '@/api/system/dept';
-import { changeUserRole } from '@/api/system/user';
+import { changeUserRole, changeUserDept } from '@/api/system/user';
 
 const store = useStore();
 const getters = computed(() => store.getters);
@@ -113,24 +117,29 @@ const role_id = ref(null);
 const roleOptions = ref([]);
 const dept_id = ref(null);
 const deptOptions = ref([]);
+const deptMapOptions = ref([]);
 
 async function get_options() {
   let queryParams = {
     page_num: 1,
     page_size: Number.MAX_SAFE_INTEGER,
   };
-  const [{ list: roles },{list:depts}] = await Promise.all(
-    [ listRole(queryParams), listDept(queryParams)]
-  );
+  const [{ list: roles }, { list: depts }] = await Promise.all([
+    listRole(queryParams),
+    listDept(queryParams),
+  ]);
+  const map = {};
   let r = roles.filter((item, index, arr) => {
     return getters.value.roles.includes(item.role_id);
   });
   let d = depts.filter((item, index, arr) => {
+    map[item.dept_id] = item.dept_name;
     return getters.value.depts.includes(item.dept_id);
   });
   roleOptions.value = r;
   role_id.value = getters.value.role;
   deptOptions.value = d;
+  deptMapOptions.value = map;
   dept_id.value = getters.value.dept;
 }
 
@@ -138,16 +147,20 @@ get_options();
 
 async function roleChanged(v) {
   await changeUserRole(getters.value.uid, v);
-  proxy.$modal.msgSuccess('角色切换成功,马上重载界面')
-  
+  proxy.$modal.msgSuccess('角色切换成功,马上重载界面');
+
   setTimeout(() => {
     window.location.reload(false);
   }, 1000);
-  // store.dispatch('GetInfo').then(() => {
-  //   store
-  //     .dispatch('GenerateRoutes')
-  //     .then(proxy.$modal.msgSuccess('角色切换成功'));
-  // });
+}
+
+async function deptChanged(v) {
+  await changeUserDept(getters.value.uid, v);
+  proxy.$modal.msgSuccess('部门切换成功,马上重载界面');
+
+  setTimeout(() => {
+    window.location.reload(false);
+  }, 1000);
 }
 function toggleSideBar() {
   store.dispatch('app/toggleSideBar');

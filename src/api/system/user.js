@@ -85,6 +85,18 @@ export function changeUserRole(user_id, role_id) {
     data: data
   })
 }
+
+export function changeUserDept(user_id, dept_id) {
+  const data = {
+    user_id,
+    dept_id
+  }
+  return request({
+    url: '/system/user/change_dept',
+    method: 'put',
+    data: data
+  })
+}
 // 查询用户个人信息
 export function getUserProfile() {
   return request({
