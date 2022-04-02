@@ -48,11 +48,11 @@
           >新增</el-button
         >
       </el-col>
-      <el-col :span="1.5">
+      <!-- <el-col :span="1.5">
         <el-button type="info" plain icon="Sort" @click="toggleExpandAll"
           >展开/折叠</el-button
         >
-      </el-col>
+      </el-col> -->
       <right-toolbar
         v-model:showSearch="showSearch"
         @queryTable="getList"

@@ -104,7 +104,7 @@
 
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['monitor:job:remove']"
+          v-hasPermi="['system/job_log/delete']"
           >删除</el-button
         >
       </el-col>
@@ -115,7 +115,7 @@
           icon="Delete"
 
           @click="handleClean"
-          v-hasPermi="['monitor:job:remove']"
+          v-hasPermi="['system/job_log/clean']"
           >清空</el-button
         >
       </el-col>
@@ -126,7 +126,7 @@
           icon="Download"
 
           @click="handleExport"
-          v-hasPermi="['monitor:job:export']"
+          v-hasPermi="['system/job_log/export']"
           >导出</el-button
         >
       </el-col>

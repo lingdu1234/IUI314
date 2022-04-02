@@ -69,7 +69,6 @@
         label="菜单api"
         align="center"
         prop="api"
-        show-overflow-tooltip
       />
       <el-table-column label="请求方法" align="center" prop="method">
         <template #default="scope">

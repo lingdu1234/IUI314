@@ -62,7 +62,7 @@
           icon="Plus"
 
           @click="handleAdd"
-          v-hasPermi="['monitor:job:add']"
+          v-hasPermi="['system/job/add']"
           >新增</el-button
         >
       </el-col>
@@ -73,7 +73,7 @@
           icon="Edit"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['monitor:job:edit']"
+          v-hasPermi="['system/job/edit']"
           >修改</el-button
         >
       </el-col>
@@ -85,7 +85,7 @@
 
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['monitor:job:remove']"
+          v-hasPermi="['system/job/delete']"
           >删除</el-button
         >
       </el-col>
@@ -96,7 +96,7 @@
           icon="Download"
 
           @click="handleExport"
-          v-hasPermi="['monitor:job:export']"
+          v-hasPermi="['msystem/job/export']"
           >导出</el-button
         >
       </el-col>
@@ -107,7 +107,7 @@
           icon="Operation"
 
           @click="handleJobLog"
-          v-hasPermi="['monitor:job:query']"
+          v-hasPermi="['system/job_log/list']"
           >日志</el-button
         >
       </el-col>
@@ -139,7 +139,7 @@
         show-overflow-tooltip
       >
         <template #default="scope">
-          <el-tag type="warning" @click="handleJobLog(scope.row)"
+          <el-tag type="warning" @click="handleJobLog(scope.row)" 
             ><el-link type="warning">{{ scope.row.task_id }}</el-link></el-tag
           >
         </template>
@@ -211,14 +211,6 @@
           ></el-switch>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="状态" align="center">
-        <template #default="scope">
-          <el-icon color="green" v-if="scope.row.status == 0" :size="900"
-            ><video-play
-          /></el-icon>
-          <el-icon v-else-if="scope.row.status == 1"><video-pause /></el-icon>
-        </template>
-      </el-table-column> -->
       <el-table-column
         label="操作"
         align="center"
@@ -226,13 +218,12 @@
         class-name="small-padding fixed-width"
       >
         <template #default="scope">
-        <!-- v-if="scope.row.status == '0'" -->
           <el-tooltip  content="修改" placement="top">
             <el-button
                 type="text"
                 icon="Edit"
                 @click="handleUpdate(scope.row)"
-                v-hasPermi="['monitor:job:edit']"
+                v-hasPermi="['system/job/edit']"
             ></el-button>
           </el-tooltip>
           <el-tooltip  content="删除" placement="top">
@@ -240,7 +231,7 @@
                 type="text"
                 icon="Delete"
                 @click="handleDelete(scope.row)"
-                v-hasPermi="['monitor:job:remove']"
+                v-hasPermi="['system/job/delete']"
             ></el-button>
           </el-tooltip>
           <el-tooltip content="执行一次" placement="top">
@@ -248,7 +239,7 @@
                 type="text"
                 icon="CaretRight"
                 @click="handleRun(scope.row)"
-                v-hasPermi="['monitor:job:changeStatus']"
+                v-hasPermi="['system/job/run_task_once']"
             ></el-button>
           </el-tooltip>
           <el-tooltip content="任务详细" placement="top">
@@ -256,7 +247,7 @@
                 type="text"
                 icon="View"
                 @click="handleView(scope.row)"
-                v-hasPermi="['monitor:job:query']"
+                v-hasPermi="['system/job/get_by_id']"
             ></el-button>
           </el-tooltip>
           <el-tooltip content="调度日志" placement="top">
@@ -264,7 +255,7 @@
                 type="text"
                 icon="Operation"
                 @click="handleJobLog(scope.row)"
-                v-hasPermi="['monitor:job:query']"
+                v-hasPermi="['system/job_log/list']"
             ></el-button>
           </el-tooltip>
         </template>

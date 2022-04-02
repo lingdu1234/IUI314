@@ -46,7 +46,6 @@
           type="primary"
           plain
           icon="Plus"
-
           @click="handleAdd"
           v-hasPermi="['system/dept/add']"
           >新增</el-button
