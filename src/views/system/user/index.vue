@@ -448,6 +448,20 @@
               </el-select>
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="后台用户">
+              <el-radio-group v-model="form.is_admin">
+                <el-radio
+                  v-for="dict in is_admin"
+                  :key="dict.value"
+                  :label="dict.value"
+                  >{{ dict.label }}</el-radio
+                >
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
           <el-col :span="12">
             <el-form-item label="用户状态">
               <el-radio-group v-model="form.user_status">
@@ -547,9 +561,9 @@ import {
 
 const router = useRouter();
 const { proxy } = getCurrentInstance();
-const { sys_normal_disable, sys_user_sex } = proxy.useDict(
+const { sys_normal_disable, sys_user_sex,is_admin } = proxy.useDict(
   'sys_normal_disable',
-  'sys_user_sex'
+  'sys_user_sex','is_admin'
 );
 
 const userList = ref([]);
@@ -740,15 +754,15 @@ function handleDelete(row) {
     .catch(() => {});
 }
 /** 导出按钮操作 */
-function handleExport() {
-  proxy.download(
-    'system/user/export',
-    {
-      ...queryParams.value,
-    },
-    `user_${new Date().getTime()}.xlsx`
-  );
-}
+// function handleExport() {
+//   proxy.download(
+//     'system/user/export',
+//     {
+//       ...queryParams.value,
+//     },
+//     `user_${new Date().getTime()}.xlsx`
+//   );
+// }
 /** 用户状态修改  */
 function handleStatusChange(row) {
   let text = row.user_status === '1' ? '启用' : '停用';
@@ -849,6 +863,7 @@ function reset() {
     user_email: undefined,
     sex: undefined,
     user_status: '1',
+    is_admin: '1',
     remark: undefined,
     post_ids: [],
     role_ids: [],
