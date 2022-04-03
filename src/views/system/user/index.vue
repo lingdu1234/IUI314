@@ -128,7 +128,7 @@
               >导入</el-button
             >
           </el-col> -->
-          <el-col :span="1.5">
+          <!-- <el-col :span="1.5">
             <el-button
               type="warning"
               plain
@@ -137,7 +137,7 @@
               v-hasPermi="['system/user/export']"
               >导出</el-button
             >
-          </el-col>
+          </el-col> -->
           <right-toolbar
             v-model:showSearch="showSearch"
             @queryTable="getList"

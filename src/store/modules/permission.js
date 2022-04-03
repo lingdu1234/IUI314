@@ -32,7 +32,7 @@ const permission = {
   },
   actions: {
     // 生成路由
-    GenerateRoutes({ commit }) {
+    GenerateRoutes ({ commit }) {
       return new Promise(resolve => {
         // 向后端请求路由数据
         getRouters().then(res => {
@@ -54,19 +54,19 @@ const permission = {
 }
 
 // 遍历后台传来的路由字符串，转换为组件对象
-function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
+function filterAsyncRouter (asyncRouterMap, lastRouter = false, type = false) {
   return asyncRouterMap.filter(route => {
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
-    if(route.menu_type === 'M') {
+    if (route.menu_type === 'M') {
       if (route.pid === '0') {
         route.component = "Layout"
       } else {
         route.component = "ParentView"
       }
     }
-    
+
     if (route.component) {
       // Layout ParentView 组件特殊处理
       if (route.component == "Layout") {
@@ -77,10 +77,10 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
         route.component = InnerLink
       } else {
         route.component = loadView(route.component)
-        
+
       }
     }
-    
+
     if (route.children != null && route.children && route.children.length) {
       route.children = filterAsyncRouter(route.children, route, type)
     } else {
@@ -91,13 +91,13 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
   })
 }
 
-function filterChildren(childrenMap, lastRouter = false) {
+function filterChildren (childrenMap, lastRouter = false) {
   var children = []
   childrenMap.forEach((el, index) => {
     if (el.children && el.children.length) {
       if (el.component === 'ParentView' && !lastRouter) {
         el.children.forEach(c => {
-          c.path = c.path? el.path + '/' + c.path:c.path
+          c.path = c.path ? el.path + '/' + c.path : c.path
           if (c.children && c.children.length) {
             children = children.concat(filterChildren(c.children, c))
             return
@@ -116,7 +116,7 @@ function filterChildren(childrenMap, lastRouter = false) {
 }
 
 export const loadView = (view) => {
-  let res;
+  let res = () => import('@/views/error/404');
   for (const path in modules) {
     const dir = path.split('views/')[1].split('.vue')[0];
     if (dir === view) {
