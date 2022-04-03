@@ -76,7 +76,7 @@
           <dict-tag
             v-if="scope.row.method == 'GET'"
             :options="sys_normal_disable"
-            :value="scope.row.is_data_scope"
+            :value="scope.row.data_scope"
           />
         </template>
       </el-table-column>
