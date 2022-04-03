@@ -60,6 +60,7 @@
     </el-row>
 
     <el-table
+      v-if="show_menu_table"
       ref="menuTable"
       v-loading="loading"
       :data="menuList"
@@ -104,7 +105,7 @@
           <dict-tag
             v-if="scope.row.method == 'GET'"
             :options="sys_normal_disable"
-            :value="scope.row.is_data_scope"
+            :value="scope.row.data_scope"
           />
         </template>
       </el-table-column>
@@ -387,38 +388,59 @@
             <el-form-item>
               <template #label>
                 <span>
-                  <el-tooltip
-                    content="选择是则会被数据服务器缓存，默认GET是,非GET为否"
-                    placement="top"
-                  >
+                  <el-tooltip placement="top">
+                    <template #content>
+                      <div>
+                        日志记录方式:
+                        <br />分为三种方式:
+                        <br />不缓存:每次都从数据库获取，用于经常更新的数据
+                        <br />按访问人:用于缓存每个人访问数据都不同的数据
+                        <br />公共缓存:用于数据更新较少，不区分个人的数据
+                      </div>
+                    </template>
                     <el-icon><info-filled /></el-icon>
                   </el-tooltip>
-                  数据缓存
+                  缓存方式
                 </span>
               </template>
-              <el-radio-group v-model="form.is_db_cache">
-                <el-radio label="1">缓存</el-radio>
-                <el-radio label="0">不缓存</el-radio>
-              </el-radio-group>
+              <el-select
+                v-model="form.data_cache_method"
+                placeholder="请求方法"
+              >
+                <el-option
+                  v-for="dict in api_cache_method"
+                  :key="dict.value"
+                  :label="dict.label"
+                  :value="dict.value"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12" v-if="form.menu_type == 'F'">
             <el-form-item>
               <template #label>
                 <span>
-                  <el-tooltip
-                    content="选择是进行日志记录，默认为是"
-                    placement="top"
-                  >
+                  <el-tooltip placement="top">
+                    <template #content>
+                      <div>
+                        日志记录方式:
+                        <br />分为四种方式: <br />不记录 <br />文件记录
+                        <br />数据库记录 <br />文件+数据库记录
+                      </div>
+                    </template>
                     <el-icon><info-filled /></el-icon>
                   </el-tooltip>
                   日志记录
                 </span>
               </template>
-              <el-radio-group v-model="form.is_log">
-                <el-radio label="1">记录</el-radio>
-                <el-radio label="0">不记录</el-radio>
-              </el-radio-group>
+              <el-select v-model="form.log_method" placeholder="请求方法">
+                <el-option
+                  v-for="dict in api_log_method"
+                  :key="dict.value"
+                  :label="dict.label"
+                  :value="dict.value"
+                />
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12" v-if="form.menu_type == 'C'">
@@ -476,7 +498,7 @@
                   数据权限
                 </span>
               </template>
-              <el-radio-group v-model="form.is_data_scope">
+              <el-radio-group v-model="form.data_scope">
                 <el-radio label="0">关闭</el-radio>
                 <el-radio label="1">开启</el-radio>
               </el-radio-group>
@@ -550,6 +572,7 @@
 </template>
 
 <script setup name="Menu">
+import { nextTick } from 'vue';
 import {
   addMenu,
   delMenu,
@@ -561,10 +584,18 @@ import SvgIcon from '@/components/SvgIcon';
 import IconSelect from '@/components/IconSelect';
 
 const { proxy } = getCurrentInstance();
-const { sys_show_hide, sys_normal_disable, sys_api_method } = proxy.useDict(
+const {
+  sys_show_hide,
+  sys_normal_disable,
+  sys_api_method,
+  api_cache_method,
+  api_log_method,
+} = proxy.useDict(
   'sys_show_hide',
   'sys_normal_disable',
-  'sys_api_method'
+  'sys_api_method',
+  'api_cache_method',
+  'api_log_method'
 );
 const menuList = ref([]);
 const menuMap = ref({});
@@ -573,10 +604,11 @@ const loading = ref(true);
 const showSearch = ref(true);
 const title = ref('');
 const menuOptions = ref([]);
-const isExpandAll = ref(false);
-const refreshTable = ref(true);
+// const isExpandAll = ref(false);
 const showChooseIcon = ref(false);
 const iconSelectRef = ref(null);
+
+const show_menu_table = ref(true);
 
 const copy_add_id = ref(null);
 const edit_pid = ref(null);
@@ -607,9 +639,9 @@ const { queryParams, form, rules } = toRefs(data);
 watch(
   () => form.value.method,
   (newV, _) => {
-    if (newV != 'GET') {
-      form.value.is_data_scope = '0';
-      form.value.is_db_scope = '0';
+    if (newV !== 'GET') {
+      form.value.data_scope = '0';
+      form.value.data_cache_method = '0';
     }
   }
 );
@@ -645,14 +677,26 @@ async function upchildrenDom(parentId) {
   if (v) {
     const { tree, treeNode, resolve } = v; //根据pid取出对应的节
     load(tree, treeNode, resolve);
+  } else {
+    show_menu_table.value = false;
+    nextTick(() => {
+      show_menu_table.value = true;
+    });
   }
 }
 const load = (tree, treeNode, resolve) => {
   const pid = tree.id;
   tree_map.set(pid, { tree, treeNode, resolve });
-  setTimeout(() => {
-    resolve(menuMap.value[tree.id]);
-  }, 1);
+  if (menuMap.value[tree.id]) {
+    setTimeout(() => {
+      resolve(menuMap.value[tree.id]);
+    }, 1);
+  } else {
+    show_menu_table.value = false;
+    nextTick(() => {
+      show_menu_table.value = true;
+    });
+  }
 };
 /** 取消按钮 */
 function cancel() {
@@ -669,12 +713,12 @@ function reset() {
     icon: undefined,
     menu_type: 'M',
     order_sort: undefined,
-    is_data_scope: '0',
+    data_scope: '0',
     is_frame: '0',
     method: undefined,
     is_cache: '1',
-    is_log: '1',
-    is_db_cache: '1',
+    log_method: '3',
+    data_cache_method: '1',
     visible: '1',
     status: '1',
     remark: '',
@@ -740,13 +784,13 @@ async function handleAddByCopy(row) {
   title.value = '添加菜单';
 }
 /** 展开/折叠操作 */
-function toggleExpandAll() {
-  refreshTable.value = false;
-  isExpandAll.value = !isExpandAll.value;
-  nextTick(() => {
-    refreshTable.value = true;
-  });
-}
+// function toggleExpandAll() {
+//   show_menu_table.value = false;
+//   isExpandAll.value = !isExpandAll.value;
+//   nextTick(() => {
+//     show_menu_table.value = true;
+//   });
+// }
 /** 修改按钮操作 */
 async function handleUpdate(row) {
   edit_pid.value = row.pid;
@@ -772,8 +816,8 @@ function submitForm() {
           proxy.$modal.msgSuccess('修改成功');
           open.value = false;
           await getList();
-          upchildrenDom(form.value.pid);
-          upchildrenDom(edit_pid.value);
+          await upchildrenDom(form.value.pid);
+          await upchildrenDom(edit_pid.value);
           edit_pid.value = undefined;
         });
       } else {
@@ -781,8 +825,8 @@ function submitForm() {
           proxy.$modal.msgSuccess('新增成功');
           open.value = false;
           await getList();
-          upchildrenDom(form.value.pid);
-          upchildrenDom(edit_pid.value);
+          await upchildrenDom(form.value.pid);
+          await upchildrenDom(edit_pid.value);
           edit_pid.value = undefined;
         });
       }

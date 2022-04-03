@@ -77,3 +77,11 @@ export function delMenu(data) {
     data
   })
 }
+
+export function updateLogAndCacheMethod(data) {
+  return request({
+    url: '/system/menu/update_log_cache_method',
+    method: 'put',
+    data
+  })
+}
