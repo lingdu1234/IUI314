@@ -1,8 +1,8 @@
 {
-  "name": "ruoyi",
-  "version": "3.8.1",
-  "description": "若依管理系统",
-  "author": "若依",
+  "name": "LingDu",
+  "version": "0.0.1",
+  "description": "LingDu管理系统",
+  "author": "LingDu",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
@@ -13,18 +13,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/y_project/RuoYi-Vue.git"
+    "url": "https://github.com/lingdu1234/poem_admin"
   },
   "dependencies": {
     "@element-plus/icons-vue": "0.2.7",
+    "@vueuse/core": "^8.2.4",
     "axios": "0.26.0",
     "blueimp-md5": "^2.19.0",
     "echarts": "5.3.0",
-    "element-plus": "2.0.2",
+    "element-plus": "2.1.8",
     "file-saver": "2.0.5",
     "fuse.js": "6.5.3",
     "js-cookie": "3.0.1",
     "jsencrypt": "3.2.1",
+    "md-editor-v3": "^1.11.5",
     "nprogress": "0.2.0",
     "vue": "3.2.31",
     "vue-cropper": "1.0.2",

@@ -4,7 +4,7 @@ specifiers:
   '@element-plus/icons-vue': 0.2.7
   '@vitejs/plugin-vue': 2.2.2
   '@vue/compiler-sfc': 3.2.31
-  '@vueuse/core': ^8.2.0
+  '@vueuse/core': ^8.2.4
   axios: 0.26.0
   blueimp-md5: ^2.19.0
   echarts: 5.3.0
@@ -13,6 +13,7 @@ specifiers:
   fuse.js: 6.5.3
   js-cookie: 3.0.1
   jsencrypt: 3.2.1
+  md-editor-v3: ^1.11.5
   nprogress: 0.2.0
   sass: 1.49.8
   unplugin-auto-import: 0.6.1
@@ -27,7 +28,7 @@ specifiers:
 
 dependencies:
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/0.2.7_vue@3.2.31
-  '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.2.0_vue@3.2.31
+  '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.2.4_vue@3.2.31
   axios: registry.npmmirror.com/axios/0.26.0
   blueimp-md5: registry.npmmirror.com/blueimp-md5/2.19.0
   echarts: registry.npmmirror.com/echarts/5.3.0
@@ -36,6 +37,7 @@ dependencies:
   fuse.js: registry.npmmirror.com/fuse.js/6.5.3
   js-cookie: registry.npmmirror.com/js-cookie/3.0.1
   jsencrypt: registry.npmmirror.com/jsencrypt/3.2.1
+  md-editor-v3: registry.npmmirror.com/md-editor-v3/1.11.5
   nprogress: registry.npmmirror.com/nprogress/0.2.0
   vue: registry.npmmirror.com/vue/3.2.31
   vue-cropper: registry.npmmirror.com/vue-cropper/1.0.2
@@ -46,7 +48,7 @@ devDependencies:
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/2.2.2_vite@2.8.4+vue@3.2.31
   '@vue/compiler-sfc': registry.npmmirror.com/@vue/compiler-sfc/3.2.31
   sass: registry.npmmirror.com/sass/1.49.8
-  unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.6.1_@vueuse+core@8.2.0+vite@2.8.4
+  unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.6.1_@vueuse+core@8.2.4+vite@2.8.4
   vite: registry.npmmirror.com/vite/2.8.4_sass@1.49.8
   vite-plugin-compression: registry.npmmirror.com/vite-plugin-compression/0.5.1_vite@2.8.4
   vite-plugin-svg-icons: registry.npmmirror.com/vite-plugin-svg-icons/1.0.5_vite@2.8.4
@@ -328,11 +330,11 @@ packages:
       vue-demi: registry.npmmirror.com/vue-demi/0.12.4_vue@3.2.31
     dev: false
 
-  registry.npmmirror.com/@vueuse/core/8.2.0_vue@3.2.31:
-    resolution: {integrity: sha512-89ZfKtFHz5ynfpWyFVXtK0yePJ2MZqFaOxnGeZn7cIp8KFbPRlu6Wsxi3gBkJNpjq+q9qbEh6MjV7QBvqCQ5Og==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/-/core-8.2.0.tgz}
-    id: registry.npmmirror.com/@vueuse/core/8.2.0
+  registry.npmmirror.com/@vueuse/core/8.2.4_vue@3.2.31:
+    resolution: {integrity: sha512-K8DbVLErlHMnEOqy67BrRbDmWCd4Z9X0a1dL6fQdhABLXBydy69Tm7uF5ZUotAqib9sskItYFsAnLhvGSue6bg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/-/core-8.2.4.tgz}
+    id: registry.npmmirror.com/@vueuse/core/8.2.4
     name: '@vueuse/core'
-    version: 8.2.0
+    version: 8.2.4
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
@@ -342,16 +344,16 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@vueuse/metadata': registry.npmmirror.com/@vueuse/metadata/8.2.0
-      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared/8.2.0_vue@3.2.31
+      '@vueuse/metadata': registry.npmmirror.com/@vueuse/metadata/8.2.4
+      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared/8.2.4_vue@3.2.31
       vue: registry.npmmirror.com/vue/3.2.31
       vue-demi: registry.npmmirror.com/vue-demi/0.12.4_vue@3.2.31
     dev: false
 
-  registry.npmmirror.com/@vueuse/metadata/8.2.0:
-    resolution: {integrity: sha512-cbaezEccNuxQC+OiudG9VjZNg9/RbAAHkyuhC6+8Gsgsc+MvDhfn1NrV6NNTaldLlZgJFgUiYOkrf3JGTTTGXQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-8.2.0.tgz}
+  registry.npmmirror.com/@vueuse/metadata/8.2.4:
+    resolution: {integrity: sha512-mn4FLULZAHd6r6vo5hLz+99xzwlVDP9qeVtZGV2Ik40m0zETe2okUr3O1Yoz6FReUoc7KAPrf0/GFpWEXVDAnQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-8.2.4.tgz}
     name: '@vueuse/metadata'
-    version: 8.2.0
+    version: 8.2.4
     dev: false
 
   registry.npmmirror.com/@vueuse/shared/7.7.1_vue@3.2.31:
@@ -372,11 +374,11 @@ packages:
       vue-demi: registry.npmmirror.com/vue-demi/0.12.4_vue@3.2.31
     dev: false
 
-  registry.npmmirror.com/@vueuse/shared/8.2.0_vue@3.2.31:
-    resolution: {integrity: sha512-dTw7EJZgZCgG9DoVAiz4LtmKnIFXuE/idUFzvqRAJLjbPiVJc+qQH5kDUdKHI3W1U9t//1mdasQEKONArburiQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/-/shared-8.2.0.tgz}
-    id: registry.npmmirror.com/@vueuse/shared/8.2.0
+  registry.npmmirror.com/@vueuse/shared/8.2.4_vue@3.2.31:
+    resolution: {integrity: sha512-sLkuZMEumsmEDYie3m6/nrk7SrLGlyUgtVn/0EJZ8Chaj1YfSmBQuLxNE0ruQ/6VZlqkx44jEZxcgbU7qPyAiw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/-/shared-8.2.4.tgz}
+    id: registry.npmmirror.com/@vueuse/shared/8.2.4
     name: '@vueuse/shared'
-    version: 8.2.0
+    version: 8.2.4
     peerDependencies:
       '@vue/composition-api': ^1.1.0
       vue: ^2.6.0 || ^3.2.0
@@ -1759,6 +1761,13 @@ packages:
       object-visit: registry.npmmirror.com/object-visit/1.0.1
     dev: true
 
+  registry.npmmirror.com/md-editor-v3/1.11.5:
+    resolution: {integrity: sha512-YJ+RY1bBq/0ebkQU0xlQJS+7nmnuF88PjM84d4RFAO36L2ajNmmxUkGmAC4XkLXj1LopoFth+ySJE3C/eWFupw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/md-editor-v3/-/md-editor-v3-1.11.5.tgz}
+    name: md-editor-v3
+    version: 1.11.5
+    engines: {node: '>=12.0.0'}
+    dev: false
+
   registry.npmmirror.com/mdn-data/2.0.14:
     resolution: {integrity: sha1-cRP8QoGRfWPOKbQ0RvcB5owlulA=, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mdn-data/download/mdn-data-2.0.14.tgz}
     name: mdn-data
@@ -2367,7 +2376,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  registry.npmmirror.com/unplugin-auto-import/0.6.1_@vueuse+core@8.2.0+vite@2.8.4:
+  registry.npmmirror.com/unplugin-auto-import/0.6.1_@vueuse+core@8.2.4+vite@2.8.4:
     resolution: {integrity: sha512-rSukyyROmSkqL9tjkA88oLhpG4tXYkk2rTpqGaYKjXRNktHEKf03pit8bamPt95KPVfMLjT0+TPKi6ju0toOIw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-auto-import/-/unplugin-auto-import-0.6.1.tgz}
     id: registry.npmmirror.com/unplugin-auto-import/0.6.1
     name: unplugin-auto-import
@@ -2381,7 +2390,7 @@ packages:
     dependencies:
       '@antfu/utils': registry.npmmirror.com/@antfu/utils/0.5.0
       '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/4.2.0
-      '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.2.0_vue@3.2.31
+      '@vueuse/core': registry.npmmirror.com/@vueuse/core/8.2.4_vue@3.2.31
       local-pkg: registry.npmmirror.com/local-pkg/0.4.1
       magic-string: registry.npmmirror.com/magic-string/0.25.9
       resolve: registry.npmmirror.com/resolve/1.22.0
