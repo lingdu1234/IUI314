@@ -390,6 +390,7 @@ async function submitForm() {
   ]);
   proxy.$modal.msgSuccess('数据关联更新成功');
   open_db_relation.value = false;
+  getList();
 }
 
 getList();
