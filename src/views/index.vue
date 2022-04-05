@@ -59,6 +59,7 @@
                 <el-radio :label="false">正序</el-radio>
               </el-radio-group>
               <el-button
+              v-hasPermi="['system/update_log/add']"
                 style="float: right; padding: 3px 0"
                 type="text"
                 @click="addUpdateLog"
@@ -87,6 +88,7 @@
                       >{{ activity.updated_at }}</span
                     >
                     <el-button
+                    v-hasPermi="['system/update_log/add']"
                       class="button"
                       type="text"
                       @click="editUpdateLog(activity)"
