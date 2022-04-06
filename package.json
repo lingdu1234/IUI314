@@ -16,7 +16,7 @@
     "url": "https://github.com/lingdu1234/poem_admin"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "0.2.7",
+    "@element-plus/icons-vue": "^1.1.4",
     "@vueuse/core": "^8.2.4",
     "axios": "0.26.0",
     "blueimp-md5": "^2.19.0",
@@ -34,13 +34,14 @@
     "vuex": "4.0.2"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "2.2.2",
-    "@vue/compiler-sfc": "3.2.31",
-    "sass": "1.49.8",
-    "unplugin-auto-import": "0.6.1",
-    "vite": "2.8.4",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "fast-glob": "^3.2.11",
+    "sass": "^1.49.11",
+    "unplugin-auto-import": "0.6.9",
+    "vite": "^2.9.1",
+    "vite-plugin-cdn-import": "^0.3.5",
     "vite-plugin-compression": "0.5.1",
-    "vite-plugin-svg-icons": "1.0.5",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "0.4.0"
   }
 }
