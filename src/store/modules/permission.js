@@ -12,7 +12,6 @@ const permission = {
     routes: [],
     addRoutes: [],
     defaultRoutes: [],
-    topbarRouters: [],
     sidebarRouters: []
   },
   mutations: {
@@ -22,9 +21,6 @@ const permission = {
     },
     SET_DEFAULT_ROUTES: (state, routes) => {
       state.defaultRoutes = constantRoutes.concat(routes)
-    },
-    SET_TOPBAR_ROUTES: (state, routes) => {
-      state.topbarRouters = routes
     },
     SET_SIDEBAR_ROUTERS: (state, routes) => {
       state.sidebarRouters = routes
@@ -45,7 +41,6 @@ const permission = {
           commit('SET_ROUTES', rewriteRoutes)
           commit('SET_SIDEBAR_ROUTERS', constantRoutes.concat(sidebarRoutes))
           commit('SET_DEFAULT_ROUTES', defaultRoutes)
-          commit('SET_TOPBAR_ROUTES', sidebarRoutes)
           resolve(rewriteRoutes)
         })
       })

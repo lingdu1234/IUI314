@@ -48,7 +48,7 @@ const router = useRouter();
 // 主题颜色
 const theme = computed(() => store.state.settings.theme);
 // 所有的路由信息
-const routers = computed(() => store.state.permission.topbarRouters);
+const routers = computed(() => store.state.permission.defaultRoutes);
 
 // 顶部显示菜单
 const topMenus = computed(() => {
@@ -95,17 +95,18 @@ const activeMenu = computed(() => {
     const tmpPath = path.substring(1, path.length);
     activePath = "/" + tmpPath.substring(0, tmpPath.indexOf("/"));
     store.dispatch('app/toggleSideBarHide', false);
-  } else if ("/index" == path || "" == path) {
-    if (!isFrist.value) {
-      isFrist.value = true;
-    } else {
-      activePath = "index";
-    }
-    store.dispatch('app/toggleSideBarHide', true);
-  } else if(!route.children) {
-    activePath = path;
-    store.dispatch('app/toggleSideBarHide', true);
-  }
+  } 
+  // else if ("/index" == path || "" == path) {
+  //   if (!isFrist.value) {
+  //     isFrist.value = true;
+  //   } else {
+  //     activePath = "index";
+  //   }
+  //   store.dispatch('app/toggleSideBarHide', true);
+  // } else if(!route.children) {
+  //   activePath = path;
+  //   store.dispatch('app/toggleSideBarHide', true);
+  // }
   activeRoutes(activePath);
   return activePath;
 })

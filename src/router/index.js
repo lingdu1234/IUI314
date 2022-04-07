@@ -57,14 +57,21 @@ export const constantRoutes = [
   {
     path: '',
     component: Layout,
-    redirect: '/index',
+    redirect: 'noredirect',
+    meta: { title: '首页', icon: 'dashboard'},
     children: [
       {
         path: '/index',
         component: () => import('@/views/index'),
         name: 'Index',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
-      }
+        meta: { title: '首页', icon: 'dashboard'}
+      },
+      {
+        path: '/about',
+        component: () => import('@/views/index'),
+        name: 'About',
+        meta: { title: '关于', icon: 'dashboard'}
+      },
     ]
   },
   {
