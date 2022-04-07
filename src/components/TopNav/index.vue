@@ -156,7 +156,7 @@ onBeforeUnmount(() => {
 })
 
 onMounted(() => {
-  setVisibleNumber()
+  setVisibleNumber();
 })
 </script>
 

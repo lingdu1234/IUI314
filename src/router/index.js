@@ -57,7 +57,7 @@ export const constantRoutes = [
   {
     path: '',
     component: Layout,
-    redirect: 'noredirect',
+    redirect: 'Index',
     meta: { title: '首页', icon: 'dashboard'},
     children: [
       {
