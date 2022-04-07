@@ -172,6 +172,8 @@
 </template>
 
 <script setup name="Gen">
+import { getCurrentInstance,ref,toRefs,onActivated,reactive } from 'vue';
+import { useRoute } from 'vue-router';
 import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/tool/gen";
 import router from "@/router";
 import importTable from "./importTable";

@@ -14,6 +14,8 @@
 </template>
 
 <script setup>
+import { computed,ref } from 'vue';
+import { useStore } from 'vuex';
 import variables from '@/assets/styles/variables.module.scss'
 import logo from '@/assets/logo/logo.png'
 

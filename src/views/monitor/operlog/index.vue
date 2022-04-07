@@ -201,6 +201,8 @@
 </template>
 
 <script setup name="Operlog">
+import { getCurrentInstance,ref,toRefs ,reactive} from 'vue';
+
 import { listOperLog, delOperlog, cleanOperlog } from "@/api/monitor/operlog";
 
 const { proxy } = getCurrentInstance();

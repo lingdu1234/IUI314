@@ -73,6 +73,7 @@
 </template>
 
 <script setup name="AuthRole">
+import { nextTick,ref } from 'process';
 import { getUser, updateAuthRole } from '@/api/system/user';
 import { listRole } from '@/api/system/role';
 

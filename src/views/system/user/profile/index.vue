@@ -63,6 +63,7 @@
 </template>
 
 <script setup name="Profile">
+import { ref,reactive } from 'vue';
 import userAvatar from "./userAvatar";
 import userInfo from "./userInfo";
 import resetPwd from "./resetPwd";

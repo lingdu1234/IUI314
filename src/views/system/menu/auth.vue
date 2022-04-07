@@ -288,6 +288,7 @@
 </template>
 
 <script setup name="auth_list">
+import { getCurrentInstance,ref,toRefs,reactive } from 'vue';
 import { listAuthMenu, updateLogAndCacheMethod } from '@/api/system/menu';
 import { addEditApiDb, getApiDb } from '@/api/system/api_db';
 

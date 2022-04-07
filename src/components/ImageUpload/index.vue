@@ -47,7 +47,7 @@
 
 <script setup>
 import { getToken } from "@/utils/auth";
-
+import { computed,getCurrentInstance,ref,watch } from 'vue';
 const props = defineProps({
   modelValue: [String, Object, Array],
   // 图片数量限制

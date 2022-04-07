@@ -65,9 +65,12 @@
 </template>
 
 <script setup>
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
 import { encrypt, decrypt } from "@/utils/jsencrypt";
+import { getCurrentInstance,ref} from "vue";
 
 const store = useStore();
 const router = useRouter();

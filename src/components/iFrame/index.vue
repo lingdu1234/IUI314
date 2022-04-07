@@ -9,6 +9,7 @@
 </template>
 
 <script setup>
+import { computed,defineProps,ref,onMounted } from 'vue';
 const props = defineProps({
   src: {
     type: String,

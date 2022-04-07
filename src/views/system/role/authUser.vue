@@ -151,6 +151,8 @@
 </template>
 
 <script setup name="AuthUser">
+import { ref,reactive,getCurrentInstance } from 'vue';
+import { useRoute } from 'vue-router';
 import selectUser from './selectUser';
 import {
   allocatedUserList,

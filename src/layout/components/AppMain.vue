@@ -11,6 +11,9 @@
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 let store = useStore()
 const route = useRoute()
 store.dispatch('tagsView/addCachedView', route)

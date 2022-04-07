@@ -515,7 +515,8 @@
 </template>
 
 <script setup name="Job">
-import { onActivated, onDeactivated } from 'vue';
+import { getCurrentInstance,ref,toRefs,onActivated,onDeactivated ,reactive} from 'vue';
+import { useRouter } from 'vue-router';
 import {
   listJob,
   getJob,

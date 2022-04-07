@@ -373,6 +373,8 @@
 </template>
 
 <script setup name="serverMonitor">
+import { getCurrentInstance,ref } from "vue";
+
 import { getServer } from '@/api/monitor/server';
 const { proxy } = getCurrentInstance();
 

@@ -20,6 +20,7 @@
 </template>
 
 <script setup>
+import { ref,defineExpose } from 'vue';
 import icons from './requireIcons'
 
 const iconName = ref('');

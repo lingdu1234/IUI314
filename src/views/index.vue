@@ -97,10 +97,10 @@
                   </div>
                 </template>
                 <div>
-                  <Editor
+                  <MdEditorV3
                     v-model="activity.content"
                     :previewOnly="true"
-                  ></Editor>
+                  ></MdEditorV3>
                 </div>
               </el-card>
             </el-timeline-item>
@@ -122,7 +122,7 @@
           <el-input v-model="form.app_version" placeholder="web版本号" />
         </el-form-item>
         <el-form-item label="日志" prop="content">
-          <Editor v-model="form.content"></Editor>
+          <MdEditorV3 v-model="form.content"></MdEditorV3>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -136,12 +136,13 @@
 </template>
 
 <script setup name="Index">
+import { getCurrentInstance,ref,watch,toRefs,reactive } from 'vue';
 import {
   getAllUpdateInfo,
   addUpdateInfo,
   updateUpdateInfo,
 } from '@/api/system/updateLog';
-import Editor from 'md-editor-v3';
+import MdEditorV3 from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 
 const { proxy } = getCurrentInstance();

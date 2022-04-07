@@ -42,6 +42,9 @@
 </template>
 
 <script setup>
+import { computed,getCurrentInstance,ref,watch,onMounted,nextTick } from 'vue';
+import { useRoute,useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import ScrollPane from './ScrollPane'
 import { getNormalPath } from '@/utils/ruoyi'
 

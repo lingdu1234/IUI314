@@ -5,6 +5,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 const url = ref('https://github.com/lingdu1234/poem_admin');
 
 function goto() {

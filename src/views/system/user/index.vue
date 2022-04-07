@@ -544,7 +544,8 @@
 </template>
 
 <script setup name="User">
-// import { getToken } from '@/utils/auth';
+import { getCurrentInstance,ref,watch,toRefs,reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import { treeselect, listDept } from '@/api/system/dept';
 import { listPost } from '@/api/system/post';
 import { listRole } from '@/api/system/role';

@@ -203,6 +203,7 @@
 </template>
 
 <script setup name="Post">
+import { getCurrentInstance,ref,toRefs,reactive } from 'vue';
 import {
   listPost,
   addPost,

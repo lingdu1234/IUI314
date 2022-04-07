@@ -101,6 +101,7 @@
 </template>
 
 <script setup name="SelectUser">
+import { getCurrentInstance,ref,reactive } from 'vue';
 import { authUserSelectAll, unallocatedUserList } from '@/api/system/role';
 
 const props = defineProps({

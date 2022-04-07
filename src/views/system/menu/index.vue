@@ -572,7 +572,7 @@
 </template>
 
 <script setup name="Menu">
-import { nextTick } from 'vue';
+import { getCurrentInstance,ref,watch,toRefs,nextTick ,reactive} from 'vue';
 import {
   addMenu,
   delMenu,

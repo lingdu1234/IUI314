@@ -250,6 +250,9 @@
 </template>
 
 <script setup name="Data">
+import { getCurrentInstance,ref,toRefs ,reactive} from 'vue';
+import { useRoute } from 'vue-router';
+
 import { listType, getType } from '@/api/system/dict/type';
 import {
   listData,

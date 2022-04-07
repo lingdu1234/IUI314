@@ -10,6 +10,8 @@
 </template>
 
 <script setup>
+import { computed,getCurrentInstance,ref,onMounted,onBeforeUnmount } from 'vue';
+import { useStore } from 'vuex';
 const tagAndTagSpacing = ref(4);
 const { proxy } = getCurrentInstance();
 

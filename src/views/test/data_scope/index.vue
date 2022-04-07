@@ -58,7 +58,7 @@
           >新增</el-button
         >
       </el-col>
-      <el-col :span="1.5">
+      <!-- <el-col :span="1.5">
         <el-button
           type="success"
           plain
@@ -67,7 +67,7 @@
           @click="handleUpdate"
           >修改</el-button
         >
-      </el-col>
+      </el-col> -->
       <el-col :span="1.5">
         <el-button
           type="danger"
@@ -125,12 +125,13 @@
 </template>
 
 <script setup name="DataScope">
+import { getCurrentInstance,ref,toRefs,reactive } from 'vue';
+import { useStore } from 'vuex';
 import {
   listData,
   addData,
   delData,
 } from '@/api/test/data_scope';
-import { useStore } from 'vuex';
 
 const { proxy } = getCurrentInstance();
 const store = useStore()

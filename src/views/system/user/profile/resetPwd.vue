@@ -32,8 +32,9 @@
 </template>
 
 <script setup>
-import { updateUserPwd } from '@/api/system/user';
+import { getCurrentInstance,ref,reactive } from 'vue';
 import { useStore } from 'vuex';
+import { updateUserPwd } from '@/api/system/user';
 
 const { proxy } = getCurrentInstance();
 const store = useStore();

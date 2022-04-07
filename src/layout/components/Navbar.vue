@@ -95,6 +95,8 @@
 </template>
 
 <script setup>
+import { computed,getCurrentInstance,ref } from 'vue';
+import { useStore } from 'vuex';
 import { ElMessageBox } from 'element-plus';
 import Breadcrumb from '@/components/Breadcrumb';
 import TopNav from '@/components/TopNav';
@@ -103,7 +105,6 @@ import Screenfull from '@/components/Screenfull';
 import SizeSelect from '@/components/SizeSelect';
 import HeaderSearch from '@/components/HeaderSearch';
 import RuoYiGit from '@/components/RuoYi/Git';
-import RuoYiDoc from '@/components/RuoYi/Doc';
 
 import { listRole } from '@/api/system/role';
 import { listDept } from '@/api/system/dept';

@@ -220,6 +220,7 @@
 </template>
 
 <script setup name="Dept">
+import { getCurrentInstance,ref,toRefs,reactive,nextTick } from 'vue';
 import {
   listDept,
   getDept,

@@ -16,7 +16,9 @@
 </template>
 
 <script setup>
-import { ElMessage } from 'element-plus'
+import { useStore } from 'vuex';
+import { useRouter,useRoute } from 'vue-router';
+import { computed,getCurrentInstance,ref,nextTick } from 'vue';
 
 const store = useStore();
 const size = computed(() => store.getters.size);

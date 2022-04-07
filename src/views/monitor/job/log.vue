@@ -332,7 +332,8 @@
 </template>
 
 <script setup name="JobLog">
-import { onActivated, onDeactivated } from 'vue';
+import { getCurrentInstance,ref,toRefs,onActivated, onDeactivated,reactive } from 'vue';
+import { useRoute } from 'vue-router';
 import { getJob, listJob } from '@/api/monitor/job';
 import { listJobLog, delJobLog, cleanJobLog } from '@/api/monitor/jobLog';
 

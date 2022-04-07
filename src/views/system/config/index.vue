@@ -175,6 +175,8 @@
 </template>
 
 <script setup name="Config">
+import { getCurrentInstance,ref,toRefs ,reactive} from 'vue';
+
 import { listConfig, getConfig, delConfig, addConfig, updateConfig, refreshCache } from "@/api/system/config";
 
 const { proxy } = getCurrentInstance();
