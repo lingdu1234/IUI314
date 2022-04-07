@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { computed,defineProps,ref,onMounted } from 'vue';
+import { computed,ref,onMounted } from 'vue';
 const props = defineProps({
   src: {
     type: String,

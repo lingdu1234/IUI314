@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-import { computed,defineProps } from 'vue';
+import { computed } from 'vue';
 
 import { scrollTo } from '@/utils/scroll-to'
 
