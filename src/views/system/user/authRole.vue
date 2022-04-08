@@ -73,7 +73,7 @@
 </template>
 
 <script setup name="AuthRole">
-import { nextTick,ref } from 'process';
+import { getCurrentInstance,ref,nextTick } from 'vue';
 import { getUser, updateAuthRole } from '@/api/system/user';
 import { listRole } from '@/api/system/role';
 

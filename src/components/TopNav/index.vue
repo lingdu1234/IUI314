@@ -28,6 +28,9 @@
 </template>
 
 <script setup>
+import { computed,ref,onMounted,onBeforeUnmount} from 'vue';
+import { useRoute,useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 import { constantRoutes } from "@/router"
 import { isHttp } from '@/utils/validate'
 
@@ -36,7 +39,8 @@ const visibleNumber = ref(null);
 // 当前激活菜单的 index
 const currentIndex = ref(null);
 // 隐藏侧边栏路由
-const hideList = ['/index', '/user/profile'];
+// const hideList = ['/index', '/user/profile'];
+const hideList = [];
 
 const store = useStore();
 const route = useRoute();
@@ -45,7 +49,7 @@ const router = useRouter();
 // 主题颜色
 const theme = computed(() => store.state.settings.theme);
 // 所有的路由信息
-const routers = computed(() => store.state.permission.defaultRoutes);
+const routers = computed(() => store.state.permission.topbarRouters);
 
 // 顶部显示菜单
 const topMenus = computed(() => {
