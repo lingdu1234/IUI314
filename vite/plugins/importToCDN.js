@@ -28,6 +28,11 @@ export default function createImportToCDN() {
                 css: 'dist/index.css',
             },
             {
+                name: '@element-plus/icons-vue',
+                var: 'ElementPlusIconsVue',
+                path: `dist/index.iife.min.js`,
+            },
+            {
                 name: 'md-editor-v3',
                 var: 'MdEditorV3',
                 path: `lib/md-editor-v3.umd.js`,
