@@ -24,13 +24,14 @@
 </template>
 
 <script setup>
+import { getCurrentInstance,ref } from "vue";
 import { updateUserProfile } from "@/api/system/user";
 
-const props = defineProps({
-  user: {
-    type: Object
-  }
-});
+// const props = defineProps({
+//   user: {
+//     type: Object
+//   }
+// });
 
 const { proxy } = getCurrentInstance();
 
