@@ -16,38 +16,25 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex';
+import useAppStore from "@/store/modules/app";
 import { useRouter,useRoute } from 'vue-router';
 import { computed,getCurrentInstance,ref,nextTick } from 'vue';
-
-const store = useStore();
-const size = computed(() => store.getters.size);
+const appStore = useAppStore();
+const size = computed(() => appStore.size);
 const route = useRoute();
 const router = useRouter();
-const {proxy} = getCurrentInstance();
+const { proxy } = getCurrentInstance();
 const sizeOptions = ref([
-  { label: '较大', value: 'large' },
-  { label: '默认', value: 'default' },
-  { label: '稍小', value: 'small' },
-])
+  { label: "较大", value: "large" },
+  { label: "默认", value: "default" },
+  { label: "稍小", value: "small" },
+]);
 
-function refreshView() {
-  // In order to make the cached page re-rendered
-  store.dispatch('tagsView/delAllCachedViews', route)
-
-  const { fullPath } = route
-
-  nextTick(() => {
-    router.replace({
-      path: '/redirect' + fullPath
-    })
-  })
-}
 function handleSetSize(size) {
   proxy.$modal.loading("正在设置布局大小，请稍候...");
-  store.dispatch('app/setSize', size)
-  setTimeout("window.location.reload()", 1000)
-};
+  appStore.setSize(size);
+  setTimeout("window.location.reload()", 1000);
+}
 </script>
 
 <style lang='scss' scoped>

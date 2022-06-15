@@ -1,7 +1,7 @@
 <template>
   <section class="app-main">
     <router-view v-slot="{ Component, route }">
-      <transition name="el-zoom-in-left" mode="out-in">
+      <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cachedViews">
           <component :is="Component" :key="route.path"/>
         </keep-alive>
@@ -11,14 +11,14 @@
 </template>
 
 <script setup>
+import useTagsViewStore from '@/store/modules/tagsview'
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useStore } from 'vuex';
-let store = useStore()
+const tagsViewStore = useTagsViewStore()
 const route = useRoute()
-store.dispatch('tagsView/addCachedView', route)
+tagsViewStore.addCachedView(route)
 const cachedViews = computed(() => {
-    return store.state.tagsView.cachedViews
+    return tagsViewStore.cachedViews
 })
 </script>
 

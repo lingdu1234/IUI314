@@ -1,11 +1,11 @@
 import axios from 'axios'
-import { ElNotification, ElMessageBox, ElMessage, ElLoading } from 'element-plus'
-import store from '@/store'
-import { getToken, getTokenExp, getTokenExpStatus, removeTokenExpStatus } from '@/utils/auth'
+import { ElNotification , ElMessageBox, ElMessage, ElLoading } from 'element-plus'
+import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
 import { tansParams, blobValidate } from '@/utils/ruoyi'
 import cache from '@/plugins/cache'
 import { saveAs } from 'file-saver'
+import useUserStore from '@/store/modules/user'
 
 let downloadLoadingInstance;
 // 是否显示重新登录
@@ -26,13 +26,11 @@ service.interceptors.request.use(config => {
   const isToken = (config.headers || {}).isToken === false
   // 是否需要防止数据重复提交
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
-  //  如果token即将过期，则刷新token
   if (getToken() && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
-    // config.params['_t'] = new Date().getTime()
     let url = config.url + '?' + tansParams(config.params);
     url = url.slice(0, -1);
     config.params = {};
@@ -73,8 +71,8 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
-  console.log(error)
-  Promise.reject(error)
+    console.log(error)
+    Promise.reject(error)
 })
 
 // 响应拦截器
@@ -149,7 +147,7 @@ function re_login () {
     }
     ).then(() => {
       isRelogin.show = false
-      store.dispatch('FedLogOut').then(() => {
+      useUserStore().logOut().then(() => {
         location.href = '';
       })
     }).catch(() => {
