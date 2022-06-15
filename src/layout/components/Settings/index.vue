@@ -80,7 +80,6 @@
 
 <script setup>
 import { computed,getCurrentInstance,ref } from 'vue';
-import { useStore } from 'vuex';
 import { useDynamicTitle } from '@/utils/dynamicTitle'
 import useAppStore from '@/store/modules/app'
 import useSettingsStore from '@/store/modules/settings'

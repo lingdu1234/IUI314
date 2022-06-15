@@ -126,7 +126,6 @@
 
 <script setup name="DataScope">
 import { getCurrentInstance,ref,toRefs,reactive } from 'vue';
-import { useStore } from 'vuex';
 import {
   listData,
   addData,

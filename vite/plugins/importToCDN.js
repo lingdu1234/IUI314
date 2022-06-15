@@ -11,11 +11,11 @@ export default function createImportToCDN() {
                 var: 'VueDemi',
                 path: "lib/index.iife.min.js",
             },
-            {
-                name: 'vuex',
-                var: 'Vuex',
-                path: "dist/vuex.global.min.js",
-            },
+            // {
+            //     name: 'vuex',
+            //     var: 'Vuex',
+            //     path: "dist/vuex.global.min.js",
+            // },
             {
                 name: 'vue-router',
                 var: 'VueRouter',

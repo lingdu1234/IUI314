@@ -33,7 +33,6 @@
 
 <script setup>
 import { getCurrentInstance,ref,reactive } from 'vue';
-import { useStore } from 'vuex';
 import { updateUserPwd } from '@/api/system/user';
 
 const { proxy } = getCurrentInstance();

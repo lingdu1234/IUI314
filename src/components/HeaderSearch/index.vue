@@ -18,7 +18,6 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 import { computed,ref,watch,watchEffect,nextTick,onMounted, } from 'vue';
 import Fuse from 'fuse.js'

@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie'
-
+import {defineStore} from "pinia/dist/pinia";
 
 const useAppStore = defineStore(
   'app',

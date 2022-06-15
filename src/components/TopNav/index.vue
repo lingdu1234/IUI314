@@ -30,7 +30,6 @@
 <script setup>
 import { computed,ref,onMounted,onBeforeUnmount} from 'vue';
 import { useRoute,useRouter } from 'vue-router';
-import { useStore } from 'vuex';
 import { constantRoutes } from "@/router"
 import { isHttp } from '@/utils/validate'
 import useAppStore from '@/store/modules/app'

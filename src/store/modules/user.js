@@ -2,6 +2,7 @@ import { login, logout, getInfo } from '@/api/login'
 import { freshToken} from '@/api/system/user'
 import { getToken, setToken, removeToken,setTokenExp,removeTokenExp,setTokenExpStatus } from '@/utils/auth'
 import defAva from '@/assets/images/profile.jpg'
+import {defineStore} from "pinia/dist/pinia";
 
 const useUserStore = defineStore(
   'user',
@@ -94,7 +95,7 @@ const useUserStore = defineStore(
             reject(error)
           })
         })
-      }
+      },
       // 前端 登出
       FedLogOut({ commit }) {
         return new Promise(resolve => {
