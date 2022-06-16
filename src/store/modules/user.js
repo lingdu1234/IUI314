@@ -97,7 +97,7 @@ const useUserStore = defineStore(
         })
       },
       // 前端 登出
-      FedLogOut({ commit }) {
+      FedLogOut() {
         return new Promise(resolve => {
           this.token = ''
           removeToken()

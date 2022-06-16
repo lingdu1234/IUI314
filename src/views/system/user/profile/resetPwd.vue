@@ -69,7 +69,7 @@ function submit() {
           '修改成功,请重新登录，1秒钟后将自动退出并转入登录界面'
         );
         setTimeout(() => {
-          userStore().logOut().then(() => {
+          userStore.logOut().then(() => {
             location.href = '';
           });
         }, 1000);

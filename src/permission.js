@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
             ElMessage.error(err)
             next({ path: '/' })
           }).catch(err=>{
-            store.dispatch('FedLogOut').then(
+            useUserStore().FedLogOut().then(
               next({ path: '/' })
             )
           })
