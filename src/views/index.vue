@@ -11,6 +11,7 @@
               </div>
             </template>
             <el-col style="padding-left: 10px">
+              <h4><b>请无随意修改配置选项</b></h4>
             <h3><b>简介</b></h3>
               <p>
                 以 若依Vue3 作为前端基础开发的，后端以poem为框架进行开发；

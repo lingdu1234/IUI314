@@ -63,7 +63,7 @@ const useUserStore = defineStore(
             if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
               this.roles = res.roles
               this.role = res.user.role_id
-              this.depts = res.user.depts
+              this.depts = res.depts
               this.dept = res.user.dept_id
               this.uid = res.user.id
               this.permissions = res.permissions

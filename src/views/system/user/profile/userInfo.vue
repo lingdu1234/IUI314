@@ -27,11 +27,11 @@
 import { getCurrentInstance,ref } from "vue";
 import { updateUserProfile } from "@/api/system/user";
 
-// const props = defineProps({
-//   user: {
-//     type: Object
-//   }
-// });
+const props = defineProps({
+  user: {
+    type: Object
+  }
+});
 
 const { proxy } = getCurrentInstance();
 
@@ -46,11 +46,11 @@ function submit() {
   proxy.$refs.userRef.validate(valid => {
     if (valid) {
       const user = {
-        id: proxy.user.id,
-        user_nickname: proxy.user.user_nickname,
-        user_email: proxy.user.user_email,
-        phone_num: proxy.user.phone_num,
-        sex:proxy.user.sex,
+        id: props.user.id,
+        user_nickname: props.user.user_nickname,
+        user_email: props.user.user_email,
+        phone_num: props.user.phone_num,
+        sex:props.user.sex,
       }
       updateUserProfile(user).then(response => {
         proxy.$modal.msgSuccess("修改成功");

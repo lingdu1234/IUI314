@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ElNotification , ElMessageBox, ElMessage, ElLoading } from 'element-plus'
-import { getToken } from '@/utils/auth'
+import { getToken,getTokenExp,getTokenExpStatus  } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
 import { tansParams, blobValidate } from '@/utils/ruoyi'
 import cache from '@/plugins/cache'
@@ -66,7 +66,7 @@ service.interceptors.request.use(config => {
   if (t_exp && getTokenExpStatus() && exp > 0 && exp < 500) {
     removeTokenExpStatus()
     // 刷新token
-    store.dispatch('FreshToken')
+    useUserStore().FreshToken()
       .then(() => { })
   }
   return config

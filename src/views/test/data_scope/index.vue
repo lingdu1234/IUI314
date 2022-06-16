@@ -131,9 +131,10 @@ import {
   addData,
   delData,
 } from '@/api/test/data_scope';
+import useUserStore from '@/store/modules/user'
 
 const { proxy } = getCurrentInstance();
-const store = useStore()
+const userStore = useUserStore()
 
 const dataList = ref([]);
 const open = ref(false);
@@ -152,7 +153,7 @@ const data = reactive({
     page_size: 10,
     data_a: undefined,
     data_b: undefined,
-    __r__:store.getters.role
+    __r__:userStore.role
   },
   rules: {
     data_a: [
