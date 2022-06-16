@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-	"build:prod": "vite build",
+    "build:prod": "vite build",
+    "build:vercel": "vite build --mode vercel",
     "build:stage": "vite build --mode staging",
     "preview": "vite preview"
   },
