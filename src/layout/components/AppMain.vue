@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import useTagsViewStore from '@/store/modules/tagsview'
+import useTagsViewStore from '@/store/modules/tagsView'
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 const tagsViewStore = useTagsViewStore()
