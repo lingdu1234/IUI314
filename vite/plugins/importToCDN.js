@@ -2,14 +2,16 @@ import importToCDN, { autoComplete } from 'vite-plugin-cdn-import'
 
 export default function createImportToCDN() {
     return importToCDN({
+        prodUrl:"//unpkg.com/{name}@{version}/{path}",
         modules: [
             autoComplete('vue'),
             autoComplete('axios'),
             autoComplete('file-saver'),
+            // autoComplete('xlsx'),
             {
                 name: 'vue-demi',
                 var: 'VueDemi',
-                path: "lib/index.iife.min.js",
+                path: "lib/index.iife.js",
             },
             // {
             //     name: 'vuex',
@@ -19,7 +21,7 @@ export default function createImportToCDN() {
             {
                 name: 'vue-router',
                 var: 'VueRouter',
-                path: "dist/vue-router.global.min.js",
+                path: "dist/vue-router.global.js",
             },
             {
                 name: 'element-plus',
@@ -32,6 +34,11 @@ export default function createImportToCDN() {
                 var: 'ElementPlusIconsVue',
                 path: `dist/index.iife.min.js`,
             },
+            // {
+            //     name: '@antv/g2plot',
+            //     var: 'G2Plot',
+            //     path: `dist/g2plot.min.js`,
+            // },
             {
                 name: 'md-editor-v3',
                 var: 'MdEditorV3',
@@ -43,6 +50,11 @@ export default function createImportToCDN() {
                 var: 'echarts',
                 path: `dist/echarts.min.js`,
             },
+            // {
+            //     name: 'vue-echarts',
+            //     var: 'VueECharts',
+            //     path: `dist/index.umd.min.js`,
+            // },
         ],
     })
 }
