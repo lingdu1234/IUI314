@@ -740,12 +740,12 @@ function resetQuery() {
 }
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const user_id = row.id ? [row.id] : ids.value;
+  const user_ids = row.id ? [row.id] : ids.value;
   const user_name = row.id ? row.user_name : user_names.value;
   proxy.$modal
     .confirm('是否确认删除用户为"' + user_name + '"的数据项？')
     .then(function () {
-      return delUser({ user_id });
+      return delUser({ user_ids });
     })
     .then(() => {
       getList();
