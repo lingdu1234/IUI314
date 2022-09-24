@@ -18,14 +18,15 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-import { computed,ref,watch,watchEffect,nextTick,onMounted, } from 'vue';
-import Fuse from 'fuse.js'
-import { getNormalPath } from '@/utils/ruoyi'
-import { isHttp } from '@/utils/validate'
-import usePermissionStore from '@/store/modules/permission'
+import Fuse from "fuse.js"
+import { computed,nextTick,onMounted,ref,watch,watchEffect, } from "vue";
+import { useRouter } from "vue-router";
 
-const search = ref('');
+import usePermissionStore from "@/store/modules/permission"
+import { getNormalPath } from "@/utils/ruoyi"
+import { isHttp } from "@/utils/validate"
+
+const search = ref("");
 const options = ref([]);
 const searchPool = ref([]);
 const show = ref(false);
@@ -39,7 +40,7 @@ function click() {
   if (show.value) {
     headerSearchSelectRef.value && headerSearchSelectRef.value.focus()
   }
-};
+}
 function close() {
   headerSearchSelectRef.value && headerSearchSelectRef.value.blur()
   options.value = []
@@ -55,7 +56,7 @@ function change(val) {
     router.push(path)
   }
 
-  search.value = ''
+  search.value = ""
   options.value = []
   nextTick(() => {
     show.value = false
@@ -70,23 +71,23 @@ function initFuse(list) {
     maxPatternLength: 32,
     minMatchCharLength: 1,
     keys: [{
-      name: 'title',
+      name: "title",
       weight: 0.7
     }, {
-      name: 'path',
+      name: "path",
       weight: 0.3
     }]
   })
 }
 // Filter out the routes that can be displayed in the sidebar
 // And generate the internationalized title
-function generateRoutes(routes, basePath = '', prefixTitle = []) {
+function generateRoutes(routes, basePath = "", prefixTitle = []) {
   let res = []
 
   for (const r of routes) {
     // skip hidden router
     if (r.hidden) { continue }
-    const p = r.path.length > 0 && r.path[0] === '/' ? r.path : '/' + r.path;
+    const p = r.path.length > 0 && r.path[0] === "/" ? r.path : "/" + r.path;
     const data = {
       path: !isHttp(r.path) ? getNormalPath(basePath + p) : r.path,
       title: [...prefixTitle]
@@ -95,7 +96,7 @@ function generateRoutes(routes, basePath = '', prefixTitle = []) {
     if (r.meta && r.meta.title) {
       data.title = [...data.title, r.meta.title]
 
-      if (r.redirect !== 'noRedirect') {
+      if (r.redirect !== "noRedirect") {
         // only push the routes with title
         // special case: need to exclude parent router without redirect
         res.push(data)
@@ -113,7 +114,7 @@ function generateRoutes(routes, basePath = '', prefixTitle = []) {
   return res
 }
 function querySearch(query) {
-  if (query !== '') {
+  if (query !== "") {
     options.value = fuse.value.search(query)
   } else {
     options.value = []
@@ -130,9 +131,9 @@ watchEffect(() => {
 
 watch(show, (value) => {
   if (value) {
-    document.body.addEventListener('click', close)
+    document.body.addEventListener("click", close)
   } else {
-    document.body.removeEventListener('click', close)
+    document.body.removeEventListener("click", close)
   }
 })
 

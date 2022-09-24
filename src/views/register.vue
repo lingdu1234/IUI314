@@ -1,7 +1,9 @@
 <template>
   <div class="register">
     <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
-      <h3 class="title">LingDu后台管理系统</h3>
+      <h3 class="title">
+        LingDu后台管理系统
+      </h3>
       <el-form-item prop="username">
         <el-input 
           v-model="registerForm.username" 
@@ -10,7 +12,9 @@
           auto-complete="off" 
           placeholder="账号"
         >
-          <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="user" class="el-input__icon input-icon" />
+          </template>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
@@ -22,7 +26,9 @@
           placeholder="密码"
           @keyup.enter="handleRegister"
         >
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="password" class="el-input__icon input-icon" />
+          </template>
         </el-input>
       </el-form-item>
       <el-form-item prop="confirmPassword">
@@ -34,22 +40,26 @@
           placeholder="确认密码"
           @keyup.enter="handleRegister"
         >
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="password" class="el-input__icon input-icon" />
+          </template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="code" v-if="captchaOnOff">
+      <el-form-item v-if="captchaOnOff" prop="code">
         <el-input
-          size="large" 
-          v-model="registerForm.code"
+          v-model="registerForm.code" 
+          size="large"
           auto-complete="off"
           placeholder="验证码"
           style="width: 63%"
           @keyup.enter="handleRegister"
         >
-          <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="validCode" class="el-input__icon input-icon" />
+          </template>
         </el-input>
         <div class="register-code">
-          <img :src="codeUrl" @click="getCode" class="register-code-img"/>
+          <img :src="codeUrl" class="register-code-img" @click="getCode">
         </div>
       </el-form-item>
       <el-form-item style="width:100%;">
@@ -64,7 +74,9 @@
           <span v-else>注 册 中...</span>
         </el-button>
         <div style="float: right;">
-          <router-link class="link-type" :to="'/login'">使用已有账户登录</router-link>
+          <router-link class="link-type" :to="'/login'">
+            使用已有账户登录
+          </router-link>
         </div>
       </el-form-item>
     </el-form>
@@ -77,6 +89,7 @@
 
 <script setup>
 import { ElMessageBox } from "element-plus";
+
 import { getCodeImg, register } from "@/api/login";
 
 const router = useRouter();
@@ -90,7 +103,7 @@ const registerForm = ref({
   uuid: ""
 });
 
-const equalToPassword = (rule, value, callback) => {
+const equalToPassword = (_rule, value, callback) => {
   if (registerForm.value.password !== value) {
     callback(new Error("两次输入的密码不一致"));
   } else {
@@ -122,7 +135,7 @@ function handleRegister() {
   proxy.$refs.registerRef.validate(valid => {
     if (valid) {
       loading.value = true;
-      register(registerForm.value).then(res => {
+      register(registerForm.value).then(_res => {
         const username = registerForm.value.username;
         ElMessageBox.alert("<font color='red'>恭喜你，您的账号 " + username + " 注册成功！</font>", "系统提示", {
           dangerouslyUseHTMLString: true,

@@ -1,9 +1,9 @@
 <template>
   <div :class="{ 'hidden': hidden }" class="pagination-container">
     <el-pagination
-      :background="background"
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
+      :background="background"
       :layout="layout"
       :page-sizes="pageSizes"
       :pager-count="pagerCount"
@@ -15,9 +15,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed } from "vue";
 
-import { scrollTo } from '@/utils/scroll-to'
+import { scrollTo } from "@/utils/scroll-to"
 
 const props = defineProps({
   total: {
@@ -45,7 +45,7 @@ const props = defineProps({
   },
   layout: {
     type: String,
-    default: 'total, sizes, prev, pager, next, jumper'
+    default: "total, sizes, prev, pager, next, jumper"
   },
   background: {
     type: Boolean,
@@ -61,13 +61,13 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits();
+const emit = defineEmits(["update:limit", "pagination", "update:page"]);
 const currentPage = computed({
   get() {
     return props.page
   },
   set(val) {
-    emit('update:page', val)
+    emit("update:page", val)
   }
 })
 const pageSize = computed({
@@ -75,20 +75,20 @@ const pageSize = computed({
     return props.limit
   },
   set(val){
-    emit('update:limit', val)
+    emit("update:limit", val)
   }
 })
 function handleSizeChange(val) {
   if (currentPage.value * val > props.total) {
     currentPage.value = 1
   }
-  emit('pagination', { page: currentPage.value, limit: val })
+  emit("pagination", { page: currentPage.value, limit: val })
   if (props.autoScroll) {
     scrollTo(0, 800)
   }
 }
 function handleCurrentChange(val) {
-  emit('pagination', { page: val, limit: pageSize.value })
+  emit("pagination", { page: val, limit: pageSize.value })
   if (props.autoScroll) {
     scrollTo(0, 800)
   }
@@ -96,12 +96,18 @@ function handleCurrentChange(val) {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .pagination-container {
   background: #fff;
   padding: 32px 16px;
 }
 .pagination-container.hidden {
   display: none;
+}
+html.dark {
+
+.pagination-container {
+  background: rgb(22, 19, 19)
+}
 }
 </style>

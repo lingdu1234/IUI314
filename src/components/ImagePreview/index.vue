@@ -15,7 +15,8 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed } from "vue";
+
 import { isExternal } from "@/utils/validate";
 
 const props = defineProps({

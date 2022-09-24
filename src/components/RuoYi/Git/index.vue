@@ -5,8 +5,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-const url = ref('https://github.com/lingdu1234/poem_admin');
+import { ref } from "vue";
+const url = ref("https://github.com/lingdu1234/poem_admin");
 
 function goto() {
   window.open(url.value)

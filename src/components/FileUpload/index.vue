@@ -1,6 +1,7 @@
 <template>
   <div class="upload-file">
     <el-upload
+      ref="upload"
       multiple
       :action="uploadFileUrl"
       :before-upload="handleBeforeUpload"
@@ -12,26 +13,33 @@
       :show-file-list="false"
       :headers="headers"
       class="upload-file-uploader"
-      ref="upload"
     >
       <!-- 上传按钮 -->
-      <el-button type="primary">选取文件</el-button>
+      <el-button type="primary">
+        选取文件
+      </el-button>
     </el-upload>
     <!-- 上传提示 -->
-    <div class="el-upload__tip" v-if="showTip">
+    <div v-if="showTip" class="el-upload__tip">
       请上传
-      <template v-if="fileSize"> 大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b> </template>
-      <template v-if="fileType"> 格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b> </template>
+      <template v-if="fileSize">
+        大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b>
+      </template>
+      <template v-if="fileType">
+        格式为 <b style="color: #f56c6c">{{ fileType.join("/") }}</b>
+      </template>
       的文件
     </div>
     <!-- 文件列表 -->
     <transition-group class="upload-file-list el-upload-list el-upload-list--text" name="el-fade-in-linear" tag="ul">
-      <li :key="file.uid" class="el-upload-list__item ele-upload-list__item-content" v-for="(file, index) in fileList">
+      <li v-for="(file, index) in fileList" :key="file.uid" class="el-upload-list__item ele-upload-list__item-content">
         <el-link :href="`${baseUrl}${file.url}`" :underline="false" target="_blank">
           <span class="el-icon-document"> {{ getFileName(file.name) }} </span>
         </el-link>
         <div class="ele-upload-list__item-content-action">
-          <el-link :underline="false" @click="handleDelete(index)" type="danger">删除</el-link>
+          <el-link :underline="false" type="danger" @click="handleDelete(index)">
+            删除
+          </el-link>
         </div>
       </li>
     </transition-group>
@@ -39,7 +47,8 @@
 </template>
 
 <script setup>
-import { computed,getCurrentInstance,ref,watch } from 'vue';
+import { computed,getCurrentInstance,ref,watch } from "vue";
+
 import { getToken } from "@/utils/auth";
 
 const props = defineProps({
@@ -67,7 +76,7 @@ const props = defineProps({
 });
 
 const { proxy } = getCurrentInstance();
-const emit = defineEmits();
+const emit = defineEmits(["update:modelValue"]);
 const number = ref(0);
 const uploadList = ref([]);
 const baseUrl = import.meta.env.VITE_APP_BASE_API;
@@ -82,7 +91,7 @@ watch(() => props.modelValue, val => {
   if (val) {
     let temp = 1;
     // 首先将值转为数组
-    const list = Array.isArray(val) ? val : props.modelValue.split(',');
+    const list = Array.isArray(val) ? val : props.modelValue.split(",");
     // 然后将数组转为对象数组
     fileList.value = list.map(item => {
       if (typeof item === "string") {
@@ -134,12 +143,12 @@ function handleExceed() {
 }
 
 // 上传失败
-function handleUploadError(err) {
+function handleUploadError(_err) {
   proxy.$modal.msgError("上传文件失败");
 }
 
 // 上传成功回调
-function handleUploadSuccess(res, file) {
+function handleUploadSuccess(res, _file) {
   uploadList.value.push({ name: res.fileName, url: res.fileName });
   if (uploadList.value.length === number.value) {
     fileList.value = fileList.value.filter(f => f.url !== undefined).concat(uploadList.value);
@@ -174,7 +183,7 @@ function listToString(list, separator) {
       strs += list[i].url + separator;
     }
   }
-  return strs != '' ? strs.substr(0, strs.length - 1) : '';
+  return strs != "" ? strs.substr(0, strs.length - 1) : "";
 }
 </script>
 

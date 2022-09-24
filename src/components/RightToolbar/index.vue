@@ -1,29 +1,29 @@
 <template>
   <div class="top-right-btn">
     <el-row>
-      <el-tooltip class="item" effect="dark" :content="showSearch ? '隐藏搜索' : '显示搜索'" placement="top">
+      <el-tooltip class="item" effect="light" :content="showSearch ? '隐藏搜索' : '显示搜索'" placement="top">
         <el-button circle icon="Search" @click="toggleSearch()" />
       </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="刷新" placement="top">
+      <el-tooltip class="item" effect="light" content="刷新" placement="top">
         <el-button circle icon="Refresh" @click="refresh()" />
       </el-tooltip>
-      <el-tooltip class="item" effect="dark" content="显隐列" placement="top" v-if="columns">
+      <el-tooltip v-if="columns" class="item" effect="light" content="显隐列" placement="top">
         <el-button circle icon="Menu" @click="showColumn()" />
       </el-tooltip>
     </el-row>
-    <el-dialog :title="title" v-model="open" append-to-body>
+    <el-dialog v-model="open" :title="title" append-to-body>
       <el-transfer
-        :titles="['显示', '隐藏']"
         v-model="value"
+        :titles="['显示', '隐藏']"
         :data="columns"
         @change="dataChange"
-      ></el-transfer>
+      />
     </el-dialog>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 const props = defineProps({
   showSearch: {
     type: Boolean,
@@ -34,7 +34,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['update:showSearch', 'queryTable']);
+const emits = defineEmits(["update:showSearch", "queryTable"]);
 
 // 显隐数据
 const value = ref([]);

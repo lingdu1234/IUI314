@@ -1,21 +1,22 @@
-import { login, logout, getInfo } from '@/api/login'
-import { freshToken} from '@/api/system/user'
-import { getToken, setToken, removeToken,setTokenExp,removeTokenExp,setTokenExpStatus } from '@/utils/auth'
-import defAva from '@/assets/images/profile.jpg'
 import {defineStore} from "pinia/dist/pinia";
 
+import { getInfo,login, logout } from "@/api/login"
+import { freshToken} from "@/api/system/user"
+import defAva from "@/assets/images/profile.jpg"
+import { getToken, removeToken,removeTokenExp,setToken, setTokenExp,setTokenExpStatus } from "@/utils/auth"
+
 const useUserStore = defineStore(
-  'user',
+  "user",
   {
     state: () => ({
       token: getToken(),
-      name: '',
-      avatar: '',
+      name: "",
+      avatar: "",
       roles: [],
-      role:'',
+      role:"",
       depts: [],
-      dept:'',
-      uid:'',
+      dept:"",
+      uid:"",
       permissions: []
     }),
     actions: {
@@ -68,7 +69,7 @@ const useUserStore = defineStore(
               this.uid = res.user.id
               this.permissions = res.permissions
             } else {
-              this.setRoutes = ['ROLE_DEFAULT']
+              this.setRoutes = ["ROLE_DEFAULT"]
             }
             this.name = user.user_name
             this.avatar = avatar;
@@ -82,11 +83,11 @@ const useUserStore = defineStore(
       logOut() {
         return new Promise((resolve, reject) => {
           logout(this.token).then(() => {
-            this.token = ''
+            this.token = ""
             this.roles = []
-            this.role = ''
+            this.role = ""
             this.depts = []
-            this.dept = ''
+            this.dept = ""
             this.permissions = []
             removeToken()
             removeTokenExp()
@@ -99,7 +100,7 @@ const useUserStore = defineStore(
       // 前端 登出
       FedLogOut() {
         return new Promise(resolve => {
-          this.token = ''
+          this.token = ""
           removeToken()
           resolve()
         })

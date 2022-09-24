@@ -1,0 +1,15 @@
+html.dark{
+  .el-scrollbar__wrap {
+    background:  #171717;
+  }
+
+  .el-divider__text{
+    --el-bg-color:rgb(8,7,7) !important;
+  }
+  .navbar {
+    background: #141414;
+  }
+  .app-main {
+    background: #141414;
+  }
+}

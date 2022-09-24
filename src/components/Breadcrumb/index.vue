@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import { ref,watchEffect } from 'vue';
-import { useRoute,useRouter } from 'vue-router';
+import { ref,watchEffect } from "vue";
+import { useRoute,useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const levelList = ref([])
@@ -22,7 +22,7 @@ function getBreadcrumb() {
   const first = matched[0]
   // 判断是否为首页
   if (!isDashboard(first)) {
-    matched = [{ path: '/index', meta: { title: '首页' } }].concat(matched)
+    matched = [{ path: "/index", meta: { title: "首页" } }].concat(matched)
   }
 
   levelList.value = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
@@ -32,7 +32,7 @@ function isDashboard(route) {
   if (!name) {
     return false
   }
-  return name.trim() === 'Index'
+  return name.trim() === "Index"
 }
 function handleLink(item) {
   const { redirect, path } = item
@@ -45,7 +45,7 @@ function handleLink(item) {
 
 watchEffect(() => {
   // if you go to the redirect page, do not update the breadcrumbs
-  if (route.path.startsWith('/redirect/')) {
+  if (route.path.startsWith("/redirect/")) {
     return
   }
   getBreadcrumb()

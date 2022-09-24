@@ -17,10 +17,12 @@
       :on-preview="handlePictureCardPreview"
       :class="{ hide: fileList.length >= limit }"
     >
-      <el-icon class="avatar-uploader-icon"><plus /></el-icon>
+      <el-icon class="avatar-uploader-icon">
+        <plus />
+      </el-icon>
     </el-upload>
     <!-- 上传提示 -->
-    <div class="el-upload__tip" v-if="showTip">
+    <div v-if="showTip" class="el-upload__tip">
       请上传
       <template v-if="fileSize">
         大小不超过 <b style="color: #f56c6c">{{ fileSize }}MB</b>
@@ -40,14 +42,15 @@
       <img
         :src="dialogImageUrl"
         style="display: block; max-width: 100%; margin: 0 auto"
-      />
+      >
     </el-dialog>
   </div>
 </template>
 
 <script setup>
+import { computed,getCurrentInstance,ref,watch } from "vue";
+
 import { getToken } from "@/utils/auth";
-import { computed,getCurrentInstance,ref,watch } from 'vue';
 const props = defineProps({
   modelValue: [String, Object, Array],
   // 图片数量限制
@@ -73,7 +76,7 @@ const props = defineProps({
 });
 
 const { proxy } = getCurrentInstance();
-const emit = defineEmits();
+const emit = defineEmits(["update:modelValue"]);
 const number = ref(0);
 const uploadList = ref([]);
 const dialogImageUrl = ref("");
@@ -108,7 +111,7 @@ watch(() => props.modelValue, val => {
 },{ deep: true, immediate: true });
 
 // 删除图片
-function handleRemove(file, files) {
+function handleRemove(_file, _files) {
   emit("update:modelValue", listToString(fileList.value));
 }
 

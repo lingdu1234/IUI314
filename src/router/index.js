@@ -1,5 +1,6 @@
-import { createWebHashHistory, createRouter } from 'vue-router'
-import Layout from '@/layout'
+import { createRouter,createWebHashHistory } from "vue-router"
+
+import Layout from "@/layout"
 
 /**
  * Note: 路由配置项
@@ -24,121 +25,121 @@ import Layout from '@/layout'
 // 公共路由
 export const constantRoutes = [
   {
-    path: '/redirect',
+    path: "/redirect",
     component: Layout,
     hidden: true,
     children: [
       {
-        path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index.vue')
+        path: "/redirect/:path(.*)",
+        component: () => import("@/views/redirect/index.vue")
       }
     ]
   },
   {
-    path: '/login',
-    component: () => import('@/views/login'),
+    path: "/login",
+    component: () => import("@/views/login"),
     hidden: true
   },
   {
-    path: '/register',
-    component: () => import('@/views/register'),
+    path: "/register",
+    component: () => import("@/views/register"),
     hidden: true
   },
   {
     path: "/:pathMatch(.*)*",
-    component: () => import('@/views/error/404'),
+    component: () => import("@/views/error/404"),
     hidden: true
   },
   {
-    path: '/401',
-    component: () => import('@/views/error/401'),
+    path: "/401",
+    component: () => import("@/views/error/401"),
     hidden: true
   },
   {
-    path: '',
+    path: "",
     component: Layout,
-    redirect: 'Index',
-    meta: { title: '首页', icon: 'dashboard'},
+    redirect: "Index",
+    meta: { title: "首页", icon: "dashboard"},
     children: [
       {
-        path: '/index',
-        component: () => import('@/views/index'),
-        name: 'Index',
-        meta: { title: '首页', icon: 'dashboard'}
+        path: "/index",
+        component: () => import("@/views/index"),
+        name: "Index",
+        meta: { title: "首页", icon: "dashboard"}
       },
       {
-        path: '/about',
-        component: () => import('@/views/index'),
-        name: 'About',
-        meta: { title: '关于', icon: 'dashboard'}
+        path: "/about",
+        component: () => import("@/views/index"),
+        name: "About",
+        meta: { title: "关于", icon: "dashboard"}
       },
     ]
   },
   {
-    path: '/user',
+    path: "/user",
     component: Layout,
     hidden: true,
-    redirect: 'noredirect',
+    redirect: "noredirect",
     children: [
       {
-        path: 'profile',
-        component: () => import('@/views/system/user/profile/index'),
-        name: 'Profile',
-        meta: { title: '个人中心', icon: 'user' }
+        path: "profile",
+        component: () => import("@/views/system/user/profile/index"),
+        name: "Profile",
+        meta: { title: "个人中心", icon: "user" }
       }
     ]
   },
   {
-    path: '/system/user-auth',
+    path: "/system/user-auth",
     component: Layout,
     hidden: true,
     children: [
       {
-        path: 'role/:userId',
-        component: () => import('@/views/system/user/authRole'),
-        name: 'AuthRole',
-        meta: { title: '分配角色', activeMenu: '/system/user',no_cache: true }
+        path: "role/:userId",
+        component: () => import("@/views/system/user/authRole"),
+        name: "AuthRole",
+        meta: { title: "分配角色", activeMenu: "/system/user",no_cache: true }
       }
     ]
   },
   {
-    path: '/system/role-auth',
+    path: "/system/role-auth",
     component: Layout,
     hidden: true,
     children: [
       {
         // path: 'user/:roleId(\\d+)',
-        path: 'user/:roleId',
-        component: () => import('@/views/system/role/authUser'),
-        name: 'AuthUser',
-        meta: { title: '分配用户', activeMenu: '/system/role' }
+        path: "user/:roleId",
+        component: () => import("@/views/system/role/authUser"),
+        name: "AuthUser",
+        meta: { title: "分配用户", activeMenu: "/system/role" }
       }
     ]
   },
   {
-    path: '/system/dict-data',
+    path: "/system/dict-data",
     component: Layout,
     hidden: true,
     children: [
       {
         // path: 'index/:dict_type_id(\\d+)',
-        path: 'index/:dict_type_id',
-        component: () => import('@/views/system/dict/data'),
-        name: 'Data',
-        meta: { title: '字典数据', activeMenu: '/system/dict',no_cache: true }
+        path: "index/:dict_type_id",
+        component: () => import("@/views/system/dict/data"),
+        name: "Data",
+        meta: { title: "字典数据", activeMenu: "/system/dict",no_cache: true }
       }
     ]
   },
   {
-    path: '/monitor/job-log',
+    path: "/monitor/job-log",
     component: Layout,
     hidden: true,
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/monitor/job/log'),
-        name: 'JobLog',
-        meta: { title: '调度日志', activeMenu: '/monitor/job' }
+        path: "index",
+        component: () => import("@/views/monitor/job/log"),
+        name: "JobLog",
+        meta: { title: "调度日志", activeMenu: "/monitor/job" }
       }
     ]
   }

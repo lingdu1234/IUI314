@@ -1,7 +1,9 @@
 <template>
   <div class="login">
     <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
-      <h3 class="title">若依后台管理系统</h3>
+      <h3 class="title">
+        若依后台管理系统
+      </h3>
       <el-form-item prop="username">
         <el-input
           v-model="loginForm.username"
@@ -10,7 +12,9 @@
           auto-complete="off"
           placeholder="账号"
         >
-          <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="user" class="el-input__icon input-icon" />
+          </template>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
@@ -22,10 +26,12 @@
           placeholder="密码"
           @keyup.enter="handleLogin"
         >
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="password" class="el-input__icon input-icon" />
+          </template>
         </el-input>
       </el-form-item>
-      <el-form-item prop="code" v-if="captchaOnOff">
+      <el-form-item v-if="captchaOnOff" prop="code">
         <el-input
           v-model="loginForm.code"
           size="large"
@@ -34,14 +40,20 @@
           style="width: 63%"
           @keyup.enter="handleLogin"
         >
-          <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
+          <template #prefix>
+            <svg-icon icon-class="validCode" class="el-input__icon input-icon" />
+          </template>
         </el-input>
         <div class="login-code">
-          <img :src="codeUrl" @click="getCode" class="login-code-img"/>
+          <img :src="codeUrl" class="login-code-img" @click="getCode">
         </div>
       </el-form-item>
-      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">记住密码</el-checkbox>
-      <el-tag  style="margin:0px 0px 25px 0px;">账号：admin 或者 user 密码：123456 验证码区分大小写</el-tag>
+      <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px;">
+        记住密码
+      </el-checkbox>
+      <el-tag style="margin:0px 0px 25px 0px;">
+        账号：admin 或者 user 密码：123456 验证码区分大小写
+      </el-tag>
       <el-form-item style="width:100%;">
         <el-button
           :loading="loading"
@@ -53,8 +65,10 @@
           <span v-if="!loading">登 录</span>
           <span v-else>登 录 中...</span>
         </el-button>
-        <div style="float: right;" v-if="register">
-          <router-link class="link-type" :to="'/register'">立即注册</router-link>
+        <div v-if="register" style="float: right;">
+          <router-link class="link-type" :to="'/register'">
+            立即注册
+          </router-link>
         </div>
       </el-form-item>
     </el-form>
@@ -66,12 +80,13 @@
 </template>
 
 <script setup>
-import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
-import { encrypt, decrypt } from "@/utils/jsencrypt";
-import useUserStore from '@/store/modules/user'
 import { getCurrentInstance,ref} from "vue";
 import { useRouter } from "vue-router";
+
+import { getCodeImg } from "@/api/login";
+import useUserStore from "@/store/modules/user"
+import { decrypt,encrypt } from "@/utils/jsencrypt";
 const userStore = useUserStore()
 const router = useRouter();
 const { proxy } = getCurrentInstance();

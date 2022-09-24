@@ -2,14 +2,9 @@
   <div id="tags-view-container" class="tags-view-container">
     <scroll-pane ref="scrollPaneRef" class="tags-view-wrapper" @scroll="handleScroll">
       <router-link
-        v-for="tag in visitedViews"
-        :key="tag.path"
-        :data-path="tag.path"
-        :class="isActive(tag) ? 'active' : ''"
-        :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-        class="tags-view-item"
-        :style="activeStyle(tag)"
-        @click.middle="!isAffix(tag) ? closeSelectedTag(tag) : ''"
+        v-for="tag in visitedViews" :key="tag.path" :data-path="tag.path"
+        :class="isActive(tag) ? 'active' : ''" :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
+        class="tags-view-item" :style="activeStyle(tag)" @click.middle="!isAffix(tag) ? closeSelectedTag(tag) : ''"
         @contextmenu.prevent="openMenu(tag, $event)"
       >
         {{ tag.title }}
@@ -42,13 +37,15 @@
 </template>
 
 <script setup>
-import { computed,getCurrentInstance,ref,watch,onMounted,nextTick } from 'vue';
-import { useRoute,useRouter } from 'vue-router';
-import ScrollPane from './ScrollPane'
-import { getNormalPath } from '@/utils/ruoyi'
-import useTagsViewStore from '@/store/modules/tagsView'
-import useSettingsStore from '@/store/modules/settings'
-import usePermissionStore from '@/store/modules/permission'
+import { computed, getCurrentInstance, nextTick, onMounted, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+
+import usePermissionStore from "@/store/modules/permission"
+import useSettingsStore from "@/store/modules/settings"
+import useTagsViewStore from "@/store/modules/tagsView"
+import { getNormalPath } from "@/utils/ruoyi"
+
+import ScrollPane from "./ScrollPane"
 
 const visible = ref(false);
 const top = ref(0);
@@ -71,9 +68,9 @@ watch(route, () => {
 })
 watch(visible, (value) => {
   if (value) {
-    document.body.addEventListener('click', closeMenu)
+    document.body.addEventListener("click", closeMenu)
   } else {
-    document.body.removeEventListener('click', closeMenu)
+    document.body.removeEventListener("click", closeMenu)
   }
 })
 onMounted(() => {
@@ -96,7 +93,7 @@ function isAffix(tag) {
 }
 function isFirstView() {
   try {
-    return selectedTag.value.fullPath === visitedViews.value[1].fullPath || selectedTag.value.fullPath === '/index'
+    return selectedTag.value.fullPath === visitedViews.value[1].fullPath || selectedTag.value.fullPath === "/index"
   } catch (err) {
     return false
   }
@@ -108,11 +105,11 @@ function isLastView() {
     return false
   }
 }
-function filterAffixTags(routes, basePath = '') {
+function filterAffixTags(routes, basePath = "") {
   let tags = []
   routes.forEach(route => {
     if (route.meta && route.meta.affix) {
-      const tagPath = getNormalPath(basePath + '/' + route.path)
+      const tagPath = getNormalPath(basePath + "/" + route.path)
       tags.push({
         fullPath: tagPath,
         path: tagPath,
@@ -135,7 +132,7 @@ function initTags() {
   for (const tag of res) {
     // Must have tag name
     if (tag.name) {
-       useTagsViewStore().addVisitedView(tag)
+      useTagsViewStore().addVisitedView(tag)
     }
   }
 }
@@ -204,11 +201,11 @@ function toLastView(visitedViews, view) {
   } else {
     // now the default is to redirect to the home page if there is no tags-view,
     // you can adjust it according to your needs.
-    if (view.name === 'Dashboard') {
+    if (view.name === "Dashboard") {
       // to reload home page
-      router.replace({ path: '/redirect' + view.fullPath })
+      router.replace({ path: "/redirect" + view.fullPath })
     } else {
-      router.push('/')
+      router.push("/")
     }
   }
 }
@@ -241,9 +238,10 @@ function handleScroll() {
 .tags-view-container {
   height: 34px;
   width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #d8dce5;
+  // background: #fff;
+  // border-bottom: 1px solid #d8dce5;  // 会导致一条白线
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+
   .tags-view-wrapper {
     .tags-view-item {
       display: inline-block;
@@ -252,22 +250,27 @@ function handleScroll() {
       height: 26px;
       line-height: 26px;
       border: 1px solid #d8dce5;
+      border-radius: 5px;
       color: #495060;
       background: #fff;
       padding: 0 8px;
       font-size: 12px;
       margin-left: 5px;
       margin-top: 4px;
+
       &:first-of-type {
         margin-left: 15px;
       }
+
       &:last-of-type {
         margin-right: 15px;
       }
+
       &.active {
         background-color: #42b983;
         color: #fff;
         border-color: #42b983;
+
         &::before {
           content: "";
           background: #fff;
@@ -281,6 +284,7 @@ function handleScroll() {
       }
     }
   }
+
   .contextmenu {
     margin: 0;
     background: #fff;
@@ -293,12 +297,37 @@ function handleScroll() {
     font-weight: 400;
     color: #333;
     box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
+
     li {
       margin: 0;
       padding: 7px 16px;
       cursor: pointer;
+
       &:hover {
         background: #eee;
+      }
+    }
+  }
+}
+
+html.dark {
+
+  .tags-view-wrapper {
+    .tags-view-item {
+      color: #fff;
+      background: #212121;
+      border: 1px solid #505050;
+      border-radius: 5px;
+    }
+  }
+
+  .contextmenu {
+    background: #212121;
+    color: #fff;
+
+    li {
+      &:hover {
+        background: #141414;
       }
     }
   }
@@ -317,11 +346,13 @@ function handleScroll() {
       text-align: center;
       transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
       transform-origin: 100% 50%;
+
       &:before {
         transform: scale(0.6);
         display: inline-block;
         vertical-align: -3px;
       }
+
       &:hover {
         background-color: #b4bccc;
         color: #fff;

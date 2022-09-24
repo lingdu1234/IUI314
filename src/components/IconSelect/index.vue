@@ -8,7 +8,9 @@
       @clear="filterIcons"
       @input="filterIcons"
     >
-      <template #suffix><i class="el-icon-search el-input__icon" /></template>
+      <template #suffix>
+        <i class="el-icon-search el-input__icon" />
+      </template>
     </el-input>
     <div class="icon-list">
       <div v-for="(item, index) in iconList" :key="index" @click="selectedIcon(item)">
@@ -20,12 +22,13 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import icons from './requireIcons'
+import { ref } from "vue";
 
-const iconName = ref('');
+import icons from "./requireIcons"
+
+const iconName = ref("");
 const iconList = ref(icons);
-const emit = defineEmits(['selected']);
+const emit = defineEmits(["selected"]);
 
 function filterIcons() {
   iconList.value = icons
@@ -35,12 +38,12 @@ function filterIcons() {
 }
 
 function selectedIcon(name) {
-  emit('selected', name)
+  emit("selected", name)
   document.body.click()
 }
 
 function reset() {
-  iconName.value = ''
+  iconName.value = ""
   iconList.value = icons
 }
 

@@ -1,7 +1,7 @@
 import {defineStore} from "pinia/dist/pinia";
 
 const useTagsViewStore = defineStore(
-  'tags-view',
+  "tags-view",
   {
     state: () => ({
       visitedViews: [],
@@ -16,7 +16,7 @@ const useTagsViewStore = defineStore(
         if (this.visitedViews.some(v => v.path === view.path)) return
         this.visitedViews.push(
           Object.assign({}, view, {
-            title: view.meta.title || 'no-name'
+            title: view.meta.title || "no-name"
           })
         )
       },

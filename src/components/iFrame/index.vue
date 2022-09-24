@@ -4,12 +4,13 @@
       :src="url" 
       frameborder="no" 
       style="width: 100%; height: 100%" 
-      scrolling="auto" />
+      scrolling="auto"
+    />
   </div>
 </template>
 
 <script setup>
-import { computed,ref,onMounted } from 'vue';
+import { computed,onMounted,ref } from "vue";
 const props = defineProps({
   src: {
     type: String,

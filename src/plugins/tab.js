@@ -1,5 +1,5 @@
-import useTagsViewStore from '@/store/modules/tagsView'
-import router from '@/router'
+import router from "@/router"
+import useTagsViewStore from "@/store/modules/tagsView"
 
 export default {
   // 刷新当前tab页签
@@ -8,7 +8,7 @@ export default {
     if (obj === undefined) {
       matched.forEach((m) => {
         if (m.components && m.components.default && m.components.default.name) {
-          if (!['Layout', 'ParentView'].includes(m.components.default.name)) {
+          if (!["Layout", "ParentView"].includes(m.components.default.name)) {
             obj = { name: m.components.default.name, path: path, query: query };
           }
         }
@@ -17,7 +17,7 @@ export default {
     return useTagsViewStore().delCachedView(obj).then(() => {
       const { path, query } = obj
       router.replace({
-        path: '/redirect' + path,
+        path: "/redirect" + path,
         query: query
       })
     })
@@ -33,7 +33,7 @@ export default {
   closePage(obj) {
     if (obj === undefined) {
       return useTagsViewStore().delView(router.currentRoute.value).then(({ lastPath }) => {
-        return router.push(lastPath || '/index');
+        return router.push(lastPath || "/index");
       });
     }
     return useTagsViewStore().delView(obj);

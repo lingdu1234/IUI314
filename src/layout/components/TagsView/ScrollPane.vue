@@ -10,8 +10,9 @@
 </template>
 
 <script setup>
-import { computed,getCurrentInstance,ref,onMounted,onBeforeUnmount } from 'vue';
-import useTagsViewStore from '@/store/modules/tagsView'
+import { computed,getCurrentInstance,onBeforeUnmount,onMounted,ref } from "vue";
+
+import useTagsViewStore from "@/store/modules/tagsView"
 
 const tagAndTagSpacing = ref(4);
 const { proxy } = getCurrentInstance();
@@ -19,10 +20,10 @@ const { proxy } = getCurrentInstance();
 const scrollWrapper = computed(() => proxy.$refs.scrollContainer.$refs.wrap$);
 
 onMounted(() => {
-  scrollWrapper.value.addEventListener('scroll', emitScroll, true)
+  scrollWrapper.value.addEventListener("scroll", emitScroll, true)
 })
 onBeforeUnmount(() => {
-  scrollWrapper.value.removeEventListener('scroll', emitScroll)
+  scrollWrapper.value.removeEventListener("scroll", emitScroll)
 })
 
 function handleScroll(e) {
@@ -30,9 +31,9 @@ function handleScroll(e) {
   const $scrollWrapper = scrollWrapper.value;
   $scrollWrapper.scrollLeft = $scrollWrapper.scrollLeft + eventDelta / 4
 }
-const emits = defineEmits()
+const emits = defineEmits(["scroll"])
 const emitScroll = () => {
-  emits('scroll')
+  emits("scroll")
 }
 
 const tagsViewStore = useTagsViewStore()
@@ -57,12 +58,12 @@ function moveToTarget(currentTag) {
   } else if (lastTag === currentTag) {
     $scrollWrapper.scrollLeft = $scrollWrapper.scrollWidth - $containerWidth
   } else {
-    const tagListDom = document.getElementsByClassName('tags-view-item');
+    const tagListDom = document.getElementsByClassName("tags-view-item");
     const currentIndex = visitedViews.value.findIndex(item => item === currentTag)
     let prevTag = null
     let nextTag = null
     for (const k in tagListDom) {
-      if (k !== 'length' && Object.hasOwnProperty.call(tagListDom, k)) {
+      if (k !== "length" && Object.hasOwnProperty.call(tagListDom, k)) {
         if (tagListDom[k].dataset.path === visitedViews.value[currentIndex - 1].path) {
           prevTag = tagListDom[k];
         }

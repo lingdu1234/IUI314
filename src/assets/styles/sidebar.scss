@@ -8,14 +8,15 @@
   }
 
   .sidebarHide {
-    margin-left: 0!important;
+    margin-left: 0 !important;
   }
 
   .sidebar-container {
     -webkit-transition: width .28s;
     transition: width 0.28s;
     width: $base-sidebar-width !important;
-    background-color: $base-menu-background;
+    background-color: #fff;
+    color: #000;
     height: 100%;
     position: fixed;
     font-size: 0px;
@@ -24,8 +25,8 @@
     left: 0;
     z-index: 1001;
     overflow: hidden;
-    -webkit-box-shadow: 2px 0 6px rgba(0,21,41,.35);
-    box-shadow: 2px 0 6px rgba(0,21,41,.35);
+    -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
+    box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
 
     // reset element-ui css
     .horizontal-collapse-transition {
@@ -70,7 +71,8 @@
       width: 100% !important;
     }
 
-    .el-menu-item, .menu-title {
+    .el-menu-item,
+    .menu-title {
       overflow: hidden !important;
       text-overflow: ellipsis !important;
       white-space: nowrap !important;
@@ -88,9 +90,9 @@
       }
     }
 
-    & .theme-dark .is-active > .el-sub-menu__title {
-      color: $base-menu-color-active !important;
-    }
+    // & .theme-dark .is-active > .el-sub-menu__title {
+    //   color: $base-menu-color-active !important;
+    // }
 
     & .nest-menu .el-sub-menu>.el-sub-menu__title,
     & .el-sub-menu .el-menu-item {
@@ -101,14 +103,14 @@
       }
     }
 
-    & .theme-dark .nest-menu .el-sub-menu>.el-sub-menu__title,
-    & .theme-dark .el-sub-menu .el-menu-item {
-      background-color: $base-sub-menu-background !important;
+    // & .theme-dark .nest-menu .el-sub-menu>.el-sub-menu__title,
+    // & .theme-dark .el-sub-menu .el-menu-item {
+    //   background-color: $base-sub-menu-background !important;
 
-      &:hover {
-        background-color: $base-sub-menu-hover !important;
-      }
-    }
+    //   &:hover {
+    //     background-color: $base-sub-menu-hover !important;
+    //   }
+    // }
   }
 
   .hideSidebar {
@@ -156,6 +158,7 @@
             visibility: hidden;
             display: inline-block;
           }
+
           &>i {
             height: 0;
             width: 0;

@@ -5,36 +5,43 @@
     @select="handleSelect"
   >
     <template v-for="(item, index) in topMenus">
-      <el-menu-item :style="{'--theme': theme}" :index="item.path" :key="index" v-if="index < visibleNumber"
-        ><svg-icon :icon-class="item.meta.icon" />
-        {{ item.meta.title }}</el-menu-item
+      <el-menu-item
+        v-if="index < visibleNumber" :key="index" :style="{'--theme': theme}"
+        :index="item.path"
       >
+        <svg-icon :icon-class="item.meta.icon" />
+        {{ item.meta.title }}
+      </el-menu-item>
     </template>
 
     <!-- 顶部菜单超出数量折叠 -->
-    <el-sub-menu :style="{'--theme': theme}" index="more" v-if="topMenus.length > visibleNumber">
-      <template #title>更多菜单</template>
+    <el-sub-menu v-if="topMenus.length > visibleNumber" :style="{'--theme': theme}" index="more">
+      <template #title>
+        更多菜单
+      </template>
       <template v-for="(item, index) in topMenus">
         <el-menu-item
-          :index="item.path"
-          :key="index"
           v-if="index >= visibleNumber"
-          ><svg-icon :icon-class="item.meta.icon" />
-          {{ item.meta.title }}</el-menu-item
+          :key="index"
+          :index="item.path"
         >
+          <svg-icon :icon-class="item.meta.icon" />
+          {{ item.meta.title }}
+        </el-menu-item>
       </template>
     </el-sub-menu>
   </el-menu>
 </template>
 
 <script setup>
-import { computed,ref,onMounted,onBeforeUnmount} from 'vue';
-import { useRoute,useRouter } from 'vue-router';
+import { computed,onBeforeUnmount,onMounted,ref} from "vue";
+import { useRoute,useRouter } from "vue-router";
+
 import { constantRoutes } from "@/router"
-import { isHttp } from '@/utils/validate'
-import useAppStore from '@/store/modules/app'
-import useSettingsStore from '@/store/modules/settings'
-import usePermissionStore from '@/store/modules/permission'
+import useAppStore from "@/store/modules/app"
+import usePermissionStore from "@/store/modules/permission"
+import useSettingsStore from "@/store/modules/settings"
+import { isHttp } from "@/utils/validate"
 
 // 顶部栏初始数
 const visibleNumber = ref(null);
@@ -113,7 +120,7 @@ function setVisibleNumber() {
   visibleNumber.value = parseInt(width / 85);
 }
 
-function handleSelect(key, keyPath) {
+function handleSelect(key, _keyPath) {
   currentIndex.value = key;
   const route = routers.value.find(item => item.path === key);
   if (isHttp(key)) {
@@ -146,10 +153,10 @@ function activeRoutes(key) {
 }
 
 onMounted(() => {
-  window.addEventListener('resize', setVisibleNumber)
+  window.addEventListener("resize", setVisibleNumber)
 })
 onBeforeUnmount(() => {
-  window.removeEventListener('resize', setVisibleNumber)
+  window.removeEventListener("resize", setVisibleNumber)
 })
 
 onMounted(() => {

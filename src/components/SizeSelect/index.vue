@@ -16,13 +16,14 @@
 </template>
 
 <script setup>
+import { computed,getCurrentInstance,ref } from "vue";
+
+// import { useRoute,useRouter } from "vue-router";
 import useAppStore from "@/store/modules/app";
-import { useRouter,useRoute } from 'vue-router';
-import { computed,getCurrentInstance,ref,nextTick } from 'vue';
 const appStore = useAppStore();
 const size = computed(() => appStore.size);
-const route = useRoute();
-const router = useRouter();
+// const route = useRoute();
+// const router = useRouter();
 const { proxy } = getCurrentInstance();
 const sizeOptions = ref([
   { label: "较大", value: "large" },

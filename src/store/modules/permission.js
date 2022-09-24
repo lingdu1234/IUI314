@@ -1,15 +1,16 @@
-import { constantRoutes } from '@/router'
-import { getRouters } from '@/api/menu'
-import Layout from '@/layout/index'
-import ParentView from '@/components/ParentView'
-import InnerLink from '@/layout/components/InnerLink'
 import {defineStore} from "pinia/dist/pinia";
 
+import { getRouters } from "@/api/menu"
+import ParentView from "@/components/ParentView"
+import InnerLink from "@/layout/components/InnerLink"
+import Layout from "@/layout/index"
+import { constantRoutes } from "@/router"
+
 // 匹配views里面所有的.vue文件
-const modules = import.meta.glob('./../../views/**/*.vue')
+const modules = import.meta.glob("./../../views/**/*.vue")
 
 const usePermissionStore = defineStore(
-  'permission',
+  "permission",
   {
     state: () => ({
       routes: [],
@@ -32,7 +33,7 @@ const usePermissionStore = defineStore(
       setSidebarRouters(routes) {
         this.sidebarRouters = routes
       },
-      generateRoutes(roles) {
+      generateRoutes(_roles) {
         return new Promise(resolve => {
           // 向后端请求路由数据
           getRouters().then(res => {
@@ -54,13 +55,13 @@ const usePermissionStore = defineStore(
   })
 
 // 遍历后台传来的路由字符串，转换为组件对象
-function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
+function filterAsyncRouter(asyncRouterMap, _lastRouter = false, type = false) {
   return asyncRouterMap.filter(route => {
     if (type && route.children) {
       route.children = filterChildren(route.children)
     }
-    if (route.menu_type === 'M') {
-      if (route.pid === '0') {
+    if (route.menu_type === "M") {
+      if (route.pid === "0") {
         route.component = "Layout"
       } else {
         route.component = "ParentView"
@@ -71,9 +72,9 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
       // Layout ParentView 组件特殊处理
       if (route.component == "Layout") {
         route.component = Layout
-      } else if (route.component === 'ParentView') {
+      } else if (route.component === "ParentView") {
         route.component = ParentView
-      } else if (route.component === 'InnerLink') {
+      } else if (route.component === "InnerLink") {
         route.component = InnerLink
       } else {
         route.component = loadView(route.component)
@@ -82,8 +83,8 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
     if (route.children != null && route.children && route.children.length) {
       route.children = filterAsyncRouter(route.children, route, type)
     } else {
-      delete route['children']
-      delete route['redirect']
+      delete route["children"]
+      delete route["redirect"]
     }
     return true
   })
@@ -91,11 +92,11 @@ function filterAsyncRouter(asyncRouterMap, lastRouter = false, type = false) {
 
 function filterChildren(childrenMap, lastRouter = false) {
   var children = []
-  childrenMap.forEach((el, index) => {
+  childrenMap.forEach((el, _index) => {
     if (el.children && el.children.length) {
-      if (el.component === 'ParentView' && !lastRouter) {
+      if (el.component === "ParentView" && !lastRouter) {
         el.children.forEach(c => {
-          c.path = c.path ? el.path + '/' + c.path : c.path
+          c.path = c.path ? el.path + "/" + c.path : c.path
           if (c.children && c.children.length) {
             children = children.concat(filterChildren(c.children, c))
             return
@@ -106,7 +107,7 @@ function filterChildren(childrenMap, lastRouter = false) {
       }
     }
     if (lastRouter) {
-      el.path = lastRouter.path + '/' + el.path
+      el.path = lastRouter.path + "/" + el.path
     }
     children = children.concat(el)
   })
@@ -114,9 +115,9 @@ function filterChildren(childrenMap, lastRouter = false) {
 }
 
 export const loadView = (view) => {
-  let res = () => import('@/views/error/404');
+  let res = () => import("@/views/error/404");
   for (const path in modules) {
-    const dir = path.split('views/')[1].split('.vue')[0];
+    const dir = path.split("views/")[1].split(".vue")[0];
     if (dir === view) {
       res = () => modules[path]();
     }

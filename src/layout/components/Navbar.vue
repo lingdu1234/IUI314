@@ -1,8 +1,8 @@
 <template>
   <div class="navbar">
     <hamburger id="hamburger-container" :is-active="appStore.sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-    <breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!settingsStore.topNav" />
-    <top-nav id="topmenu-container" class="topmenu-container" v-if="settingsStore.topNav" />
+    <breadcrumb v-if="!settingsStore.topNav" id="breadcrumb-container" class="breadcrumb-container" />
+    <top-nav v-if="settingsStore.topNav" id="topmenu-container" class="topmenu-container" />
 
     <div class="right-menu">
       <template v-if="appStore.device !== 'mobile'">
@@ -12,9 +12,9 @@
           <ruo-yi-git id="ruoyi-git" class="right-menu-item hover-effect" />
         </el-tooltip>
 
-<!--        <el-tooltip content="文档地址" effect="dark" placement="bottom">-->
-<!--          <ruo-yi-doc id="ruoyi-doc" class="right-menu-item hover-effect" />-->
-<!--        </el-tooltip>-->
+        <el-tooltip content="主题切换" effect="light" placement="bottom">
+          <theme id="ruoyi-doc" class="right-menu-item hover-effect" />
+        </el-tooltip>
 
         <screenfull id="screenfull" class="right-menu-item hover-effect" />
 
@@ -23,9 +23,9 @@
         </el-tooltip>
       </template>
       <div class="avatar-container">
-        <el-dropdown @command="handleCommand" class="right-menu-item hover-effect" trigger="click">
+        <el-dropdown class="right-menu-item hover-effect" trigger="click" @command="handleCommand">
           <div class="avatar-wrapper">
-            <img :src="userStore.avatar" class="user-avatar" />
+            <img :src="userStore.avatar" class="user-avatar">
             <el-icon><caret-bottom /></el-icon>
           </div>
           <template #dropdown>
@@ -37,9 +37,11 @@
                 <el-radio-group v-model="role_id" @change="roleChanged">
                   <el-row>
                     <el-col v-for="item in roleOptions" :key="item.role_id">
-                      <el-radio :label="item.role_id" :value="item.role_id">{{
-                        item.role_name
-                      }}</el-radio>
+                      <el-radio :label="item.role_id" :value="item.role_id">
+                        {{
+                          item.role_name
+                        }}
+                      </el-radio>
                     </el-col>
                   </el-row>
                 </el-radio-group>
@@ -51,17 +53,21 @@
                 <el-radio-group v-model="dept_id" @change="deptChanged">
                   <el-row>
                     <el-col v-for="item in deptOptions" :key="item.dept_id">
-                      <el-radio :label="item.dept_id" :value="item.dept_id">{{
-                        (item.parent_id != '0'
-                          ? deptMapOptions[item.parent_id] + '-'
-                          : '') + item.dept_name
-                      }}</el-radio>
+                      <el-radio :label="item.dept_id" :value="item.dept_id">
+                        {{
+                          (item.parent_id != '0'
+                            ? deptMapOptions[item.parent_id] + '-'
+                            : '') + item.dept_name
+                        }}
+                      </el-radio>
                     </el-col>
                   </el-row>
                 </el-radio-group>
               </el-popover>
               <router-link to="/user/profile">
-                <el-dropdown-item divided>个人中心</el-dropdown-item>
+                <el-dropdown-item divided>
+                  个人中心
+                </el-dropdown-item>
               </router-link>
               <el-dropdown-item command="setLayout">
                 <span>布局设置</span>
@@ -78,23 +84,23 @@
 </template>
 
 <script setup>
-import { computed,getCurrentInstance,ref } from 'vue';
-import { ElMessageBox } from 'element-plus';
-import Breadcrumb from '@/components/Breadcrumb';
-import TopNav from '@/components/TopNav';
-import Hamburger from '@/components/Hamburger';
-import Screenfull from '@/components/Screenfull';
-import SizeSelect from '@/components/SizeSelect';
-import HeaderSearch from '@/components/HeaderSearch';
-import RuoYiGit from '@/components/RuoYi/Git';
+import { ElMessageBox } from "element-plus";
+import { getCurrentInstance,ref } from "vue";
 
-import { listRole } from '@/api/system/role';
-import { listDept } from '@/api/system/dept';
-import { changeUserRole, changeUserDept } from '@/api/system/user';
-
-import useAppStore from '@/store/modules/app'
-import useUserStore from '@/store/modules/user'
-import useSettingsStore from '@/store/modules/settings'
+import { listDept } from "@/api/system/dept";
+import { listRole } from "@/api/system/role";
+import { changeUserDept,changeUserRole } from "@/api/system/user";
+import Breadcrumb from "@/components/Breadcrumb";
+import Hamburger from "@/components/Hamburger";
+import HeaderSearch from "@/components/HeaderSearch";
+import RuoYiGit from "@/components/RuoYi/Git";
+import Screenfull from "@/components/Screenfull";
+import SizeSelect from "@/components/SizeSelect";
+import Theme from "@/components/theme/index.vue";
+import TopNav from "@/components/TopNav";
+import useAppStore from "@/store/modules/app"
+import useSettingsStore from "@/store/modules/settings"
+import useUserStore from "@/store/modules/user"
 
 const appStore = useAppStore()
 const userStore = useUserStore()
@@ -120,11 +126,11 @@ async function get_options() {
   ]);
   const map = {};
   let max_length = 0;
-  let r = roles.filter((item, index, arr) => {
+  let r = roles.filter((item, _index, _arr) => {
     max_length = Math.max(max_length, item.role_name.length);
     return userStore.roles.includes(item.role_id);
   });
-  let d = depts.filter((item, index, arr) => {
+  let d = depts.filter((item, _index, _arr) => {
     map[item.dept_id] = item.dept_name;
     max_length = Math.max(max_length, item.dept_name.length);
     return userStore.depts.includes(item.dept_id);
@@ -141,7 +147,7 @@ get_options();
 
 async function roleChanged(v) {
   await changeUserRole(userStore.uid, v);
-  proxy.$modal.msgSuccess('角色切换成功,马上重载界面');
+  proxy.$modal.msgSuccess("角色切换成功,马上重载界面");
 
   setTimeout(() => {
     window.location.reload(false);
@@ -150,7 +156,7 @@ async function roleChanged(v) {
 
 async function deptChanged(v) {
   await changeUserDept(userStore.uid, v);
-  proxy.$modal.msgSuccess('部门切换成功,马上重载界面');
+  proxy.$modal.msgSuccess("部门切换成功,马上重载界面");
 
   setTimeout(() => {
     window.location.reload(false);
@@ -174,20 +180,20 @@ function handleCommand(command) {
 }
 
 function logout() {
-  ElMessageBox.confirm('确定注销并退出系统吗？', '提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
-    type: 'warning'
+  ElMessageBox.confirm("确定注销并退出系统吗？", "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
   }).then(() => {
     userStore.logOut().then(() => {
-      location.href = '';
+      location.href = "";
     })
   }).catch(() => { });
 }
 
-const emits = defineEmits(['setLayout'])
+const emits = defineEmits(["setLayout"])
 function setLayout() {
-  emits('setLayout');
+  emits("setLayout");
 }
 </script>
 

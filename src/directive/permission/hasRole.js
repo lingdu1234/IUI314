@@ -3,10 +3,10 @@
  * Copyright (c) 2019 ruoyi
  */
  
-import useUserStore from '@/store/modules/user'
+import useUserStore from "@/store/modules/user"
 
 export default {
-  mounted(el, binding, vnode) {
+  mounted(el, binding, _vnode) {
     const { value } = binding
     const super_admin = "admin";
     const roles = useUserStore().roles
@@ -22,7 +22,7 @@ export default {
         el.parentNode && el.parentNode.removeChild(el)
       }
     } else {
-      throw new Error(`请设置角色权限标签值"`)
+      throw new Error("请设置角色权限标签值\"")
     }
   }
 }
