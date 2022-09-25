@@ -1,18 +1,13 @@
 import { useColorMode, useCycleList } from "@vueuse/core"
-import { computed } from "vue"
+import { computed,watch } from "vue"
+
+import useSettingsStore from "@/store/modules/settings"
 
 
 function useTheme() {
     
 
-  const colorMode = useColorMode({
-    emitAuto: true,
-    modes: {
-      // classic: "classic",
-      // gray: "gray",
-      // pink: "pink",
-    },
-  })
+  const colorMode = useColorMode();
 
   const theme = [
     "dark", 
@@ -24,6 +19,15 @@ function useTheme() {
 
   const { next:nextColor } = useCycleList(theme, { initialValue: colorMode })
   const isDark = computed(()=> colorMode.value === "dark");
+
+
+  watch(()=>colorMode.value,(val)=>{
+    if(val==="dark"){
+      useSettingsStore().setIsDark(true)
+    }else{
+      useSettingsStore().setIsDark(false)
+    }
+  })
 
 
   return {

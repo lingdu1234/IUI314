@@ -64,7 +64,7 @@
               <el-button
                 v-hasPermi="['system/update_log/add']"
                 style="float: right; padding: 3px 0"
-                type="text"
+                link
                 @click="addUpdateLog"
               >
                 添加
@@ -89,7 +89,7 @@
                     <el-button
                       v-hasPermi="['system/update_log/add']"
                       class="button"
-                      type="text"
+                      link
                       @click="editUpdateLog(activity)"
                     >
                       编辑
@@ -122,7 +122,7 @@
           <el-input v-model="form.app_version" placeholder="web版本号" />
         </el-form-item>
         <el-form-item label="日志" prop="content">
-          <MdEditorV3 v-model="form.content" />
+          <MdEditorV3 v-model="form.content" :theme="settingsStore.isDark?'dark':'light'" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -150,8 +150,11 @@ import {
   getAllUpdateInfo,
   updateUpdateInfo,
 } from "@/api/system/updateLog";
+import useSettingsStore from "@/store/modules/settings"
 
 const { proxy } = getCurrentInstance();
+
+const settingsStore = useSettingsStore()
 
 const reverse = ref(true);
 const open = ref(false);
@@ -243,7 +246,7 @@ function editUpdateLog(v) {
 }
 get_all_update_info();
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .spanFont {
   font-weight: bold;
 }
@@ -251,5 +254,10 @@ get_all_update_info();
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+html.dark {
+  .md {
+    --md-bk-color: #1d1e1f;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 import { createRouter,createWebHashHistory } from "vue-router"
 
-import Layout from "@/layout"
+const Layout = ()=>  import("@/layout/index.vue");
 
 /**
  * Note: 路由配置项

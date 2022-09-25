@@ -1,167 +1,103 @@
 <template>
   <div class="app-container">
-    <el-form
-      :model="queryParams"
-      ref="queryRef"
-      v-show="showSearch"
-      :inline="true"
-    >
+    <el-form v-show="showSearch" ref="queryRef" :model="queryParams" :inline="true">
       <el-form-item label="用户名称" prop="user_name">
         <el-input
-          v-model="queryParams.user_name"
-          placeholder="请输入用户名称"
-          clearable
-
+          v-model="queryParams.user_name" placeholder="请输入用户名称" clearable
           style="width: 240px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item label="手机号码" prop="phone_num">
         <el-input
-          v-model="queryParams.phone_num"
-          placeholder="请输入手机号码"
-          clearable
-
+          v-model="queryParams.phone_num" placeholder="请输入手机号码" clearable
           style="width: 240px"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search"   @click="handleQuery"
-          >搜索</el-button
-        >
-        <el-button icon="Refresh"   @click="resetQuery"
-          >重置</el-button
-        >
+        <el-button type="primary" icon="Search" @click="handleQuery">
+          搜索
+        </el-button>
+        <el-button icon="Refresh" @click="resetQuery">
+          重置
+        </el-button>
       </el-form-item>
     </el-form>
 
-     <el-row :gutter="10" class="mb8" style="height: 35px;">
+    <el-row :gutter="10" class="mb8" style="height: 35px;">
       <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="Plus"
-
-          @click="openSelectUser"
-          v-hasPermi="['system/role/add_auth_user']"
-          >添加用户</el-button
-        >
+        <el-button v-hasPermi="['system/role/add_auth_user']" type="primary" plain icon="Plus" @click="openSelectUser">
+          添加用户
+        </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          icon="CircleClose"
-
-          :disabled="multiple"
+          v-hasPermi="['system/role/cancel_auth_user']" type="danger" plain
+          icon="CircleClose" :disabled="multiple"
           @click="cancelAuthUserAll"
-          v-hasPermi="['system/role/cancel_auth_user']"
-          >批量取消授权</el-button
         >
+          批量取消授权
+        </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="Close"
-
-          @click="handleClose"
-          >关闭</el-button
-        >
+        <el-button type="warning" plain icon="Close" @click="handleClose">
+          关闭
+        </el-button>
       </el-col>
-      <right-toolbar
-        v-model:showSearch="showSearch"
-        @queryTable="getList"
-      ></right-toolbar>
+      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" />
     </el-row>
 
-    <el-table
-      v-loading="loading"
-      :data="userList"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column
-        label="用户名称"
-        prop="user_name"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column
-        label="用户昵称"
-        prop="user_nickname"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column
-        label="邮箱"
-        prop="user_email"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column
-        label="手机"
-        prop="phone_num"
-        :show-overflow-tooltip="true"
-      />
+      <el-table-column label="用户名称" prop="user_name" :show-overflow-tooltip="true" />
+      <el-table-column label="用户昵称" prop="user_nickname" :show-overflow-tooltip="true" />
+      <el-table-column label="邮箱" prop="user_email" :show-overflow-tooltip="true" />
+      <el-table-column label="手机" prop="phone_num" :show-overflow-tooltip="true" />
       <el-table-column label="状态" align="center" prop="user_status">
         <template #default="scope">
           <dict-tag :options="sys_normal_disable" :value="scope.row.user_status" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="创建时间"
-        align="center"
-        prop="created_at"
-        width="180"
-      >
+      <el-table-column label="创建时间" align="center" prop="created_at" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.created_at) }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="操作"
-        align="center"
+        v-hasPermi="['system/role/cancel_auth_user']" label="操作" align="center"
         class-name="small-padding fixed-width"
-        v-hasPermi="['system/role/cancel_auth_user']"
       >
         <template #default="scope">
-          <el-button
-
-            type="text"
-            icon="CircleClose"
-            @click="cancelAuthUser(scope.row)"
-            >取消授权</el-button
-          >
+          <el-button link icon="CircleClose" @click="cancelAuthUser(scope.row)">
+            取消授权
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <pagination
-      v-show="total > 0"
-      :total="total"
-      v-model:page="queryParams.page_num"
-      v-model:limit="queryParams.page_size"
-      @pagination="getList"
+      v-show="total > 0" v-model:page="queryParams.page_num" v-model:limit="queryParams.page_size"
+      :total="total" @pagination="getList"
     />
-    <select-user
-      ref="selectRef"
-      :role_id="queryParams.role_id"
-      @ok="handleQuery"
-    />
+    <select-user ref="selectRef" :role_id="queryParams.role_id" @ok="handleQuery" />
   </div>
 </template>
 
 <script setup name="AuthUser">
-import { ref,reactive,getCurrentInstance } from 'vue';
-import { useRoute } from 'vue-router';
-import selectUser from './selectUser';
+import { getCurrentInstance,reactive, ref } from "vue";
+import { useRoute } from "vue-router";
+
 import {
   allocatedUserList,
   authUserCancel,
-} from '@/api/system/role';
+} from "@/api/system/role";
+
+import selectUser from "./selectUser";
 
 const route = useRoute();
 const { proxy } = getCurrentInstance();
-const { sys_normal_disable } = proxy.useDict('sys_normal_disable');
+const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
 
 const userList = ref([]);
 const loading = ref(true);
@@ -198,7 +134,7 @@ function handleQuery() {
 }
 /** 重置按钮操作 */
 function resetQuery() {
-  proxy.resetForm('queryRef');
+  proxy.resetForm("queryRef");
   handleQuery();
 }
 // 多选框选中数据
@@ -208,35 +144,35 @@ function handleSelectionChange(selection) {
 }
 /** 打开授权用户表弹窗 */
 function openSelectUser() {
-  proxy.$refs['selectRef'].show();
+  proxy.$refs["selectRef"].show();
 }
 /** 取消授权按钮操作 */
 function cancelAuthUser(row) {
   proxy.$modal
-    .confirm('确认要取消该用户"' + row.user_name + '"角色吗？')
+    .confirm("确认要取消该用户\"" + row.user_name + "\"角色吗？")
     .then(function () {
       return authUserCancel({ user_ids: [row.id], role_id: queryParams.role_id });
     })
     .then(() => {
       getList();
-      proxy.$modal.msgSuccess('取消授权成功');
+      proxy.$modal.msgSuccess("取消授权成功");
     })
-    .catch(() => {});
+    .catch(() => { });
 }
 /** 批量取消授权按钮操作 */
 function cancelAuthUserAll(row) {
   const role_id = queryParams.role_id;
   const user_ids = userIds.value;
   proxy.$modal
-    .confirm('是否取消选中用户授权数据项?')
+    .confirm("是否取消选中用户授权数据项?")
     .then(function () {
-      return authUserCancel({ user_ids,role_id});
+      return authUserCancel({ user_ids, role_id });
     })
     .then(() => {
       getList();
-      proxy.$modal.msgSuccess('取消授权成功');
+      proxy.$modal.msgSuccess("取消授权成功");
     })
-    .catch(() => {});
+    .catch(() => { });
 }
 
 getList();

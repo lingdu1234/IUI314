@@ -22,6 +22,7 @@ const useSettingsStore = defineStore(
       fixedHeader: storageSetting.fixedHeader === undefined ? fixedHeader : storageSetting.fixedHeader,
       sidebarLogo: storageSetting.sidebarLogo === undefined ? sidebarLogo : storageSetting.sidebarLogo,
       dynamicTitle: storageSetting.dynamicTitle === undefined ? dynamicTitle : storageSetting.dynamicTitle,
+      isDark: localStorage.getItem("vueuse-color-scheme") === (undefined || "dark") ? true : false,
     }),
     actions: {
       // 修改布局设置
@@ -36,6 +37,9 @@ const useSettingsStore = defineStore(
         this.title = title
         useDynamicTitle();
       },
+      setIsDark(isDark) {
+        this.isDark = isDark
+      }
     }
   })
 

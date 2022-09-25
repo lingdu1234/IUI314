@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form
-      :model="queryParams"
-      ref="queryRef"
-      :inline="true"
       v-show="showSearch"
+      ref="queryRef"
+      :model="queryParams"
+      :inline="true"
       label-width="68px"
     >
       <el-form-item label="菜单名称" prop="menu_name">
@@ -44,10 +44,12 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" @click="handleQuery"
-          >搜索</el-button
-        >
-        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="Search" @click="handleQuery">
+          搜索
+        </el-button>
+        <el-button icon="Refresh" @click="resetQuery">
+          重置
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -94,12 +96,13 @@
                   scope.row.dbs.length > 1
                     ? scope.row.dbs[0] + ' ↑ '
                     : scope.row.dbs.length == 0
-                    ? ''
-                    : scope.row.dbs[0]
-                }}</span
-              >
+                      ? ''
+                      : scope.row.dbs[0]
+                }}</span>
             </template>
-            <li v-for="it in scope.row.dbs" :key="it">{{ it }}</li>
+            <li v-for="it in scope.row.dbs" :key="it">
+              {{ it }}
+            </li>
           </el-popover>
         </template>
       </el-table-column>
@@ -117,12 +120,13 @@
                   scope.row.apis.length > 1
                     ? scope.row.apis[0] + ' ↑ '
                     : scope.row.apis.length == 0
-                    ? ''
-                    : scope.row.apis[0]
-                }}</span
-              >
+                      ? ''
+                      : scope.row.apis[0]
+                }}</span>
             </template>
-            <li v-for="it in scope.row.apis" :key="it">{{ it }}</li>
+            <li v-for="it in scope.row.apis" :key="it">
+              {{ it }}
+            </li>
           </el-popover>
         </template>
       </el-table-column>
@@ -133,7 +137,7 @@
       </el-table-column>
       <el-table-column label="缓存" align="center" prop="data_cache_method">
         <template #default="scope">
-          <div v-if="scope.row.method !== 'GET'"></div>
+          <div v-if="scope.row.method !== 'GET'" />
           <dict-tag
             v-else
             :options="api_cache_method"
@@ -157,11 +161,11 @@
         </template>
       </el-table-column>
       <el-table-column
+        v-hasPermi="['system/menu/delete']"
         label="操作"
         align="center"
         width="200"
         class-name="small-padding fixed-width"
-        v-hasPermi="['system/menu/delete']"
       >
         <template #default="scope">
           <el-tooltip
@@ -170,28 +174,29 @@
             placement="top"
           >
             <el-button
-              style="color: green"
               v-hasPermi="['system/menu/delete']"
-              type="text"
+              style="color: green"
+              link
               icon="DataBoard"
               @click="handleDbRelation(scope.row)"
-              >数据库</el-button
-            >></el-tooltip
-          >
+            >
+              数据库
+            </el-button>>
+          </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
     <pagination
       v-show="total > 0"
-      :total="total"
       v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      :total="total"
       @pagination="getList"
     />
     <!-- 添加或修改权限数据对话框 -->
     <el-dialog
-      :title="title"
       v-model="open_db_relation"
+      :title="title"
       width="680px"
       append-to-body
     >
@@ -201,10 +206,10 @@
             <el-form-item label="关联数据表">
               <el-checkbox-group v-model="db_checkList">
                 <el-checkbox
-                  style="width: 150px"
                   v-for="dict in db"
-                  :label="dict.value"
                   :key="dict.value"
+                  style="width: 150px"
+                  :label="dict.value"
                 >
                   <el-tooltip
                     :content="dict.label + ' : ' + dict.value"
@@ -226,8 +231,8 @@
                     <template #content>
                       <div>
                         日志记录方式:
-                        <br />分为四种方式: <br />不记录 <br />文件记录
-                        <br />数据库记录 <br />文件+数据库记录
+                        <br>分为四种方式: <br>不记录 <br>文件记录
+                        <br>数据库记录 <br>文件+数据库记录
                       </div>
                     </template>
                     <el-icon><info-filled /></el-icon>
@@ -253,10 +258,10 @@
                     <template #content>
                       <div>
                         日志记录方式:
-                        <br />分为三种方式:
-                        <br />不缓存:每次都从数据库获取，用于经常更新的数据
-                        <br />按访问人:用于缓存每个人访问数据都不同的数据
-                        <br />公共缓存:用于数据更新较少，不区分个人的数据
+                        <br>分为三种方式:
+                        <br>不缓存:每次都从数据库获取，用于经常更新的数据
+                        <br>按访问人:用于缓存每个人访问数据都不同的数据
+                        <br>公共缓存:用于数据更新较少，不区分个人的数据
                       </div>
                     </template>
                     <el-icon><info-filled /></el-icon>
@@ -279,8 +284,12 @@
 
       <template #footer>
         <div class="dialog-footer">
-          <el-button type="primary" @click="submitForm">确 定</el-button>
-          <el-button @click="cancel">取 消</el-button>
+          <el-button type="primary" @click="submitForm">
+            确 定
+          </el-button>
+          <el-button @click="cancel">
+            取 消
+          </el-button>
         </div>
       </template>
     </el-dialog>
@@ -288,9 +297,10 @@
 </template>
 
 <script setup name="auth_list">
-import { getCurrentInstance,ref,toRefs,reactive } from 'vue';
-import { listAuthMenu, updateLogAndCacheMethod } from '@/api/system/menu';
-import { addEditApiDb, getApiDb } from '@/api/system/api_db';
+import { getCurrentInstance,reactive,ref,toRefs } from "vue";
+
+import { addEditApiDb, getApiDb } from "@/api/system/api_db";
+import { listAuthMenu, updateLogAndCacheMethod } from "@/api/system/menu";
 
 const { proxy } = getCurrentInstance();
 const {
@@ -300,23 +310,23 @@ const {
   api_cache_method,
   api_log_method,
 } = proxy.useDict(
-  'sys_normal_disable',
-  'sys_api_method',
-  'db',
-  'api_cache_method',
-  'api_log_method'
+  "sys_normal_disable",
+  "sys_api_method",
+  "db",
+  "api_cache_method",
+  "api_log_method"
 );
 const menuList = ref([]);
 const db_checkList = ref([]);
-const api_id = ref('');
-const api_method = ref('');
+const api_id = ref("");
+const api_method = ref("");
 const loading = ref(true);
 const open_db_relation = ref(false);
 const data_cache_method = ref(null);
 const log_method = ref(null);
 const showSearch = ref(true);
 const total = ref(0);
-const title = ref('');
+const title = ref("");
 
 const data = reactive({
   queryParams: {
@@ -324,7 +334,7 @@ const data = reactive({
     page_size: 10,
     menu_name: undefined,
     status: undefined,
-    menu_type: 'F',
+    menu_type: "F",
   },
 });
 
@@ -356,7 +366,7 @@ async function handleDbRelation(row) {
   const res = await getApiDb({ api_id: api_id.value });
   db_checkList.value = res.map((item) => item.db);
   open_db_relation.value = true;
-  title.value = row.menu_name + '  数据库关联+日志+缓存';
+  title.value = row.menu_name + "  数据库关联+日志+缓存";
 }
 
 /** 搜索按钮操作 */
@@ -366,7 +376,7 @@ function handleQuery() {
 }
 /** 重置按钮操作 */
 function resetQuery() {
-  proxy.resetForm('queryRef');
+  proxy.resetForm("queryRef");
   handleQuery();
 }
 
@@ -389,7 +399,7 @@ async function submitForm() {
     addEditApiDb(api_data),
     updateLogAndCacheMethod(cache_log_data),
   ]);
-  proxy.$modal.msgSuccess('数据关联更新成功');
+  proxy.$modal.msgSuccess("数据关联更新成功");
   open_db_relation.value = false;
   getList();
 }

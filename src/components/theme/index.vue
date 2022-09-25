@@ -3,17 +3,14 @@
     <el-icon v-if="colorMode == 'dark'" @click="nextColor()">
       <Moon />
     </el-icon>
-    <el-icon v-if="colorMode == 'light'" @click="nextColor()">
+    <el-icon v-else @click="nextColor()">
       <Sunny />
-    </el-icon>
-    <el-icon v-if="colorMode == 'classic'" @click="nextColor()">
-      <QuartzWatch />
     </el-icon>
   </div>
 </template>
   
   <script setup>
-    import { Moon, QuartzWatch,Sunny } from "@element-plus/icons-vue";
+    import { Moon,Sunny } from "@element-plus/icons-vue";
 
     import useTheme from "@/hooks/useTheme";
 
