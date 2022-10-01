@@ -1,8 +1,8 @@
-import type { defineComponent } from "vue";
+import type { defineComponent } from 'vue';
 
 export type Component<T = any> =
   | ReturnType<typeof defineComponent>
-  | (() => Promise<typeof import("*.vue")>)
+  | (() => Promise<typeof import('*.vue')>)
   | (() => Promise<T>);
 
 export interface AppRouteRecordRaw {
@@ -14,11 +14,13 @@ export interface AppRouteRecordRaw {
   redirect?: string;
   children?: AppRouteRecordRaw[];
   props?: Record<string, any>;
-  query?: Record<string, any>;
+  query?: string;
+  noShowingChildren?: boolean;
+  always_show?: boolean;
 }
 
 export interface AppRouteMeta {
-  title?: string;
+  title: string;
   icon?: string;
   activeMenu?: string;
   no_cache?: boolean;

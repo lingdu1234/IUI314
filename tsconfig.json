@@ -3,7 +3,10 @@
   "include": [
     "env.d.ts",
     "src/**/*",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "./components.d.ts"
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -13,7 +16,7 @@
       ]
     },
     "types": [
-      ""
+      "vite-plugin-svg-icons/client"
     ]
   },
   "references": [

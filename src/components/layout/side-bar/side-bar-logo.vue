@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup name="side-bar-logo">
-import logo from "@/assets/logo.svg";
+import logo from '@/assets/logo.svg';
 </script>
 
 <style lang="scss" scoped>

@@ -1,49 +1,57 @@
-import type { App } from "vue";
+import type { App } from 'vue';
 import {
   type RouteRecordRaw,
   createRouter,
   createWebHashHistory,
-} from "vue-router";
+} from 'vue-router';
 
-import type { AppRouteRecordRaw } from "@/types/base/router";
+import type { AppRouteRecordRaw } from '@/types/base/router';
 
-const Layout = () => import("@/components/layout/index.vue");
+import { testRoutes } from './test_menu';
+
+const Layout = () => import('@/components/layout/index.vue');
 
 export const constantRoutes: AppRouteRecordRaw[] = [
   {
-    path: "/redirect",
+    path: '/redirect',
     component: Layout,
     hidden: true,
     children: [
       {
-        path: "/redirect/:path(.*)",
-        component: () => import("@/components/layout/redirect/index.vue"),
+        path: '/redirect/:path(.*)',
+        component: () => import('@/components/layout/redirect/index.vue'),
       },
     ],
   },
   // 404
   {
-    path: "/:pathMatch(.*)*",
-    component: () => import("@/components/error/404.vue"),
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/components/error/404.vue'),
     hidden: true,
   },
   // 401
   {
-    path: "/401",
-    component: () => import("@/components/error/401.vue"),
+    path: '/401',
+    component: () => import('@/components/error/401.vue'),
     hidden: true,
   },
   {
-    path: "",
+    path: '',
     component: Layout,
-    redirect: "index",
-    meta: { title: "首页", icon: "dashboard" },
+    redirect: 'index',
+    meta: { title: '首页', icon: 'dashboard' },
     children: [
       {
-        path: "/index",
-        component: () => import("@/views/AboutView.vue"),
-        name: "index",
-        meta: { title: "首页", icon: "dashboard" },
+        path: '/index',
+        component: () => import('@/views/AboutView.vue'),
+        name: 'index',
+        meta: { title: '首页', icon: 'dashboard' },
+      },
+      {
+        path: '/index2',
+        component: () => import('@/views/AboutView.vue'),
+        name: 'index2',
+        meta: { title: '首页2', icon: 'dashboard' },
       },
     ],
   },
@@ -52,7 +60,7 @@ export const constantRoutes: AppRouteRecordRaw[] = [
 export const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
   history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: constantRoutes as Readonly<RouteRecordRaw[]>,
+  routes: [...constantRoutes, ...testRoutes] as Readonly<RouteRecordRaw[]>,
   scrollBehavior() {
     return { top: 0 };
   },
