@@ -18,7 +18,7 @@ const props = defineProps({
   },
   color: {
     type: String,
-    default: '#333',
+    default: 'currentColor',
   },
 });
 const symbolId = computed(() => `#${props.prefix}-${props.name}`);

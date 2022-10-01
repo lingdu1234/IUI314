@@ -5,11 +5,27 @@
     --header-bar-font-color: #000;
     // sidebar width
     --sider-bar-width: 200px;
-    --sider-bar-bg-color: #F5F5F5;
+    --sider-bar-bg-color: #fff;
     --sider-bar-font-color: #000;
     --side-bar-logo-bg-color: #FAFAFA;
 
     // main
     --main-container-bg-color: #f2f3f5;
     --main-container-font-color: #000;
+
+}
+
+// element-plus
+html {
+    .el-menu {
+        // sidebar 菜单激活颜色
+
+        --active-color: #ff4080 !important;
+
+    }
+}
+
+//  灰色主题
+html.gray {
+    filter: grayscale(100%) brightness(0.9);
 }

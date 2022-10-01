@@ -15,38 +15,28 @@
           :index="resolvePath(onlyOneChild.path)"
           :class="{ 'submenu-title-noDropdown': !isNest }"
         >
-          <el-icon>
-            <SvgIcon
-              :name="
-                            onlyOneChild.meta.icon! ||
-                            (item.meta! && item.meta.icon!)
-                        "
-            />
-          </el-icon>
           <template #title>
-            <span
-              class="menu-title"
-              :title="hasTitle(onlyOneChild.meta.title)"
-              >{{ onlyOneChild.meta.title }}</span
+            <el-icon>
+              <SvgIcon
+                :name="onlyOneChild.meta.icon! ||(item.meta! && item.meta.icon!)"
+              />
+            </el-icon>
+            <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">
+              {{ onlyOneChild.meta.title }}</span
             >
           </template>
         </el-menu-item>
       </app-link>
     </template>
 
-    <el-sub-menu
-      v-else
-      ref="subMenu"
-      :index="resolvePath(item.path)"
-      popper-append-to-body
-    >
+    <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)">
       <template v-if="item.meta" #title>
         <el-icon>
           <SvgIcon :name="item.meta! && item.meta.icon!" />
         </el-icon>
-        <span class="menu-title" :title="hasTitle(item.meta!.title)">{{
-          item.meta!.title
-        }}</span>
+        <span class="menu-title" :title="hasTitle(item.meta!.title)">
+          {{ item.meta!.title }}
+        </span>
       </template>
 
       <side-bar-menu-item
@@ -63,10 +53,9 @@
 <script lang="ts" setup name="side-bar-menu-item">
 import { type PropType, ref } from 'vue';
 
+import SvgIcon from '@/components/common/svg-icon.vue';
 import { getNormalPath, isExternal } from '@/hooks/routes/useRouteUtl';
 import type { AppRouteRecordRaw } from '@/types/base/router';
-
-import SvgIcon from '../../common/svg-icon.vue';
 
 const props = defineProps({
   item: {
@@ -82,6 +71,7 @@ const props = defineProps({
     default: '',
   },
 });
+
 const onlyOneChild = ref<AppRouteRecordRaw>();
 
 function hasOneShowingChild(
@@ -140,3 +130,16 @@ function hasTitle(title: string) {
   }
 }
 </script>
+<style lang="scss" scoped>
+.menu-title {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+// 去掉菜单下划线
+.router-link-active,
+a {
+  text-decoration: none;
+}
+</style>

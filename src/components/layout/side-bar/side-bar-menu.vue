@@ -1,8 +1,9 @@
 <template>
   <el-menu
     :default-active="activeMenu"
-    :collapse="isCollapse"
+    :collapse="appStore.siderBar.isCollapse"
     :unique-opened="true"
+    :collapse-transition="false"
     mode="vertical"
   >
     <SideBarMenuItem
@@ -14,15 +15,15 @@
   </el-menu>
 </template>
 <script lang="ts" setup name="side-bar-menu">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { constantRoutes as routes } from '@/router';
+import { useAppStore } from '@/stores';
 
-// import { testRoutes as routes } from "@/router/test_menu";
 import SideBarMenuItem from './side-bar-menu-item.vue';
 
-const isCollapse = ref(false);
+const appStore = useAppStore();
 
 const route = useRoute();
 const activeMenu = computed(() => {
@@ -33,3 +34,10 @@ const activeMenu = computed(() => {
   return path;
 });
 </script>
+
+<style scoped>
+.el-menu {
+  font-weight: 900;
+  border-style: none;
+}
+</style>

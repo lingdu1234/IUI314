@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.9",
+    "@vueuse/core": "^9.3.0",
     "element-plus": "^2.2.17",
     "pinia": "^2.0.22",
     "pinia-plugin-persistedstate": "^2.2.0",
@@ -34,6 +35,7 @@
     "prettier": "^2.7.1",
     "sass": "^1.55.0",
     "typescript": "~4.7.4",
+    "unocss": "^0.45.26",
     "unplugin-auto-import": "^0.11.2",
     "unplugin-element-plus": "^0.4.1",
     "unplugin-vue-components": "^0.22.7",

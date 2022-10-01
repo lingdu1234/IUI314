@@ -8,4 +8,5 @@ export const setupStores = (app: App) => {
   app.use(store);
 };
 
+export * from './app';
 export * from './test';

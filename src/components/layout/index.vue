@@ -1,11 +1,13 @@
 <template>
   <div>
     <el-container>
-      <el-aside>
-        <SideBar></SideBar>
+      <el-aside :style="sideBarWidth">
+        <SideBar />
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header class="flex justify-between items-center">
+          <NavBar />
+        </el-header>
         <el-main>
           <router-view />
         </el-main>
@@ -14,7 +16,26 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { computed, watch } from 'vue';
+
+import { useMobile } from '@/hooks/app/useDevice';
+import { useAppStore } from '@/stores';
+
+import NavBar from './nav-bar/index.vue';
 import SideBar from './side-bar/index.vue';
+
+const appStore = useAppStore();
+
+const { isMobile } = useMobile();
+
+watch(
+  () => isMobile.value,
+  (v) => appStore.toggleSiderBar(v)
+);
+
+const sideBarWidth = computed(() =>
+  appStore.siderBar.isCollapse ? { '--sider-bar-width': 64 } : null
+);
 </script>
 
 <style lang="scss" scoped>
@@ -45,7 +66,6 @@ import SideBar from './side-bar/index.vue';
   display: flex;
   align-items: center;
   justify-content: space-between;
-  cursor: pointer;
 }
 .el-main {
   background-color: var(--main-container-bg-color);

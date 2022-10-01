@@ -1,12 +1,18 @@
 <template>
-  <div class="side-bar-logo-container">
-    <img :src="logo" alt="logo" class="sidebar-logo" />
-    <span class="logo-title">标图啊标题</span>
-  </div>
+  <router-link to="/index" class="side-bar-logo-container">
+    <div class="w-64px flex items-center justify-center">
+      <img :src="logo" alt="logo" class="w-32px h-32px" />
+    </div>
+    <div v-if="!appStore.siderBar.isCollapse" class="w-136px">
+      <span class="logo-title"> 标图 </span>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts" setup name="side-bar-logo">
 import logo from '@/assets/logo.svg';
+import { useAppStore } from '@/stores';
+const appStore = useAppStore();
 </script>
 
 <style lang="scss" scoped>
@@ -16,16 +22,17 @@ import logo from '@/assets/logo.svg';
   display: flex;
   overflow: hidden;
   align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
   cursor: pointer;
-  .sidebar-logo {
-    margin-left: 5px;
-    height: 32px;
-    width: 32px;
-  }
   .logo-title {
-    font-size: 16px;
+    // width: 120px;
+    font-size: 20px;
     font-weight: 800;
-    margin-left: 20px;
+    margin-left: 1px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #000;
   }
 }
 </style>
