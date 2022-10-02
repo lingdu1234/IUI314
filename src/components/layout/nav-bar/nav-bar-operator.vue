@@ -5,7 +5,7 @@
         <NavBarSearch />
       </el-tooltip>
       <el-tooltip content="语言切换" effect="light" placement="bottom">
-        <ThemeChange />
+        <NavBarLanguage />
       </el-tooltip>
       <el-tooltip content="主题切换" effect="light" placement="bottom">
         <ThemeChange />
@@ -27,6 +27,8 @@ import NavBarSearch from '@/components/app/nav-bar-search.vue';
 import ScreenFull from '@/components/app/screen-full.vue';
 import ThemeChange from '@/components/app/theme-change.vue';
 import { useAppStore } from '@/stores';
+
+import NavBarLanguage from '../../app/nav-bar-language.vue';
 
 const appStore = useAppStore();
 //

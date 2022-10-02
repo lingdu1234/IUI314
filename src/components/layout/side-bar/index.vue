@@ -1,6 +1,6 @@
 <template>
   <SideBarLogo />
-  <el-scrollbar class="overflow-x-hidden">
+  <el-scrollbar class="overflow-x-hidden sider-menu">
     <SideBarMenu />
   </el-scrollbar>
 </template>
@@ -8,3 +8,8 @@
 import SideBarLogo from './side-bar-logo.vue';
 import SideBarMenu from './side-bar-menu.vue';
 </script>
+<style lang="scss" scoped>
+.sider-menu {
+  height: calc(100vh - var(--header-bar-height));
+}
+</style>

@@ -32,7 +32,7 @@ const appStore = useAppStore();
     margin-left: 1px;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #000;
+    color: var(--side-bar-logo-title-color);
   }
 }
 </style>
