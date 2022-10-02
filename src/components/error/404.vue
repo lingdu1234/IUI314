@@ -40,10 +40,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed } from 'vue'
 let message = computed(() => {
-  return '找不到网页！';
-});
+  return '找不到网页！'
+})
 </script>
 
 <style lang="scss" scoped>

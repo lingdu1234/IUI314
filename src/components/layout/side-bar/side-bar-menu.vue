@@ -15,24 +15,24 @@
   </el-menu>
 </template>
 <script lang="ts" setup name="side-bar-menu">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-import { constantRoutes as routes } from '@/router';
-import { useAppStore } from '@/stores';
+import { constantRoutes as routes } from '@/router'
+import { useAppStore } from '@/stores'
 
-import SideBarMenuItem from './side-bar-menu-item.vue';
+import SideBarMenuItem from './side-bar-menu-item.vue'
 
-const appStore = useAppStore();
+const appStore = useAppStore()
 
-const route = useRoute();
+const route = useRoute()
 const activeMenu = computed(() => {
-  const { meta, path } = route;
+  const { meta, path } = route
   if (meta.activeMenu) {
-    return meta.activeMenu;
+    return meta.activeMenu
   }
-  return path;
-});
+  return path
+})
 </script>
 
 <style scoped>

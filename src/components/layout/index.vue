@@ -15,27 +15,27 @@
     </el-container>
   </div>
 </template>
-<script lang="ts" setup>
-import { computed, watch } from 'vue';
+<script lang="ts" setup name="lay-out">
+import { computed, watch } from 'vue'
 
-import { useMobile } from '@/hooks/app/useDevice';
-import { useAppStore } from '@/stores';
+import { useMobile } from '@/hooks/app/useDevice'
+import { useAppStore } from '@/stores'
 
-import NavBar from './nav-bar/index.vue';
-import SideBar from './side-bar/index.vue';
+import NavBar from './nav-bar/index.vue'
+import SideBar from './side-bar/index.vue'
 
-const appStore = useAppStore();
+const appStore = useAppStore()
 
-const { isMobile } = useMobile();
+const { isMobile } = useMobile()
 
 watch(
   () => isMobile.value,
   (v) => appStore.toggleSiderBar(v)
-);
+)
 
 const sideBarWidth = computed(() =>
   appStore.siderBar.isCollapse ? { '--sider-bar-width': 64 } : null
-);
+)
 </script>
 
 <style lang="scss" scoped>

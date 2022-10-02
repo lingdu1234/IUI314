@@ -1,15 +1,15 @@
 <script lang="ts" setup name="inner-link">
-import { h } from 'vue';
-import { useRoute } from 'vue-router';
+import { h } from 'vue'
+import { useRoute } from 'vue-router'
 
-const route = useRoute();
-const link = route.meta.link;
+const route = useRoute()
+const link = route.meta.link
 if (link === '') {
-  return '404';
+  return '404'
 }
-let url = link;
-const height = document.documentElement.clientHeight - 94.5 + 'px';
-const style = { height: height };
+let url = link
+const height = document.documentElement.clientHeight - 94.5 + 'px'
+const style = { height: height }
 
 // 返回渲染函数
 h(
@@ -24,5 +24,5 @@ h(
     height: '100%',
     scrolling: 'auto',
   })
-);
+)
 </script>

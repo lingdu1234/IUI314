@@ -7,5 +7,5 @@
 </template>
 
 <script lang="ts" setup name="app-settings">
-import SvgIcon from '../common/svg-icon.vue';
+import SvgIcon from '../common/svg-icon.vue'
 </script>

@@ -17,10 +17,10 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { useAppStore } from '@/stores';
+<script lang="ts" setup name="nav-bar-toggle">
+import { useAppStore } from '@/stores'
 
-const appStore = useAppStore();
+const appStore = useAppStore()
 </script>
 
 <style scoped>

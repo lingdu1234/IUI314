@@ -1,15 +1,15 @@
-import { fileURLToPath, URL } from 'node:url';
+import { fileURLToPath, URL } from 'node:url'
 
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import Unocss from 'unocss/vite';
-import AutoImport from 'unplugin-auto-import/vite';
-import ElementPlus from 'unplugin-element-plus/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import Components from 'unplugin-vue-components/vite';
-import { defineConfig } from 'vite';
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
-import vueSetupExtend from 'vite-plugin-vue-setup-extend'; //为setup  主要用于定义名称;;
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import Unocss from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import ElementPlus from 'unplugin-element-plus/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend' //为setup  主要用于定义名称;;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -59,4 +59,4 @@ export default defineConfig({
       sourceMap: false,
     },
   },
-});
+})

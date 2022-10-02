@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts" setup name="side-bar-logo">
-import logo from '@/assets/logo.svg';
-import { useAppStore } from '@/stores';
-const appStore = useAppStore();
+import logo from '@/assets/logo.svg'
+import { useAppStore } from '@/stores'
+const appStore = useAppStore()
 </script>
 
 <style lang="scss" scoped>

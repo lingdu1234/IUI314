@@ -1,14 +1,14 @@
-import type { App } from 'vue';
+import type { App } from 'vue'
 import {
   type RouteRecordRaw,
   createRouter,
   createWebHashHistory,
-} from 'vue-router';
+} from 'vue-router'
 
-import type { AppRouteRecordRaw } from '@/types/base/router';
+import type { AppRouteRecordRaw } from '@/types/base/router'
 
-const Layout = () => import('@/components/layout/index.vue');
-const ParentView = () => import('@/components/layout/parent-view.vue');
+const Layout = () => import('@/components/layout/index.vue')
+const ParentView = () => import('@/components/layout/parent-view.vue')
 
 export const constantRoutes: AppRouteRecordRaw[] = [
   {
@@ -32,6 +32,12 @@ export const constantRoutes: AppRouteRecordRaw[] = [
   {
     path: '/401',
     component: () => import('@/components/error/401.vue'),
+    hidden: true,
+  },
+  // login
+  {
+    path: '/login',
+    component: () => import('@/components/login/index.vue'),
     hidden: true,
   },
   {
@@ -120,17 +126,17 @@ export const constantRoutes: AppRouteRecordRaw[] = [
       },
     ],
   },
-];
+]
 
 export const router = createRouter({
   // history: createWebHistory(import.meta.env.BASE_URL),
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [...constantRoutes] as Readonly<RouteRecordRaw[]>,
   scrollBehavior() {
-    return { top: 0 };
+    return { top: 0 }
   },
-});
+})
 
 export const setupRoutes = (app: App) => {
-  app.use(router);
-};
+  app.use(router)
+}

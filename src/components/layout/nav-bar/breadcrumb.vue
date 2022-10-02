@@ -1,5 +1,5 @@
 <template>
-  <el-breadcrumb class="m-l-10px font-900" :separator-icon="ArrowRight">
+  <el-breadcrumb class="m-l-20px font-900" :separator-icon="ArrowRight">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="item in levelList" :key="item.path">
         <div class="no-redirect">
@@ -14,26 +14,26 @@
 </template>
 
 <script lang="ts" setup name="breadcrumb">
-import { ArrowRight } from '@element-plus/icons-vue';
-import { ref, watchEffect } from 'vue';
+import { ArrowRight } from '@element-plus/icons-vue'
+import { ref, watchEffect } from 'vue'
 import {
   type RouteLocationMatched,
   //   type RouteRecordRaw,
   useRoute,
   //   useRouter,
-} from 'vue-router';
+} from 'vue-router'
 
-const route = useRoute();
+const route = useRoute()
 // const router = useRouter();
-const levelList = ref<RouteLocationMatched[]>([]);
+const levelList = ref<RouteLocationMatched[]>([])
 
 function getBreadcrumb() {
-  let matched = route.matched.filter((item) => item.meta && item.meta.title);
+  let matched = route.matched.filter((item) => item.meta && item.meta.title)
 
   levelList.value = matched.filter(
     (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
-  );
-  console.log('object :>> ', levelList.value);
+  )
+  console.log('object :>> ', levelList.value)
 }
 
 // function handleLink(item: RouteLocationMatched) {
@@ -47,11 +47,11 @@ function getBreadcrumb() {
 
 watchEffect(() => {
   if (route.path.startsWith('/redirect/')) {
-    return;
+    return
   }
-  getBreadcrumb();
-});
-getBreadcrumb();
+  getBreadcrumb()
+})
+getBreadcrumb()
 </script>
 
 <style lang="scss" scoped>

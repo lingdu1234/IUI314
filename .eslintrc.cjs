@@ -1,5 +1,5 @@
 /* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution');
+require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
@@ -27,6 +27,7 @@ module.exports = {
       },
     ],
     quotes: ['error', 'single'],
+    semi: ['error', 'never'],
     'max-len': ['error', { code: 120, tabWidth: 2 }],
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
@@ -55,4 +56,4 @@ module.exports = {
       },
     ],
   },
-};
+}

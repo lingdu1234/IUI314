@@ -7,15 +7,15 @@
       <Breadcrumb />
     </div>
   </div>
-  <div class="w-200px flex items-center justify-end">
+  <div class="w-300px flex items-center justify-end">
     <NavBarOperator />
   </div>
 </template>
 
 <script lang="ts" setup name="nav-bar">
-import Breadcrumb from './breadcrumb.vue';
-import NavBarOperator from './nav-bar-operator.vue';
-import SideBarToggle from './side-bar-toggle.vue';
+import Breadcrumb from './breadcrumb.vue'
+import NavBarOperator from './nav-bar-operator.vue'
+import SideBarToggle from './side-bar-toggle.vue'
 </script>
 
 <style lang="scss" scoped>

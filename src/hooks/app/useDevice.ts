@@ -1,21 +1,21 @@
-import { useWindowSize } from '@vueuse/core';
-import { ref, watch } from 'vue';
+import { useWindowSize } from '@vueuse/core'
+import { ref, watch } from 'vue'
 
-import { useAppStore } from '@/stores';
-const appStore = useAppStore();
+import { useAppStore } from '@/stores'
 
 export const useMobile = () => {
-  const { width } = useWindowSize();
-  const isMobile = ref(false);
-  const mobileWidth = 1024;
+  const appStore = useAppStore()
+  const { width } = useWindowSize()
+  const isMobile = ref(false)
+  const mobileWidth = 1024
   watch(
     () => width.value,
     (v: number) => {
-      isMobile.value = v > mobileWidth ? false : true;
-      appStore.setIsMobile(isMobile.value);
+      isMobile.value = v > mobileWidth ? false : true
+      appStore.setIsMobile(isMobile.value)
     }
-  );
+  )
   return {
     isMobile,
-  };
-};
+  }
+}

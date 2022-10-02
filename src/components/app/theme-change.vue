@@ -10,9 +10,9 @@
 </template>
 
 <script lang="ts" setup name="theme-change">
-import { Moon, Sunny } from '@element-plus/icons-vue';
+import { Moon, Sunny } from '@element-plus/icons-vue'
 
-import { useTheme } from '@/hooks/app/useTheme';
+import { useTheme } from '@/hooks/app/useTheme'
 
-const { colorMode, nextColor } = useTheme();
+const { colorMode, nextColor } = useTheme()
 </script>

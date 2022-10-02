@@ -1,6 +1,6 @@
 <template>
   <div v-show="!appStore.device.isMobile" class="flex justify-between">
-    <div class="w-200px flex justify-evenly">
+    <div class="w-200px flex justify-evenly items-center">
       <el-tooltip content="搜索" effect="light" placement="bottom">
         <NavBarSearch />
       </el-tooltip>
@@ -17,19 +17,22 @@
         <AppSettings />
       </el-tooltip>
     </div>
-    <div class="m-l-10px">ttt</div>
+    <div>
+      <NavBarUser />
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup name="nav-bar-operator">
-import AppSettings from '@/components/app/app-settings.vue';
-import NavBarSearch from '@/components/app/nav-bar-search.vue';
-import ScreenFull from '@/components/app/screen-full.vue';
-import ThemeChange from '@/components/app/theme-change.vue';
-import { useAppStore } from '@/stores';
+import AppSettings from '@/components/app/app-settings.vue'
+import NavBarLanguage from '@/components/app/nav-bar-language.vue'
+import NavBarSearch from '@/components/app/nav-bar-search.vue'
+import ScreenFull from '@/components/app/screen-full.vue'
+import ThemeChange from '@/components/app/theme-change.vue'
+import { useAppStore } from '@/stores'
 
-import NavBarLanguage from '../../app/nav-bar-language.vue';
+import NavBarUser from './nav-bar-user.vue'
 
-const appStore = useAppStore();
+const appStore = useAppStore()
 //
 </script>

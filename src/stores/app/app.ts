@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
@@ -10,6 +10,7 @@ export const useAppStore = defineStore('app', {
     },
     app: {
       isDark: true,
+      lang: 'zh-CN',
     },
   }),
   persist: {
@@ -17,15 +18,13 @@ export const useAppStore = defineStore('app', {
   },
   actions: {
     toggleSiderBar(isMobile?: boolean) {
-      this.siderBar.isCollapse = isMobile
-        ? isMobile
-        : !this.siderBar.isCollapse;
+      this.siderBar.isCollapse = isMobile ? isMobile : !this.siderBar.isCollapse
     },
     setIsMobile(isMobile: boolean) {
-      this.device.isMobile = isMobile;
+      this.device.isMobile = isMobile
     },
     setIsDark(isDark: boolean) {
-      this.app.isDark = isDark;
+      this.app.isDark = isDark
     },
   },
-});
+})

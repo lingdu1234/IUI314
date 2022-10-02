@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup name="svg-icon">
-import { computed } from 'vue';
+import { computed } from 'vue'
 
 const props = defineProps({
   prefix: {
@@ -20,6 +20,6 @@ const props = defineProps({
     type: String,
     default: 'currentColor',
   },
-});
-const symbolId = computed(() => `#${props.prefix}-${props.name}`);
+})
+const symbolId = computed(() => `#${props.prefix}-${props.name}`)
 </script>
