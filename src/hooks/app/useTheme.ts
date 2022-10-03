@@ -1,3 +1,11 @@
+/*
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-10-01 21:31:05
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-03 21:56:51
+ * @FilePath: \IUI314\src\hooks\app\useTheme.ts
+ * @Description: theme
+ */
 import { useColorMode, useCycleList } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
 import { computed, watch } from 'vue'

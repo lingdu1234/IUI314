@@ -15,10 +15,11 @@
     --main-container-font-color: #000;
 
     // login
-        --login-bg: #EDF2F0;
+    --login-bg: #EDF2F0;
         --login-neu-1: #ecf0f3;
         --login-neu-2: #d1d9e6;
         --login-white: #f9f9f9;
+        --login-white-fff: #fff;
         --login-gray: #a0a5a8;
         --login-black: #181818;
         --login-purple: #4B70E2;
@@ -32,15 +33,14 @@
     }
 }
 
-// element-plus
-html {
-    .el-menu {
-        // sidebar 菜单激活颜色
+// // element-plus
+// html {
+//     .el-menu {
+//         // sidebar 菜单激活颜色
+//         --active-color: #ff4080 !important;
 
-        --active-color: #ff4080 !important;
-
-    }
-}
+//     }
+    // }
 
 //  灰色主题
 html.gray {
@@ -60,6 +60,15 @@ html.dark {
     --main-container-bg-color: rgb(14, 14, 14);
     --main-container-font-color: #fff;
 
+    // login
+        --login-bg: #1a1b1b;
+        --login-neu-1: #1a1b1b;
+        --login-neu-2: #1f232e;
+        --login-white: #503a3a;
+        --login-gray: #c3cfd8;
+        --login-black: #d1c6c6;
+        --login-purple: #8fa3e1;
+        --login-transition: 1.25s;
     // 面包屑
     .el-breadcrumb {
         .no-redirect {

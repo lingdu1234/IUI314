@@ -1,3 +1,11 @@
+<!--
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-10-01 20:20:03
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-03 23:52:01
+ * @FilePath: \IUI314\src\components\layout\nav-bar\breadcrumb.vue
+ * @Description: 
+-->
 <template>
   <el-breadcrumb class="m-l-20px font-900" :separator-icon="ArrowRight">
     <transition-group name="breadcrumb">
@@ -33,7 +41,6 @@ function getBreadcrumb() {
   levelList.value = matched.filter(
     (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
   )
-  console.log('object :>> ', levelList.value)
 }
 
 // function handleLink(item: RouteLocationMatched) {

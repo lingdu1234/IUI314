@@ -1,3 +1,11 @@
+<!--
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-09-30 21:49:15
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-04 00:02:55
+ * @FilePath: \IUI314\src\components\layout\side-bar\side-bar-menu.vue
+ * @Description: 
+-->
 <template>
   <el-menu
     :default-active="activeMenu"
@@ -18,12 +26,14 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { constantRoutes as routes } from '@/router'
-import { useAppStore } from '@/stores'
+import { useAppStore, usePermissionStore } from '@/stores'
 
 import SideBarMenuItem from './side-bar-menu-item.vue'
 
 const appStore = useAppStore()
+const permissionStore = usePermissionStore()
+
+const routes = computed(() => permissionStore.sidebarRouters)
 
 const route = useRoute()
 const activeMenu = computed(() => {

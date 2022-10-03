@@ -1,22 +1,119 @@
 <!-- sign_in -->
 <template>
   <div class="sigin-container b-container" id="b-container">
-    <form class="form" id="b-form">
-      <h2 class="form_title title">Sign in to Website</h2>
-      <!-- <div class="form__icons">
-        <img class="form__icon" src=" " />
-        <img class="form__icon" src=" " />
-        <img class="form__icon" src=" " />
-      </div> -->
-      <span class="form__span">or use your email account</span>
-      <input class="form__input" type="text" placeholder="用户名" />
-      <input class="form__input" type="password" placeholder="密码" />
-      <input class="form__input" type="text" placeholder="验证码" />
-      <!-- <a class="form__link">Forgot your password?</a> -->
-      <button class="form__button button">SIGN IN</button>
-    </form>
+    <el-form
+      ref="loginFormRef"
+      class="formClass"
+      id="b-form"
+      :model="loginForm"
+      :rules="loginRules"
+    >
+      <h2 class="title">Sign in to Website</h2>
+      <span class="formClass__span">or use your email account</span>
+      <el-form-item prop="user_name">
+        <el-input
+          v-model="loginForm.user_name"
+          style="width: 350px; height: 40px"
+          type="text"
+          placeholder="用户名"
+        />
+      </el-form-item>
+      <el-form-item prop="user_password">
+        <el-input
+          v-model="loginForm.user_password"
+          style="width: 350px; height: 40px"
+          type="password"
+          placeholder="密码"
+        />
+      </el-form-item>
+      <el-form-item v-model="loginForm.code" prop="code">
+        <el-input
+          v-model="loginForm.code"
+          style="width: 220px; height: 40px"
+          type="text"
+          placeholder="验证码"
+        />
+        <img
+          :src="captchaData?.img"
+          :class="appStore.app.isDark ? 'invert-90' : 'invert-0'"
+          class="h-40px w-130px b-rd-6px"
+          @click="getCaptcha"
+        />
+      </el-form-item>
+      <el-checkbox v-model="loginForm.rememberMe" class="w-350px">
+        记住密码
+      </el-checkbox>
+      <el-form-item>
+        <el-button class="button" @click="submitLogin(loginFormRef)">
+          SIGN IN
+        </el-button>
+        <el-button class="button" @click="formReset(loginFormRef)">
+          RESET
+        </el-button>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
+<script lang="ts" setup name="sign-in">
+import type { FormInstance, FormRules } from 'element-plus'
+import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { useCaptcha } from '@/api/login'
+import { useFormUtil } from '@/hooks/util/useFormUtil'
+import { useAppStore, useUserStore } from '@/stores'
+import type { LoginFormLocal } from '@/types/base/login'
+
+const loginFormRef = ref<FormInstance>()
+
+const loginForm = ref<LoginFormLocal>({
+  user_name: '',
+  user_password: '',
+  rememberMe: false,
+  code: '',
+  uuid: '',
+})
+
+//  验证规则
+const loginRules = reactive<FormRules>({
+  user_name: [
+    { required: true, trigger: 'blur', message: '请输入您的账号' },
+    { min: 4, max: 20, message: '用户名为4-20位长度', trigger: 'blur' },
+  ],
+  user_password: [
+    { required: true, message: '请输入用户密码', trigger: 'blur' },
+  ],
+  code: [
+    { required: true, trigger: 'blur', message: '请输入验证码' },
+    { min: 4, max: 4, message: '验证码为4位字符', trigger: 'blur' },
+  ],
+})
+const appStore = useAppStore()
+const userStore = useUserStore()
+const router = useRouter()
+const { captchaData, getCaptcha } = useCaptcha()
+const { formValidate, formReset } = useFormUtil()
+const redirect = ref(undefined)
+
+loginForm.value.rememberMe = userStore.rememberMe
+
+// 提交登录
+const submitLogin = async (formRef: FormInstance | undefined) => {
+  if (!(await formValidate(formRef))) return
+  loginForm.value.uuid = captchaData.value?.uuid!
+  await userStore.login(loginForm.value)
+  router.push({ path: redirect.value || '/' })
+}
+// 获取本地用户信息
+const getLocalUserInfo = () => {
+  if (loginForm.value.rememberMe) {
+    const { user_name, user_password } = userStore.getLocalUserInfo()
+    loginForm.value.user_name = user_name
+    loginForm.value.user_password = user_password
+  }
+}
+getLocalUserInfo()
+</script>
 <style lang="scss" scoped>
 .sigin-container {
   display: flex;
@@ -34,79 +131,11 @@
   transition: var(--login-neu-transition);
 }
 
-.form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-
-  &__icon {
-    object-fit: contain;
-    width: 30px;
-    margin: 0 5px;
-    opacity: 0.5;
-    transition: 0.15s;
-
-    &:hover {
-      opacity: 1;
-      transition: 0.15s;
-      cursor: pointer;
-    }
-  }
-
-  &__input {
-    width: 350px;
-    height: 40px;
-    margin: 4px 0;
-
-    padding-left: 25px;
-    font-size: 13px;
-    letter-spacing: 0.15px;
-    border: none;
-    outline: none;
-
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--login-neu-1);
-    transition: 0.25s ease;
-    border-radius: 8px;
-
-    box-shadow: inset 2px 2px 4px var(--login-neu-2),
-      inset -2px -2px 4px var(--login-white);
-
-    &:focus {
-      box-shadow: inset 4px 4px 4px var(--login-neu-2),
-        inset -4px -4px 4px var(--login-white);
-    }
-  }
-
-  &__span {
-    margin-top: 30px;
-    margin-bottom: 12px;
-  }
-
-  &__link {
-    color: var(--login-black);
-    font-size: 15px;
-    margin-top: 25px;
-    border-bottom: 1px solid var(--login-gray);
-    line-height: 2;
-  }
-}
-
 .title {
   font-size: 34px;
   font-weight: 700;
   line-height: 3;
   color: var(--login-black);
-}
-
-.description {
-  font-size: 14px;
-  letter-spacing: 0.25px;
-  text-align: center;
-  line-height: 1.6;
 }
 
 .button {
@@ -119,12 +148,29 @@
   letter-spacing: 1.15px;
 
   background-color: var(--login-purple);
-  color: var(--login-white);
+  color: var(--login-white-fff);
   box-shadow: 8px 8px 16px var(--login-neu-2), -8px -8px 16px var(--login-white);
 
   border: none;
   outline: none;
 }
+.formClass {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  &__span {
+    font-size: 20px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+  }
+  .el-input {
+    --el-input-bg-color: var(--login-neu-1);
+  }
+}
+
 .b-container {
   left: calc(100% - 600px);
   z-index: 0;

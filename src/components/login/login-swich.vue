@@ -68,28 +68,9 @@
 
     transition: var(--login-neu-transition);
   }
-
-  &__button {
-    cursor: pointer;
-
-    &:hover {
-      box-shadow: 6px 6px 10px var(--login-neu-2),
-        -6px -6px 10px var(--login-white);
-      transform: scale(0.985);
-      transition: 0.25s;
-    }
-
-    &:active,
-    &:focus {
-      box-shadow: 2px 2px 6px var(--login-neu-2),
-        -2px -2px 6px var(--login-white);
-      transform: scale(0.97);
-      transition: 0.25s;
-    }
-  }
 }
 .description {
-  font-size: 14px;
+  font-size: 25px;
   letter-spacing: 0.25px;
   text-align: center;
   line-height: 1.6;

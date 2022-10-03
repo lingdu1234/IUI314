@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <div v-for="item of 100" :key="item" class="snowflake" />
+    <div v-for="item of 50" :key="item" class="snowflake" />
     <div class="login-main">
       <div class="login-tip">
         <LoginSwich />
@@ -18,6 +18,7 @@ import LoginSwich from './login-swich.vue'
 import SignIn from './sign-in.vue'
 
 const { width } = useWindowSize()
+
 watch(
   () => width.value,
   (v) => {
@@ -117,7 +118,7 @@ html.dark {
 @for $i from 0 through 300 {
   .snowflake:nth-child(#{$i}) {
     //每个雪花的大小
-    --size: #{random(60) * 0.08}vw;
+    --size: #{(random(10) + 10) * 0.18}vw;
     //雪花移动目标点 -70后是负数 这样雪花会向左下方飘落
     --end: #{random(120) - 100}vw;
     // 随机显示树叶

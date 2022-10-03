@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@element-plus/icons-vue': ^2.0.9
   '@rushstack/eslint-patch': ^1.2.0
+  '@types/blueimp-md5': ^2.18.0
   '@types/node': ^16.11.62
   '@vitejs/plugin-vue': ^3.1.0
   '@vitejs/plugin-vue-jsx': ^2.0.1
@@ -10,10 +11,12 @@ specifiers:
   '@vue/eslint-config-typescript': ^11.0.2
   '@vue/tsconfig': ^0.1.3
   '@vueuse/core': ^9.3.0
+  blueimp-md5: ^2.19.0
   element-plus: ^2.2.17
   eslint: ^8.24.0
   eslint-plugin-simple-import-sort: ^8.0.0
   eslint-plugin-vue: ^9.5.1
+  jsencrypt: ^3.2.1
   npm-run-all: ^4.1.5
   pinia: ^2.0.22
   pinia-plugin-persistedstate: ^2.2.0
@@ -35,7 +38,9 @@ specifiers:
 dependencies:
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/2.0.9_vue@3.2.40
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/9.3.0_vue@3.2.40
+  blueimp-md5: registry.npmmirror.com/blueimp-md5/2.19.0
   element-plus: registry.npmmirror.com/element-plus/2.2.17_vue@3.2.40
+  jsencrypt: registry.npmmirror.com/jsencrypt/3.2.1
   pinia: registry.npmmirror.com/pinia/2.0.22_rg374xhldfcyvjtaj3qktyfz5y
   pinia-plugin-persistedstate: registry.npmmirror.com/pinia-plugin-persistedstate/2.2.0_pinia@2.0.22
   vue: registry.npmmirror.com/vue/3.2.40
@@ -43,6 +48,7 @@ dependencies:
 
 devDependencies:
   '@rushstack/eslint-patch': registry.npmmirror.com/@rushstack/eslint-patch/1.2.0
+  '@types/blueimp-md5': registry.npmmirror.com/@types/blueimp-md5/2.18.0
   '@types/node': registry.npmmirror.com/@types/node/16.11.62
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/3.1.0_vite@3.1.4+vue@3.2.40
   '@vitejs/plugin-vue-jsx': registry.npmmirror.com/@vitejs/plugin-vue-jsx/2.0.1_vite@3.1.4+vue@3.2.40
@@ -686,6 +692,12 @@ packages:
     name: '@trysound/sax'
     version: 0.2.0
     engines: {node: '>=10.13.0'}
+    dev: true
+
+  registry.npmmirror.com/@types/blueimp-md5/2.18.0:
+    resolution: {integrity: sha512-f4A+++lGZGJvVSgeyMkqA7BEf2BVQli6F+qEykKb49c5ieWQBkfpn6CP5c1IZr2Yi2Ofl6Fj+v0e1fN18Z8Cnw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/blueimp-md5/-/blueimp-md5-2.18.0.tgz}
+    name: '@types/blueimp-md5'
+    version: 2.18.0
     dev: true
 
   registry.npmmirror.com/@types/json-schema/7.0.11:
@@ -1576,6 +1588,12 @@ packages:
     name: bluebird
     version: 3.7.2
     dev: true
+
+  registry.npmmirror.com/blueimp-md5/2.19.0:
+    resolution: {integrity: sha512-DRQrD6gJyy8FbiE4s+bDoXS9hiW3Vbx5uCdwvcCf3zLHL+Iv7LtGHLpr+GZV8rHG8tK766FGYBwRbu8pELTt+w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/blueimp-md5/-/blueimp-md5-2.19.0.tgz}
+    name: blueimp-md5
+    version: 2.19.0
+    dev: false
 
   registry.npmmirror.com/boolbase/1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/boolbase/-/boolbase-1.0.0.tgz}
@@ -3645,6 +3663,12 @@ packages:
     dependencies:
       argparse: registry.npmmirror.com/argparse/2.0.1
     dev: true
+
+  registry.npmmirror.com/jsencrypt/3.2.1:
+    resolution: {integrity: sha512-k1sD5QV0KPn+D8uG9AdGzTQuamt82QZ3A3l6f7TRwMU6Oi2Vg0BsL+wZIQBONcraO1pc78ExMdvmBBJ8WhNYUA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/jsencrypt/-/jsencrypt-3.2.1.tgz}
+    name: jsencrypt
+    version: 3.2.1
+    dev: false
 
   registry.npmmirror.com/jsesc/2.5.2:
     resolution: {integrity: sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/jsesc/-/jsesc-2.5.2.tgz}
