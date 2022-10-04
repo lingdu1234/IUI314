@@ -38,7 +38,7 @@
         />
         <img
           :src="captchaData?.img"
-          :class="isDark ? 'filter-invert-90' : 'filter-invert-0'"
+          :class="appStore.app.isDark ? 'filter-invert-90' : 'filter-invert-0'"
           class="h-40px w-130px b-rd-6px"
           @click="getCaptcha"
         />
@@ -58,23 +58,36 @@
   </div>
 </template>
 <script lang="ts" setup name="sign-in">
+import { usePreferredColorScheme } from '@vueuse/core'
 import type { FormInstance, FormRules } from 'element-plus'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useCaptcha } from '@/api/login'
 import logo from '@/assets/logo.svg'
 import { useTheme } from '@/hooks/app/useTheme'
 import { useFormUtil } from '@/hooks/util/useFormUtil'
-import { useUserStore } from '@/stores'
+import { useAppStore, useUserStore } from '@/stores'
 import type { LoginFormLocal } from '@/types/base/login'
 
 const userStore = useUserStore()
+const appStore = useAppStore()
 const router = useRouter()
 const { captchaData, getCaptcha } = useCaptcha()
 const { formValidate, formReset } = useFormUtil()
-const { isDark } = useTheme()
 const redirect = ref(undefined)
+
+const { init_theme } = useTheme()
+const color = computed(
+  () => appStore.app.theme || usePreferredColorScheme().value
+)
+watch(
+  () => color.value,
+  (v, pv) => {
+    init_theme(v, pv)
+  }
+)
+init_theme(color.value! || appStore.app.theme)
 
 const loginFormRef = ref<FormInstance>()
 

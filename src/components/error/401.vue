@@ -1,3 +1,11 @@
+<!--
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-09-30 20:10:12
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-04 15:52:32
+ * @FilePath: \IUI314\src\components\error\401.vue
+ * @Description: 
+-->
 <template>
   <div class="errPage-container">
     <el-button icon="arrow-left" class="pan-back-btn" @click="back">
@@ -29,7 +37,7 @@
 <script lang="ts" setup>
 import { type ComponentInternalInstance, getCurrentInstance, ref } from 'vue'
 
-import errImage from '@/assets/401_images/401.gif'
+import errImage from '@/assets/error/401.gif'
 
 let { proxy } = getCurrentInstance() as ComponentInternalInstance
 

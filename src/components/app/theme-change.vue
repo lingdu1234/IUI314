@@ -2,13 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:29:50
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 12:49:36
+ * @LastEditTime: 2022-10-04 16:26:18
  * @FilePath: \IUI314\src\components\app\theme-change.vue
  * @Description: 
 -->
 <template>
   <div>
-    <el-icon v-if="colorMode == 'dark'" @click="nextColor()">
+    <el-icon v-if="appStore.app.isDark" @click="nextColor()">
       <Moon />
     </el-icon>
     <el-icon v-else @click="nextColor()">
@@ -21,6 +21,11 @@
 import { Moon, Sunny } from '@element-plus/icons-vue'
 
 import { useTheme } from '@/hooks/app/useTheme'
+import { useAppStore } from '@/stores'
 
-const { colorMode, nextColor } = useTheme()
+const appStore = useAppStore()
+
+const { nextColor, init_theme } = useTheme()
+
+init_theme(appStore.app.theme)
 </script>

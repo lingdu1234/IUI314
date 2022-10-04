@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 07:46:07
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 22:49:28
+ * @LastEditTime: 2022-10-04 13:21:45
  * @FilePath: \IUI314\src\api\login.ts
  * @Description: login
  */
@@ -27,6 +27,7 @@ enum Api {
   login = '/comm/login',
   getUserInfo = '/system/user/get_info',
   getRouters = '/system/menu/get_routers',
+  logOut = '/comm/log_out',
 }
 
 /**
@@ -73,4 +74,11 @@ export const getUserRouters = async (): Promise<AppRouteRecordRaw[]> => {
   const { data, execute } = useGet<AppRouteRecordRaw[]>(Api.getRouters)
   await execute()
   return data.value!
+}
+
+// logout
+export const logOutUser = async () => {
+  const { data, execute } = usePost(Api.logOut)
+  await execute()
+  console.log('data.value :>> ', data.value)
 }

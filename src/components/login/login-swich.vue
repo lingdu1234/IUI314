@@ -4,15 +4,23 @@
     <div class="switch__circle switch__circle--t"></div>
     <div class="switch__container" id="switch-c1">
       <h2 class="title">Welcome Back !</h2>
-      <p class="description">
-        To keep connected with us please login with your personal info
-      </p>
+    </div>
+    <div class="flex items-center justify-center m-t-100px">
+      <img
+        :src="logo22"
+        alt="logo"
+        :class="
+          appStore.app.isDark ? 'filter-grayscale-50' : 'filter-grayscale-0'
+        "
+      />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-//
+import logo22 from '@/assets/av2.webp'
+import { useAppStore } from '@/stores'
+const appStore = useAppStore()
 </script>
 
 <style lang="scss" scoped>
@@ -65,15 +73,10 @@
     position: absolute;
     width: 400px;
     padding: 50px 55px;
+    margin-top: -280px;
 
     transition: var(--login-neu-transition);
   }
-}
-.description {
-  font-size: 25px;
-  letter-spacing: 0.25px;
-  text-align: center;
-  line-height: 1.6;
 }
 .title {
   font-size: 34px;

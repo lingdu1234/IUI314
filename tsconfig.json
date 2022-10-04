@@ -17,7 +17,8 @@
     },
     "types": [
       "vite-plugin-svg-icons/client"
-    ]
+    ],
+    "allowJs": true
   },
   "references": [
     {

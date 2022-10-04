@@ -2,10 +2,11 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:31:05
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 12:48:47
+ * @LastEditTime: 2022-10-04 17:32:16
  * @FilePath: \IUI314\src\hooks\app\useTheme.ts
  * @Description: theme
  */
+import { usePreferredColorScheme } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
 
 import { useAppStore } from '@/stores'
@@ -35,23 +36,28 @@ export const useTheme = () => {
   }
 
   const notification = (theme: string) => {
-    appStore.setThemeColor(theme)
     ElMessage.info('主题切换为:' + theme_map[theme] + '主题')
   }
 
-  const init_theme = (color: string, last_color?: string) => {
+  const init_theme = (color?: string, last_color?: string) => {
     if (last_color) {
       node?.classList.remove(last_color)
     }
+    if (!color) {
+      color = usePreferredColorScheme().value
+    }
     node?.classList.add(color)
-    notification(color)
+    appStore.setThemeColor(color)
+    if (last_color) {
+      notification(color)
+    }
   }
 
-  init_theme(appStore.app.theme)
   return {
-    isDark: appStore.app.isDark,
-    colorMode: appStore.app.theme,
     setTheme,
     nextColor,
+    init_theme,
+    theme_map,
+    theme_list,
   }
 }

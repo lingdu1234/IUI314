@@ -2,24 +2,20 @@
   <div class="wscn-http404-container">
     <div class="wscn-http404">
       <div class="pic-404">
-        <img
-          class="pic-404__parent"
-          src="@/assets/404_images/404.png"
-          alt="404"
-        />
+        <img class="pic-404__parent" src="@/assets/error/404.png" alt="404" />
         <img
           class="pic-404__child left"
-          src="@/assets/404_images/404_cloud.png"
+          src="@/assets/error/404_cloud.png"
           alt="404"
         />
         <img
           class="pic-404__child mid"
-          src="@/assets/404_images/404_cloud.png"
+          src="@/assets/error/404_cloud.png"
           alt="404"
         />
         <img
           class="pic-404__child right"
-          src="@/assets/404_images/404_cloud.png"
+          src="@/assets/error/404_cloud.png"
           alt="404"
         />
       </div>
@@ -54,9 +50,9 @@ let message = computed(() => {
   left: 50%;
 }
 .wscn-http404 {
-  position: relative;
-  width: 1200px;
-  padding: 0 50px;
+  position: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
   .pic-404 {
     position: relative;

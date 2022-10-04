@@ -2,14 +2,14 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 23:34:06
+ * @LastEditTime: 2022-10-04 13:11:36
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */
 import md5 from 'blueimp-md5'
 import { defineStore } from 'pinia'
 
-import { getFullUserInfo, loginUser } from '@/api/login'
+import { getFullUserInfo, loginUser, logOutUser } from '@/api/login'
 import { freshToken } from '@/api/user'
 import defaultAvatar from '@/assets/av.webp'
 import { useEncrypt } from '@/hooks/util/useEncrypt'
@@ -110,6 +110,11 @@ export const useUserStore = defineStore('userInfo', {
         expires: 0,
         exp_in: 0,
       }
+    },
+    // 登出系统
+    async logOut() {
+      await logOutUser()
+      this.frontEndLogout()
     },
   },
 })

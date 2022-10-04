@@ -1,3 +1,11 @@
+<!--
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-10-01 16:32:14
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-04 13:26:46
+ * @FilePath: \IUI314\src\components\layout\nav-bar\index.vue
+ * @Description: 
+-->
 <template>
   <div class="flex justify-start items-center">
     <div class="cursor-pointer">
@@ -7,9 +15,7 @@
       <Breadcrumb />
     </div>
   </div>
-  <div class="w-300px flex items-center justify-end">
-    <NavBarOperator />
-  </div>
+  <NavBarOperator />
 </template>
 
 <script lang="ts" setup name="nav-bar">

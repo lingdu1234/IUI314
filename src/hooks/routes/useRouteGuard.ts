@@ -2,10 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:54:48
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 23:59:55
+ * @LastEditTime: 2022-10-04 17:50:09
  * @FilePath: \IUI314\src\hooks\routes\useRouteGuard.ts
  * @Description:
  */
+import 'nprogress/nprogress.css'
+
+import NProgress from 'nprogress'
 import type { Router, RouteRecordRaw } from 'vue-router'
 
 import { usePermissionStore, useUserStore } from '@/stores'
@@ -17,10 +20,12 @@ const whiteList = ['/login']
 // routerGuard
 export const useRouterGuard = (router: Router) => {
   router.beforeEach((to, _from, next) => {
+    NProgress.start()
     const { valid } = useToken()
     if (valid) {
       if (to.path === '/login') {
         next({ path: '/' })
+        NProgress.done()
       } else {
         const userStore = useUserStore()
         userStore
@@ -40,19 +45,22 @@ export const useRouterGuard = (router: Router) => {
             //
           })
         next()
+        NProgress.done()
       }
     } else {
       // 没有token
       if (whiteList.indexOf(to.path) !== -1) {
         // 在免登录白名单，直接进入
         next()
+        NProgress.done()
       } else {
         next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
+        NProgress.done()
       }
     }
   })
 
   router.afterEach(() => {
-    // NProgress.done()
+    NProgress.done()
   })
 }
