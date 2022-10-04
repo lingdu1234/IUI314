@@ -2,14 +2,28 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 09:14:52
- * @FilePath: \IUI314\src\stores\app\app.ts
+ * @LastEditTime: 2022-10-04 12:32:41
+ * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
 import { defineStore } from 'pinia'
 
+interface AppStore {
+  siderBar: {
+    isCollapse: boolean
+  }
+  device: {
+    isMobile: boolean
+  }
+  app: {
+    isDark: boolean | undefined
+    theme: string
+    lang: string
+  }
+}
+
 export const useAppStore = defineStore('app', {
-  state: () => ({
+  state: (): AppStore => ({
     siderBar: {
       isCollapse: false,
     },
@@ -17,7 +31,8 @@ export const useAppStore = defineStore('app', {
       isMobile: false,
     },
     app: {
-      isDark: true,
+      isDark: undefined,
+      theme: '',
       lang: 'zh-CN',
     },
   }),
@@ -31,8 +46,9 @@ export const useAppStore = defineStore('app', {
     setIsMobile(isMobile: boolean) {
       this.device.isMobile = isMobile
     },
-    setIsDark(isDark: boolean) {
-      this.app.isDark = isDark
+    setThemeColor(color: string) {
+      this.app.isDark = color === 'dark' ? true : false
+      this.app.theme = color
     },
   },
 })

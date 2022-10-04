@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 21:49:15
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 00:02:55
+ * @LastEditTime: 2022-10-04 07:16:45
  * @FilePath: \IUI314\src\components\layout\side-bar\side-bar-menu.vue
  * @Description: 
 -->
@@ -33,7 +33,7 @@ import SideBarMenuItem from './side-bar-menu-item.vue'
 const appStore = useAppStore()
 const permissionStore = usePermissionStore()
 
-const routes = computed(() => permissionStore.sidebarRouters)
+const routes = computed(() => permissionStore.routes)
 
 const route = useRoute()
 const activeMenu = computed(() => {

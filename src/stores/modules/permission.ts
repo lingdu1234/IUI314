@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:21:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 23:24:31
+ * @LastEditTime: 2022-10-04 11:08:53
  * @FilePath: \IUI314\src\stores\modules\permission.ts
  * @Description:
  */
@@ -18,27 +18,16 @@ export const usePermissionStore = defineStore('permission', {
   state: () => ({
     routes: new Array<AppRouteRecordRaw>(),
     addRoutes: new Array<AppRouteRecordRaw>(),
-    defaultRoutes: new Array<AppRouteRecordRaw>(),
-    sidebarRouters: new Array<AppRouteRecordRaw>(),
   }),
   actions: {
     setRoutes(routes: AppRouteRecordRaw[]) {
       this.addRoutes = routes
       this.routes = constantRoutes.concat(routes)
     },
-    setDefaultRoutes(routes: AppRouteRecordRaw[]) {
-      this.defaultRoutes = constantRoutes.concat(routes)
-    },
-    setSidebarRouters(routes: AppRouteRecordRaw[]) {
-      this.sidebarRouters = routes
-    },
     async generateRoutes() {
       const routes = await getUserRouters()
       const routers = filterAsyncRouter(routes)
-      this.setSidebarRouters(constantRoutes.concat(routers))
-      this.setDefaultRoutes(routers)
       this.setRoutes(routers)
-      console.log('routers :>> ', routers)
       return routers
     },
   },

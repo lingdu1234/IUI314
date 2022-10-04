@@ -8,8 +8,10 @@
       :model="loginForm"
       :rules="loginRules"
     >
-      <h2 class="title">Sign in to Website</h2>
-      <span class="formClass__span">or use your email account</span>
+      <div class="w-96px flex items-center justify-center">
+        <img :src="logo" alt="logo" class="w-96px h-96px" />
+      </div>
+      <h2 class="title m-t-1px m-b-1px">π 数据管理系统</h2>
       <el-form-item prop="user_name">
         <el-input
           v-model="loginForm.user_name"
@@ -31,11 +33,12 @@
           v-model="loginForm.code"
           style="width: 220px; height: 40px"
           type="text"
+          @keyup.enter="submitLogin(loginFormRef)"
           placeholder="验证码"
         />
         <img
           :src="captchaData?.img"
-          :class="appStore.app.isDark ? 'invert-90' : 'invert-0'"
+          :class="isDark ? 'filter-invert-90' : 'filter-invert-0'"
           class="h-40px w-130px b-rd-6px"
           @click="getCaptcha"
         />
@@ -60,9 +63,18 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { useCaptcha } from '@/api/login'
+import logo from '@/assets/logo.svg'
+import { useTheme } from '@/hooks/app/useTheme'
 import { useFormUtil } from '@/hooks/util/useFormUtil'
-import { useAppStore, useUserStore } from '@/stores'
+import { useUserStore } from '@/stores'
 import type { LoginFormLocal } from '@/types/base/login'
+
+const userStore = useUserStore()
+const router = useRouter()
+const { captchaData, getCaptcha } = useCaptcha()
+const { formValidate, formReset } = useFormUtil()
+const { isDark } = useTheme()
+const redirect = ref(undefined)
 
 const loginFormRef = ref<FormInstance>()
 
@@ -88,12 +100,6 @@ const loginRules = reactive<FormRules>({
     { min: 4, max: 4, message: '验证码为4位字符', trigger: 'blur' },
   ],
 })
-const appStore = useAppStore()
-const userStore = useUserStore()
-const router = useRouter()
-const { captchaData, getCaptcha } = useCaptcha()
-const { formValidate, formReset } = useFormUtil()
-const redirect = ref(undefined)
 
 loginForm.value.rememberMe = userStore.rememberMe
 
@@ -112,6 +118,7 @@ const getLocalUserInfo = () => {
     loginForm.value.user_password = user_password
   }
 }
+
 getLocalUserInfo()
 </script>
 <style lang="scss" scoped>
@@ -161,11 +168,6 @@ getLocalUserInfo()
   flex-direction: column;
   width: 100%;
   height: 100%;
-  &__span {
-    font-size: 20px;
-    margin-top: 5px;
-    margin-bottom: 12px;
-  }
   .el-input {
     --el-input-bg-color: var(--login-neu-1);
   }
