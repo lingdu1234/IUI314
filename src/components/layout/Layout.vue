@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 22:27:00
+ * @LastEditTime: 2022-10-06 14:11:05
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -13,8 +13,8 @@
         <SideBar />
       </el-aside>
       <el-container class="main-container">
-        <el-header>
-          <NavBar v-if="appStore.app.navBar" />
+        <el-header v-if="appStore.app.navBar">
+          <NavBar />
         </el-header>
         <TabBar v-if="appStore.app.tabBar" />
         <el-main>
@@ -45,7 +45,7 @@ watch(
 )
 
 const sideBarWidth = computed(() =>
-  appStore.siderBar.isCollapse ? { '--sider-bar-width': 64 } : null
+  appStore.siderBar.isCollapse ? { '--sider-bar-width': '60px' } : null
 )
 </script>
 

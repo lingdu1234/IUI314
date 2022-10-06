@@ -17,7 +17,7 @@ import { computed, unref } from 'vue'
 import { type LocationQueryRaw, stringifyQuery } from 'vue-router'
 
 import { useToken } from '@/hooks/app/useDevice'
-import { router } from '@/router'
+import { router } from '@/router/router'
 import { useUserStore } from '@/stores'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL

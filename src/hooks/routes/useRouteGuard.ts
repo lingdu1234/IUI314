@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:54:48
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 21:10:18
+ * @LastEditTime: 2022-10-06 16:14:05
  * @FilePath: \IUI314\src\hooks\routes\useRouteGuard.ts
  * @Description: 路由守卫，刷新路由丢失，搞了一天也不知道到底是怎么好的
  */
@@ -11,8 +11,12 @@ import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 import type { Router, RouteRecordRaw } from 'vue-router'
 
-import { NotFoundRoutes } from '@/router'
-import { usePermissionStore, useUserStore } from '@/stores'
+import {
+  NoPermissionRoute,
+  NotFoundRoutes,
+  ServerErrorRoute,
+} from '@/router/constant'
+import { useAppStore, usePermissionStore, useUserStore } from '@/stores'
 
 import { useToken } from '../app/useDevice'
 import { setRouteEmitter } from './useRouterListener'
@@ -26,6 +30,7 @@ export const useRouterGuard = async (router: Router) => {
   router.beforeEach(async (to, from, next) => {
     NProgress.start()
     setRouteEmitter(to) //监听路由变化
+    to.meta.title && useAppStore().setAppTitle(to.meta.title) //设置浏览器标题
     const { valid } = useToken()
     //  token 有效
     if (valid) {
@@ -44,6 +49,8 @@ export const useRouterGuard = async (router: Router) => {
             }
           })
           router.addRoute(NotFoundRoutes as RouteRecordRaw)
+          router.addRoute(NoPermissionRoute as RouteRecordRaw)
+          router.addRoute(ServerErrorRoute as RouteRecordRaw)
           permissionStore.setIsReloading(false)
           next({ ...to, replace: true })
         } else {

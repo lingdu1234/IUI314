@@ -53,10 +53,11 @@
   </div>
 </template>
 <script lang="ts" setup name="side-bar-menu-item">
-import { type PropType, ref } from 'vue'
+import { type PropType, computed, ref } from 'vue'
 
 import SvgIcon from '@/components/common/svg-icon.vue'
 import { getNormalPath, isExternal } from '@/hooks/routes/useRouteUtl'
+import { useAppStore } from '@/stores'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 
 import AppLink from './app-link.vue'
@@ -75,8 +76,12 @@ const props = defineProps({
     default: '',
   },
 })
-
+const appStore = useAppStore()
 const onlyOneChild = ref<AppRouteRecordRaw>()
+
+const icon_arrow_dispay = computed(() =>
+  appStore.siderBar.isCollapse ? 'none' : ''
+)
 
 function hasOneShowingChild(
   children: AppRouteRecordRaw[] = [],
@@ -141,9 +146,17 @@ function hasTitle(title: string) {
   white-space: nowrap !important;
 }
 
+::v-deep(i.el-icon.el-sub-menu__icon-arrow) {
+  display: v-bind(icon_arrow_dispay);
+}
+
 // 去掉菜单下划线
 .router-link-active,
 a {
   text-decoration: none;
+}
+.el-menu {
+  background-color: black;
+  border-radius: 20px;
 }
 </style>

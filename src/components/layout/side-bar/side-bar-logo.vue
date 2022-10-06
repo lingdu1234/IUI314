@@ -1,6 +1,14 @@
+<!--
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-09-30 21:45:51
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-06 17:11:41
+ * @FilePath: \IUI314\src\components\layout\side-bar\side-bar-logo.vue
+ * @Description: 
+-->
 <template>
   <router-link to="/index" class="side-bar-logo-container">
-    <div class="w-64px flex items-center justify-center">
+    <div class="w-60px flex items-center justify-center">
       <img :src="logo" alt="logo" class="w-32px h-32px" />
     </div>
     <div v-if="!appStore.siderBar.isCollapse" class="w-136px">

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:21:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 08:13:42
+ * @LastEditTime: 2022-10-06 16:38:24
  * @FilePath: \IUI314\src\stores\modules\permission.ts
  * @Description:
  */
@@ -10,12 +10,15 @@ import { defineStore } from 'pinia'
 
 import { getUserRouters } from '@/api/login'
 import {
-  constantRoutes,
   InnerLink,
   Layout,
+  NoPermissionRoute,
+  NotFound,
   NotFoundRoutes,
   ParentView,
-} from '@/router'
+  ServerErrorRoute,
+} from '@/router/constant'
+import { constantRoutes } from '@/router/router'
 import type { AppRouteRecordRaw, Component } from '@/types/base/router'
 
 const views: Record<string, Component> = import.meta.glob('@/views/**/*.vue')
@@ -29,7 +32,13 @@ export const usePermissionStore = defineStore('permission', {
   actions: {
     setRoutes(routes: AppRouteRecordRaw[]) {
       this.addRoutes = routes
-      this.routes = [...constantRoutes, ...routes, NotFoundRoutes]
+      this.routes = [
+        ...constantRoutes,
+        ...routes,
+        NotFoundRoutes,
+        NoPermissionRoute,
+        ServerErrorRoute,
+      ]
     },
     async generateRoutes() {
       const routes = await getUserRouters()
@@ -82,7 +91,7 @@ async function filterAsyncRouter(
 }
 
 const loadView = (view: string) => {
-  let res = () => import('@/components/error/404.vue')
+  let res = NotFound
   for (const path in views) {
     const dir = path.split('views/')[1].split('.vue')[0]
     if (dir === view) {

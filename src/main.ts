@@ -6,7 +6,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css' //element-puls dark theme
 import { createApp } from 'vue'
 
 import App from './App.vue'
-import { setupRoutes } from './router'
+import { setupRoutes } from './router/router'
 import { setupStores } from './stores'
 
 const app = createApp(App)

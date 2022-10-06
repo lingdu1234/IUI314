@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:54:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 07:15:58
+ * @LastEditTime: 2022-10-06 16:38:17
  * @FilePath: \IUI314\src\stores\modules\tab-bar.ts
  * @Description:
  */
@@ -10,7 +10,7 @@ import { defineStore } from 'pinia'
 import type { RouteLocationNormalized } from 'vue-router'
 
 import { isString } from '@/hooks/util'
-import { DEFAULT_ROUTE, DEFAULT_ROUTE_NAME } from '@/router'
+import { DEFAULT_ROUTE } from '@/router'
 import type { TabBarState, TagProps } from '@/types/base/router'
 
 const formatTag = (route: RouteLocationNormalized): TagProps => {
@@ -26,7 +26,7 @@ const formatTag = (route: RouteLocationNormalized): TagProps => {
 
 export const useTabBarStore = defineStore('tab-bar', {
   state: (): TabBarState => ({
-    cacheTabList: new Set(DEFAULT_ROUTE_NAME),
+    cacheTabList: new Set(),
     tagList: [DEFAULT_ROUTE],
   }),
   persist: {
@@ -44,7 +44,7 @@ export const useTabBarStore = defineStore('tab-bar', {
   actions: {
     updateTabList(route: RouteLocationNormalized) {
       this.tagList.push(formatTag(route))
-      if (!route.meta.no_cache) {
+      if (route.meta.no_cache === false) {
         this.cacheTabList.add(route.name as string)
       }
     },
@@ -52,8 +52,11 @@ export const useTabBarStore = defineStore('tab-bar', {
       this.tagList.splice(idx, 1)
       this.cacheTabList.delete(tag.name)
     },
-    addCache(name: string) {
-      if (isString(name) && name !== '') this.cacheTabList.add(name)
+    addCache(tag: TagProps) {
+      const { name, no_cache } = tag
+      if (!no_cache && isString(name) && name !== '') {
+        this.cacheTabList.add(name)
+      }
     },
     deleteCache(tag: TagProps) {
       this.cacheTabList.delete(tag.name)
@@ -68,9 +71,8 @@ export const useTabBarStore = defineStore('tab-bar', {
         .forEach((x) => this.cacheTabList.add(x))
     },
     resetTabList() {
-      this.tagList = []
+      this.tagList = [DEFAULT_ROUTE]
       this.cacheTabList.clear()
-      //   this.cacheTabList.add()
     },
   },
 })

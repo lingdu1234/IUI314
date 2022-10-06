@@ -61,18 +61,11 @@ import {
 import { type PropType, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import { DEFAULT_ROUTE_NAME, REDIRECT_ROUTE_NAME } from '@/router'
+import { DEFAULT_ROUTE_NAME } from '@/router'
 import { useTabBarStore } from '@/stores'
 import type { TagProps } from '@/types/base/router'
 
-enum Eaction {
-  reload = 'reload',
-  current = 'current',
-  left = 'left',
-  right = 'right',
-  others = 'others',
-  all = 'all',
-}
+import { Eaction, useTabBar } from './useTabBar'
 
 const props = defineProps({
   itemData: {
@@ -87,17 +80,11 @@ const props = defineProps({
   },
 })
 
+const { tagList, goto, findCurrentRouteIndex } = useTabBar()
+
 const router = useRouter()
 const route = useRoute()
 const tabBarStore = useTabBarStore()
-
-const goto = (tag: TagProps) => {
-  console.log('tag :>> ', tag)
-  router.push({ ...tag })
-}
-const tagList = computed(() => {
-  return tabBarStore.getTabList
-})
 
 const disabledReload = computed(() => {
   return props.itemData.fullPath !== route.fullPath
@@ -119,13 +106,15 @@ const tagClose = (tag: TagProps, idx: number) => {
   tabBarStore.deleteTag(idx, tag)
   if (props.itemData.fullPath === route.fullPath) {
     const latest = tagList.value[idx - 1] // 获取队列的前一个tab
-    router.push({ name: latest.name })
+    if (latest && latest.name) {
+      router.push({ name: latest.name })
+    } else {
+      tabBarStore.resetTabList()
+      router.push({ name: DEFAULT_ROUTE_NAME })
+    }
   }
 }
 
-const findCurrentRouteIndex = () => {
-  return tagList.value.findIndex((el) => el.fullPath === route.fullPath)
-}
 const actionSelect = async (value: any) => {
   const { itemData, index } = props
   const copyTagList = [...tagList.value]
@@ -155,18 +144,15 @@ const actionSelect = async (value: any) => {
     router.push({ name: itemData.name })
   } else if (value === Eaction.reload) {
     tabBarStore.deleteCache(itemData)
-    await router.push({
-      name: REDIRECT_ROUTE_NAME,
-      params: {
-        path: route.fullPath,
-      },
-    })
-    tabBarStore.addCache(itemData.name)
+    await router.push(itemData.fullPath)
+    tabBarStore.addCache(itemData)
   } else {
     tabBarStore.resetTabList()
     router.push({ name: DEFAULT_ROUTE_NAME })
   }
 }
+
+defineExpose({ actionSelect })
 </script>
 
 <style scoped lang="scss">
@@ -177,15 +163,18 @@ const actionSelect = async (value: any) => {
   display: flex;
   align-items: center;
   background-color: var(--tab-bar-item-bg-color);
+  box-shadow: 8px 8px 16px var(--tab-bar-item-bg-color);
+
   padding: 3px 10px;
   overflow-y: hidden;
 }
 .tag-link {
-  color: var(--color-text-2);
+  color: var(--tab-bar-item-inactive-color);
   text-decoration: none;
 }
 .link-activated {
   color: var(--tab-bar-item-active-color);
   background: var(--tab-bar-item-active-bg-color);
+  box-shadow: 8px 8px 16px var(--tab-bar-item-active-bg-color);
 }
 </style>

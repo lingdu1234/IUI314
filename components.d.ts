@@ -7,8 +7,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    401: typeof import('./src/components/error/401.vue')['default']
-    404: typeof import('./src/components/error/404.vue')['default']
+    401: typeof import('./src/components/exception/401.vue')['default']
+    404: typeof import('./src/components/exception/404.vue')['default']
+    500: typeof import('./src/components/exception/500.vue')['default']
     AppLink: typeof import('./src/components/layout/side-bar/app-link.vue')['default']
     AppMain: typeof import('./src/components/layout/app-main.vue')['default']
     AppSettings: typeof import('./src/components/app/app-settings.vue')['default']
@@ -37,6 +38,8 @@ declare module '@vue/runtime-core' {
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    Error: typeof import('./src/components/error/error.vue')['default']
+    Exception: typeof import('./src/components/exception/exception.vue')['default']
     InnerLink: typeof import('./src/components/layout/inner-link.vue')['default']
     Layout: typeof import('./src/components/layout/Layout.vue')['default']
     Login: typeof import('./src/components/login/index.vue')['default']
@@ -51,7 +54,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScreenFull: typeof import('./src/components/app/screen-full.vue')['default']
-    ScrollPane: typeof import('./src/components/layout/tab-bar/scroll-pane.vue')['default']
     SideBar: typeof import('./src/components/layout/side-bar/index.vue')['default']
     SideBarLogo: typeof import('./src/components/layout/side-bar/side-bar-logo.vue')['default']
     SideBarMenu: typeof import('./src/components/layout/side-bar/side-bar-menu.vue')['default']
@@ -61,8 +63,7 @@ declare module '@vue/runtime-core' {
     SvgIcon: typeof import('./src/components/common/svg-icon.vue')['default']
     TabBar: typeof import('./src/components/layout/tab-bar/tab-bar.vue')['default']
     TabItem: typeof import('./src/components/layout/tab-bar/tab-item.vue')['default']
-    TagsView: typeof import('./src/components/layout/TagsView/index.vue')['default']
-    TagView: typeof import('./src/components/layout/tag-view/index.vue')['default']
     ThemeChange: typeof import('./src/components/app/theme-change.vue')['default']
+    Tool: typeof import('./src/components/layout/tab-bar/tool.vue')['default']
   }
 }

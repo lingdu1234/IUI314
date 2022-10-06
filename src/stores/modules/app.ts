@@ -2,11 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 22:13:09
+ * @LastEditTime: 2022-10-06 13:24:30
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
 import { defineStore } from 'pinia'
+
+import { useDynamicTitle } from '@/hooks/util'
 
 interface AppStore {
   siderBar: {
@@ -16,6 +18,9 @@ interface AppStore {
     isMobile: boolean
   }
   app: {
+    name: string
+    title: string
+    dynamicTitle: boolean
     isDark: boolean | undefined
     theme: string
     lang: string
@@ -33,6 +38,9 @@ export const useAppStore = defineStore('app', {
       isMobile: false,
     },
     app: {
+      name: import.meta.env.VITE_APP_TITLE,
+      title: '',
+      dynamicTitle: true,
       isDark: undefined,
       theme: '',
       lang: 'zh-CN',
@@ -59,6 +67,16 @@ export const useAppStore = defineStore('app', {
     },
     setTabBar(tabBarStatus: boolean) {
       this.app.tabBar = tabBarStatus
+    },
+    setAppName(name: string) {
+      this.app.name = name
+    },
+    setAppTitle(title: string) {
+      this.app.title = title
+      useDynamicTitle()
+    },
+    setDynamicTitle(isynamicTitle: boolean) {
+      this.app.dynamicTitle = isynamicTitle
     },
   },
 })

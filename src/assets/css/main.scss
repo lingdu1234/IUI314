@@ -10,6 +10,6 @@ body,
   overflow: hidden;
 }
 // 隐藏tab-bar 的滚动条
-.tab-bar-box .el-scrollbar__bar.is-horizontal {
+.tab-bar-box-scroll .el-scrollbar__bar.is-horizontal {
   height: 0px !important;
 }
