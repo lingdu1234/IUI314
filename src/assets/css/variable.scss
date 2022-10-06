@@ -5,7 +5,7 @@
     --header-bar-font-color: #000;
     // sidebar
     --sider-bar-width: 200px;
-    --sider-bar-isCollapse-width: 45px;
+    --sider-bar-isCollapse-width: 66px;
     --sider-bar-bg-color: #fff;
     --sider-bar-font-color: #000;
     --side-bar-logo-bg-color: #FAFAFA;
@@ -25,11 +25,12 @@
         --login-black: #181818;
         --login-purple: #4B70E2;
         --login-transition: 1.25s;
-        // tab-bar
-    --tab-bar-bg-color: var(--header-bar-bg-color);
+        // tab-bar var(--header-bar-bg-color)
+            --tab-bar-bg-color: var(--header-bar-bg-color);
         --tab-bar-item-bg-color: #e1ebe6;
     --tab-bar-item-bg-radius: 5px;
-    --tab-bar-item-height: 20px;
+    --tab-bar-item-height: 25px;
+        --tab-bar-operation-width: 80px;
     --tab-bar-item-active-color: rgb(8, 8, 244);
     --tab-bar-item-inactive-color: var(--side-bar-logo-title-color);
     --tab-bar-item-active-bg-color: rgb(184, 193, 199);
@@ -49,18 +50,6 @@
     border: none !important;
 }
 
-
-// .el-menu--vertical.el-menu--popup-container {
-//     border-radius: 30px !important;
-// }
-// // element-plus
-// html {
-//     .el-menu {
-//         // sidebar 菜单激活颜色
-//         --active-color: #ff4080 !important;
-
-//     }
-// }
 
 //  灰色主题
 html.gray {

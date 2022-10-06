@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 14:11:05
+ * @LastEditTime: 2022-10-06 23:28:18
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -45,7 +45,9 @@ watch(
 )
 
 const sideBarWidth = computed(() =>
-  appStore.siderBar.isCollapse ? { '--sider-bar-width': '60px' } : null
+  appStore.siderBar.isCollapse
+    ? { '--sider-bar-width': 'var(--sider-bar-isCollapse-width)' }
+    : null
 )
 </script>
 

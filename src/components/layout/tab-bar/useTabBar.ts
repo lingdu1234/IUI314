@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 18:40:42
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 19:02:28
+ * @LastEditTime: 2022-10-06 19:48:22
  * @FilePath: \IUI314\src\components\layout\tab-bar\useTabBar.ts
  * @Description:
  */
@@ -42,9 +42,12 @@ export const useTabBar = () => {
     return tagList.value.findIndex((el) => el.fullPath === route.fullPath)
   }
 
+  const currentRoute = tagList.value[findCurrentRouteIndex()]
+
   return {
     tagList,
     goto,
     findCurrentRouteIndex,
+    currentRoute,
   }
 }

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 19:22:26
+ * @LastEditTime: 2022-10-07 00:09:27
  * @FilePath: \IUI314\src\components\layout\tab-bar\tab-bar.vue
  * @Description: 
 -->
@@ -10,7 +10,7 @@
   <div class="relative tab-bar-container">
     <el-affix ref="affixRef" :offset-top="offsetTop">
       <div class="flex items-center justify-between">
-        <div class="flex items-center w-100% tab-bar-box-scroll">
+        <div class="m-t-8px m-b-8px flex items-center tab-bar-box-scroll">
           <el-scrollbar ref="scrollbarRef" @wheel="tabScroll">
             <div class="p-l-4px tags-wrap">
               <tab-item
@@ -23,10 +23,27 @@
             </div>
           </el-scrollbar>
         </div>
-        <div class="flex items-center justify-end m-r-5px">
-          <el-icon @click="refesh"><Refresh /></el-icon>
-          <el-icon><Refresh /></el-icon>
-          <el-icon><Refresh /></el-icon>
+        <div class="m-t-8px m-r-5px flex items-center justify-end">
+          <div class="flex items-center justify-around tag-bar-operation">
+            <div>
+              <el-icon @click="refesh" :class="isFreshing ? 'is-loading' : ''">
+                <RefreshLeft />
+              </el-icon>
+            </div>
+            <el-dropdown
+              class="m-r-20px"
+              trigger="click"
+              @command="actionSelect"
+            >
+              <el-icon><ArrowDownBold /></el-icon>
+              <template #dropdown>
+                <TabBarItemDropdown
+                  :item-data="currentRoute"
+                  :index="findCurrentRouteIndex()"
+                />
+              </template>
+            </el-dropdown>
+          </div>
         </div>
       </div>
     </el-affix>
@@ -34,7 +51,7 @@
 </template>
 
 <script lang="ts" setup name="tab-bar">
-import { Refresh } from '@element-plus/icons-vue'
+import { ArrowDownBold, RefreshLeft } from '@element-plus/icons-vue'
 import { ElScrollbar } from 'element-plus'
 import { computed, onUnmounted, ref, watch } from 'vue'
 import type { RouteLocationNormalized } from 'vue-router'
@@ -50,7 +67,8 @@ const tabBarStore = useTabBarStore()
 const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
 const tabItemRef = ref<InstanceType<typeof tabItem>[]>()
 
-const { tagList, findCurrentRouteIndex } = useTabBar()
+const { tagList, findCurrentRouteIndex, currentRoute } = useTabBar()
+const isFreshing = ref<boolean>(false)
 
 const affixRef = ref()
 const offsetTop = computed(() => {
@@ -65,9 +83,16 @@ watch(
 )
 
 const refesh = () => {
+  isFreshing.value = true
   const index = findCurrentRouteIndex()
-
   tabItemRef.value![index].actionSelect('reload')
+  setTimeout(() => {
+    isFreshing.value = false
+  }, 2000)
+}
+const actionSelect = async (value: any) => {
+  const index = findCurrentRouteIndex()
+  tabItemRef.value![index].actionSelect(value)
 }
 
 const tabScroll = (e: WheelEvent) => {
@@ -97,16 +122,14 @@ onUnmounted(() => {
   background-color: var(--tab-bar-bg-color);
   .tab-bar-box-scroll {
     padding: 1px 5px;
+    width: calc(100% - var(--tab-bar-operation-width));
     .tags-wrap {
       white-space: nowrap;
     }
   }
 
   .tag-bar-operation {
-    display: flex;
-    width: 100px;
-    height: 32px;
-    align-items: center;
+    width: var(--tab-bar-operation-width);
   }
 }
 </style>
