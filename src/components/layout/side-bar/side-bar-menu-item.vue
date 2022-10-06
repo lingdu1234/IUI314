@@ -9,7 +9,7 @@
     >
       <app-link
         v-if="onlyOneChild?.meta"
-        :to="resolvePath(onlyOneChild.path, onlyOneChild.query)"
+        :to="(resolvePath(onlyOneChild.path, onlyOneChild.query) as string)"
       >
         <el-menu-item
           :index="resolvePath(onlyOneChild.path)"
@@ -39,14 +39,16 @@
         </span>
       </template>
 
-      <side-bar-menu-item
-        v-for="child in item.children"
-        :key="child.path"
-        :is-nest="true"
-        :item="child"
-        :base-path="resolvePath(child.path)"
-        class="nest-menu"
-      />
+      <div v-if="item.children && item.children.length > 0">
+        <side-bar-menu-item
+          v-for="child in item.children"
+          :key="child.path"
+          :is-nest="true"
+          :item="child"
+          :base-path="resolvePath(child.path)"
+          class="nest-menu"
+        />
+      </div>
     </el-sub-menu>
   </div>
 </template>
@@ -56,6 +58,8 @@ import { type PropType, ref } from 'vue'
 import SvgIcon from '@/components/common/svg-icon.vue'
 import { getNormalPath, isExternal } from '@/hooks/routes/useRouteUtl'
 import type { AppRouteRecordRaw } from '@/types/base/router'
+
+import AppLink from './app-link.vue'
 
 const props = defineProps({
   item: {

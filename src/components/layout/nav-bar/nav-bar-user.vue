@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 11:04:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 13:31:21
+ * @LastEditTime: 2022-10-05 09:12:00
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-user.vue
  * @Description: 
 -->
@@ -39,19 +39,22 @@
 <script lang="ts" setup name="nav-bar-user">
 import { ElMessageBox } from 'element-plus'
 
+import { router } from '@/router'
 import { useUserStore } from '@/stores'
 
 const userStore = useUserStore()
+
 const logout = () => {
   ElMessageBox.confirm('确定注销并退出系统吗？', '提示', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
     type: 'warning',
   })
-    .then(() => {
-      userStore.logOut().then(() => {
-        location.href = ''
-      })
+    .then(async () => {
+      const currentRoute = router.currentRoute
+
+      await userStore.logOut()
+      router.push(`/login?redirect=${currentRoute.value.fullPath}`)
     })
     .catch(() => {})
 }

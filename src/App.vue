@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 16:07:42
+ * @LastEditTime: 2022-10-05 17:46:22
  * @FilePath: \IUI314\src\App.vue
  * @Description: 
 -->
@@ -11,7 +11,7 @@
     <router-view />
   </el-config-provider>
 </template>
-<script lang="ts" setup name="app-main">
+<script lang="ts" setup name="app">
 import en from 'element-plus/es/locale/lang/en'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import { computed } from 'vue'

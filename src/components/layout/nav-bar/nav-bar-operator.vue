@@ -19,7 +19,7 @@
         <NavBarSearch />
       </el-tooltip>
       <!-- <el-tooltip content="语言切换" effect="light" placement="bottom"> -->
-        <NavBarTheme />
+      <NavBarTheme />
       <!-- </el-tooltip> -->
       <el-tooltip content="主题切换" effect="light" placement="bottom">
         <ThemeChange />

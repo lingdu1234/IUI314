@@ -1,3 +1,11 @@
+/*
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-09-30 18:41:35
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-04 20:17:26
+ * @FilePath: \IUI314\vite.config.ts
+ * @Description:
+ */
 import { fileURLToPath, URL } from 'node:url'
 
 import vue from '@vitejs/plugin-vue'
@@ -45,18 +53,18 @@ export default defineConfig({
   build: {
     sourcemap: false,
     minify: 'terser',
-    outDir: '../dist',
+    outDir: './dist',
     rollupOptions: {
       input: {
         index: fileURLToPath(new URL('index.html', import.meta.url)),
       },
     },
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-      sourceMap: false,
-    },
+    // terserOptions: {
+    //   compress: {
+    //     drop_console: true,
+    //     drop_debugger: true,
+    //   },
+    //   sourceMap: false,
+    // },
   },
 })

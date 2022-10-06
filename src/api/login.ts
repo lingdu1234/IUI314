@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 07:46:07
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 13:21:45
+ * @LastEditTime: 2022-10-05 09:36:04
  * @FilePath: \IUI314\src\api\login.ts
  * @Description: login
  */
@@ -78,7 +78,6 @@ export const getUserRouters = async (): Promise<AppRouteRecordRaw[]> => {
 
 // logout
 export const logOutUser = async () => {
-  const { data, execute } = usePost(Api.logOut)
+  const { execute } = usePost(Api.logOut)
   await execute()
-  console.log('data.value :>> ', data.value)
 }

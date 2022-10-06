@@ -2,20 +2,22 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 16:32:14
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 13:26:46
+ * @LastEditTime: 2022-10-05 18:43:55
  * @FilePath: \IUI314\src\components\layout\nav-bar\index.vue
  * @Description: 
 -->
 <template>
-  <div class="flex justify-start items-center">
-    <div class="cursor-pointer">
-      <side-bar-toggle />
+  <div class="nav-bar-header">
+    <div class="flex justify-start items-center">
+      <div class="cursor-pointer">
+        <side-bar-toggle />
+      </div>
+      <div>
+        <Breadcrumb />
+      </div>
     </div>
-    <div>
-      <Breadcrumb />
-    </div>
+    <NavBarOperator />
   </div>
-  <NavBarOperator />
 </template>
 
 <script lang="ts" setup name="nav-bar">
@@ -32,4 +34,14 @@ import SideBarToggle from './side-bar-toggle.vue'
 //   z-index: 9;
 //   transition: width 0.28s;
 // }
+
+.nav-bar-header {
+  height: var(--header-bar-height);
+  width: 100vw;
+  background-color: var(--header-bar-bg-color);
+  color: var(--header-bar-font-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 </style>

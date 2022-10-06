@@ -2,14 +2,20 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:21:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 11:08:53
+ * @LastEditTime: 2022-10-05 08:13:42
  * @FilePath: \IUI314\src\stores\modules\permission.ts
  * @Description:
  */
 import { defineStore } from 'pinia'
 
 import { getUserRouters } from '@/api/login'
-import { constantRoutes, InnerLink, Layout, ParentView } from '@/router'
+import {
+  constantRoutes,
+  InnerLink,
+  Layout,
+  NotFoundRoutes,
+  ParentView,
+} from '@/router'
 import type { AppRouteRecordRaw, Component } from '@/types/base/router'
 
 const views: Record<string, Component> = import.meta.glob('@/views/**/*.vue')
@@ -18,25 +24,32 @@ export const usePermissionStore = defineStore('permission', {
   state: () => ({
     routes: new Array<AppRouteRecordRaw>(),
     addRoutes: new Array<AppRouteRecordRaw>(),
+    isReloading: true,
   }),
   actions: {
     setRoutes(routes: AppRouteRecordRaw[]) {
       this.addRoutes = routes
-      this.routes = constantRoutes.concat(routes)
+      this.routes = [...constantRoutes, ...routes, NotFoundRoutes]
     },
     async generateRoutes() {
       const routes = await getUserRouters()
-      const routers = filterAsyncRouter(routes)
+      const routers = await filterAsyncRouter(routes)
       this.setRoutes(routers)
       return routers
+    },
+    setIsReloading(isReloading: boolean) {
+      this.isReloading = isReloading
     },
   },
 })
 
-function filterAsyncRouter(asyncRouterMap: AppRouteRecordRaw[], type = false) {
-  return asyncRouterMap.filter((route) => {
+async function filterAsyncRouter(
+  asyncRouterMap: AppRouteRecordRaw[],
+  type = false
+) {
+  return asyncRouterMap.filter(async (route) => {
     if (type && route.children) {
-      route.children = filterChildren(route.children)
+      route.children = await filterChildren(route.children)
     }
     if (route.menu_type === 'M') {
       if (route.pid === '0') {
@@ -59,7 +72,7 @@ function filterAsyncRouter(asyncRouterMap: AppRouteRecordRaw[], type = false) {
       }
     }
     if (route.children != null && route.children && route.children.length) {
-      route.children = filterAsyncRouter(route.children, type)
+      route.children = await filterAsyncRouter(route.children, type)
     } else {
       delete route['children']
       delete route['redirect']
@@ -79,15 +92,15 @@ const loadView = (view: string) => {
   return res
 }
 
-function filterChildren(childrenMap: AppRouteRecordRaw[]) {
+async function filterChildren(childrenMap: AppRouteRecordRaw[]) {
   let children = new Array<AppRouteRecordRaw>()
   childrenMap.forEach((el) => {
     if (el.children && el.children.length) {
       if (el.component === 'ParentView') {
-        el.children.forEach((c) => {
+        el.children.forEach(async (c) => {
           c.path = c.path ? el.path + '/' + c.path : c.path
           if (c.children && c.children.length) {
-            children = children.concat(filterChildren(c.children))
+            children = children.concat(await filterChildren(c.children))
             return
           }
           children.push(c)

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 13:11:36
+ * @LastEditTime: 2022-10-05 09:02:41
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */
@@ -103,7 +103,7 @@ export const useUserStore = defineStore('userInfo', {
       }
     },
     // 前端退出
-    frontEndLogout() {
+    async frontEndLogout() {
       this.token = {
         type: '',
         value: '',
@@ -114,7 +114,7 @@ export const useUserStore = defineStore('userInfo', {
     // 登出系统
     async logOut() {
       await logOutUser()
-      this.frontEndLogout()
+      await this.frontEndLogout()
     },
   },
 })

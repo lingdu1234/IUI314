@@ -75,7 +75,6 @@ const appStore = useAppStore()
 const router = useRouter()
 const { captchaData, getCaptcha } = useCaptcha()
 const { formValidate, formReset } = useFormUtil()
-const redirect = ref(undefined)
 
 const { init_theme } = useTheme()
 const color = computed(
@@ -121,7 +120,8 @@ const submitLogin = async (formRef: FormInstance | undefined) => {
   if (!(await formValidate(formRef))) return
   loginForm.value.uuid = captchaData.value?.uuid!
   await userStore.login(loginForm.value)
-  router.push({ path: redirect.value || '/' })
+  const redirect = router.currentRoute.value.query.redirect as string
+  router.push({ path: redirect })
 }
 // 获取本地用户信息
 const getLocalUserInfo = () => {

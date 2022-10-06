@@ -7,4 +7,9 @@ body,
   height: 100vh;
   margin: 0;
   min-width: 666px;
+  overflow: hidden;
+}
+// 隐藏tab-bar 的滚动条
+.tab-bar-box .el-scrollbar__bar.is-horizontal {
+  height: 0px !important;
 }

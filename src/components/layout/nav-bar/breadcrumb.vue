@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 20:20:03
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 23:52:01
+ * @LastEditTime: 2022-10-04 19:44:51
  * @FilePath: \IUI314\src\components\layout\nav-bar\breadcrumb.vue
  * @Description: 
 -->
@@ -10,12 +10,19 @@
   <el-breadcrumb class="m-l-20px font-900" :separator-icon="ArrowRight">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="item in levelList" :key="item.path">
-        <div class="no-redirect">
-          <el-icon>
-            <SvgIcon :name="item.meta! && item.meta.icon!" />
-          </el-icon>
-          <span class="m-l-5px">{{ item.meta.title }}</span>
-        </div>
+        <el-dropdown trigger="click">
+          <div class="no-redirect">
+            <el-icon>
+              <SvgIcon :name="item.meta! && item.meta.icon!" />
+            </el-icon>
+            <span class="m-l-5px">{{ item.meta.title }}</span>
+          </div>
+          <template v-if="item.children && item.children.length > 0" #dropdown>
+            <li v-for="it in item.children" :key="it.name">
+              {{ it.meta?.title! }}
+            </li>
+          </template>
+        </el-dropdown>
       </el-breadcrumb-item>
     </transition-group>
   </el-breadcrumb>

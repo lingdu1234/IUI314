@@ -1,15 +1,24 @@
+<!--
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-09-30 20:13:09
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-05 22:27:00
+ * @FilePath: \IUI314\src\components\layout\Layout.vue
+ * @Description: 
+-->
 <template>
   <div>
     <el-container>
       <el-aside :style="sideBarWidth">
         <SideBar />
       </el-aside>
-      <el-container>
-        <el-header class="flex justify-between items-center">
-          <NavBar />
+      <el-container class="main-container">
+        <el-header>
+          <NavBar v-if="appStore.app.navBar" />
         </el-header>
+        <TabBar v-if="appStore.app.tabBar" />
         <el-main>
-          <router-view />
+          <AppMain />
         </el-main>
       </el-container>
     </el-container>
@@ -21,8 +30,10 @@ import { computed, watch } from 'vue'
 import { useMobile } from '@/hooks/app/useDevice'
 import { useAppStore } from '@/stores'
 
+import AppMain from './app-main.vue'
 import NavBar from './nav-bar/index.vue'
 import SideBar from './side-bar/index.vue'
+import TabBar from './tab-bar/tab-bar.vue'
 
 const appStore = useAppStore()
 

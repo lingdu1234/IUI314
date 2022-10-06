@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 12:32:41
+ * @LastEditTime: 2022-10-05 22:13:09
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
@@ -19,6 +19,8 @@ interface AppStore {
     isDark: boolean | undefined
     theme: string
     lang: string
+    navBar: boolean
+    tabBar: boolean
   }
 }
 
@@ -34,6 +36,8 @@ export const useAppStore = defineStore('app', {
       isDark: undefined,
       theme: '',
       lang: 'zh-CN',
+      navBar: true,
+      tabBar: true,
     },
   }),
   persist: {
@@ -49,6 +53,12 @@ export const useAppStore = defineStore('app', {
     setThemeColor(color: string) {
       this.app.isDark = color === 'dark' ? true : false
       this.app.theme = color
+    },
+    setNavBar(navBarStatus: boolean) {
+      this.app.navBar = navBarStatus
+    },
+    setTabBar(tabBarStatus: boolean) {
+      this.app.tabBar = tabBarStatus
     },
   },
 })
