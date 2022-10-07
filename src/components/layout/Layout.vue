@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 07:58:37
+ * @LastEditTime: 2022-10-07 12:08:00
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -12,11 +12,13 @@
       <el-aside :style="sideBarWidth">
         <SideBar />
       </el-aside>
-      <el-container class="main-container">
-        <el-header v-if="appStore.app.navBar">
+      <el-container class="flex flex-col justify-start w-100vw">
+        <el-header class="headerNavBar" v-if="appStore.app.navBar">
           <NavBar />
         </el-header>
-        <TabBar v-if="appStore.app.tabBar" />
+        <el-header class="headerNavBar">
+          <TabBar v-if="appStore.app.tabBar" />
+        </el-header>
         <el-main>
           <AppMain />
         </el-main>
@@ -72,7 +74,7 @@ const sideBarWidth = computed(() =>
     padding-left: 10px;
   }
 }
-.el-header {
+.headerNavBar {
   height: var(--header-bar-height);
   background-color: var(--header-bar-bg-color);
   color: var(--header-bar-font-color);

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 09:50:45
+ * @LastEditTime: 2022-10-07 13:43:22
  * @FilePath: \IUI314\src\components\layout\tab-bar\tag-bar-operation.vue
  * @Description: 
 -->
@@ -20,7 +20,7 @@
       trigger="click"
       @command="actionchanged"
     >
-      <el-icon><ArrowDownBold /></el-icon>
+      <el-icon color="var(--drop-down-icon-color)"><ArrowDownBold /></el-icon>
       <template #dropdown>
         <TabBarItemDropdown
           :item-data="currentRoute"
@@ -28,8 +28,8 @@
         />
       </template>
     </el-dropdown>
-    <el-icon class="m-r-20px cursor-pointer" @click="refesh">
-      <SvgIcon name="screen-in" />
+    <el-icon @click="appStore.toggleScreenOut" class="cursor-pointer">
+      <SvgIcon :name="appStore.app.isScreenOut ? 'screen-out' : 'screen-in'" />
     </el-icon>
   </div>
 </template>
@@ -40,7 +40,7 @@ import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { setTabBarEmitter } from '@/hooks'
-import { formatTag } from '@/stores'
+import { formatTag, useAppStore } from '@/stores'
 
 import SvgIcon from '../../common/svg-icon.vue'
 import TabBarItemDropdown from './tab-bar-item-dropdown.vue'
@@ -49,6 +49,8 @@ import { Eaction, useTabBar } from './useTabBar'
 const { findCurrentRouteIndex } = useTabBar()
 const route = useRoute()
 const isFreshing = ref<boolean>(false)
+
+const appStore = useAppStore()
 
 const currentRoute = computed(() => formatTag(route))
 

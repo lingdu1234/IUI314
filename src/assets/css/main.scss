@@ -6,8 +6,8 @@ body,
 #app {
   height: 100vh;
   margin: 0;
-  min-width: 666px;
-  overflow: hidden;
+  min-width: 500px;
+    overflow-y: hidden;
 }
 // 隐藏tab-bar 的滚动条
 .tab-bar-box-scroll .el-scrollbar__bar.is-horizontal {

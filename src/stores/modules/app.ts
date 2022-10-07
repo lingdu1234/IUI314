@@ -2,10 +2,11 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 08:00:23
+ * @LastEditTime: 2022-10-07 12:26:48
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
+import { useFullscreen } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
 import { useDynamicTitle } from '@/hooks'
@@ -26,8 +27,11 @@ interface AppStore {
     lang: string
     navBar: boolean
     tabBar: boolean
+    isScreenOut: boolean
+    isFullscreen: boolean
   }
 }
+const { isFullscreen, toggle } = useFullscreen()
 
 export const useAppStore = defineStore('app', {
   state: (): AppStore => ({
@@ -46,6 +50,8 @@ export const useAppStore = defineStore('app', {
       lang: 'zh-CN',
       navBar: true,
       tabBar: true,
+      isScreenOut: false,
+      isFullscreen: false,
     },
   }),
   persist: {
@@ -68,12 +74,25 @@ export const useAppStore = defineStore('app', {
     setTabBar(tabBarStatus: boolean) {
       this.app.tabBar = tabBarStatus
     },
+    setSideBar(sideBarStatus: boolean) {
+      this.siderBar.isCollapse = sideBarStatus
+    },
     setAppName(name: string) {
       this.app.name = name
     },
     setAppTitle(title: string) {
       this.app.title = title
       useDynamicTitle()
+    },
+    toggleScreenOut() {
+      this.app.isScreenOut = !this.app.isScreenOut
+      this.setSideBar(this.app.isScreenOut)
+      this.setNavBar(!this.app.isScreenOut)
+    },
+    toggleFullScreen() {
+      this.app.isFullscreen = !this.app.isFullscreen
+      isFullscreen.value = !this.app.isFullscreen
+      toggle()
     },
     setDynamicTitle(isynamicTitle: boolean) {
       this.app.dynamicTitle = isynamicTitle

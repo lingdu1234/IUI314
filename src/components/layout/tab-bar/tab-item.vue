@@ -109,7 +109,7 @@ defineExpose({ actionSelect })
 <style scoped lang="scss">
 .tag-tab-item {
   border-radius: var(--tab-bar-item-bg-radius);
-  margin: auto 5px;
+  margin: auto 5px auto 0;
   height: var(--tab-bar-item-height);
   display: flex;
   align-items: center;

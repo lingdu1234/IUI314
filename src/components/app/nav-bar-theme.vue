@@ -2,14 +2,14 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 07:44:59
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 07:58:16
+ * @LastEditTime: 2022-10-07 13:40:08
  * @FilePath: \IUI314\src\components\app\nav-bar-theme.vue
  * @Description: 
 -->
 <template>
   <div>
     <el-dropdown trigger="click">
-      <el-icon size="large">
+      <el-icon size="large" color="var(--drop-down-icon-color)">
         <SvgIcon name="theme" />
       </el-icon>
       <template #dropdown>
