@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 21:45:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 17:11:41
+ * @LastEditTime: 2022-10-07 16:06:31
  * @FilePath: \IUI314\src\components\layout\side-bar\side-bar-logo.vue
  * @Description: 
 -->
@@ -12,7 +12,9 @@
       <img :src="logo" alt="logo" class="w-32px h-32px" />
     </div>
     <div v-if="!appStore.siderBar.isCollapse" class="w-136px">
-      <span class="logo-title"> 标图 </span>
+      <span class="logo-title truncate m-l-1px font-800">
+        {{ appStore.app.name }}
+      </span>
     </div>
   </router-link>
 </template>
@@ -36,10 +38,10 @@ const appStore = useAppStore()
   .logo-title {
     // width: 120px;
     font-size: 20px;
-    font-weight: 800;
-    margin-left: 1px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    // font-weight: 800;
+    // margin-left: 1px;
+    // text-overflow: ellipsis;
+    // white-space: nowrap;
     color: var(--side-bar-logo-title-color);
   }
 }

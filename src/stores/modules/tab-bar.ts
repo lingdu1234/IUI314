@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:54:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 09:50:09
+ * @LastEditTime: 2022-10-07 22:22:22
  * @FilePath: \IUI314\src\stores\modules\tab-bar.ts
  * @Description:
  */
@@ -10,7 +10,7 @@ import { defineStore } from 'pinia'
 import type { RouteLocationNormalized } from 'vue-router'
 
 import { isString } from '@/hooks'
-import { DEFAULT_ROUTE } from '@/router'
+import { DEFAULT_ROUTE, router } from '@/router'
 import type { TabBarState, TagProps } from '@/types/base/router'
 
 export const formatTag = (route: RouteLocationNormalized): TagProps => {
@@ -29,9 +29,9 @@ export const useTabBarStore = defineStore('tab-bar', {
     cacheTabList: new Set(),
     tagList: [DEFAULT_ROUTE],
   }),
-  persist: {
-    paths: ['tagList'],
-  },
+  // persist: {
+  // paths: ['tagList'],
+  // },
   getters: {
     getTabList(): TagProps[] {
       return this.tagList
@@ -43,6 +43,7 @@ export const useTabBarStore = defineStore('tab-bar', {
 
   actions: {
     updateTabList(route: RouteLocationNormalized) {
+      if (route.fullPath.startsWith("/redirect")) return
       this.tagList.push(formatTag(route))
       if (route.meta.no_cache === false) {
         this.cacheTabList.add(route.name as string)
@@ -59,7 +60,9 @@ export const useTabBarStore = defineStore('tab-bar', {
       }
     },
     deleteCache(tag: TagProps) {
+      console.log('deletetag :>> ', tag);
       this.cacheTabList.delete(tag.name)
+      console.log('deletetag :>> ', this.cacheTabList);
     },
     freshTabList(tags: TagProps[]) {
       this.tagList = tags
@@ -74,5 +77,10 @@ export const useTabBarStore = defineStore('tab-bar', {
       this.tagList = [DEFAULT_ROUTE]
       this.cacheTabList.clear()
     },
+    async reload(tag: TagProps){
+      this.deleteCache(tag)
+      await router.replace({path:"/redirect" + tag.fullPath})
+      this.addCache(tag)
+    }
   },
 })

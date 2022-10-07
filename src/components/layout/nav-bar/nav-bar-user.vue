@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 11:04:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 07:12:07
+ * @LastEditTime: 2022-10-07 16:07:48
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-user.vue
  * @Description: 
 -->
@@ -14,6 +14,7 @@
         <img
           src="@/assets/av.webp"
           class="w-32px h-32px cursor-pointer b-rd-30px"
+          alt="user"
         />
       </div>
       <template #dropdown>

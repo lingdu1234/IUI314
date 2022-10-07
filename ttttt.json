@@ -1,0 +1,581 @@
+[
+    {
+        "id": "00UDGE80NBMO4ST8TJMECI0A73",
+        "pid": "0",
+        "always_show": true,
+        "path": "/system",
+        "name": "system",
+        "menu_name": "系统管理",
+        "menu_type": "M",
+        "hidden": false,
+        "meta": {
+            "icon": "system",
+            "title": "系统管理",
+            "link": null,
+            "no_cache": false,
+            "hidden": false
+        },
+        "children": [
+            {
+                "id": "00UDGAK2ESG0UUFHII2UV2JCTD",
+                "pid": "00UDGE80NBMO4ST8TJMECI0A73",
+                "always_show": null,
+                "path": "basic",
+                "name": "basic",
+                "menu_name": "基础数据",
+                "menu_type": "M",
+                "hidden": false,
+                "meta": {
+                    "icon": "table",
+                    "title": "基础数据",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                },
+                "children": [
+                    {
+                        "id": "00UDGE80NBMO4SV8TJMF9J8DM3",
+                        "pid": "00UDGAK2ESG0UUFHII2UV2JCTD",
+                        "always_show": null,
+                        "path": "menu",
+                        "name": "menu",
+                        "menu_name": "菜单管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "tree-table",
+                            "title": "菜单管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "00TV8J02HNJMAUDJOV5F02BV35",
+                        "pid": "00UDGAK2ESG0UUFHII2UV2JCTD",
+                        "always_show": null,
+                        "path": "dict",
+                        "name": "dict",
+                        "menu_name": "字典管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "dict",
+                            "title": "字典管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "00UVPJ8H374OKE77M4EBTHOGIV",
+                        "pid": "00UDGAK2ESG0UUFHII2UV2JCTD",
+                        "always_show": null,
+                        "path": "auth_list",
+                        "name": "auth_list",
+                        "menu_name": "权限查询",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "language",
+                            "title": "权限查询",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "00UDF5ES6C4NFHC07PM9GCVTEB",
+                "pid": "00UDGE80NBMO4ST8TJMECI0A73",
+                "always_show": null,
+                "path": "auth",
+                "name": "auth",
+                "menu_name": "用户数据",
+                "menu_type": "M",
+                "hidden": false,
+                "meta": {
+                    "icon": "people",
+                    "title": "用户数据",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                },
+                "children": [
+                    {
+                        "id": "00TV8ENLC2DL61K03MS9LT04F3",
+                        "pid": "00UDF5ES6C4NFHC07PM9GCVTEB",
+                        "always_show": null,
+                        "path": "user",
+                        "name": "user",
+                        "menu_name": "用户管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "user",
+                            "title": "用户管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "00TV8H55BU243CFAFK9O9GKL5P",
+                        "pid": "00UDF5ES6C4NFHC07PM9GCVTEB",
+                        "always_show": null,
+                        "path": "dept",
+                        "name": "dept",
+                        "menu_name": "部门管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "tree",
+                            "title": "部门管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "00TV8HV6G76KBTOJ74AM5BPFS1",
+                        "pid": "00UDF5ES6C4NFHC07PM9GCVTEB",
+                        "always_show": null,
+                        "path": "post",
+                        "name": "post",
+                        "menu_name": "岗位管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "post",
+                            "title": "岗位管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "00TV8FT34RNV9T5PUSHHOVF56R",
+                        "pid": "00UDF5ES6C4NFHC07PM9GCVTEB",
+                        "always_show": null,
+                        "path": "role",
+                        "name": "role",
+                        "menu_name": "角色管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "peoples",
+                            "title": "角色管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "010DMOHRV2HCESF61SQQ71TKO5",
+        "pid": "0",
+        "always_show": true,
+        "path": "/dm",
+        "name": "dm",
+        "menu_name": "数据管理",
+        "menu_type": "M",
+        "hidden": false,
+        "meta": {
+            "icon": "date-range",
+            "title": "数据管理",
+            "link": null,
+            "no_cache": false,
+            "hidden": false
+        },
+        "children": [
+            {
+                "id": "010DN3V27Q29FS578T1FL9BGGR",
+                "pid": "010DMOHRV2HCESF61SQQ71TKO5",
+                "always_show": null,
+                "path": "basicInfo",
+                "name": "basicInfo",
+                "menu_name": "基础数据",
+                "menu_type": "M",
+                "hidden": false,
+                "meta": {
+                    "icon": "clipboard",
+                    "title": "基础数据",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                },
+                "children": [
+                    {
+                        "id": "010DN8NLH2N8J27F2SVLS3S21D",
+                        "pid": "010DN3V27Q29FS578T1FL9BGGR",
+                        "always_show": null,
+                        "path": "city",
+                        "name": "city",
+                        "menu_name": "城市管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "date",
+                            "title": "城市管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "010E84KPUVP4T22SLN86RNMTFD",
+                        "pid": "010DN3V27Q29FS578T1FL9BGGR",
+                        "always_show": null,
+                        "path": "hospital",
+                        "name": "hospital",
+                        "menu_name": "医院管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "date",
+                            "title": "医院管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "010F1467VT0NE6E0PA4VEA9POC",
+                        "pid": "010DN3V27Q29FS578T1FL9BGGR",
+                        "always_show": null,
+                        "path": "lab_test",
+                        "name": "lab_test",
+                        "menu_name": "项目管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "date",
+                            "title": "项目管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "010DN6780BL8VQ2AEK7KI14LIQ",
+                "pid": "010DMOHRV2HCESF61SQQ71TKO5",
+                "always_show": null,
+                "path": "mc",
+                "name": "mc",
+                "menu_name": "MC数据管理",
+                "menu_type": "M",
+                "hidden": false,
+                "meta": {
+                    "icon": "component",
+                    "title": "MC数据管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                },
+                "children": [
+                    {
+                        "id": "010GQ873BCMGAP0URLSK5MC7IH",
+                        "pid": "010DN6780BL8VQ2AEK7KI14LIQ",
+                        "always_show": null,
+                        "path": "sample",
+                        "name": "sample",
+                        "menu_name": "样本管理",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "date",
+                            "title": "样本管理",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "010J21H7B2DH71G81RGV07M49J",
+                        "pid": "010DN6780BL8VQ2AEK7KI14LIQ",
+                        "always_show": null,
+                        "path": "statistics",
+                        "name": "statistics",
+                        "menu_name": "数据统计",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "date-range",
+                            "title": "数据统计",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "010NB6ILJ82B6KMK1I1KK4AROS",
+                "pid": "010DMOHRV2HCESF61SQQ71TKO5",
+                "always_show": null,
+                "path": "mc_analyze",
+                "name": "mc_analyze",
+                "menu_name": "数据分析",
+                "menu_type": "M",
+                "hidden": false,
+                "meta": {
+                    "icon": "component",
+                    "title": "数据分析",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                },
+                "children": [
+                    {
+                        "id": "010GQAGOO7EG4KCJQ4719IOIUM",
+                        "pid": "010NB6ILJ82B6KMK1I1KK4AROS",
+                        "always_show": null,
+                        "path": "bendi",
+                        "name": "bendi",
+                        "menu_name": "本底",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "date",
+                            "title": "本底",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "010OB4IFN77FBPK590PT8VPF91",
+                        "pid": "010NB6ILJ82B6KMK1I1KK4AROS",
+                        "always_show": null,
+                        "path": "sample_count",
+                        "name": "sample_count",
+                        "menu_name": "样本数",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "date",
+                            "title": "样本数",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "010OG8FOGMJKNOTPL4AF9VTGNR",
+                        "pid": "010NB6ILJ82B6KMK1I1KK4AROS",
+                        "always_show": null,
+                        "path": "sample_positive",
+                        "name": "sample_positive",
+                        "menu_name": "阳性率",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "date",
+                            "title": "阳性率",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    },
+                    {
+                        "id": "010OMB9896DOP897Q8I7CCIFMD",
+                        "pid": "010NB6ILJ82B6KMK1I1KK4AROS",
+                        "always_show": null,
+                        "path": "cipian",
+                        "name": "cipian",
+                        "menu_name": "磁片",
+                        "menu_type": "C",
+                        "hidden": false,
+                        "meta": {
+                            "icon": "color",
+                            "title": "磁片",
+                            "link": null,
+                            "no_cache": false,
+                            "hidden": false
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "00UDF1SCLDT1FESNLIRG0IVD3B",
+        "pid": "0",
+        "always_show": true,
+        "path": "/monitor",
+        "name": "monitor",
+        "menu_name": "系统监控",
+        "menu_type": "M",
+        "hidden": false,
+        "meta": {
+            "icon": "table",
+            "title": "系统监控",
+            "link": null,
+            "no_cache": false,
+            "hidden": false
+        },
+        "children": [
+            {
+                "id": "00UDFVHR632BT4PVUGAO6UOSPN",
+                "pid": "00UDF1SCLDT1FESNLIRG0IVD3B",
+                "always_show": null,
+                "path": "login_info",
+                "name": "login_info",
+                "menu_name": "登录日志",
+                "menu_type": "C",
+                "hidden": false,
+                "meta": {
+                    "icon": "logininfor",
+                    "title": "登录日志",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "id": "00V54I1ONABMQL25B3TJF7V3LV",
+                "pid": "00UDF1SCLDT1FESNLIRG0IVD3B",
+                "always_show": null,
+                "path": "operlog",
+                "name": "operlog",
+                "menu_name": "操作日志",
+                "menu_type": "C",
+                "hidden": false,
+                "meta": {
+                    "icon": "form",
+                    "title": "操作日志",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "id": "00ULIS5OED0KGME1B8N38519RG",
+                "pid": "00UDF1SCLDT1FESNLIRG0IVD3B",
+                "always_show": null,
+                "path": "online",
+                "name": "online",
+                "menu_name": "在线用户",
+                "menu_type": "C",
+                "hidden": false,
+                "meta": {
+                    "icon": "online",
+                    "title": "在线用户",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "id": "00UOEO8SVBTSFML8CLSDJR9PLK",
+                "pid": "00UDF1SCLDT1FESNLIRG0IVD3B",
+                "always_show": null,
+                "path": "job",
+                "name": "job",
+                "menu_name": "定时任务",
+                "menu_type": "C",
+                "hidden": false,
+                "meta": {
+                    "icon": "job",
+                    "title": "定时任务",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "id": "01054NOSI7GEC0F8JDB6KEDPEL",
+                "pid": "00UDF1SCLDT1FESNLIRG0IVD3B",
+                "always_show": null,
+                "path": "server",
+                "name": "server",
+                "menu_name": "服务监控",
+                "menu_type": "C",
+                "hidden": false,
+                "meta": {
+                    "icon": "server",
+                    "title": "服务监控",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            }
+        ]
+    },
+    {
+        "id": "00VTA5F1QRC47LOG0G3CBH223V",
+        "pid": "0",
+        "always_show": true,
+        "path": "/test",
+        "name": "test",
+        "menu_name": "测试项目",
+        "menu_type": "M",
+        "hidden": false,
+        "meta": {
+            "icon": "excel",
+            "title": "测试项目",
+            "link": null,
+            "no_cache": false,
+            "hidden": false
+        },
+        "children": [
+            {
+                "id": "00VTA7E598QUBN7F5NI98B5PHA",
+                "pid": "00VTA5F1QRC47LOG0G3CBH223V",
+                "always_show": null,
+                "path": "data_scope",
+                "name": "data_scope",
+                "menu_name": "数据权限测试",
+                "menu_type": "C",
+                "hidden": false,
+                "meta": {
+                    "icon": "component",
+                    "title": "数据权限测试",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            }
+        ]
+    },
+    {
+        "id": "00VS0T54CT6VS5HMHI7N8SQIEO",
+        "pid": "0",
+        "always_show": true,
+        "path": "/M-A",
+        "name": "M-A",
+        "menu_name": "必须权限",
+        "menu_type": "M",
+        "hidden": true,
+        "meta": {
+            "icon": "404",
+            "title": "必须权限",
+            "link": null,
+            "no_cache": false,
+            "hidden": true
+        }
+    },
+    {
+        "id": "00VS10Q4OB6LMC1PE1H4G0J96F",
+        "pid": "0",
+        "always_show": true,
+        "path": "/M-B",
+        "name": "M-B",
+        "menu_name": "前端按钮权限",
+        "menu_type": "M",
+        "hidden": true,
+        "meta": {
+            "icon": "404",
+            "title": "前端按钮权限",
+            "link": null,
+            "no_cache": false,
+            "hidden": true
+        }
+    }
+]

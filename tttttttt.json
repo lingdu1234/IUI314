@@ -1,0 +1,276 @@
+[
+    {
+        "name": "system",
+        "path": "/system",
+        "children": [
+            {
+                "name": "menu",
+                "path": "basic/menu",
+                "meta": {
+                    "icon": "tree-table",
+                    "title": "菜单管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "dict",
+                "path": "basic/dict",
+                "meta": {
+                    "icon": "dict",
+                    "title": "字典管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "auth_list",
+                "path": "basic/auth_list",
+                "meta": {
+                    "icon": "language",
+                    "title": "权限查询",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "user",
+                "path": "auth/user",
+                "meta": {
+                    "icon": "user",
+                    "title": "用户管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "dept",
+                "path": "auth/dept",
+                "meta": {
+                    "icon": "tree",
+                    "title": "部门管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "post",
+                "path": "auth/post",
+                "meta": {
+                    "icon": "post",
+                    "title": "岗位管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "role",
+                "path": "auth/role",
+                "meta": {
+                    "icon": "peoples",
+                    "title": "角色管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            }
+        ]
+    },
+    {
+        "name": "dm",
+        "path": "/dm",
+        "children": [
+            {
+                "name": "city",
+                "path": "basicInfo/city",
+                "meta": {
+                    "icon": "date",
+                    "title": "城市管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "hospital",
+                "path": "basicInfo/hospital",
+                "meta": {
+                    "icon": "date",
+                    "title": "医院管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "lab_test",
+                "path": "basicInfo/lab_test",
+                "meta": {
+                    "icon": "date",
+                    "title": "项目管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "sample",
+                "path": "mc/sample",
+                "meta": {
+                    "icon": "date",
+                    "title": "样本管理",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "statistics",
+                "path": "mc/statistics",
+                "meta": {
+                    "icon": "date-range",
+                    "title": "数据统计",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "bendi",
+                "path": "mc_analyze/bendi",
+                "meta": {
+                    "icon": "date",
+                    "title": "本底",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "sample_count",
+                "path": "mc_analyze/sample_count",
+                "meta": {
+                    "icon": "date",
+                    "title": "样本数",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "sample_positive",
+                "path": "mc_analyze/sample_positive",
+                "meta": {
+                    "icon": "date",
+                    "title": "阳性率",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "cipian",
+                "path": "mc_analyze/cipian",
+                "meta": {
+                    "icon": "color",
+                    "title": "磁片",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            }
+        ]
+    },
+    {
+        "name": "monitor",
+        "path": "/monitor",
+        "children": [
+            {
+                "name": "login_info",
+                "path": "login_info",
+                "meta": {
+                    "icon": "logininfor",
+                    "title": "登录日志",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "operlog",
+                "path": "operlog",
+                "meta": {
+                    "icon": "form",
+                    "title": "操作日志",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "online",
+                "path": "online",
+                "meta": {
+                    "icon": "online",
+                    "title": "在线用户",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "job",
+                "path": "job",
+                "meta": {
+                    "icon": "job",
+                    "title": "定时任务",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            },
+            {
+                "name": "server",
+                "path": "server",
+                "meta": {
+                    "icon": "server",
+                    "title": "服务监控",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            }
+        ]
+    },
+    {
+        "name": "test",
+        "path": "/test",
+        "children": [
+            {
+                "name": "data_scope",
+                "path": "data_scope",
+                "meta": {
+                    "icon": "component",
+                    "title": "数据权限测试",
+                    "link": null,
+                    "no_cache": false,
+                    "hidden": false
+                }
+            }
+        ]
+    },
+    {
+        "name": "M-A",
+        "path": "/M-A"
+    },
+    {
+        "name": "M-B",
+        "path": "/M-B"
+    }
+]

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 14:12:31
+ * @LastEditTime: 2022-10-07 16:39:10
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -85,8 +85,8 @@ const sideBarWidth = computed(() =>
 .el-main {
   background-color: var(--main-container-bg-color);
   color: var(--main-container-font-color);
-  height: calc(100vh - var(--header-bar-height));
-  padding: 0;
+  // height: 100%;
+  padding: 1px;
   overflow: hidden;
 
   .main-content {

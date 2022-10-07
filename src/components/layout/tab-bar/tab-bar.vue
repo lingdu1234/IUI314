@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 14:01:45
+ * @LastEditTime: 2022-10-07 21:55:15
  * @FilePath: \IUI314\src\components\layout\tab-bar\tab-bar.vue
  * @Description: 
 -->
@@ -64,6 +64,7 @@ const tabScroll = (e: WheelEvent) => {
 
 listenerRouteChange((route: RouteLocationNormalized) => {
   if (!tagList.value.some((tag) => tag.fullPath === route.fullPath)) {
+    console.log('add :>> ', route.name);
     tabBarStore.updateTabList(route)
   }
 }, true)

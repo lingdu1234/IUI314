@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 17:46:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 12:06:13
+ * @LastEditTime: 2022-10-07 22:25:33
  * @FilePath: \IUI314\src\components\layout\app-main.vue
  * @Description: 
 -->
@@ -11,7 +11,7 @@
     <el-scrollbar :style="height">
       <router-view v-slot="{ Component, route }">
         <transition name="fade-transform" mode="out-in">
-          <keep-alive :include="cacheList" :max="10">
+          <keep-alive :include="cacheList">
             <component :is="Component" :key="route.path" />
           </keep-alive>
         </transition>

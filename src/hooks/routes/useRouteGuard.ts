@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:54:48
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 08:04:05
+ * @LastEditTime: 2022-10-07 21:52:56
  * @FilePath: \IUI314\src\hooks\routes\useRouteGuard.ts
  * @Description: 路由守卫，刷新路由丢失，搞了一天也不知道到底是怎么好的
  */
@@ -29,6 +29,7 @@ NProgress.configure({ showSpinner: false })
 export const useRouterGuard = async (router: Router) => {
   router.beforeEach(async (to, from, next) => {
     NProgress.start()
+    console.log('to :>> ', to);
     setRouteEmitter(to) //监听路由变化
     to.meta.title && useAppStore().setAppTitle(to.meta.title) //设置浏览器标题
     const { valid } = useToken()

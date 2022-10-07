@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:21:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 16:38:24
+ * @LastEditTime: 2022-10-07 21:37:00
  * @FilePath: \IUI314\src\stores\modules\permission.ts
  * @Description:
  */
@@ -42,9 +42,14 @@ export const usePermissionStore = defineStore('permission', {
     },
     async generateRoutes() {
       const routes = await getUserRouters()
+      // 生成正常的路由数据，用于菜单生成等
       const routers = await filterAsyncRouter(routes)
+      //  将正常路由转换为二级扁平路由，用于keep-live和生成路由表
+      const flatRouter = generateFlatRoutes(routes)
+      //  将扁平路由生成路由表 添加组件等
+      const Arouters = await filterAsyncRouter(flatRouter)
       this.setRoutes(routers)
-      return routers
+      return Arouters
     },
     setIsReloading(isReloading: boolean) {
       this.isReloading = isReloading
@@ -54,7 +59,7 @@ export const usePermissionStore = defineStore('permission', {
 
 async function filterAsyncRouter(
   asyncRouterMap: AppRouteRecordRaw[],
-  type = false
+  type = true
 ) {
   return asyncRouterMap.filter(async (route) => {
     if (type && route.children) {
@@ -120,4 +125,52 @@ async function filterChildren(childrenMap: AppRouteRecordRaw[]) {
     children = children.concat(el)
   })
   return children
+}
+
+
+
+
+/** 
+ * vue router 无法keep-live 三级及其以上的路由数据  需要将路由数据拍平成两级
+ * @param {AppRouteRecordRaw[]} accessRoutes
+ * @return {AppRouteRecordRaw[]}  flatRoutes
+ */
+function generateFlatRoutes(accessRoutes: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
+  let flatRoutes: AppRouteRecordRaw[] = [];
+
+  for (let item of accessRoutes) {
+    let childrenFflatRoutes: AppRouteRecordRaw[] = [];
+    if (item.children && item.children.length > 0) {
+      childrenFflatRoutes = castToFlatRoute(item.children, "");
+    }
+    // 一级路由是布局路由,需要处理的只是其子路由数据
+    const r = { ...item }
+    r.children = childrenFflatRoutes;
+    flatRoutes.push(r);
+  }
+
+  return flatRoutes;
+}
+
+/**
+ * 将子路由转换为扁平化路由数组（仅一级）
+ * @param {AppRouteRecordRaw[]} routes
+ * @param {string} parentPath
+ */
+function castToFlatRoute(routes: AppRouteRecordRaw[], parentPath: string, flatRoutes: AppRouteRecordRaw[] = []): AppRouteRecordRaw[] {
+  for (let item of routes) {
+    if (item.children && item.children.length > 0) {
+      if (item.redirect && item.redirect !== 'noRedirect') {
+        const r = { ...item }
+        r.path = (parentPath + "/" + item.path).substring(1),
+          flatRoutes.push(r);
+      }
+      castToFlatRoute(item.children, parentPath + "/" + item.path, flatRoutes);
+    } else {
+      const r = { ...item }
+      r.path = (parentPath + "/" + item.path).substring(1),
+        flatRoutes.push(r);
+    }
+  }
+  return flatRoutes;
 }

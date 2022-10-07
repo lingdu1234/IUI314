@@ -93,9 +93,7 @@ const actionSelect = async (value: Eaction) => {
     tabBarStore.freshTabList(filterList)
     router.push({ name: itemData.name })
   } else if (value === Eaction.reload) {
-    tabBarStore.deleteCache(itemData)
-    await router.push(itemData.fullPath)
-    tabBarStore.addCache(itemData)
+    tabBarStore.reload(itemData)
   } else {
     tabBarStore.resetTabList()
     router.push({ name: DEFAULT_ROUTE_NAME })

@@ -1,15 +1,29 @@
+<!--
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-10-03 23:56:33
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-07 20:10:37
+ * @FilePath: \IUI314\src\views\AboutView.vue
+ * @Description: 字典类型数据
+-->
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div>
+<div >ghfdhfddddddddddddddddddddddddddddddd</div>
+    <div>{{count}}</div>
+    <el-button  @click="()=>count++">+++</el-button>
   </div>
 </template>
+<script lang="ts" setup name="dict">
+import { useDictsStore } from '@/stores'
+import { ref } from 'vue';
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+const dictsStore = useDictsStore()
+
+const count = ref(0)
+
+const getDict = async () => {
+  const data = await dictsStore.getDict('sys_normal_disable')
+  console.log('data :>> ', data)
 }
-</style>
+getDict()
+</script>
