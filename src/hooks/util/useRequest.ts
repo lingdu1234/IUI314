@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 13:09:40
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 21:57:45
+ * @LastEditTime: 2022-10-07 07:59:59
  * @FilePath: \IUI314\src\hooks\util\useRequest.ts
  * @Description: useRequest
  */
@@ -16,7 +16,7 @@ import { ElMessage } from 'element-plus'
 import { computed, unref } from 'vue'
 import { type LocationQueryRaw, stringifyQuery } from 'vue-router'
 
-import { useToken } from '@/hooks/app/useDevice'
+import { useToken } from '@/hooks'
 import { router } from '@/router/router'
 import { useUserStore } from '@/stores'
 

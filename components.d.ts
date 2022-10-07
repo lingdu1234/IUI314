@@ -51,7 +51,7 @@ declare module '@vue/runtime-core' {
     NavBarTheme: typeof import('./src/components/app/nav-bar-theme.vue')['default']
     NavBarUser: typeof import('./src/components/layout/nav-bar/nav-bar-user.vue')['default']
     ParentView: typeof import('./src/components/layout/parent-view.vue')['default']
-    Redirect: typeof import('./src/components/layout/redirect/index.vue')['default']
+    Redirect: typeof import('./src/components/layout/redirect.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ScreenFull: typeof import('./src/components/app/screen-full.vue')['default']
@@ -65,6 +65,7 @@ declare module '@vue/runtime-core' {
     TabBar: typeof import('./src/components/layout/tab-bar/tab-bar.vue')['default']
     TabBarItemDropdown: typeof import('./src/components/layout/tab-bar/tab-bar-item-dropdown.vue')['default']
     TabItem: typeof import('./src/components/layout/tab-bar/tab-item.vue')['default']
+    TagBarOperation: typeof import('./src/components/layout/tab-bar/tag-bar-operation.vue')['default']
     ThemeChange: typeof import('./src/components/app/theme-change.vue')['default']
     Tool: typeof import('./src/components/layout/tab-bar/tool.vue')['default']
   }

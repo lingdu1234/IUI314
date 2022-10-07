@@ -2,13 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 13:24:30
+ * @LastEditTime: 2022-10-07 08:00:23
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
 import { defineStore } from 'pinia'
 
-import { useDynamicTitle } from '@/hooks/util'
+import { useDynamicTitle } from '@/hooks'
 
 interface AppStore {
   siderBar: {

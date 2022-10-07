@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 16:16:33
+ * @LastEditTime: 2022-10-07 08:00:13
  * @FilePath: \IUI314\src\router\router.ts
  * @Description:
  */
@@ -13,7 +13,7 @@ import {
   createWebHashHistory,
 } from 'vue-router'
 
-import { useRouterGuard } from '@/hooks/routes/useRouteGuard'
+import { useRouterGuard } from '@/hooks'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 
 import { InnerLink, Layout, REDIRECT_ROUTE_NAME } from './constant'
@@ -28,7 +28,7 @@ export const constantRoutes: AppRouteRecordRaw[] = [
     children: [
       {
         path: '/redirect/:path(.*)',
-        component: () => import('@/components/layout/redirect/index.vue'),
+        component: () => import('@/components/layout/redirect.vue'),
       },
     ],
   },

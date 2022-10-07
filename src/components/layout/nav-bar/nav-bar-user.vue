@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 11:04:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 09:12:00
+ * @LastEditTime: 2022-10-07 07:12:07
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-user.vue
  * @Description: 
 -->
@@ -10,7 +10,7 @@
 <template>
   <div>
     <el-dropdown trigger="click">
-      <div class="avatar-wrapper">
+      <div class="m-t-2px">
         <img
           src="@/assets/av.webp"
           class="w-32px h-32px cursor-pointer b-rd-30px"

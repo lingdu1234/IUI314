@@ -65,8 +65,7 @@ import { useRouter } from 'vue-router'
 
 import { useCaptcha } from '@/api/login'
 import logo from '@/assets/logo.svg'
-import { useTheme } from '@/hooks/app/useTheme'
-import { useFormUtil } from '@/hooks/util/useFormUtil'
+import { useFormUtil, useTheme } from '@/hooks'
 import { useAppStore, useUserStore } from '@/stores'
 import type { LoginFormLocal } from '@/types/base/login'
 

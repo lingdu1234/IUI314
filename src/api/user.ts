@@ -1,7 +1,15 @@
+/*
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-10-03 21:05:22
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-07 09:52:03
+ * @FilePath: \IUI314\src\api\user.ts
+ * @Description:
+ */
 /* eslint-disable no-unused-vars */
 import { ref } from 'vue'
 
-import { useGet, usePost, usePut } from '@/hooks/util/useRequest'
+import { useGet, usePost, usePut } from '@/hooks'
 import type { TokenInfo } from '@/types/base/login'
 
 /**

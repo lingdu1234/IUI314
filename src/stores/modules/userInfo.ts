@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 09:02:41
+ * @LastEditTime: 2022-10-07 08:00:53
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */
@@ -12,7 +12,7 @@ import { defineStore } from 'pinia'
 import { getFullUserInfo, loginUser, logOutUser } from '@/api/login'
 import { freshToken } from '@/api/user'
 import defaultAvatar from '@/assets/av.webp'
-import { useEncrypt } from '@/hooks/util/useEncrypt'
+import { useEncrypt } from '@/hooks'
 import type { LoginForm, LoginFormLocal } from '@/types/base/login'
 
 const { encrypt, decrypt } = useEncrypt()

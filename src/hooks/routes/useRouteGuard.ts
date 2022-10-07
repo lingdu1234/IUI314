@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:54:48
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 16:14:05
+ * @LastEditTime: 2022-10-07 08:04:05
  * @FilePath: \IUI314\src\hooks\routes\useRouteGuard.ts
  * @Description: 路由守卫，刷新路由丢失，搞了一天也不知道到底是怎么好的
  */
@@ -11,6 +11,7 @@ import 'nprogress/nprogress.css'
 import NProgress from 'nprogress'
 import type { Router, RouteRecordRaw } from 'vue-router'
 
+import { setRouteEmitter } from '@/hooks'
 import {
   NoPermissionRoute,
   NotFoundRoutes,
@@ -19,7 +20,6 @@ import {
 import { useAppStore, usePermissionStore, useUserStore } from '@/stores'
 
 import { useToken } from '../app/useDevice'
-import { setRouteEmitter } from './useRouterListener'
 import { isHttp } from './useRouteUtl'
 
 const whiteList = ['/login']

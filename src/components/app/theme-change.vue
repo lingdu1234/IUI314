@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:29:50
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 16:26:18
+ * @LastEditTime: 2022-10-07 07:58:29
  * @FilePath: \IUI314\src\components\app\theme-change.vue
  * @Description: 
 -->
@@ -20,7 +20,7 @@
 <script lang="ts" setup name="theme-change">
 import { Moon, Sunny } from '@element-plus/icons-vue'
 
-import { useTheme } from '@/hooks/app/useTheme'
+import { useTheme } from '@/hooks'
 import { useAppStore } from '@/stores'
 
 const appStore = useAppStore()

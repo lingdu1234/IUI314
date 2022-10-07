@@ -56,7 +56,7 @@
 import { type PropType, computed, ref } from 'vue'
 
 import SvgIcon from '@/components/common/svg-icon.vue'
-import { getNormalPath, isExternal } from '@/hooks/routes/useRouteUtl'
+import { getNormalPath, isExternal } from '@/hooks'
 import { useAppStore } from '@/stores'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 

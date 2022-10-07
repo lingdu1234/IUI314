@@ -3,14 +3,14 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 07:46:07
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 09:36:04
+ * @LastEditTime: 2022-10-07 07:57:41
  * @FilePath: \IUI314\src\api\login.ts
  * @Description: login
  */
 
 import { ref } from 'vue'
 
-import { useGet, usePost } from '@/hooks/util/useRequest'
+import { useGet, usePost } from '@/hooks'
 import type {
   codeData,
   FullUserInfo,

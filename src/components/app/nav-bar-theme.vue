@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 07:44:59
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 17:34:10
+ * @LastEditTime: 2022-10-07 07:58:16
  * @FilePath: \IUI314\src\components\app\nav-bar-theme.vue
  * @Description: 
 -->
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTheme } from '@/hooks/app/useTheme'
+import { useTheme } from '@/hooks'
 
 const { setTheme, theme_map, theme_list } = useTheme()
 </script>

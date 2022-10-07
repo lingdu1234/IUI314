@@ -2,8 +2,8 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 20:33:53
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 20:39:50
- * @FilePath: \IUI314\src\hooks\routes\useRouterListener.ts
+ * @LastEditTime: 2022-10-07 08:39:25
+ * @FilePath: \IUI314\src\hooks\util\useMitt.ts
  * @Description:
  */
 /**
@@ -14,14 +14,17 @@
 import mitt, { type Handler } from 'mitt'
 import type { RouteLocationNormalized } from 'vue-router'
 
+import type { Eaction } from '@/components/layout/tab-bar/useTabBar'
+
 const emitter = mitt()
 
-const key = Symbol('ROUTE_CHANGE')
+const routerChangeKey = Symbol('ROUTE_CHANGE')
+const tabActionMethodKey = Symbol('TAB_ACTION_METHOD')
 
 let latestRoute: RouteLocationNormalized
 
 export function setRouteEmitter(to: RouteLocationNormalized) {
-  emitter.emit(key, to)
+  emitter.emit(routerChangeKey, to)
   latestRoute = to
 }
 
@@ -30,12 +33,34 @@ export function listenerRouteChange(
   handler: (route: RouteLocationNormalized) => void,
   immediate = true
 ) {
-  emitter.on(key, handler as Handler)
+  emitter.on(routerChangeKey, handler as Handler)
   if (immediate && latestRoute) {
     handler(latestRoute)
   }
 }
 
 export function removeRouteListener() {
-  emitter.off(key)
+  emitter.off(routerChangeKey)
+}
+
+// -------------
+
+let tabBarAtion: Eaction
+
+export const setTabBarEmitter = (v: Eaction) => {
+  emitter.emit(tabActionMethodKey, v)
+  tabBarAtion = v
+}
+export function listenerTabBarAction(
+  // eslint-disable-next-line no-unused-vars
+  handler: (v: Eaction) => void,
+  immediate = true
+) {
+  emitter.on(tabActionMethodKey, handler as Handler)
+  if (immediate && tabBarAtion) {
+    handler(tabBarAtion)
+  }
+}
+export function removeTabBarActionListener() {
+  emitter.off(tabActionMethodKey)
 }

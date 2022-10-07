@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 23:28:18
+ * @LastEditTime: 2022-10-07 07:58:37
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -27,7 +27,7 @@
 <script lang="ts" setup name="lay-out">
 import { computed, watch } from 'vue'
 
-import { useMobile } from '@/hooks/app/useDevice'
+import { useMobile } from '@/hooks'
 import { useAppStore } from '@/stores'
 
 import AppMain from './app-main.vue'

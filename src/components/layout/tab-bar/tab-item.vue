@@ -65,7 +65,8 @@ const tagClose = (tag: TagProps, idx: number) => {
   }
 }
 
-const actionSelect = async (value: any) => {
+const actionSelect = async (value: Eaction) => {
+  console.log('value------------------ ', value)
   const { itemData, index } = props
   const copyTagList = [...tagList.value]
   if (value === Eaction.current) {

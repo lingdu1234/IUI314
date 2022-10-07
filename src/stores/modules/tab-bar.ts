@@ -2,18 +2,18 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:54:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 16:38:17
+ * @LastEditTime: 2022-10-07 09:50:09
  * @FilePath: \IUI314\src\stores\modules\tab-bar.ts
  * @Description:
  */
 import { defineStore } from 'pinia'
 import type { RouteLocationNormalized } from 'vue-router'
 
-import { isString } from '@/hooks/util'
+import { isString } from '@/hooks'
 import { DEFAULT_ROUTE } from '@/router'
 import type { TabBarState, TagProps } from '@/types/base/router'
 
-const formatTag = (route: RouteLocationNormalized): TagProps => {
+export const formatTag = (route: RouteLocationNormalized): TagProps => {
   const { name, meta, fullPath, query } = route
   return {
     title: meta.title || '',
