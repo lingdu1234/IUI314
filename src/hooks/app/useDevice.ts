@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 19:56:42
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 22:02:33
+ * @LastEditTime: 2022-10-07 13:58:53
  * @FilePath: \IUI314\src\hooks\app\useDevice.ts
  * @Description: 设备相关
  */
@@ -15,7 +15,7 @@ export const useMobile = () => {
   const appStore = useAppStore()
   const { width } = useWindowSize()
   const isMobile = ref(false)
-  const mobileWidth = 1024
+  const mobileWidth = 768
   watch(
     () => width.value,
     (v: number) => {

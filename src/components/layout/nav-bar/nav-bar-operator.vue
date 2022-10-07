@@ -2,18 +2,15 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:22:30
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 16:57:26
+ * @LastEditTime: 2022-10-07 14:11:17
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-operator.vue
  * @Description: 
 -->
 <template>
-  <div
-    class="flex items-center justify-end"
-    :class="!appStore.device.isMobile ? '300px' : '100px'"
-  >
+  <div class="flex items-center justify-end">
     <div
       v-show="!appStore.device.isMobile"
-      class="w-200px flex justify-evenly items-center"
+      class="nav-bar-operator flex justify-evenly items-center"
     >
       <el-tooltip content="搜索" effect="light" placement="bottom">
         <NavBarSearch />
@@ -48,5 +45,9 @@ import NavBarTheme from '../../app/nav-bar-theme.vue'
 import NavBarUser from './nav-bar-user.vue'
 
 const appStore = useAppStore()
-//
 </script>
+<style lang="scss" scoped>
+.nav-bar-operator {
+  width: var(--nav-bar-operation-width);
+}
+</style>

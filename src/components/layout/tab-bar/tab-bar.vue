@@ -2,13 +2,12 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 12:40:15
+ * @LastEditTime: 2022-10-07 14:01:45
  * @FilePath: \IUI314\src\components\layout\tab-bar\tab-bar.vue
  * @Description: 
 -->
 <template>
   <div class="relative w-100% tab-bar-container">
-    <!-- <el-affix ref="affixRef" :offset-top="offsetTop"> -->
     <div class="flex items-center justify-between">
       <div class="m-t-0px m-b-5px flex items-center tab-bar-box-scroll">
         <el-scrollbar ref="scrollbarRef" @wheel="tabScroll">
@@ -25,7 +24,6 @@
       </div>
       <TagBarOperation />
     </div>
-    <!-- </el-affix> -->
   </div>
 </template>
 
@@ -52,17 +50,6 @@ const tabItemRef = ref<InstanceType<typeof tabItem>[]>()
 
 const { tagList, findCurrentRouteIndex } = useTabBar()
 
-// const affixRef = ref()
-// const offsetTop = computed(() => {
-//   return appStore.app.navBar ? 60 : 0
-// })
-
-// watch(
-//   () => appStore.app.navBar,
-//   () => {
-//     affixRef.value.updatePosition()
-//   }
-// )
 const actionSelect = async (value: any) => {
   const index = findCurrentRouteIndex()
   tabItemRef.value![index].actionSelect(value)
@@ -76,17 +63,12 @@ const tabScroll = (e: WheelEvent) => {
 }
 
 listenerRouteChange((route: RouteLocationNormalized) => {
-  if (
-    !route.meta.noAffix &&
-    !tagList.value.some((tag) => tag.fullPath === route.fullPath)
-  ) {
+  if (!tagList.value.some((tag) => tag.fullPath === route.fullPath)) {
     tabBarStore.updateTabList(route)
   }
 }, true)
-listenerTabBarAction((v: Eaction) => {
-  console.log('v :>> ', v)
-  actionSelect(v)
-}, true)
+
+listenerTabBarAction((v: Eaction) => actionSelect(v), true)
 
 onUnmounted(() => {
   removeRouteListener()

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 12:08:00
+ * @LastEditTime: 2022-10-07 14:12:31
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -33,7 +33,7 @@ import { useMobile } from '@/hooks'
 import { useAppStore } from '@/stores'
 
 import AppMain from './app-main.vue'
-import NavBar from './nav-bar/index.vue'
+import NavBar from './nav-bar/nav-bar.vue'
 import SideBar from './side-bar/index.vue'
 import TabBar from './tab-bar/tab-bar.vue'
 
