@@ -43,7 +43,7 @@ export const useTabBarStore = defineStore('tab-bar', {
 
   actions: {
     updateTabList(route: RouteLocationNormalized) {
-      if (route.fullPath.startsWith("/redirect")) return
+      if (route.fullPath.includes('redirect')) return
       this.tagList.push(formatTag(route))
       if (route.meta.no_cache === false) {
         this.cacheTabList.add(route.name as string)
@@ -60,9 +60,7 @@ export const useTabBarStore = defineStore('tab-bar', {
       }
     },
     deleteCache(tag: TagProps) {
-      console.log('deletetag :>> ', tag);
       this.cacheTabList.delete(tag.name)
-      console.log('deletetag :>> ', this.cacheTabList);
     },
     freshTabList(tags: TagProps[]) {
       this.tagList = tags
@@ -77,10 +75,10 @@ export const useTabBarStore = defineStore('tab-bar', {
       this.tagList = [DEFAULT_ROUTE]
       this.cacheTabList.clear()
     },
-    async reload(tag: TagProps){
+    async reload(tag: TagProps) {
       this.deleteCache(tag)
-      await router.replace({path:"/redirect" + tag.fullPath})
+      await router.replace({ path: '/redirect' + tag.fullPath })
       this.addCache(tag)
-    }
+    },
   },
 })

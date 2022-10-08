@@ -2,12 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 13:09:40
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 07:59:59
+ * @LastEditTime: 2022-10-08 19:04:40
  * @FilePath: \IUI314\src\hooks\util\useRequest.ts
  * @Description: useRequest
  */
 import {
   type MaybeRef,
+  type UseFetchOptions,
   type UseFetchReturn,
   createFetch,
   isObject,
@@ -23,7 +24,7 @@ import { useUserStore } from '@/stores'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 const RequestTimeout = 2000
 
-const useRequest = createFetch({
+export const useRequest = createFetch({
   baseUrl,
   options: {
     immediate: false,
@@ -35,7 +36,7 @@ const useRequest = createFetch({
       })
       return { options }
     },
-    afterFetch({ data, response }) {
+    afterFetch: function ({ data, response }) {
       const { isExpiredSoon } = useToken()
       const status = data.code || 200
       if (status === 200) {
@@ -61,15 +62,12 @@ const useRequest = createFetch({
 })
 
 /**
- * 封装 get 请求
+ * 获取get请求Url地址
  * @param url 请求地址
  * @param query 请求参数
  */
-export function useGet<T = unknown>(
-  url: MaybeRef<string>,
-  query?: MaybeRef<unknown>
-): UseFetchReturn<T> {
-  const _url = computed(() => {
+const getQueryUrl = (url: MaybeRef<string>, query?: MaybeRef<unknown>) => {
+  return computed(() => {
     const _url = unref(url)
     const _query = unref(query)
     const queryString = isObject(_query)
@@ -77,49 +75,78 @@ export function useGet<T = unknown>(
       : _query || ''
     return `${_url}${queryString ? '?' : ''}${queryString}`
   })
-  return useRequest<T>(_url).json()
+}
+
+/**
+ * 封装 get 请求
+ * @param url 请求地址
+ * @param query 请求参数
+ * @param options 请求选项
+ */
+export function useGet<T = unknown>(
+  url: MaybeRef<string>,
+  query?: MaybeRef<unknown>,
+  options?: UseFetchOptions
+): UseFetchReturn<T> {
+  return useRequest<T>(getQueryUrl(url, query), { ...options }).json()
 }
 
 /**
  * 封装 post 请求
  * @param url 请求地址
  * @param payload 请求参数
+ * @param options 请求选项
  */
 export function usePost<T = unknown>(
   url: MaybeRef<string>,
-  payload?: MaybeRef<unknown>
+  payload?: MaybeRef<unknown>,
+  options?: UseFetchOptions
 ): UseFetchReturn<T> {
-  return useRequest<T>(url).post(payload).json()
+  return useRequest<T>(url, { ...options })
+    .post(payload)
+    .json()
 }
 
 /**
  * 封装 put 请求
  * @param url 请求地址
  * @param payload 请求参数
+ * @param options 请求选项
  */
 export function usePut<T = unknown>(
   url: MaybeRef<string>,
-  payload?: MaybeRef<unknown>
+  payload?: MaybeRef<unknown>,
+  options?: UseFetchOptions
 ) {
-  return useRequest<T>(url).put(payload).json()
+  return useRequest<T>(url, { ...options })
+    .put(payload)
+    .json()
 }
 
 /**
  * 封装 delete 请求
  * @param url 请求地址
  * @param payload 请求参数
+ * @param options 请求选项
  */
 export function useDelete<T = unknown>(
   url: MaybeRef<string>,
-  payload?: MaybeRef<unknown>
+  payload?: MaybeRef<unknown>,
+  options?: UseFetchOptions
 ): UseFetchReturn<T> {
-  return useRequest<T>(url).delete(payload).json()
+  return useRequest<T>(url, { ...options })
+    .delete(payload)
+    .json()
 }
 
 /**
  * 封装获取Blob进行下载
  * @param url 请求地址
+ * @param options 请求选项
  */
-export function useBlob(url: MaybeRef<string>): UseFetchReturn<Blob> {
-  return useRequest(url).blob()
+export function useBlob(
+  url: MaybeRef<string>,
+  options?: UseFetchOptions
+): UseFetchReturn<Blob> {
+  return useRequest(url, { ...options }).blob()
 }

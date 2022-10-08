@@ -22,5 +22,5 @@ export const isExternal = (path: string): Boolean => {
 }
 
 export function isHttp(url: string): boolean {
-  return url.indexOf('http://') !== -1 || url.indexOf('https://') !== -1
+  return url.startsWith('http://') || url.startsWith('https://')
 }

@@ -12,7 +12,7 @@ import { defineStore } from 'pinia'
 import { useDynamicTitle } from '@/hooks'
 
 interface AppStore {
-  siderBar: {
+  sideBar: {
     isCollapse: boolean
   }
   device: {
@@ -35,7 +35,7 @@ const { isFullscreen, toggle } = useFullscreen()
 
 export const useAppStore = defineStore('app', {
   state: (): AppStore => ({
-    siderBar: {
+    sideBar: {
       isCollapse: false,
     },
     device: {
@@ -55,17 +55,17 @@ export const useAppStore = defineStore('app', {
     },
   }),
   persist: {
-    paths: ['siderBar', 'device', 'app'],
+    paths: ['sideBar', 'device', 'app'],
   },
   actions: {
-    toggleSiderBar(isMobile?: boolean) {
-      this.siderBar.isCollapse = isMobile ? isMobile : !this.siderBar.isCollapse
+    toggleSideBar(isMobile?: boolean) {
+      this.sideBar.isCollapse = isMobile ? isMobile : !this.sideBar.isCollapse
     },
     setIsMobile(isMobile: boolean) {
       this.device.isMobile = isMobile
     },
     setThemeColor(color: string) {
-      this.app.isDark = color === 'dark' ? true : false
+      this.app.isDark = color === 'dark'
       this.app.theme = color
     },
     setNavBar(navBarStatus: boolean) {
@@ -75,7 +75,7 @@ export const useAppStore = defineStore('app', {
       this.app.tabBar = tabBarStatus
     },
     setSideBar(sideBarStatus: boolean) {
-      this.siderBar.isCollapse = sideBarStatus
+      this.sideBar.isCollapse = sideBarStatus
     },
     setAppName(name: string) {
       this.app.name = name
@@ -94,8 +94,8 @@ export const useAppStore = defineStore('app', {
       isFullscreen.value = !this.app.isFullscreen
       toggle()
     },
-    setDynamicTitle(isynamicTitle: boolean) {
-      this.app.dynamicTitle = isynamicTitle
+    setDynamicTitle(dynamicTitle: boolean) {
+      this.app.dynamicTitle = dynamicTitle
     },
   },
 })

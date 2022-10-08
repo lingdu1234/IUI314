@@ -43,11 +43,11 @@ const { isMobile } = useMobile()
 
 watch(
   () => isMobile.value,
-  (v) => appStore.toggleSiderBar(v)
+  (v) => appStore.toggleSideBar(v)
 )
 
 const sideBarWidth = computed(() =>
-  appStore.siderBar.isCollapse
+  appStore.sideBar.isCollapse
     ? { '--sider-bar-width': 'var(--sider-bar-isCollapse-width)' }
     : null
 )

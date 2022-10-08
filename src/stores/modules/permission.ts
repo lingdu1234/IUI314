@@ -20,6 +20,7 @@ import {
 } from '@/router/constant'
 import { constantRoutes } from '@/router/router'
 import type { AppRouteRecordRaw, Component } from '@/types/base/router'
+import { MenuType } from '@/types/base/router'
 
 const views: Record<string, Component> = import.meta.glob('@/views/**/*.vue')
 
@@ -42,14 +43,16 @@ export const usePermissionStore = defineStore('permission', {
     },
     async generateRoutes() {
       const routes = await getUserRouters()
-      // 生成正常的路由数据，用于菜单生成等
-      const routers = await filterAsyncRouter(routes)
-      //  将正常路由转换为二级扁平路由，用于keep-live和生成路由表
-      const flatRouter = generateFlatRoutes(routes)
-      //  将扁平路由生成路由表 添加组件等
-      const Arouters = await filterAsyncRouter(flatRouter)
+      // routers 生成正常的路由数据，用于菜单生成等
+      // AccessRouters  将正常路由转换为二级扁平路由，用于keep-live和生成路由表
+      const [routers, AccessRouters] = await Promise.all([
+        filterAsyncRouter(routes),
+        filterAsyncRouter(generateFlatRoutes(routes)),
+      ])
+      //  设置菜单路由
       this.setRoutes(routers)
-      return Arouters
+      //返回扁平路由
+      return AccessRouters
     },
     setIsReloading(isReloading: boolean) {
       this.isReloading = isReloading
@@ -65,7 +68,7 @@ async function filterAsyncRouter(
     if (type && route.children) {
       route.children = await filterChildren(route.children)
     }
-    if (route.menu_type === 'M') {
+    if (route.menu_type === MenuType.M) {
       if (route.pid === '0') {
         route.component = 'Layout'
       } else {
@@ -127,50 +130,54 @@ async function filterChildren(childrenMap: AppRouteRecordRaw[]) {
   return children
 }
 
-
-
-
-/** 
+/**
  * vue router 无法keep-live 三级及其以上的路由数据  需要将路由数据拍平成两级
  * @param {AppRouteRecordRaw[]} accessRoutes
  * @return {AppRouteRecordRaw[]}  flatRoutes
  */
-function generateFlatRoutes(accessRoutes: AppRouteRecordRaw[]): AppRouteRecordRaw[] {
-  let flatRoutes: AppRouteRecordRaw[] = [];
+function generateFlatRoutes(
+  accessRoutes: AppRouteRecordRaw[]
+): AppRouteRecordRaw[] {
+  const flatRoutes: AppRouteRecordRaw[] = []
 
-  for (let item of accessRoutes) {
-    let childrenFflatRoutes: AppRouteRecordRaw[] = [];
+  for (const item of accessRoutes) {
+    let childrenFflatRoutes: AppRouteRecordRaw[] = []
     if (item.children && item.children.length > 0) {
-      childrenFflatRoutes = castToFlatRoute(item.children, "");
+      childrenFflatRoutes = castToFlatRoute(item.children, '')
     }
     // 一级路由是布局路由,需要处理的只是其子路由数据
     const r = { ...item }
-    r.children = childrenFflatRoutes;
-    flatRoutes.push(r);
+    r.children = childrenFflatRoutes
+    flatRoutes.push(r)
   }
 
-  return flatRoutes;
+  return flatRoutes
 }
 
 /**
  * 将子路由转换为扁平化路由数组（仅一级）
  * @param {AppRouteRecordRaw[]} routes
  * @param {string} parentPath
+ * @param flatRoutes
  */
-function castToFlatRoute(routes: AppRouteRecordRaw[], parentPath: string, flatRoutes: AppRouteRecordRaw[] = []): AppRouteRecordRaw[] {
-  for (let item of routes) {
+function castToFlatRoute(
+  routes: AppRouteRecordRaw[],
+  parentPath: string,
+  flatRoutes: AppRouteRecordRaw[] = []
+): AppRouteRecordRaw[] {
+  for (const item of routes) {
     if (item.children && item.children.length > 0) {
       if (item.redirect && item.redirect !== 'noRedirect') {
         const r = { ...item }
-        r.path = (parentPath + "/" + item.path).substring(1),
-          flatRoutes.push(r);
+        r.path = (parentPath + '/' + item.path).substring(1)
+        flatRoutes.push(r)
       }
-      castToFlatRoute(item.children, parentPath + "/" + item.path, flatRoutes);
+      castToFlatRoute(item.children, parentPath + '/' + item.path, flatRoutes)
     } else {
       const r = { ...item }
-      r.path = (parentPath + "/" + item.path).substring(1),
-        flatRoutes.push(r);
+      r.path = (parentPath + '/' + item.path).substring(1)
+      flatRoutes.push(r)
     }
   }
-  return flatRoutes;
+  return flatRoutes
 }

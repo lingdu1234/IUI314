@@ -11,7 +11,7 @@
     <div class="w-60px flex items-center justify-center">
       <img :src="logo" alt="logo" class="w-32px h-32px" />
     </div>
-    <div v-if="!appStore.siderBar.isCollapse" class="w-136px">
+    <div v-if="!appStore.sideBar.isCollapse" class="w-136px">
       <span class="logo-title truncate m-l-1px font-800">
         {{ appStore.app.name }}
       </span>

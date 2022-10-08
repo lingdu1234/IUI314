@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 21:55:15
+ * @LastEditTime: 2022-10-07 22:32:55
  * @FilePath: \IUI314\src\components\layout\tab-bar\tab-bar.vue
  * @Description: 
 -->
@@ -12,10 +12,10 @@
       <div class="m-t-0px m-b-5px flex items-center tab-bar-box-scroll">
         <el-scrollbar ref="scrollbarRef" @wheel="tabScroll">
           <div class="p-l--5px tags-wrap">
-            <tab-item
-              ref="tabItemRef"
+            <TabItem
               v-for="(tag, index) in tagList"
               :key="tag.fullPath"
+              ref="tabItemRef"
               :index="index"
               :item-data="tag"
             />
@@ -27,11 +27,12 @@
   </div>
 </template>
 
-<script lang="ts" setup name="tab-bar">
+<script lang="ts" name="tab-bar" setup>
 import { ElScrollbar } from 'element-plus'
 import { onUnmounted, ref } from 'vue'
 import type { RouteLocationNormalized } from 'vue-router'
 
+import TabItem from '@/components/layout/tab-bar/tab-item.vue'
 import {
   listenerRouteChange,
   listenerTabBarAction,
@@ -64,7 +65,6 @@ const tabScroll = (e: WheelEvent) => {
 
 listenerRouteChange((route: RouteLocationNormalized) => {
   if (!tagList.value.some((tag) => tag.fullPath === route.fullPath)) {
-    console.log('add :>> ', route.name);
     tabBarStore.updateTabList(route)
   }
 }, true)
@@ -77,12 +77,14 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .tab-bar-container {
   background-color: var(--tab-bar-bg-color);
+
   .tab-bar-box-scroll {
-    padding: 1px 0px;
+    padding: 1px 0;
     width: calc(100% - var(--tab-bar-operation-width));
+
     .tags-wrap {
       white-space: nowrap;
     }

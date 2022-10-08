@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 19:40:53
+ * @LastEditTime: 2022-10-08 16:24:31
  * @FilePath: \IUI314\src\stores\modules\dicts.ts
  * @Description: appStore
  */
@@ -11,17 +11,14 @@ import { defineStore } from 'pinia'
 import { getDictDataByType } from '@/api/system/dict'
 import type { DictUse } from '@/types/system/dict'
 
-// interface DictsStore {
-//   dicts: Map<string, DictUse[]>
-// }
+interface DictsStore {
+  dicts: Record<string, DictUse[]>
+}
 
 export const useDictsStore = defineStore('dicts', {
-  state: () => ({
+  state: (): DictsStore => ({
     dicts: {},
   }),
-  persist: {
-    paths: ['dicts'],
-  },
   actions: {
     async getRemoteDict(dict_type: string) {
       const dict_data = await getDictDataByType({ dict_type: dict_type })
@@ -33,7 +30,7 @@ export const useDictsStore = defineStore('dicts', {
           status: data.status,
         })
       )
-      this.dicts[dict_type] =  it_data
+      this.dicts[dict_type] = it_data
       return it_data
     },
     async getDict(dict_type: string) {

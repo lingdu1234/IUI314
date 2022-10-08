@@ -1,5 +1,3 @@
-import type { AppRouteRecordRaw } from '@/types/base/router'
-
 /*
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 16:05:22
@@ -8,6 +6,9 @@ import type { AppRouteRecordRaw } from '@/types/base/router'
  * @FilePath: \IUI314\src\router\constant.ts
  * @Description:
  */
+
+import type { AppRouteRecordRaw } from '@/types/base/router'
+
 export const Layout = () => import('@/components/layout/Layout.vue')
 export const ParentView = () => import('@/components/layout/parent-view.vue')
 export const InnerLink = () => import('@/components/layout/inner-link.vue')

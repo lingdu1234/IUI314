@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 08:00:53
+ * @LastEditTime: 2022-10-08 16:15:24
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */
@@ -14,8 +14,6 @@ import { freshToken } from '@/api/user'
 import defaultAvatar from '@/assets/av.webp'
 import { useEncrypt } from '@/hooks'
 import type { LoginForm, LoginFormLocal } from '@/types/base/login'
-
-const { encrypt, decrypt } = useEncrypt()
 
 export const useUserStore = defineStore('userInfo', {
   state: () => ({
@@ -47,6 +45,7 @@ export const useUserStore = defineStore('userInfo', {
   actions: {
     // 登录
     async login(userInfo: LoginFormLocal) {
+      const { encrypt } = useEncrypt()
       this.rememberMe = userInfo.rememberMe
       if (this.rememberMe) {
         this.localUserInfo.username = encrypt(userInfo.user_name) as string
@@ -87,6 +86,7 @@ export const useUserStore = defineStore('userInfo', {
     },
     // 获取本地用户信息
     getLocalUserInfo() {
+      const { decrypt } = useEncrypt()
       return {
         user_name: decrypt(this.localUserInfo.username) as string,
         user_password: decrypt(this.localUserInfo.password) as string,

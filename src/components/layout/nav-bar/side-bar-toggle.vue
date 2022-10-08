@@ -1,8 +1,8 @@
 <!-- eslint-disable max-len -->
 <template>
-  <div class="p-y-0 p-x-0" @click="appStore.toggleSiderBar()">
+  <div class="p-y-0 p-x-0" @click="appStore.toggleSideBar()">
     <svg
-      :class="{ 'transform-rotate-180': !appStore.siderBar.isCollapse }"
+      :class="{ 'transform-rotate-180': !appStore.sideBar.isCollapse }"
       class="inline-block w-20px h-20px vertical-middle"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"

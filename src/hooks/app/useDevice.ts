@@ -19,7 +19,7 @@ export const useMobile = () => {
   watch(
     () => width.value,
     (v: number) => {
-      isMobile.value = v > mobileWidth ? false : true
+      isMobile.value = v <= mobileWidth
       appStore.setIsMobile(isMobile.value)
     }
   )
@@ -32,8 +32,8 @@ export const useToken = () => {
   const userStore = useUserStore()
   const now = new Date().getTime() / 1000 //分钟
   const exp = (userStore.token.expires - now) / (24 * 60 * 60) // 天
-  const isExpiredSoon = exp < 1 ? true : false
-  const valid = exp > 0 ? true : false
+  const isExpiredSoon = exp < 1
+  const valid = exp > 0
   return {
     isExpiredSoon,
     valid,

@@ -1,5 +1,5 @@
-@import "./variable.scss";
-@import "./transition.scss";
+@use "./variable.scss";
+@use "./transition.scss";
 
 
 html,
@@ -8,9 +8,10 @@ body,
   height: 100vh;
   margin: 0;
   min-width: 500px;
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
+
 // 隐藏tab-bar 的滚动条
 .tab-bar-box-scroll .el-scrollbar__bar.is-horizontal {
-  height: 0px !important;
+  height: 0 !important;
 }

@@ -1,11 +1,17 @@
+/* eslint-disable no-unused-vars */
 /*
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 17:45:04
+ * @LastEditTime: 2022-10-08 18:48:26
  * @FilePath: \IUI314\src\types\system\dict.ts
  * @Description:
  */
+
+export enum dictKey {
+  sysNormalDisable = 'sys_normal_disable',
+  db = 'db',
+}
 
 // 转化后使用的数据
 export interface DictUse {

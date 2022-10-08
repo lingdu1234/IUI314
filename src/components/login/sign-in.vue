@@ -1,12 +1,12 @@
 <!-- sign_in -->
 <template>
-  <div class="sigin-container b-container" id="b-container">
+  <div id="b-container" class="sign-in-container b-container">
     <el-form
-      ref="loginFormRef"
-      class="formClass"
       id="b-form"
+      ref="loginFormRef"
       :model="loginForm"
       :rules="loginRules"
+      class="formClass"
     >
       <div class="w-96px flex items-center justify-center">
         <img :src="logo" alt="logo" class="w-96px h-96px" />
@@ -15,30 +15,31 @@
       <el-form-item prop="user_name">
         <el-input
           v-model="loginForm.user_name"
+          placeholder="用户名"
           style="width: 350px; height: 40px"
           type="text"
-          placeholder="用户名"
         />
       </el-form-item>
       <el-form-item prop="user_password">
         <el-input
           v-model="loginForm.user_password"
+          placeholder="密码"
           style="width: 350px; height: 40px"
           type="password"
-          placeholder="密码"
         />
       </el-form-item>
       <el-form-item v-model="loginForm.code" prop="code">
         <el-input
           v-model="loginForm.code"
+          placeholder="验证码"
           style="width: 220px; height: 40px"
           type="text"
           @keyup.enter="submitLogin(loginFormRef)"
-          placeholder="验证码"
         />
         <img
-          :src="captchaData?.img"
           :class="appStore.app.isDark ? 'filter-invert-90' : 'filter-invert-0'"
+          :src="captchaData?.img"
+          alt="code"
           class="h-40px w-130px b-rd-6px"
           @click="getCaptcha"
         />
@@ -57,7 +58,7 @@
     </el-form>
   </div>
 </template>
-<script lang="ts" setup name="sign-in">
+<script lang="ts" name="sign-in" setup>
 import { usePreferredColorScheme } from '@vueuse/core'
 import type { FormInstance, FormRules } from 'element-plus'
 import { computed, reactive, ref, watch } from 'vue'
@@ -120,7 +121,7 @@ const submitLogin = async (formRef: FormInstance | undefined) => {
   loginForm.value.uuid = captchaData.value?.uuid!
   await userStore.login(loginForm.value)
   const redirect = router.currentRoute.value.query.redirect as string
-  router.push({ path: redirect })
+  await router.push({ path: redirect })
 }
 // 获取本地用户信息
 const getLocalUserInfo = () => {
@@ -134,7 +135,7 @@ const getLocalUserInfo = () => {
 getLocalUserInfo()
 </script>
 <style lang="scss" scoped>
-.sigin-container {
+.sign-in-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -173,6 +174,7 @@ getLocalUserInfo()
   border: none;
   outline: none;
 }
+
 .formClass {
   display: flex;
   justify-content: center;
@@ -180,6 +182,7 @@ getLocalUserInfo()
   flex-direction: column;
   width: 100%;
   height: 100%;
+
   .el-input {
     --el-input-bg-color: var(--login-neu-1);
   }

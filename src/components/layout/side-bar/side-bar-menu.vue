@@ -9,7 +9,7 @@
 <template>
   <el-menu
     :default-active="activeMenu"
-    :collapse="appStore.siderBar.isCollapse"
+    :collapse="appStore.sideBar.isCollapse"
     :unique-opened="true"
     :collapse-transition="false"
     mode="vertical"

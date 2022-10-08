@@ -45,22 +45,24 @@ export function removeRouteListener() {
 
 // -------------
 
-let tabBarAtion: Eaction
+let tabBarAction: Eaction
 
 export const setTabBarEmitter = (v: Eaction) => {
   emitter.emit(tabActionMethodKey, v)
-  tabBarAtion = v
+  tabBarAction = v
 }
+
 export function listenerTabBarAction(
   // eslint-disable-next-line no-unused-vars
   handler: (v: Eaction) => void,
   immediate = true
 ) {
   emitter.on(tabActionMethodKey, handler as Handler)
-  if (immediate && tabBarAtion) {
-    handler(tabBarAtion)
+  if (immediate && tabBarAction) {
+    handler(tabBarAction)
   }
 }
+
 export function removeTabBarActionListener() {
   emitter.off(tabActionMethodKey)
 }

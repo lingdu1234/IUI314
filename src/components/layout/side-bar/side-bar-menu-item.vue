@@ -80,7 +80,7 @@ const appStore = useAppStore()
 const onlyOneChild = ref<AppRouteRecordRaw>()
 
 const icon_arrow_dispay = computed(() =>
-  appStore.siderBar.isCollapse ? 'none' : ''
+  appStore.sideBar.isCollapse ? 'none' : ''
 )
 
 function hasOneShowingChild(
