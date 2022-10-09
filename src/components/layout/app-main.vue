@@ -2,22 +2,22 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 17:46:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-08 16:31:35
+ * @LastEditTime: 2022-10-09 20:19:42
  * @FilePath: \IUI314\src\components\layout\app-main.vue
  * @Description: 
 -->
 <template>
-  <section class="app-main">
-    <el-scrollbar :style="height">
-      <router-view v-slot="{ Component, route }">
-        <transition name="fade-transform" mode="out-in">
-          <keep-alive :include="cacheList">
-            <component :is="Component" :key="route.path" />
-          </keep-alive>
-        </transition>
-      </router-view>
-    </el-scrollbar>
-  </section>
+  <!-- <section class="app-main-container"> -->
+  <el-scrollbar :style="height">
+    <router-view v-slot="{ Component, route }">
+      <transition name="fade-transform" mode="out-in">
+        <keep-alive :include="cacheList">
+          <component :is="Component" :key="route.path" />
+        </keep-alive>
+      </transition>
+    </router-view>
+  </el-scrollbar>
+  <!-- </section> -->
 </template>
 
 <script lang="ts" setup name="app-main">
@@ -28,43 +28,28 @@ import { useAppStore, useTabBarStore } from '@/stores'
 const tabBarStore = useTabBarStore()
 const appStore = useAppStore()
 
-const height = computed(() => {
+const appMainHeight = computed(() => {
+  let h = 'calc(100vh'
   if (appStore.app.navBar) {
-    return 'height: calc(100vh - 90px)'
+    h += ' - var(--header-bar-height)'
   }
   if (appStore.app.tabBar) {
-    return 'height: calc(100vh - 110px)'
+    h += ' - var(--header-bar-height)'
   }
-  return 'height: 100vh'
+  h += ')'
+  return h
 })
 
-const appMainHeight = computed(() => {
-  if (appStore.app.navBar) {
-    return 'calc(100vh - 84px)'
-  }
-  if (appStore.app.tabBar) {
-    return 'calc(100vh - 106px)'
-  }
-  return '100vh'
-})
+const height = computed(() => 'height: ' + appMainHeight.value)
 
 const cacheList = computed(() => tabBarStore.getCacheList)
 </script>
 
 <style lang="scss" scoped>
-.app-main {
-  min-height: v-bind(appMainHeight);
-  width: 100%;
-  position: relative;
-  overflow: hidden;
-}
-</style>
-
-<style lang="scss">
-// fix css style bug in open el-dialog
-.el-popup-parent--hidden {
-  .fixed-header {
-    padding-right: 17px;
-  }
-}
+// .app-main-container {
+//   min-height: v-bind(appMainHeight);
+//   width: 100%;
+//   position: relative;
+//   overflow: hidden;
+// }
 </style>

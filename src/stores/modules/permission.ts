@@ -8,7 +8,7 @@
  */
 import { defineStore } from 'pinia'
 
-import { getUserRouters } from '@/api/login'
+import { getUserRouters } from '@/api/system/login'
 import {
   InnerLink,
   Layout,

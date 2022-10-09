@@ -1,0 +1,48 @@
+// 隐藏折叠模式下的箭头符号
+div.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default>div>.el-menu--collapse>div>li>div>i.el-icon.el-sub-menu__icon-arrow {
+    display: none !important;
+}
+
+// 隐藏tab-bar 的滚动条
+.tab-bar-box-scroll .el-scrollbar__bar.is-horizontal {
+    height: 0 !important;
+}
+
+// 设置form-item的宽度
+.el-form-item--small {
+    .el-form-item__content {
+        width: 190px !important;
+    }
+}
+
+.el-form-item--default {
+    .el-form-item__content {
+        width: 205px !important;
+    }
+}
+
+.el-form-item--large {
+    .el-form-item__content {
+        width: 220px !important;
+    }
+}
+
+
+.nest-menu .el-sub-menu>.el-sub-menu__title,
+.el-sub-menu .el-menu-item {
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.06) !important;
+    }
+}
+
+// .el-menu-item,
+// .menu-title {
+//     overflow: hidden !important;
+//     text-overflow: ellipsis !important;
+//     white-space: nowrap !important;
+// }
+
+// .el-menu-item .el-menu-tooltip__trigger {
+//     display: inline-block !important;
+// }

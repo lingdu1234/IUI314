@@ -2,15 +2,15 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-08 16:15:24
+ * @LastEditTime: 2022-10-09 14:56:51
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */
 import md5 from 'blueimp-md5'
 import { defineStore } from 'pinia'
 
-import { getFullUserInfo, loginUser, logOutUser } from '@/api/login'
-import { freshToken } from '@/api/user'
+import { getFullUserInfo, loginUser, logOutUser } from '@/api/system/login'
+import { freshToken } from '@/api/system/user'
 import defaultAvatar from '@/assets/av.webp'
 import { useEncrypt } from '@/hooks'
 import type { LoginForm, LoginFormLocal } from '@/types/base/login'

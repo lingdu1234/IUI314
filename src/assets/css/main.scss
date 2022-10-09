@@ -1,5 +1,6 @@
 @use "./variable.scss";
 @use "./transition.scss";
+@use "./element-plus.scss";
 
 
 html,
@@ -9,9 +10,4 @@ body,
   margin: 0;
   min-width: 500px;
   overflow-y: hidden;
-}
-
-// 隐藏tab-bar 的滚动条
-.tab-bar-box-scroll .el-scrollbar__bar.is-horizontal {
-  height: 0 !important;
 }

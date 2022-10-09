@@ -9,20 +9,25 @@
     >
       <app-link
         v-if="onlyOneChild?.meta"
-        :to="(resolvePath(onlyOneChild.path, onlyOneChild.query) as string)"
+        :to="resolvePath(onlyOneChild.path, onlyOneChild.query)"
       >
         <el-menu-item
-          :index="resolvePath(onlyOneChild.path)"
           :class="{ 'submenu-title-noDropdown': !isNest }"
+          :index="resolvePath(onlyOneChild.path)"
         >
           <template #title>
             <el-icon>
               <SvgIcon
-                :name="onlyOneChild.meta.icon! ||(item.meta! && item.meta.icon!)"
+                :name="
+                  onlyOneChild.meta?.icon || (item.meta && item.meta.icon) || ''
+                "
               />
             </el-icon>
-            <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">
-              {{ onlyOneChild.meta.title }}</span
+            <span
+              :title="hasTitle(onlyOneChild.meta?.title)"
+              class="menu-title"
+            >
+              {{ onlyOneChild.meta?.title }}</span
             >
           </template>
         </el-menu-item>
@@ -32,10 +37,10 @@
     <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)">
       <template v-if="item.meta" #title>
         <el-icon>
-          <SvgIcon :name="item.meta! && item.meta.icon!" />
+          <SvgIcon :name="(item.meta && item.meta.icon) || ''" />
         </el-icon>
-        <span class="menu-title" :title="hasTitle(item.meta!.title)">
-          {{ item.meta!.title }}
+        <span :title="hasTitle(item.meta?.title || '')" class="menu-title">
+          {{ item.meta?.title }}
         </span>
       </template>
 
@@ -43,21 +48,20 @@
         <side-bar-menu-item
           v-for="child in item.children"
           :key="child.path"
+          :base-path="resolvePath(child.path)"
           :is-nest="true"
           :item="child"
-          :base-path="resolvePath(child.path)"
           class="nest-menu"
         />
       </div>
     </el-sub-menu>
   </div>
 </template>
-<script lang="ts" setup name="side-bar-menu-item">
-import { type PropType, computed, ref } from 'vue'
+<script lang="ts" name="side-bar-menu-item" setup>
+import { type PropType, ref } from 'vue'
 
 import SvgIcon from '@/components/common/svg-icon.vue'
-import { getNormalPath, isExternal } from '@/hooks'
-import { useAppStore } from '@/stores'
+import { getNormalPath, getQueryUrl, isExternal } from '@/hooks'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 
 import AppLink from './app-link.vue'
@@ -76,12 +80,8 @@ const props = defineProps({
     default: '',
   },
 })
-const appStore = useAppStore()
-const onlyOneChild = ref<AppRouteRecordRaw>()
 
-const icon_arrow_dispay = computed(() =>
-  appStore.sideBar.isCollapse ? 'none' : ''
-)
+const onlyOneChild = ref<AppRouteRecordRaw>()
 
 function hasOneShowingChild(
   children: AppRouteRecordRaw[] = [],
@@ -114,7 +114,7 @@ function hasOneShowingChild(
   return false
 }
 
-function resolvePath(routePath: string, routeQuery?: string) {
+function resolvePath(routePath: string, routeQuery?: string): string {
   if (isExternal(routePath)) {
     return routePath
   }
@@ -123,16 +123,14 @@ function resolvePath(routePath: string, routeQuery?: string) {
   }
   if (routeQuery) {
     let query = JSON.parse(routeQuery)
-    return {
-      path: getNormalPath(props.basePath + '/' + routePath),
-      query: query,
-    }
+    return getQueryUrl(getNormalPath(props.basePath + '/' + routePath), query)
+      .value
   }
   return getNormalPath(props.basePath + '/' + routePath)
 }
 
 function hasTitle(title: string) {
-  if (title.length > 5) {
+  if (title.length > 2) {
     return title
   } else {
     return ''
@@ -145,16 +143,12 @@ function hasTitle(title: string) {
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
 }
-
-::v-deep(i.el-icon.el-sub-menu__icon-arrow) {
-  display: v-bind(icon_arrow_dispay);
-}
-
 // 去掉菜单下划线
 .router-link-active,
 a {
   text-decoration: none;
 }
+
 .el-menu {
   background-color: black;
   border-radius: 20px;

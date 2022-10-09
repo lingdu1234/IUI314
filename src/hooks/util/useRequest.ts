@@ -66,7 +66,10 @@ export const useRequest = createFetch({
  * @param url 请求地址
  * @param query 请求参数
  */
-const getQueryUrl = (url: MaybeRef<string>, query?: MaybeRef<unknown>) => {
+export const getQueryUrl = (
+  url: MaybeRef<string>,
+  query?: MaybeRef<unknown>
+) => {
   return computed(() => {
     const _url = unref(url)
     const _query = unref(query)

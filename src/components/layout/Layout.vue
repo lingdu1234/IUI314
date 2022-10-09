@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 16:39:10
+ * @LastEditTime: 2022-10-09 20:07:44
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -13,7 +13,7 @@
         <SideBar />
       </el-aside>
       <el-container class="flex flex-col justify-start w-100vw">
-        <el-header class="headerNavBar" v-if="appStore.app.navBar">
+        <el-header class="headerNavBar" v-show="appStore.app.navBar">
           <NavBar />
         </el-header>
         <el-header class="headerNavBar">
@@ -85,12 +85,6 @@ const sideBarWidth = computed(() =>
 .el-main {
   background-color: var(--main-container-bg-color);
   color: var(--main-container-font-color);
-  // height: 100%;
-  padding: 1px;
-  overflow: hidden;
-
-  .main-content {
-    padding: 20px;
-  }
+  padding: 0;
 }
 </style>

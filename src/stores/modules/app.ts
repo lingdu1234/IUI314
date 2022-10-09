@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 12:26:48
+ * @LastEditTime: 2022-10-09 14:14:58
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
@@ -21,6 +21,7 @@ interface AppStore {
   app: {
     name: string
     title: string
+    size: any
     dynamicTitle: boolean
     isDark: boolean | undefined
     theme: string
@@ -44,6 +45,7 @@ export const useAppStore = defineStore('app', {
     app: {
       name: import.meta.env.VITE_APP_TITLE,
       title: '',
+      size: 'default',
       dynamicTitle: true,
       isDark: undefined,
       theme: '',
@@ -96,6 +98,9 @@ export const useAppStore = defineStore('app', {
     },
     setDynamicTitle(dynamicTitle: boolean) {
       this.app.dynamicTitle = dynamicTitle
+    },
+    setAppSize(size: string) {
+      this.app.size = size
     },
   },
 })

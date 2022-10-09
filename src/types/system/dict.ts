@@ -3,22 +3,53 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-08 18:48:26
+ * @LastEditTime: 2022-10-09 17:39:29
  * @FilePath: \IUI314\src\types\system\dict.ts
  * @Description:
  */
+
+import type { operateInfo, pageData, pageQueryParam } from '@/types/base/apis'
 
 export enum dictKey {
   sysNormalDisable = 'sys_normal_disable',
   db = 'db',
 }
 
-// 转化后使用的数据
-export interface DictUse {
+/**
+ * 字典转化后使用的数据
+ */
+export interface dictUse {
   label: string
   value: string
   elTagType: string
+  elTagClass?: string
   status: string
+}
+
+/**
+ * 字典类型请求参数
+ */
+export interface dictTypeQueryParam extends pageQueryParam {
+  dict_name?: string
+  dict_type?: string
+  status?: string
+}
+
+/**
+ * 字典类型数据
+ */
+export interface dictType extends operateInfo {
+  dict_type_id: string
+  dict_name: string
+  dict_type: string
+  status: string
+  remark: string
+}
+/**
+ * 字典列表请请求返回数据
+ */
+export interface dictTypeList extends pageData {
+  list: dictType[]
 }
 
 /**
