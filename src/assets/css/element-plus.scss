@@ -9,23 +9,36 @@ div.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default>div>.el-menu--collapse
 }
 
 // 设置form-item的宽度
-.el-form-item--small {
-    .el-form-item__content {
-        width: 190px !important;
+.base-form {
+    .el-form-item--small {
+        .el-form-item__content {
+            width: 190px !important;
+        }
+    }
+
+    .el-form-item--default {
+        .el-form-item__content {
+            width: 205px !important;
+        }
+    }
+
+    .el-form-item--large {
+        .el-form-item__content {
+            width: 220px !important;
+        }
     }
 }
 
-.el-form-item--default {
-    .el-form-item__content {
-        width: 205px !important;
-    }
-}
+// poper 
+// .el-popper.is-dark {
+//     background: red !important;
 
-.el-form-item--large {
-    .el-form-item__content {
-        width: 220px !important;
-    }
-}
+//     .popper__arrow {
+//         background: red;
+//     }
+
+// }
+
 
 
 .nest-menu .el-sub-menu>.el-sub-menu__title,

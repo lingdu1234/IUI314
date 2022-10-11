@@ -3,12 +3,12 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:16:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 14:53:11
+ * @LastEditTime: 2022-10-11 14:33:19
  * @FilePath: \IUI314\src\api\system\dict.ts
  * @Description:
  */
 
-import { SysDictApi } from '@/api/apis'
+import { ApiSysDictData } from '@/api/apis'
 import { useGet } from '@/hooks'
 import type { dictByType, DictData } from '@/types/system/dict'
 
@@ -21,7 +21,7 @@ export const getDictDataByType = async (
   dictType: dictByType
 ): Promise<DictData[]> => {
   const { data, execute } = useGet<DictData[]>(
-    SysDictApi.getDictDataByType,
+    ApiSysDictData.getByType,
     dictType
   )
   await execute()

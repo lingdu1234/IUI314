@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 13:09:40
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-08 19:04:40
+ * @LastEditTime: 2022-10-10 20:17:20
  * @FilePath: \IUI314\src\hooks\util\useRequest.ts
  * @Description: useRequest
  */
@@ -18,7 +18,7 @@ import { computed, unref } from 'vue'
 import { type LocationQueryRaw, stringifyQuery } from 'vue-router'
 
 import { useToken } from '@/hooks'
-import { router } from '@/router/router'
+import { router } from '@/router'
 import { useUserStore } from '@/stores'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
@@ -43,19 +43,20 @@ export const useRequest = createFetch({
         data = data.data || {}
       } else if (status === 500) {
         ElMessage.error(data.msg)
-      } else if (status === 401) {
-        ElMessage.warning('登录过期')
-        setTimeout(() => {
-          router.push('/login')
-        }, 1500)
       } else if (isExpiredSoon) {
         // 最后验证本地token效期,快过期时,刷新token
         useUserStore().freshToken()
       }
       return { data, response }
     },
-    onFetchError({ error }) {
-      ElMessage.error(error.message)
+    onFetchError({ response, error }) {
+      if (response?.status === 401) {
+        ElMessage.warning('登录过期')
+        useUserStore().frontEndLogout()
+        setTimeout(() => {
+          router.push('/login')
+        }, 500)
+      }
       return { error }
     },
   },

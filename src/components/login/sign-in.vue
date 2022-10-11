@@ -64,7 +64,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { useCaptcha } from '@/api/login'
+import { useCaptcha } from '@/api/system/login'
 import logo from '@/assets/logo.svg'
 import { useFormUtil, useTheme } from '@/hooks'
 import { useAppStore, useUserStore } from '@/stores'
@@ -102,7 +102,7 @@ const loginForm = ref<LoginFormLocal>({
 const loginRules = reactive<FormRules>({
   user_name: [
     { required: true, trigger: 'blur', message: '请输入您的账号' },
-    { min: 4, max: 20, message: '用户名为4-20位长度', trigger: 'blur' },
+    { min: 3, max: 20, message: '用户名为4-20位长度', trigger: 'blur' },
   ],
   user_password: [
     { required: true, message: '请输入用户密码', trigger: 'blur' },
@@ -117,7 +117,7 @@ loginForm.value.rememberMe = userStore.rememberMe
 
 // 提交登录
 const submitLogin = async (formRef: FormInstance | undefined) => {
-  if (!(await formValidate(formRef))) return
+  if (!formValidate(formRef)) return
   loginForm.value.uuid = captchaData.value?.uuid!
   await userStore.login(loginForm.value)
   const redirect = router.currentRoute.value.query.redirect as string

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 08:00:13
+ * @LastEditTime: 2022-10-10 14:53:05
  * @FilePath: \IUI314\src\router\router.ts
  * @Description:
  */
@@ -16,7 +16,12 @@ import {
 import { useRouterGuard } from '@/hooks'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 
-import { InnerLink, Layout, REDIRECT_ROUTE_NAME } from './constant'
+import {
+  DictDataRoute,
+  InnerLink,
+  Layout,
+  REDIRECT_ROUTE_NAME,
+} from './constant'
 
 //  固定路由
 export const constantRoutes: AppRouteRecordRaw[] = [
@@ -69,7 +74,7 @@ export const constantRoutes: AppRouteRecordRaw[] = [
 export const router = createRouter({
   // history: createWebHistory(),
   history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: [...constantRoutes] as Readonly<RouteRecordRaw[]>,
+  routes: [...constantRoutes, DictDataRoute] as Readonly<RouteRecordRaw[]>,
   scrollBehavior() {
     return { top: 0 }
   },

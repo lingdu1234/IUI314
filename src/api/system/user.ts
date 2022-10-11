@@ -8,7 +8,7 @@
  */
 /* eslint-disable no-unused-vars */
 
-import { SysUserApi } from '@/api/apis'
+import { ApiSysUser } from '@/api/apis'
 import { usePut } from '@/hooks'
 import type { TokenInfo } from '@/types/base/login'
 
@@ -17,7 +17,7 @@ import type { TokenInfo } from '@/types/base/login'
  * @return {TokenInfo}
  */
 export const freshToken = async (): Promise<TokenInfo> => {
-  const { data, execute } = await usePut<TokenInfo>(SysUserApi.freshToken)
+  const { data, execute } = await usePut<TokenInfo>(ApiSysUser.freshToken)
   await execute()
   return data.value!
 }

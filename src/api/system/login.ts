@@ -10,7 +10,7 @@
 
 import { ref } from 'vue'
 
-import { SysLoginApi } from '@/api/apis'
+import { ApiSysLogin } from '@/api/apis'
 import { useGet, usePost } from '@/hooks'
 import type {
   codeData,
@@ -30,7 +30,7 @@ export const useCaptcha = () => {
    * @description: 获取验证码
    */
   const getCaptcha = async () => {
-    const { data, execute } = useGet<codeData>(SysLoginApi.getCaptcha)
+    const { data, execute } = useGet<codeData>(ApiSysLogin.getCaptcha)
     await execute()
     captchaData.value = data.value
   }
@@ -44,7 +44,7 @@ export const useCaptcha = () => {
  * @return {TokenInfo} token
  */
 export const loginUser = async (user: LoginForm): Promise<TokenInfo> => {
-  const { data, execute } = usePost<TokenInfo>(SysLoginApi.login, user)
+  const { data, execute } = usePost<TokenInfo>(ApiSysLogin.login, user)
   await execute()
   return data.value!
 }
@@ -54,20 +54,20 @@ export const loginUser = async (user: LoginForm): Promise<TokenInfo> => {
  * @return {FullUserInfo}
  */
 export const getFullUserInfo = async (): Promise<FullUserInfo> => {
-  const { data, execute } = useGet<FullUserInfo>(SysLoginApi.getUserInfo)
+  const { data, execute } = useGet<FullUserInfo>(ApiSysLogin.getUserInfo)
   await execute()
   return data.value!
 }
 
 // 获取路由信息
 export const getUserRouters = async (): Promise<AppRouteRecordRaw[]> => {
-  const { data, execute } = useGet<AppRouteRecordRaw[]>(SysLoginApi.getRouters)
+  const { data, execute } = useGet<AppRouteRecordRaw[]>(ApiSysLogin.getRouters)
   await execute()
   return data.value!
 }
 
 // logout
 export const logOutUser = async () => {
-  const { execute } = usePost(SysLoginApi.logOut)
+  const { execute } = usePost(ApiSysLogin.logOut)
   await execute()
 }

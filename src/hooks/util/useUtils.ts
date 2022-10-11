@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:56:52
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 17:59:07
+ * @LastEditTime: 2022-10-10 17:44:54
  * @FilePath: \IUI314\src\hooks\util\useUtils.ts
  * @Description:
  */
@@ -10,6 +10,7 @@ import { useDateFormat } from '@vueuse/core'
 import { ref } from 'vue'
 
 import { useAppStore, useDictsStore } from '@/stores'
+import type { pageQueryParam } from '@/types/base/apis'
 import type { dictUse } from '@/types/system/dict'
 
 const opt = Object.prototype.toString
@@ -46,10 +47,28 @@ export const useDicts = (...dictTypes: string[]) => {
   return result
 }
 
+/**
+ *  解析时间
+ * @param time 时间
+ * @param format
+ * @returns
+ */
 export const parseTime = (time: any, format?: string) => {
   if (!format) {
     format = 'YYYY-MM-DD HH:mm:ss'
   }
   const formatted = useDateFormat(time, 'YYYY-MM-DD HH:mm:ss')
   return formatted.value
+}
+
+export const addTimeQueryParam = <T extends pageQueryParam>(
+  queryParams: T,
+  time: string[]
+) => {
+  const res = {
+    ...queryParams,
+  }
+  res.begin_time = time[0]
+  res.end_time = time[1]
+  return res
 }

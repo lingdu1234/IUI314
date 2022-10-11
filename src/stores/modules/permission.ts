@@ -14,7 +14,7 @@ import {
   Layout,
   NoPermissionRoute,
   NotFound,
-  NotFoundRoutes,
+  NotFoundRoute,
   ParentView,
   ServerErrorRoute,
 } from '@/router/constant'
@@ -36,7 +36,7 @@ export const usePermissionStore = defineStore('permission', {
       this.routes = [
         ...constantRoutes,
         ...routes,
-        NotFoundRoutes,
+        NotFoundRoute,
         NoPermissionRoute,
         ServerErrorRoute,
       ]

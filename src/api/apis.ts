@@ -3,21 +3,17 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 14:49:24
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 15:37:23
+ * @LastEditTime: 2022-10-11 16:02:18
  * @FilePath: \IUI314\src\api\apis.ts
  * @Description:
  */
-/**
- * @description: 系统用户Api
- */
-export enum SysUserApi {
-  freshToken = '/system/user/fresh_token',
-}
+
+export type APIS = ApiSysLogin | ApiSysUser | ApiSysDictType | ApiSysDictData
 
 /**
  * @description: 系统登录Api
  */
-export enum SysLoginApi {
+export enum ApiSysLogin {
   getCaptcha = '/comm/get_captcha',
   login = '/comm/login',
   getUserInfo = '/system/user/get_info',
@@ -26,9 +22,26 @@ export enum SysLoginApi {
 }
 
 /**
- * @description: 字典相关Api
+ * @description: 系统用户Api
  */
-export enum SysDictApi {
-  getDictDataByType = '/system/dict/data/get_by_type',
-  getDictTypeList = '/system/dict/type/list',
+export enum ApiSysUser {
+  freshToken = '/system/user/fresh_token',
+}
+
+/**
+ * @description: 字典类型Api
+ */
+export enum ApiSysDictType {
+  // dict type
+  getById = '/system/dict/type/get_by_id',
+  getList = '/system/dict/type/list',
+  eidt = '/system/dict/type/edit',
+  add = '/system/dict/type/add',
+  delete = '/system/dict/type/delete',
+}
+/**
+@description: 字典数据Api
+ */
+export enum ApiSysDictData {
+  getByType = '/system/dict/data/get_by_type',
 }

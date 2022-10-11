@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 16:05:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 16:09:07
+ * @LastEditTime: 2022-10-10 20:28:01
  * @FilePath: \IUI314\src\router\constant.ts
  * @Description:
  */
@@ -26,7 +26,7 @@ export const DEFAULT_ROUTE = {
 }
 
 // NotFound  404
-export const NotFoundRoutes: AppRouteRecordRaw = {
+export const NotFoundRoute: AppRouteRecordRaw = {
   path: '/:pathMatch(.*)*',
   name: 'NotFound',
   component: NotFound,
@@ -45,4 +45,22 @@ export const ServerErrorRoute: AppRouteRecordRaw = {
   component: ServerError,
   name: '401',
   hidden: true,
+}
+
+export const DictDataRoute: AppRouteRecordRaw = {
+  path: '/system/dict',
+  component: Layout,
+  hidden: true,
+  children: [
+    {
+      path: 'data',
+      component: () => import('@/views/system/dict/data.vue'),
+      name: 'dict_data',
+      meta: {
+        title: '字典数据',
+        activeMenu: '/system/basic/dict',
+        no_cache: true,
+      },
+    },
+  ],
 }

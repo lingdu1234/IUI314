@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:54:48
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-08 09:01:11
+ * @LastEditTime: 2022-10-10 20:18:52
  * @FilePath: \IUI314\src\hooks\routes\useRouteGuard.ts
  * @Description: 路由守卫，刷新路由丢失，搞了一天也不知道到底是怎么好的
  */
@@ -14,7 +14,7 @@ import type { Router, RouteRecordRaw } from 'vue-router'
 import { isHttp, setRouteEmitter, useToken } from '@/hooks'
 import {
   NoPermissionRoute,
-  NotFoundRoutes,
+  NotFoundRoute,
   ServerErrorRoute,
 } from '@/router/constant'
 import { useAppStore, usePermissionStore, useUserStore } from '@/stores'
@@ -45,7 +45,7 @@ export const useRouterGuard = async (router: Router) => {
               router.addRoute(aRoute as RouteRecordRaw)
             }
           })
-          router.addRoute(NotFoundRoutes as RouteRecordRaw)
+          router.addRoute(NotFoundRoute as RouteRecordRaw)
           router.addRoute(NoPermissionRoute as RouteRecordRaw)
           router.addRoute(ServerErrorRoute as RouteRecordRaw)
           permissionStore.setIsReloading(false)

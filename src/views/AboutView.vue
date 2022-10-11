@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-08 18:49:05
+ * @LastEditTime: 2022-10-10 20:20:07
  * @FilePath: \IUI314\src\views\AboutView.vue
  * @Description: 字典类型数据
 -->
@@ -26,7 +26,6 @@ const count = ref(0)
 
 const getDict = async () => {
   const data = await dictsStore.getDict(dictKey.sysNormalDisable)
-  console.log('data :>> ', data)
 }
 
 const dict = useDicts('db')

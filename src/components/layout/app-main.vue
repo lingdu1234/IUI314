@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 17:46:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 20:19:42
+ * @LastEditTime: 2022-10-09 20:25:40
  * @FilePath: \IUI314\src\components\layout\app-main.vue
  * @Description: 
 -->
@@ -12,7 +12,7 @@
     <router-view v-slot="{ Component, route }">
       <transition name="fade-transform" mode="out-in">
         <keep-alive :include="cacheList">
-          <component :is="Component" :key="route.path" />
+          <component class="m-15px" :is="Component" :key="route.path" />
         </keep-alive>
       </transition>
     </router-view>

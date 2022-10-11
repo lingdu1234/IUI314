@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 17:39:29
+ * @LastEditTime: 2022-10-11 14:47:31
  * @FilePath: \IUI314\src\types\system\dict.ts
  * @Description:
  */
@@ -39,7 +39,7 @@ export interface dictTypeQueryParam extends pageQueryParam {
  * 字典类型数据
  */
 export interface dictType extends operateInfo {
-  dict_type_id: string
+  dict_type_id?: string
   dict_name: string
   dict_type: string
   status: string
