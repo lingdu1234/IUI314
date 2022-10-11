@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 20:07:38
+ * @LastEditTime: 2022-10-11 21:32:45
  * @FilePath: \IUI314\src\types\system\dict.ts
  * @Description:
  */
@@ -21,7 +21,7 @@ export enum dictKey {
 export interface dictUse {
   label: string
   value: string
-  elTagType: string
+  elTagType?: string
   elTagClass?: string
   status: string
 }

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 21:14:21
+ * @LastEditTime: 2022-10-11 21:59:51
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -128,8 +128,10 @@
             v-if="
               scope.row.list_class == '' || scope.row.list_class == 'default'
             "
-            >{{ scope.row.dict_label }}</span
+            :color="scope.row.css_class"
           >
+            {{ scope.row.dict_label }}
+          </span>
           <el-tag
             v-else
             :type="

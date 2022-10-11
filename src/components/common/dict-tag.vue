@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 17:25:13
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 17:39:53
+ * @LastEditTime: 2022-10-11 21:26:52
  * @FilePath: \IUI314\src\components\common\dict-tag.vue
  * @Description: 
 -->
@@ -15,8 +15,9 @@
           :key="item.value"
           :index="index"
           :class="item.elTagClass!"
-          >{{ item.label }}</span
         >
+          {{ item.label }}
+        </span>
         <el-tag
           v-else
           :key="item.value + ''"
