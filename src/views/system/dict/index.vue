@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 16:33:12
+ * @LastEditTime: 2022-10-11 20:12:05
  * @FilePath: \IUI314\src\views\system\dict\index.vue
  * @Description: 字典类型数据
 -->
@@ -294,8 +294,8 @@ const form = ref<dictType>({
 const title = ref('')
 
 const {
-  dictTypeList,
-  getDictTypeListFn: getList,
+  list: dictTypeList,
+  getListFn: getList,
   total,
 } = getDictTypeList(queryParams, dateRange)
 
@@ -366,6 +366,9 @@ const submitForm = async (formRef: FormInstance | undefined) => {
 }
 
 function goto_data(row: dictType) {
-  router.push({ name: 'dict_data', query: { dict: row.dict_type_id } })
+  router.push({
+    name: 'dict_data',
+    query: { dict: row.dict_type_id, dict_type: row.dict_type },
+  })
 }
 </script>

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:54:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 22:22:22
+ * @LastEditTime: 2022-10-11 19:31:01
  * @FilePath: \IUI314\src\stores\modules\tab-bar.ts
  * @Description:
  */
@@ -77,7 +77,11 @@ export const useTabBarStore = defineStore('tab-bar', {
     },
     async reload(tag: TagProps) {
       this.deleteCache(tag)
-      await router.replace({ path: '/redirect' + tag.fullPath })
+      console.log('tag :>> ', tag)
+      await router.replace({
+        path: '/redirect' + tag.fullPath,
+        query: tag.query,
+      })
       this.addCache(tag)
     },
   },

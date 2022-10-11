@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 14:49:24
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 16:02:18
+ * @LastEditTime: 2022-10-11 20:52:08
  * @FilePath: \IUI314\src\api\apis.ts
  * @Description:
  */
@@ -44,4 +44,9 @@ export enum ApiSysDictType {
  */
 export enum ApiSysDictData {
   getByType = '/system/dict/data/get_by_type',
+  getById = '/system/dict/data/get_by_id',
+  getList = '/system/dict/data/list',
+  eidt = '/system/dict/data/edit',
+  add = '/system/dict/data/add',
+  delete = '/system/dict/data/delete',
 }

@@ -10,17 +10,17 @@
 
 import { ApiSysDictData } from '@/api/apis'
 import { useGet } from '@/hooks'
-import type { dictByType, DictData } from '@/types/system/dict'
+import type { dictByType, dictData } from '@/types/system/dict'
 
 /**
  * @description 按类型获取字典数据
  * @param {dictByType} dictType
- * @return {DictData[]}
+ * @return {dictData[]}
  */
 export const getDictDataByType = async (
   dictType: dictByType
-): Promise<DictData[]> => {
-  const { data, execute } = useGet<DictData[]>(
+): Promise<dictData[]> => {
+  const { data, execute } = useGet<dictData[]>(
     ApiSysDictData.getByType,
     dictType
   )

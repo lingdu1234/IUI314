@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 14:47:31
+ * @LastEditTime: 2022-10-11 20:07:38
  * @FilePath: \IUI314\src\types\system\dict.ts
  * @Description:
  */
@@ -36,6 +36,15 @@ export interface dictTypeQueryParam extends pageQueryParam {
 }
 
 /**
+ * 字典数据请求参数
+ */
+export interface dictDataQueryParam extends pageQueryParam {
+  dict_label?: string
+  dict_type?: string
+  status?: string
+}
+
+/**
  * 字典类型数据
  */
 export interface dictType extends operateInfo {
@@ -46,10 +55,31 @@ export interface dictType extends operateInfo {
   remark: string
 }
 /**
+ * 字典数据
+ */
+export interface dictData extends operateInfo {
+  dict_data_id?: string
+  dict_sort?: number
+  dict_label?: string
+  dict_value?: string
+  dict_type?: string
+  css_class?: string
+  list_class?: string
+  is_default?: string
+  status?: string
+  remark?: string
+}
+/**
  * 字典列表请请求返回数据
  */
 export interface dictTypeList extends pageData {
   list: dictType[]
+}
+/**
+ * 字典列表请请求返回数据
+ */
+export interface dictDataList extends pageData {
+  list: dictData[]
 }
 
 /**
@@ -57,25 +87,4 @@ export interface dictTypeList extends pageData {
  */
 export interface dictByType {
   dict_type: string
-}
-
-/**
- * 字典数据
- */
-export interface DictData {
-  dict_data_id: string
-  dict_sort: number
-  dict_label: string
-  dict_value: string
-  dict_type: string
-  css_class?: string
-  list_class: string
-  is_default: string
-  status: string
-  create_by: string
-  update_by?: string
-  remark: string
-  created_at: string
-  updated_at: string
-  deleted_at?: string
 }
