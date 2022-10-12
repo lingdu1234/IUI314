@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 20:12:05
+ * @LastEditTime: 2022-10-12 10:01:41
  * @FilePath: \IUI314\src\views\system\dict\index.vue
  * @Description: 字典类型数据
 -->
@@ -234,12 +234,7 @@
 </template>
 <script lang="ts" name="dict" setup>
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
-import {
-  type FormInstance,
-  type FormRules,
-  ElMessage,
-  ElMessageBox,
-} from 'element-plus'
+import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { ref } from 'vue'
 
 import { ApiSysDictType } from '@/api/apis'
@@ -248,10 +243,11 @@ import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
   parseTime,
-  useDelete,
+  useDeleteFn,
   useDicts,
   useFormUtil,
   useGet,
+  useListData,
   usePost,
   usePut,
   useTableUtil,
@@ -262,8 +258,6 @@ import {
   type dictTypeQueryParam,
   dictKey,
 } from '@/types/system/dict'
-
-import { getDictTypeList } from './useDictType'
 
 const queryRef = ref<FormInstance>()
 const dictRef = ref<FormInstance>()
@@ -293,11 +287,21 @@ const form = ref<dictType>({
 })
 const title = ref('')
 
+// const {
+//   list: dictTypeList,
+//   getListFn: getList,
+//   total,
+// } = getDictTypeList(queryParams, dateRange)
+
 const {
   list: dictTypeList,
   getListFn: getList,
   total,
-} = getDictTypeList(queryParams, dateRange)
+} = useListData<dictTypeQueryParam, dictType>(
+  ApiSysDictType.getList,
+  queryParams,
+  dateRange
+)
 
 const rules = ref<FormRules>({
   dict_name: [{ required: true, message: '字典名称不能为空', trigger: 'blur' }],
@@ -331,23 +335,18 @@ const handleUpdate = async (row?: dictType) => {
   title.value = '修改字典类型'
 }
 
-const handleDelete = (row?: dictType) => {
-  const dict_type_ids = row?.dict_type_id ? [row?.dict_type_id] : ids.value
-  const dict_type_names = row?.dict_type_id ? row?.dict_name : values.value
-  ElMessageBox.confirm(
-    `你是否确定删除字典类型:${dict_type_names}`,
-    '删除确认',
-    { type: 'warning' }
+// 删除数据
+const handleDelete = async (row?: dictType) => {
+  const flag = await useDeleteFn(
+    ApiSysDictType.delete,
+    'dict_type_id',
+    ids,
+    'dict_name',
+    values,
+    'dict_type_ids',
+    row
   )
-    .then(async () => {
-      const { execute } = useDelete(ApiSysDictType.delete, { dict_type_ids })
-      await execute()
-      getList()
-      ElMessage.success('删除成功')
-    })
-    .catch(() => {
-      ElMessage.info('取消删除')
-    })
+  if (flag) getList()
 }
 
 const submitForm = async (formRef: FormInstance | undefined) => {

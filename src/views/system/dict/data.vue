@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 21:59:51
+ * @LastEditTime: 2022-10-12 10:34:20
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -263,20 +263,21 @@ import {
   Refresh,
   Search,
 } from '@element-plus/icons-vue'
-import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
+import { type FormInstance, ElMessage } from 'element-plus'
 import { onActivated, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { ApiSysDictData } from '@/api/apis'
+import { ApiSysDictData, ApiSysDictType } from '@/api/apis'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,
   parseTime,
   setTabBarEmitter,
-  useDelete,
+  useDeleteFn,
   useDicts,
   useFormUtil,
   useGet,
+  useListData,
   usePost,
   usePut,
   useTableUtil,
@@ -285,11 +286,10 @@ import { router } from '@/router'
 import {
   type dictData,
   type dictDataQueryParam,
+  type dictType,
   type dictTypeQueryParam,
   dictKey,
 } from '@/types/system/dict'
-
-import { getDictDataList, getDictTypeList } from './useDictType'
 
 const dicts = useDicts(dictKey.sysNormalDisable)
 const { useTableSelectChange } = useTableUtil()
@@ -335,16 +335,38 @@ const rules = ref({
   ],
   dict_sort: [{ required: true, message: '数据顺序不能为空', trigger: 'blur' }],
 })
-const { list: dictTypeList, getListFn: getTypeList } = getDictTypeList(
-  ref<dictTypeQueryParam>({
-    page_size: Number.MAX_SAFE_INTEGER,
-  })
+
+// 请求字典类型数据
+// const { list: dictTypeList, getListFn: getTypeList } = getDictTypeList(
+//   ref<dictTypeQueryParam>({
+//     page_size: Number.MAX_SAFE_INTEGER,
+//   })
+// )
+
+// 请求字典类型数据
+const { list: dictTypeList, getListFn: getTypeList } = useListData<
+  dictTypeQueryParam,
+  dictType
+>(
+  ApiSysDictType.getList,
+  ref<dictTypeQueryParam>({ page_size: Number.MAX_SAFE_INTEGER })
 )
+// 请求字典结果数据
+// const {
+//   list: dictDataList,
+//   getListFn: getList,
+//   total,
+// } = getDictDataList(queryParams)
+
+// 请求字典结果数据
 const {
   list: dictDataList,
   getListFn: getList,
   total,
-} = getDictDataList(queryParams)
+} = useListData<dictDataQueryParam, dictData>(
+  ApiSysDictData.getList,
+  queryParams
+)
 
 const handleAdd = () => {
   formReset(dictRef.value)
@@ -355,7 +377,6 @@ const handleAdd = () => {
 const handleUpdate = async (row?: dictData) => {
   formReset(dictRef.value)
   open.value = true
-  console.log('row :>> ', ids.value)
   const dict_data_id = row?.dict_data_id || ids.value[0]
   const { data, execute } = useGet(ApiSysDictData.getById, { dict_data_id })
   await execute()
@@ -363,23 +384,17 @@ const handleUpdate = async (row?: dictData) => {
   title.value = '修改字典类型'
 }
 
-const handleDelete = (row?: dictData) => {
-  const dict_data_ids = row?.dict_data_id ? [row?.dict_data_id] : ids.value
-  const dict_data_names = row?.dict_data_id ? row?.dict_label : values.value
-  ElMessageBox.confirm(
-    `你是否确定删除字典类型:${dict_data_names}`,
-    '删除确认',
-    { type: 'warning' }
+const handleDelete = async (row?: dictData) => {
+  const flag = await useDeleteFn(
+    ApiSysDictData.delete,
+    'dict_data_id',
+    ids,
+    'dict_label',
+    values,
+    'dict_data_ids',
+    row
   )
-    .then(async () => {
-      const { execute } = useDelete(ApiSysDictData.delete, { dict_data_ids })
-      await execute()
-      getList()
-      ElMessage.success('删除成功')
-    })
-    .catch(() => {
-      ElMessage.info('取消删除')
-    })
+  if (flag) getList()
 }
 
 const submitForm = async (formRef: FormInstance | undefined) => {

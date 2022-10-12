@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 22:32:55
+ * @LastEditTime: 2022-10-12 09:51:13
  * @FilePath: \IUI314\src\components\layout\tab-bar\tab-bar.vue
  * @Description: 
 -->
@@ -41,7 +41,7 @@ import {
 } from '@/hooks'
 import { useTabBarStore } from '@/stores'
 
-import tabItem from './tab-item.vue'
+import type tabItem from './tab-item.vue'
 import TagBarOperation from './tag-bar-operation.vue'
 import { Eaction, useTabBar } from './useTabBar'
 
