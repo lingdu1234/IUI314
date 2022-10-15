@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 14:49:24
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 18:38:48
+ * @LastEditTime: 2022-10-15 15:22:15
  * @FilePath: \IUI314\src\api\apis.ts
  * @Description:
  */
@@ -16,6 +16,7 @@ export type APIS =
   | ApiSysDictType
   | ApiSysDictData
   | ApiSysMenu
+  | ApiSysDb
 
 /**
  * @description: 系统登录Api
@@ -68,4 +69,8 @@ export enum ApiSysMenu {
   edit = '/system/menu/edit',
   delete = '/system/menu/delete',
   updateLogCache = '/system/menu/update_log_cache_method',
+}
+export enum ApiSysDb {
+  // getById = '/system/api_db/get_by_id',
+  edit = '/system/api_db/add', //编辑和添加为同一api  post
 }

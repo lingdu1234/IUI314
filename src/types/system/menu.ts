@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-12 18:15:58
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 14:40:25
+ * @LastEditTime: 2022-10-15 14:42:34
  * @FilePath: \IUI314\src\types\system\menu.ts
  * @Description: menu type define
  */
@@ -16,6 +16,7 @@ import type { MenuType } from '../base/router'
 export interface menuQueryParam extends pageQueryParam {
   menu_name?: string
   menu_type?: MenuType
+  method?: string
   status?: string
 }
 /**
@@ -44,6 +45,14 @@ export interface menu extends operateInfo {
   children?: menu[]
   hasChildren?: boolean
   disabled?: boolean
+}
+
+/**
+ * 查询授权目录菜单
+ */
+export interface authMenu extends menu {
+  apis?: string[]
+  dbs?: string[]
 }
 /**
  * 菜单列表数据

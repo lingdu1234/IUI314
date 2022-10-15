@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 21:15:46
+ * @LastEditTime: 2022-10-15 09:29:12
  * @FilePath: \IUI314\src\views\system\menu\menu-table.vue
  * @Description: 
 -->
@@ -141,7 +141,7 @@
               @click="handleDelete(scope.row)"
             />
           </el-tooltip>
-          <el-tooltip
+          <!-- <el-tooltip
             v-if="scope.row.menu_type == 'F'"
             content="数据库关联"
             placement="top"
@@ -152,7 +152,7 @@
               :icon="DataBoard"
               @click="handleDbRelation(scope.row)"
             />
-          </el-tooltip>
+          </el-tooltip> -->
         </template>
       </el-table-column>
     </el-table>
@@ -171,13 +171,7 @@
   </div>
 </template>
 <script lang="ts" setup name="menu-table">
-import {
-  CopyDocument,
-  DataBoard,
-  Delete,
-  Edit,
-  FolderAdd,
-} from '@element-plus/icons-vue'
+import { CopyDocument, Delete, Edit, FolderAdd } from '@element-plus/icons-vue'
 import { type TableInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { type PropType, nextTick, ref } from 'vue'
 
@@ -334,9 +328,9 @@ const handleDelete = async (row: menu) => {
     })
 }
 // 数据库关联
-const handleDbRelation = (row: menu) => {
-  console.log('row.id :>> ', row.id!)
-}
+// const handleDbRelation = (row: menu) => {
+//   console.log('row.id :>> ', row.id!)
+// }
 
 const show_menu_table = ref(true)
 
