@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 16:05:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-10 20:28:01
+ * @LastEditTime: 2022-10-14 21:36:46
  * @FilePath: \IUI314\src\router\constant.ts
  * @Description:
  */
@@ -60,6 +60,7 @@ export const DictDataRoute: AppRouteRecordRaw = {
         title: '字典数据',
         activeMenu: '/system/basic/dict',
         no_cache: true,
+        icon: 'dict',
       },
     },
   ],

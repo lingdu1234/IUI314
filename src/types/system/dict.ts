@@ -3,9 +3,9 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 21:32:45
+ * @LastEditTime: 2022-10-13 09:10:56
  * @FilePath: \IUI314\src\types\system\dict.ts
- * @Description:
+ * @Description:dict type define
  */
 
 import type { operateInfo, pageData, pageQueryParam } from '@/types/base/apis'
@@ -13,6 +13,10 @@ import type { operateInfo, pageData, pageQueryParam } from '@/types/base/apis'
 export enum dictKey {
   sysNormalDisable = 'sys_normal_disable',
   db = 'db',
+  sysApiMethod = 'sys_api_method',
+  apiCacheMethod = 'api_cache_method',
+  apiLogMethod = 'api_log_method',
+  sysShowHide = 'sys_show_hide',
 }
 
 /**

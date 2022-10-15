@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-12 10:01:41
+ * @LastEditTime: 2022-10-15 09:04:42
  * @FilePath: \IUI314\src\views\system\dict\index.vue
  * @Description: 字典类型数据
 -->
@@ -84,7 +84,7 @@
           :icon="Edit"
           :disabled="!single"
           @click="handleUpdate"
-          v-if="hasPermission(ApiSysDictType.eidt)"
+          v-if="hasPermission(ApiSysDictType.edit)"
         >
           修改
         </el-button>
@@ -94,7 +94,7 @@
           type="danger"
           plain
           :icon="Delete"
-          :disabled="!slected"
+          :disabled="!selected"
           @click="handleDelete"
           v-if="hasPermission(ApiSysDictType.delete)"
         >
@@ -170,7 +170,7 @@
             link
             :icon="Edit"
             @click="handleUpdate(scope.row)"
-            v-if="hasPermission(ApiSysDictType.eidt)"
+            v-if="hasPermission(ApiSysDictType.edit)"
           >
             修改
           </el-button>
@@ -232,12 +232,12 @@
     </el-dialog>
   </div>
 </template>
-<script lang="ts" name="dict" setup>
+<script lang="ts" setup>
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { ref } from 'vue'
 
-import { ApiSysDictType } from '@/api/apis'
+import { ApiSysDictType, ErrorFlag } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
@@ -252,7 +252,7 @@ import {
   usePut,
   useTableUtil,
 } from '@/hooks'
-import { router } from '@/router'
+import { router, systemMenus } from '@/router'
 import {
   type dictType,
   type dictTypeQueryParam,
@@ -266,7 +266,7 @@ const showSearch = ref(true)
 const dicts = useDicts(dictKey.sysNormalDisable)
 const { formValidate, formReset } = useFormUtil()
 const { useTableSelectChange } = useTableUtil()
-const { handleSelectionChangeFn, ids, values, single, slected } =
+const { handleSelectionChangeFn, ids, values, single, selected } =
   useTableSelectChange()
 
 const handleSelectionChange = (v: dictType[]) =>
@@ -352,12 +352,14 @@ const handleDelete = async (row?: dictType) => {
 const submitForm = async (formRef: FormInstance | undefined) => {
   if (!formValidate(formRef)) return
   if (form.value.dict_type_id !== undefined) {
-    const { execute } = usePut(ApiSysDictType.eidt, form)
+    const { execute, data } = usePut(ApiSysDictType.edit, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success('修改成功')
   } else {
-    const { execute } = usePost(ApiSysDictType.add, form)
+    const { execute, data } = usePost(ApiSysDictType.add, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success('新增成功')
   }
   open.value = false
@@ -370,4 +372,8 @@ function goto_data(row: dictType) {
     query: { dict: row.dict_type_id, dict_type: row.dict_type },
   })
 }
+// 导出名称
+defineOptions({
+  name: systemMenus.dict.path,
+})
 </script>

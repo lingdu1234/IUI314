@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 17:06:21
+ * @LastEditTime: 2022-10-15 09:08:43
  * @FilePath: \IUI314\vite.config.ts
  * @Description:
  */
@@ -15,9 +15,10 @@ import AutoImport from 'unplugin-auto-import/vite'
 import ElementPlus from 'unplugin-element-plus/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
+import DefineOptions from 'unplugin-vue-define-options/vite'
 import { defineConfig } from 'vite'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import vueSetupExtend from 'vite-plugin-vue-setup-extend' //为setup  主要用于定义名称;;
+import vueSetupExtend from 'vite-plugin-vue-setup-extend' //为setup  主要用于定义名称;
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -25,6 +26,7 @@ export default defineConfig({
     vue(),
     vueJsx(),
     vueSetupExtend(),
+    DefineOptions(),
     Unocss(),
     ElementPlus({
       useSource: true,

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:21:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 21:37:00
+ * @LastEditTime: 2022-10-15 07:59:34
  * @FilePath: \IUI314\src\stores\modules\permission.ts
  * @Description:
  */
@@ -141,13 +141,13 @@ function generateFlatRoutes(
   const flatRoutes: AppRouteRecordRaw[] = []
 
   for (const item of accessRoutes) {
-    let childrenFflatRoutes: AppRouteRecordRaw[] = []
+    let childrenFlatRoutes: AppRouteRecordRaw[] = []
     if (item.children && item.children.length > 0) {
-      childrenFflatRoutes = castToFlatRoute(item.children, '')
+      childrenFlatRoutes = castToFlatRoute(item.children, '')
     }
     // 一级路由是布局路由,需要处理的只是其子路由数据
     const r = { ...item }
-    r.children = childrenFflatRoutes
+    r.children = childrenFlatRoutes
     flatRoutes.push(r)
   }
 

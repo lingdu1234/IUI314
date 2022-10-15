@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 20:33:53
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 08:39:25
+ * @LastEditTime: 2022-10-13 19:17:48
  * @FilePath: \IUI314\src\hooks\util\useMitt.ts
  * @Description:
  */
@@ -43,7 +43,7 @@ export function removeRouteListener() {
   emitter.off(routerChangeKey)
 }
 
-// -------------
+// ------tab bar-------
 
 let tabBarAction: Eaction
 

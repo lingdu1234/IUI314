@@ -3,7 +3,7 @@
     <div v-for="item of 50" :key="item" class="snowflake" />
     <div class="login-main">
       <div class="login-tip">
-        <LoginSwich />
+        <LoginSwitch />
       </div>
       <SignIn />
     </div>
@@ -14,7 +14,7 @@
 import { useWindowSize } from '@vueuse/core'
 import { watch } from 'vue'
 
-import LoginSwich from './login-swich.vue'
+import LoginSwitch from './login-switch.vue'
 import SignIn from './sign-in.vue'
 
 const { width } = useWindowSize()

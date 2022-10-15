@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-12 10:34:20
+ * @LastEditTime: 2022-10-14 21:30:55
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -85,7 +85,7 @@
           :icon="Edit"
           :disabled="!single"
           @click="handleUpdate"
-          v-if="hasPermission(ApiSysDictData.eidt)"
+          v-if="hasPermission(ApiSysDictData.edit)"
         >
           修改
         </el-button>
@@ -95,7 +95,7 @@
           type="danger"
           plain
           :icon="Delete"
-          :disabled="!slected"
+          :disabled="!selected"
           @click="handleDelete"
           v-if="hasPermission(ApiSysDictData.delete)"
         >
@@ -267,7 +267,7 @@ import { type FormInstance, ElMessage } from 'element-plus'
 import { onActivated, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { ApiSysDictData, ApiSysDictType } from '@/api/apis'
+import { ApiSysDictData, ApiSysDictType, ErrorFlag } from '@/api/apis'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,
@@ -293,7 +293,7 @@ import {
 
 const dicts = useDicts(dictKey.sysNormalDisable)
 const { useTableSelectChange } = useTableUtil()
-const { handleSelectionChangeFn, ids, values, single, slected } =
+const { handleSelectionChangeFn, ids, values, single, selected } =
   useTableSelectChange()
 const handleSelectionChange = (v: dictData[]) =>
   handleSelectionChangeFn(v, 'dict_data_id', 'dict_label')
@@ -400,12 +400,14 @@ const handleDelete = async (row?: dictData) => {
 const submitForm = async (formRef: FormInstance | undefined) => {
   if (!formValidate(formRef)) return
   if (form.value.dict_data_id !== undefined) {
-    const { execute } = usePut(ApiSysDictData.eidt, form)
+    const { execute, data } = usePut(ApiSysDictData.edit, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success('修改成功')
   } else {
-    const { execute } = usePost(ApiSysDictData.add, form)
+    const { execute, data } = usePost(ApiSysDictData.add, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success('新增成功')
   }
   open.value = false

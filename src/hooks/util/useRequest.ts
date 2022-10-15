@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 13:09:40
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-10 20:17:20
+ * @LastEditTime: 2022-10-14 18:39:26
  * @FilePath: \IUI314\src\hooks\util\useRequest.ts
  * @Description: useRequest
  */
@@ -17,6 +17,7 @@ import { ElMessage } from 'element-plus'
 import { computed, unref } from 'vue'
 import { type LocationQueryRaw, stringifyQuery } from 'vue-router'
 
+import { ErrorFlag } from '@/api/apis'
 import { useToken } from '@/hooks'
 import { router } from '@/router'
 import { useUserStore } from '@/stores'
@@ -43,6 +44,7 @@ export const useRequest = createFetch({
         data = data.data || {}
       } else if (status === 500) {
         ElMessage.error(data.msg)
+        data = ErrorFlag
       } else if (isExpiredSoon) {
         // 最后验证本地token效期,快过期时,刷新token
         useUserStore().freshToken()

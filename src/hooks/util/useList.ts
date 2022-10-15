@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-12 08:24:42
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-12 09:59:08
+ * @LastEditTime: 2022-10-14 17:56:32
  * @FilePath: \IUI314\src\hooks\util\useList.ts
  * @Description:
  */
@@ -24,11 +24,11 @@ export interface listType<V extends operateInfo> extends pageData {
  * 列表数据相关数据;
  * Q为查询参数泛型;
  * V返回结果泛型;
- * @param querParam 请求参数
+ * @param queryParam 请求参数
  */
 export const useListData = <Q extends pageQueryParam, V extends operateInfo>(
   api: APIS,
-  querParam: Ref<Q>,
+  queryParam: Ref<Q>,
   time?: Ref<string[]>
 ) => {
   const list = ref<V[]>([]) as Ref<V[]>
@@ -38,9 +38,9 @@ export const useListData = <Q extends pageQueryParam, V extends operateInfo>(
    */
   const getListFn = async () => {
     if (time) {
-      querParam.value = addTimeQueryParam(querParam.value, time?.value)
+      queryParam.value = addTimeQueryParam(queryParam.value, time?.value)
     }
-    const { data, execute } = useGet<listType<V>>(api, querParam)
+    const { data, execute } = useGet<listType<V>>(api, queryParam)
     await execute()
     list.value = data.value?.list!
     total.value = data.value?.total!

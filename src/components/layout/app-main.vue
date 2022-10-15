@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 17:46:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 20:25:40
+ * @LastEditTime: 2022-10-14 21:45:38
  * @FilePath: \IUI314\src\components\layout\app-main.vue
  * @Description: 
 -->
@@ -10,7 +10,7 @@
   <!-- <section class="app-main-container"> -->
   <el-scrollbar :style="height">
     <router-view v-slot="{ Component, route }">
-      <transition name="fade-transform" mode="out-in">
+      <transition name="el-zoom-in-center" mode="out-in">
         <keep-alive :include="cacheList">
           <component class="m-15px" :is="Component" :key="route.path" />
         </keep-alive>

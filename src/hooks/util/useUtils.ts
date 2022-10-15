@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:56:52
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-10 17:44:54
+ * @LastEditTime: 2022-10-13 08:53:53
  * @FilePath: \IUI314\src\hooks\util\useUtils.ts
  * @Description:
  */
@@ -57,6 +57,7 @@ export const parseTime = (time: any, format?: string) => {
   if (!format) {
     format = 'YYYY-MM-DD HH:mm:ss'
   }
+  if (time === undefined || time === '' || time === null) return ''
   const formatted = useDateFormat(time, 'YYYY-MM-DD HH:mm:ss')
   return formatted.value
 }

@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 19:58:32
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-05 22:17:40
+ * @LastEditTime: 2022-10-12 18:14:05
  * @FilePath: \IUI314\src\types\base\router.ts
  * @Description:
  */
@@ -41,9 +41,15 @@ export interface AppRouteMeta {
   no_cache?: boolean
 }
 
+/**
+ * @ C 为菜单，具有路由导航的菜单，曲子CaiDan拼音的第一个字母
+ * @ M 为目录，作为路由目录而存在，取自MuLu的第一个字母
+ * @ F 为Api级别，取自Function的第一个字母
+ */
 export enum MenuType {
   C = 'C',
   M = 'M',
+  F = 'F',
 }
 
 export interface TagProps {
