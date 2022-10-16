@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 08:00:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 13:16:30
+ * @LastEditTime: 2022-10-16 18:38:54
  * @FilePath: \IUI314\src\router\constDynamicRoutes.ts
  * @Description:  菜单路由命名管理
  */
@@ -32,5 +32,13 @@ export const systemMenus: Record<string, routeMenuInfo> = {
   deptManage: {
     path: 'dept-manage',
     name: '部门管理',
+  },
+  postManage: {
+    path: 'post-manage',
+    name: '岗位管理',
+  },
+  roleManage: {
+    path: 'role-manage',
+    name: '角色管理',
   },
 }

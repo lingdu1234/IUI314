@@ -6,11 +6,17 @@
     :before-close="cancel"
     append-to-body
   >
-    <el-form ref="userRef" :model="form" :rules="rules" label-width="80px">
-      <el-row>
+    <el-form
+      ref="userRef"
+      :model="form"
+      :rules="rules"
+      label-width="80px"
+      class="base-form"
+    >
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item
-            v-if="form.id == undefined"
+            v-if="form.id === undefined"
             label="用户名称"
             prop="user_name"
           >
@@ -23,7 +29,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item
-            v-if="form.id == undefined"
+            v-if="form.id === undefined"
             label="用户密码"
             prop="user_password"
           >
@@ -37,7 +43,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="用户昵称" prop="user_nickname">
             <el-input
@@ -60,7 +66,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="用户部门" prop="dept_ids">
             <el-tree-select
@@ -91,7 +97,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="用户角色" prop="role_ids">
             <el-select
@@ -124,7 +130,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="手机号码" prop="phone_num">
             <el-input
@@ -144,7 +150,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="用户岗位" prop="post_ids">
             <el-select
@@ -164,7 +170,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="后台用户">
             <el-radio-group v-model="form.is_admin">

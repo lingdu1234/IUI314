@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 11:24:35
+ * @LastEditTime: 2022-10-16 18:21:33
  * @FilePath: \IUI314\src\views\system\dict\type.vue
  * @Description: 字典类型数据
 -->
@@ -201,7 +201,13 @@
       width="500px"
       append-to-body
     >
-      <el-form ref="dictRef" :model="form" :rules="rules" label-width="80px">
+      <el-form
+        ref="dictRef"
+        :model="form"
+        :rules="rules"
+        label-width="80px"
+        class="base-form"
+      >
         <el-form-item label="字典名称" prop="dict_name">
           <el-input v-model="form.dict_name" placeholder="请输入字典名称" />
         </el-form-item>

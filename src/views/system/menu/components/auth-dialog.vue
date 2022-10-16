@@ -6,7 +6,7 @@
     :before-close="cancel"
     append-to-body
   >
-    <el-form ref="menuRef" label-width="100px">
+    <el-form ref="menuRef" label-width="100px" class="base-form">
       <el-row>
         <el-col :span="24">
           <el-form-item label="关联数据表">

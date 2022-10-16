@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 14:49:24
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 11:45:51
+ * @LastEditTime: 2022-10-16 20:34:15
  * @FilePath: \IUI314\src\api\apis.ts
  * @Description:
  */
@@ -82,9 +82,9 @@ export enum ApiSysDictData {
 export enum ApiSysMenu {
   getList = '/system/menu/list',
   getAuthList = '/system/menu/get_auth_list',
-  getTree = '/system/menu/get_menu_tree',
+  // getTree = '/system/menu/get_menu_tree',
   getById = '/system/menu/get_by_id',
-  getEnabled = '/system/menu/get_all_enabled_menu_tree',
+  getEnabledTree = '/system/menu/get_all_enabled_menu_tree',
   add = '/system/menu/add',
   edit = '/system/menu/edit',
   delete = '/system/menu/delete',

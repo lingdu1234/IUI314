@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 13:11:57
+ * @LastEditTime: 2022-10-16 18:20:18
  * @FilePath: \IUI314\src\views\system\menu\components\menu-table.vue
  * @Description: 
 -->
@@ -141,18 +141,6 @@
               @click="handleDelete(scope.row)"
             />
           </el-tooltip>
-          <!-- <el-tooltip
-            v-if="scope.row.menu_type == 'F'"
-            content="数据库关联"
-            placement="top"
-          >
-            <el-button
-              style="color: green"
-              link
-              :icon="DataBoard"
-              @click="handleDbRelation(scope.row)"
-            />
-          </el-tooltip> -->
         </template>
       </el-table-column>
     </el-table>

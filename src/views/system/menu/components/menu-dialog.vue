@@ -6,12 +6,17 @@
     :before-close="cancel"
     append-to-body
   >
-    <el-form ref="menuRef" :model="form" :rules="rules" label-width="100px">
+    <el-form
+      ref="menuRef"
+      :model="form"
+      :rules="rules"
+      label-width="100px"
+      class="base-form"
+    >
       <el-row>
         <el-col :span="24">
           <el-form-item label="上级菜单">
             <el-tree-select
-              class="w-300px"
               v-model="form.pid"
               :data="menuSelectTree"
               :props="menuSelectTreeProps"

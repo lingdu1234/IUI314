@@ -6,7 +6,7 @@
  * @FilePath: \IUI314\src\types\system\post.ts
  * @Description:
  */
-import type { operateInfo, pageData } from '../base/apis'
+import type { operateInfo, pageData, pageQueryParam } from '../base/apis'
 
 export interface post extends operateInfo {
   post_id?: string
@@ -19,4 +19,10 @@ export interface post extends operateInfo {
 
 export interface postList extends pageData {
   list: post[]
+}
+
+export interface postQueryParam extends pageQueryParam {
+  post_code?: string
+  post_name?: string
+  status?: string
 }

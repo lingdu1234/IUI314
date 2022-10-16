@@ -13,33 +13,30 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="68px"
       class="base-form"
+      label-width="68px"
     >
       <el-form-item label="用户名称" prop="user_name">
         <el-input
           v-model="queryParams.user_name"
-          placeholder="请输入用户名称"
           clearable
-          style="width: 240px"
+          placeholder="请输入用户名称"
           @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item label="手机号码" prop="phone_num">
         <el-input
           v-model="queryParams.phone_num"
-          placeholder="请输入手机号码"
           clearable
-          style="width: 240px"
+          placeholder="请输入手机号码"
           @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item label="状态" prop="user_status">
         <el-select
           v-model="queryParams.user_status"
-          placeholder="用户状态"
           clearable
-          style="width: 240px"
+          placeholder="用户状态"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysNormalDisable]"
@@ -52,54 +49,53 @@
       <el-form-item label="创建时间">
         <el-date-picker
           v-model="dateRange"
-          style="width: 240px"
-          value-format="YYYY-MM-DD"
-          type="daterange"
+          end-placeholder="结束日期"
           range-separator="-"
           start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          type="daterange"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
           搜索
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置 </el-button>
+        <el-button :icon="Refresh" @click="resetQuery"> 重置</el-button>
       </el-form-item>
     </el-form>
     <!-- 操作区域 -->
     <el-row :gutter="10" class="m-b-8px" style="height: 35px">
       <el-col :span="1.5">
         <el-button
-          type="primary"
-          plain
-          :icon="Plus"
-          @click="handleAdd"
           v-if="hasPermission(ApiSysUser.add)"
+          :icon="Plus"
+          plain
+          type="primary"
+          @click="handleAdd"
         >
           新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="success"
-          plain
-          :icon="Edit"
-          :disabled="!single"
-          @click="handleUpdate"
           v-if="hasPermission(ApiSysUser.edit)"
+          :disabled="!single"
+          :icon="Edit"
+          plain
+          type="success"
+          @click="handleUpdate"
         >
           修改
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          :icon="Delete"
-          :disabled="!selected"
-          @click="handleDelete"
           v-if="hasPermission(ApiSysUser.delete)"
+          :disabled="!selected"
+          :icon="Delete"
+          plain
+          type="danger"
+          @click="handleDelete"
         >
           删除
         </el-button>
@@ -109,47 +105,47 @@
     <!-- 表格区域 -->
     <el-table
       :data="userList"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="50" align="center" />
+      <el-table-column align="center" type="selection" width="50" />
       <el-table-column
         key="id"
-        label="用户编号"
         align="center"
+        label="用户编号"
         prop="id"
-        width="100"
         show-overflow-tooltip
+        width="100"
       />
       <el-table-column
         key="user_name"
-        label="用户名称"
-        align="center"
-        prop="user_name"
         :show-overflow-tooltip="true"
+        align="center"
+        label="用户名称"
+        prop="user_name"
       />
       <el-table-column
         key="user_nickname"
-        label="用户昵称"
-        align="center"
-        prop="user_nickname"
         :show-overflow-tooltip="true"
+        align="center"
+        label="用户昵称"
+        prop="user_nickname"
       />
       <el-table-column
         key="dept_id"
-        label="部门"
-        align="center"
-        prop="dept.dept_name"
         :show-overflow-tooltip="true"
+        align="center"
+        label="部门"
+        prop="dept.dept_name"
       />
       <el-table-column
         key="phone_num"
-        label="手机号码"
         align="center"
+        label="手机号码"
         prop="phone_num"
         width="120"
       />
-      <el-table-column key="user_status" label="状态" align="center">
+      <el-table-column key="user_status" align="center" label="状态">
         <template #default="scope">
           <el-switch
             v-model="scope.row.user_status"
@@ -160,8 +156,8 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="创建时间"
         align="center"
+        label="创建时间"
         prop="created_at"
         width="170"
       >
@@ -169,29 +165,29 @@
           <span>{{ parseTime(scope.row.created_at) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="150">
+      <el-table-column align="center" label="操作" width="150">
         <template #default="scope">
-          <el-tooltip content="修改" placement="top" effect="light">
+          <el-tooltip content="修改" effect="light" placement="top">
             <el-button
               v-if="scope.row.userId !== 1"
-              link
               :icon="Edit"
+              link
               @click="handleUpdate(scope.row)"
             />
           </el-tooltip>
-          <el-tooltip content="删除" placement="top" effect="light">
+          <el-tooltip content="删除" effect="light" placement="top">
             <el-button
               v-if="scope.row.userId !== 1"
-              link
               :icon="Delete"
+              link
               @click="handleDelete(scope.row)"
             />
           </el-tooltip>
-          <el-tooltip content="重置密码" placement="top" effect="light">
+          <el-tooltip content="重置密码" effect="light" placement="top">
             <el-button
               v-if="scope.row.userId !== 1"
-              link
               :icon="Key"
+              link
               @click="handleResetPwd(scope.row)"
             />
           </el-tooltip>
@@ -200,22 +196,22 @@
     </el-table>
     <pagination
       v-show="total > 0"
-      v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
       :total="total"
       @pagination="getList"
     />
     <!-- 用户新增，编辑对话框 -->
     <UserManageDialog
       v-if="open"
-      :user-id="propsUserId"
-      :title="title"
       :open="open"
+      :title="title"
+      :user-id="propsUserId"
       @close-dialog="closeDialog"
     />
   </div>
 </template>
-<script lang="ts" setup name="user-manage-form">
+<script lang="ts" name="user-manage-form" setup>
 import {
   Delete,
   Edit,

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 11:02:28
+ * @LastEditTime: 2022-10-16 18:21:18
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -200,7 +200,13 @@
       width="500px"
       append-to-body
     >
-      <el-form ref="dictRef" :model="form" :rules="rules" label-width="80px">
+      <el-form
+        ref="dictRef"
+        :model="form"
+        :rules="rules"
+        label-width="80px"
+        class="base-form"
+      >
         <el-form-item label="字典类型">
           <el-input v-model="form.dict_type" :disabled="true" />
         </el-form-item>

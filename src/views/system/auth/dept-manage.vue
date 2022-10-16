@@ -13,6 +13,7 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
+      class="base-form"
     >
       <el-form-item label="部门名称" prop="dept_name">
         <el-input
@@ -22,7 +23,7 @@
           @keyup.enter="getList"
         />
       </el-form-item>
-      <el-form-item label="状态" prop="status">
+      <el-form-item label="部门状态" prop="status">
         <el-select
           v-model="queryParams.status"
           clearable
@@ -44,7 +45,7 @@
       </el-form-item>
     </el-form>
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysDept.add)"
@@ -195,8 +196,13 @@ const toggleExpandAll = () => {
   })
 }
 const handleAdd = (row?: dept) => {
-  deptData.value.parent_id = row?.dept_id
-  console.log(deptData.value.parent_id)
+  if (row?.dept_id) {
+    deptData.value.parent_id = row.dept_id
+  } else {
+    deptData.value = {
+      status: '1',
+    }
+  }
   title.value = '新增部门'
   open.value = true
 }

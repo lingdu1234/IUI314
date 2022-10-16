@@ -4,10 +4,16 @@
     :before-close="cancel"
     :title="title"
     append-to-body
-    width="680px"
+    width="600px"
   >
-    <el-form ref="userRef" :model="form" :rules="rules" label-width="100px">
-      <el-row>
+    <el-form
+      ref="userRef"
+      :model="form"
+      :rules="rules"
+      class="base-form"
+      label-width="100px"
+    >
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="上级部门" prop="parent_id">
             <el-tree-select
@@ -23,7 +29,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="部门名称" prop="dept_name">
             <el-input v-model="form.dept_name" placeholder="请输入部门名称" />
@@ -39,7 +45,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="负责人" prop="leader">
             <el-input
@@ -59,7 +65,7 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="邮箱" prop="email">
             <el-input
@@ -123,7 +129,7 @@ const props = defineProps({
   },
 })
 const emits = defineEmits(['closeDialog'])
-const form = ref<dept>(props.deptData)
+const form = ref<dept>({ ...props.deptData })
 const userRef = ref<FormInstance>()
 const { formValidate } = useFormUtil()
 
