@@ -117,7 +117,7 @@ loginForm.value.rememberMe = userStore.rememberMe
 
 // 提交登录
 const submitLogin = async (formRef: FormInstance | undefined) => {
-  if (!formValidate(formRef)) return
+  if (!(await formValidate(formRef))) return
   loginForm.value.uuid = captchaData.value?.uuid!
   await userStore.login(loginForm.value)
   const redirect = router.currentRoute.value.query.redirect as string

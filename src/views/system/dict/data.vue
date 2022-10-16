@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 21:30:55
+ * @LastEditTime: 2022-10-16 11:02:28
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -193,7 +193,13 @@
       @pagination="getList"
     />
     <!-- 添加或修改参数配置对话框 -->
-    <el-dialog v-model="open" :title="title" width="500px" append-to-body>
+    <el-dialog
+      v-if="open"
+      v-model="open"
+      :title="title"
+      width="500px"
+      append-to-body
+    >
       <el-form ref="dictRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="字典类型">
           <el-input v-model="form.dict_type" :disabled="true" />
@@ -263,7 +269,7 @@ import {
   Refresh,
   Search,
 } from '@element-plus/icons-vue'
-import { type FormInstance, ElMessage } from 'element-plus'
+import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { onActivated, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -326,7 +332,7 @@ const listClassOptions = ref([
   { value: 'warning', label: '警告' },
   { value: 'danger', label: '危险' },
 ])
-const rules = ref({
+const rules = ref<FormRules>({
   dict_label: [
     { required: true, message: '数据标签不能为空', trigger: 'blur' },
   ],
@@ -398,7 +404,7 @@ const handleDelete = async (row?: dictData) => {
 }
 
 const submitForm = async (formRef: FormInstance | undefined) => {
-  if (!formValidate(formRef)) return
+  if (!(await formValidate(formRef))) return
   if (form.value.dict_data_id !== undefined) {
     const { execute, data } = usePut(ApiSysDictData.edit, form)
     await execute()

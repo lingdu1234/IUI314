@@ -2,8 +2,8 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-15 09:04:42
- * @FilePath: \IUI314\src\views\system\dict\index.vue
+ * @LastEditTime: 2022-10-16 11:24:35
+ * @FilePath: \IUI314\src\views\system\dict\type.vue
  * @Description: 字典类型数据
 -->
 <template>
@@ -194,7 +194,13 @@
       @pagination="getList"
     />
     <!-- 添加对话框 -->
-    <el-dialog v-model="open" :title="title" width="500px" append-to-body>
+    <el-dialog
+      v-if="open"
+      v-model="open"
+      :title="title"
+      width="500px"
+      append-to-body
+    >
       <el-form ref="dictRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="字典名称" prop="dict_name">
           <el-input v-model="form.dict_name" placeholder="请输入字典名称" />
@@ -252,7 +258,7 @@ import {
   usePut,
   useTableUtil,
 } from '@/hooks'
-import { router, systemMenus } from '@/router'
+import { DictDataRouteName, router, systemMenus } from '@/router'
 import {
   type dictType,
   type dictTypeQueryParam,
@@ -286,12 +292,6 @@ const form = ref<dictType>({
   status: '1',
 })
 const title = ref('')
-
-// const {
-//   list: dictTypeList,
-//   getListFn: getList,
-//   total,
-// } = getDictTypeList(queryParams, dateRange)
 
 const {
   list: dictTypeList,
@@ -350,7 +350,7 @@ const handleDelete = async (row?: dictType) => {
 }
 
 const submitForm = async (formRef: FormInstance | undefined) => {
-  if (!formValidate(formRef)) return
+  if (!(await formValidate(formRef))) return
   if (form.value.dict_type_id !== undefined) {
     const { execute, data } = usePut(ApiSysDictType.edit, form)
     await execute()
@@ -366,9 +366,9 @@ const submitForm = async (formRef: FormInstance | undefined) => {
   getList()
 }
 
-function goto_data(row: dictType) {
+const goto_data = (row: dictType) => {
   router.push({
-    name: 'dict_data',
+    name: DictDataRouteName,
     query: { dict: row.dict_type_id, dict_type: row.dict_type },
   })
 }

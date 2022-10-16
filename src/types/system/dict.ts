@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-13 09:10:56
+ * @LastEditTime: 2022-10-15 18:13:17
  * @FilePath: \IUI314\src\types\system\dict.ts
  * @Description:dict type define
  */
@@ -17,6 +17,8 @@ export enum dictKey {
   apiCacheMethod = 'api_cache_method',
   apiLogMethod = 'api_log_method',
   sysShowHide = 'sys_show_hide',
+  isAdmin = 'is_admin',
+  sysUserSex = 'sys_user_sex',
 }
 
 /**

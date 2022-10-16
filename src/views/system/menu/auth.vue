@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 09:32:17
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-15 16:07:07
+ * @LastEditTime: 2022-10-16 07:03:21
  * @FilePath: \IUI314\src\views\system\menu\auth.vue
  * @Description: 
 -->
@@ -199,7 +199,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        v-if="hasPermission(ApiSysMenu.updateLogCache, ApiSysDb.edit)"
+        v-if="hasPermission(ApiSysMenu.updateLogCache, ApiSysDbApi.edit)"
         label="操作"
         align="center"
         width="200"
@@ -233,6 +233,7 @@
     />
     <!-- 数据库关联组件 -->
     <AuthDialog
+      v-if="open"
       :form-data="formData"
       :title="title"
       :open="open"
@@ -245,7 +246,7 @@ import { DataBoard, Refresh, Search } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import { ref } from 'vue'
 
-import { ApiSysDb, ApiSysMenu } from '@/api/apis'
+import { ApiSysDbApi, ApiSysMenu } from '@/api/apis'
 import {
   hasPermission,
   parseTime,
@@ -258,7 +259,7 @@ import { MenuType } from '@/types/base/router'
 import { dictKey } from '@/types/system/dict'
 import type { authMenu, menuQueryParam } from '@/types/system/menu'
 
-import AuthDialog from './auth-dialog.vue'
+import AuthDialog from './components/auth-dialog.vue'
 
 const queryRef = ref<FormInstance>()
 const { formReset } = useFormUtil()

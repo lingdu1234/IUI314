@@ -104,7 +104,7 @@ import { InfoFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import { type PropType, ref, watch } from 'vue'
 
-import { ApiSysDb, ApiSysMenu } from '@/api/apis'
+import { ApiSysDbApi, ApiSysMenu } from '@/api/apis'
 import { useDicts, usePost, usePut } from '@/hooks'
 import { dictKey } from '@/types/system/dict'
 import type { authMenu } from '@/types/system/menu'
@@ -155,7 +155,7 @@ const submitForm = async () => {
     log_method: form.value.log_method,
   }
   await Promise.all([
-    usePost(ApiSysDb.edit, api_data, { immediate: true }),
+    usePost(ApiSysDbApi.edit, api_data, { immediate: true }),
     usePut(ApiSysMenu.updateLogCache, cache_log_data, { immediate: true }),
   ])
   ElMessage.success('数据关联更新成功')

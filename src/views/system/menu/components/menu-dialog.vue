@@ -384,7 +384,7 @@
 </template>
 <script lang="ts" setup name="menu-dialog">
 import { InfoFilled, Search } from '@element-plus/icons-vue'
-import { type FormInstance, ElMessage } from 'element-plus'
+import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { type PropType, ref, watch } from 'vue'
 
 import { ApiSysMenu, ErrorFlag } from '@/api/apis'
@@ -437,7 +437,7 @@ const checkApi = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
-const rules = ref({
+const rules = ref<FormRules>({
   menu_name: [{ required: true, message: '菜单名称不能为空', trigger: 'blur' }],
   order_sort: [
     { required: true, message: '菜单顺序不能为空', trigger: 'blur' },
@@ -465,7 +465,7 @@ const dicts = useDicts(
 
 //  提交按钮函数
 const submitForm = async () => {
-  if (!formValidate(menuRef.value)) return
+  if (!(await formValidate(menuRef.value))) return
   if (form.value.id === undefined || form.value.id === '') {
     const { execute, data } = usePost(ApiSysMenu.add, form)
     await execute()

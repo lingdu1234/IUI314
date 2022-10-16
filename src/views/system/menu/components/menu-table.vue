@@ -2,8 +2,8 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-15 09:29:12
- * @FilePath: \IUI314\src\views\system\menu\menu-table.vue
+ * @LastEditTime: 2022-10-16 13:11:57
+ * @FilePath: \IUI314\src\views\system\menu\components\menu-table.vue
  * @Description: 
 -->
 <template>

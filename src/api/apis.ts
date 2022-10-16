@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 14:49:24
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-15 15:22:15
+ * @LastEditTime: 2022-10-16 11:45:51
  * @FilePath: \IUI314\src\api\apis.ts
  * @Description:
  */
@@ -16,7 +16,10 @@ export type APIS =
   | ApiSysDictType
   | ApiSysDictData
   | ApiSysMenu
-  | ApiSysDb
+  | ApiSysDbApi
+  | ApiSysDept
+  | ApiSysPost
+  | ApiSysRole
 
 /**
  * @description: 系统登录Api
@@ -33,7 +36,24 @@ export enum ApiSysLogin {
  * @description: 系统用户Api
  */
 export enum ApiSysUser {
-  freshToken = '/system/user/fresh_token',
+  freshToken = '/system/user/fresh_token', //刷新token
+  getList = '/system/user/list',
+  getById = '/system/user/get_by_id',
+  getProfile = '/system/user/get_profile',
+  add = '/system/user/add',
+  edit = '/system/user/edit',
+  delete = '/system/user/delete',
+  resetPwd = '/system/user/reset_passwd',
+  /**
+   * put
+   */
+  changeStatus = '/system/user/change_status',
+  changeRole = '/system/user/change_role',
+  changeDept = '/system/user/change_dept',
+  updateProfile = '/system/user/update_profile',
+  updatePwd = '/system/user/update_passwd',
+  updateAvatar = '/system/user/update_avatar',
+  updateAuthRole = '/system/role/update_auth_role',
 }
 
 /**
@@ -70,7 +90,53 @@ export enum ApiSysMenu {
   delete = '/system/menu/delete',
   updateLogCache = '/system/menu/update_log_cache_method',
 }
-export enum ApiSysDb {
+
+/**
+ * 数据库关联修改api
+ */
+export enum ApiSysDbApi {
   // getById = '/system/api_db/get_by_id',
   edit = '/system/api_db/add', //编辑和添加为同一api  post
+}
+
+/**
+ * department api
+ */
+export enum ApiSysDept {
+  getList = '/system/dept/list',
+  getById = '/system/dept/get_by_id',
+  getDeptTree = '/system/dept/get_dept_tree',
+  add = '/system/dept/add',
+  edit = '/system/dept/edit',
+  delete = '/system/dept/delete',
+}
+
+/**
+ * post api
+ */
+export enum ApiSysPost {
+  getList = '/system/post/list',
+  getById = '/system/post/get_by_id',
+  add = '/system/post/add',
+  edit = '/system/post/edit',
+  delete = '/system/post/delete',
+}
+
+/**
+ * role api
+ */
+export enum ApiSysRole {
+  getList = '/system/role/list',
+  getById = '/system/role/get_by_id',
+  add = '/system/role/add',
+  edit = '/system/role/edit',
+  delete = '/system/role/delete',
+  setDataScope = '/system/role/set_data_scope',
+  changeStatus = '/system/role/change_status',
+  getAuthUser = '/system/role/get_auth_users_by_role_id',
+  getNoAuthUser = '/system/role/get_un_auth_users_by_role_id',
+  cancelAuthUser = '/system/role/cancel_auth_user',
+  authUser = '/system/role/add_auth_user',
+  getRoleMenus = '/system/role/get_role_menu',
+  getRoleDepts = '/system/role/get_role_dept',
 }

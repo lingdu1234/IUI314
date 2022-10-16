@@ -2,8 +2,8 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 16:26:54
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-15 09:11:42
- * @FilePath: \IUI314\src\views\system\menu\index.vue
+ * @LastEditTime: 2022-10-15 16:27:19
+ * @FilePath: \IUI314\src\views\system\menu\menu-manage.vue
  * @Description: 
 -->
 <template>
@@ -82,7 +82,7 @@ import { systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type { menuQueryParam } from '@/types/system/menu'
 
-import MenuTable from './menu-table.vue'
+import MenuTable from './components/menu-table.vue'
 
 const { formReset } = useFormUtil()
 const showSearch = ref(true)
