@@ -77,7 +77,7 @@
     </template>
   </el-dialog>
 </template>
-<script lang="ts" name="post-manage-dialog" setup>
+<script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { type PropType, ref } from 'vue'

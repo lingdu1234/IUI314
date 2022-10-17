@@ -220,7 +220,7 @@
     </template>
   </el-dialog>
 </template>
-<script lang="ts" setup name="user-manage-dialog">
+<script lang="ts" setup>
 import md5 from 'blueimp-md5'
 import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { inject, ref } from 'vue'

@@ -95,14 +95,13 @@
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
     </el-row>
     <!--    表格区域-->
-    <el-table :data="roleListData" @selection-change="handleSelectionChange">
+    <el-table
+      :data="roleListData"
+      @selection-change="handleSelectionChange"
+      tooltip-effect="light"
+    >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column
-        label="角色编号"
-        prop="role_id"
-        width="120"
-        show-overflow-tooltip
-      />
+      <el-table-column label="角色编号" prop="role_id" show-overflow-tooltip />
       <el-table-column
         label="角色名称"
         prop="role_name"
@@ -131,7 +130,7 @@
         label="创建时间"
         align="center"
         prop="created_at"
-        width="160"
+        width="180"
       >
         <template #default="scope">
           <span>{{ parseTime(scope.row.created_at) }}</span>
@@ -187,6 +186,14 @@
       :title="title"
       @close-dialog="closeDialog"
     />
+    <!-- 数据权限对话框 -->
+    <RoleManageDataScopeDialog
+      v-if="openDataScope"
+      :open-data-scope="openDataScope"
+      :role-data="roleData"
+      :title="title"
+      @close-dialog="closeDialog"
+    />
   </div>
 </template>
 <script lang="ts" setup>
@@ -198,7 +205,7 @@ import {
   Refresh,
   Search,
 } from '@element-plus/icons-vue'
-import type { FormInstance } from 'element-plus'
+import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
 
 import { ApiSysRole } from '@/api/apis'
@@ -210,17 +217,20 @@ import {
   useDicts,
   useFormUtil,
   useListData,
+  usePut,
   useTableUtil,
 } from '@/hooks'
 import { systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type { role, roleQueryParam } from '@/types/system/role'
+import RoleManageDataScopeDialog from '@/views/system/auth/components/role-manage-data-scope-dialog.vue'
 import RoleManageDialog from '@/views/system/auth/components/role-manage-dialog.vue'
 
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()
 const dicts = useDicts(dictKey.sysNormalDisable)
 const open = ref(false)
+const openDataScope = ref(false)
 const title = ref('')
 const roleData = ref<role>({})
 const { useTableSelectChange } = useTableUtil()
@@ -254,6 +264,11 @@ const handleUpdate = (row: role) => {
   title.value = `更新角色-${row.role_name}`
   open.value = true
 }
+const handleDataScope = (row: role) => {
+  roleData.value = row
+  title.value = `更新数据权限-${row.role_name}`
+  openDataScope.value = true
+}
 
 const handleDelete = async (row?: role) => {
   const flag = await useDeleteFn(
@@ -267,6 +282,27 @@ const handleDelete = async (row?: role) => {
   )
   if (flag) await getList()
 }
+const handleStatusChange = async (row: role) => {
+  const text = row.status === '1' ? '启用' : '停用'
+  await ElMessageBox.confirm(
+    `确定要  ${text}  ${row.role_name}  吗?`,
+    '角色状态',
+    { type: 'warning' }
+  )
+    .then(async () => {
+      const { execute } = usePut(ApiSysRole.changeStatus, {
+        role_id: row.role_id,
+        status: row.status,
+      })
+      await execute()
+      ElMessage.success(`你成功 ${text} 用户 ${row.role_name}`)
+      getList()
+    })
+    .catch(() => {
+      ElMessage.info('你取消了操作')
+      row.status = row.status === '0' ? '1' : '0'
+    })
+}
 
 const resetQuery = () => {
   formReset(queryRef.value)
@@ -275,6 +311,7 @@ const resetQuery = () => {
 
 const closeDialog = () => {
   open.value = false
+  openDataScope.value = false
   getList()
 }
 

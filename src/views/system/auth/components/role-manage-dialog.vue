@@ -7,7 +7,7 @@
     width="600px"
   >
     <el-form
-      ref="postFormRef"
+      ref="roleFormRef"
       :model="form"
       :rules="rules"
       class="base-form"
@@ -83,7 +83,7 @@
               </el-row>
               <el-row>
                 <el-col :span="24">
-                  <el-scrollbar height="200px">
+                  <el-scrollbar max-height="200px">
                     <el-tree
                       ref="menuTreeRef"
                       :data="menuTree"
@@ -91,7 +91,7 @@
                       node-key="id"
                       :check-strictly="!menuCheckStrictly"
                       empty-text="加载中，请稍候"
-                      :props="{ label: 'menu_name', children: 'children' }"
+                      :props="menuTreeProps"
                     />
                   </el-scrollbar>
                 </el-col>
@@ -123,13 +123,13 @@
     </template>
   </el-dialog>
 </template>
-<script lang="ts" setup name="role-manage-dialog">
+<script lang="ts" setup>
 import type { ElTree, FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import type node from 'element-plus/es/components/tree/src/model/node'
-import { type PropType, ref } from 'vue'
+import { type PropType, nextTick, ref } from 'vue'
 
-import { ApiSysMenu, ApiSysPost } from '@/api/apis'
+import { ApiSysMenu, ApiSysRole } from '@/api/apis'
 import { useDicts, useFormUtil, useGet, usePost, usePut } from '@/hooks'
 import { dictKey } from '@/types/system/dict'
 import type { menu } from '@/types/system/menu'
@@ -160,6 +160,11 @@ const menuExpand = ref(false)
 const menuNodeAll = ref(false)
 const menuCheckStrictly = ref(true)
 
+const menuTreeProps = ref({
+  label: 'menu_name',
+  children: 'children',
+})
+
 // 字典数据
 const dicts = useDicts(dictKey.sysNormalDisable)
 
@@ -174,31 +179,61 @@ const rules = ref<FormRules>({
 //  提交按钮函数
 const submitForm = async (formRef: FormInstance | undefined) => {
   if (!(await formValidate(formRef))) return
+  // 获取选择的节点
+  const menu_ids = menuTreeRef.value?.getCheckedKeys(false)
   if (form.value.role_id) {
-    const { execute } = usePut(ApiSysPost.edit, form)
+    let data = { ...form.value }
+    data.menu_ids = menu_ids as string[]
+    const { execute } = usePut(ApiSysRole.edit, data)
     await execute()
     ElMessage.success(`更新 ${form.value.role_name} 成功`)
   } else {
-    const { execute } = usePost(ApiSysPost.add, form)
+    let data = { ...form.value }
+    data.menu_ids = menu_ids as string[]
+    const { execute } = usePost(ApiSysRole.add, data)
     await execute()
     ElMessage.success(`新增 ${form.value.role_name} 成功`)
   }
   cancel()
 }
+// 展开
 const handleCheckedTreeExpand = (v: boolean) => {
   const list = menuTree.value!
   for (let i = 0; i < list.length; i++) {
     menuTreeRef.value!.store.nodesMap[list[i].id!].expanded = v
   }
 }
+// 全选 全不选
 const handleCheckedTreeNodeAll = (v: boolean) => {
   const list = menuTree.value! as unknown as node[]
   menuTreeRef.value!.setCheckedNodes(v ? list : [])
 }
+/**
+ * 获取菜单数据数据
+ */
 const getMenuTree = async () => {
-  const { data, execute } = useGet<menu[]>(ApiSysMenu.getEnabledTree)
-  await execute()
-  menuTree.value = data.value!
+  // 获取数据
+  const { data: tree, execute: treeExc } = useGet<menu[]>(
+    ApiSysMenu.getEnabledTree
+  )
+  // 获取角色的菜单权限
+  const { data: menuIds, execute: menuIdsExc } = useGet<string[]>(
+    ApiSysRole.getRoleMenus,
+    { role_id: props.roleData.role_id }
+  )
+  await Promise.all([treeExc(), menuIdsExc()])
+
+  menuTree.value = tree.value!
+
+  // 设置选择节点
+  // menuIds.value!.forEach((v) => {
+  //   nextTick(() => {
+  //     menuTreeRef.value?.setChecked(v, true, false)
+  //   })
+  // })
+  nextTick(() => {
+    menuTreeRef.value?.setCheckedKeys(menuIds.value!)
+  })
 }
 getMenuTree()
 const cancel = () => {

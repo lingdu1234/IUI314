@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 14:57:14
+ * @LastEditTime: 2022-10-17 11:54:23
  * @FilePath: \IUI314\src\views\system\auth\components\user-manage-form.vue
  * @Description: 
 -->
@@ -211,7 +211,7 @@
     />
   </div>
 </template>
-<script lang="ts" name="user-manage-form" setup>
+<script lang="ts" setup>
 import {
   Delete,
   Edit,
@@ -287,7 +287,7 @@ const resetQuery = () => {
 const handleStatusChange = async (row: user) => {
   const text = row.user_status === '1' ? '启用' : '停用'
   await ElMessageBox.confirm(
-    `确定要  ${text}  ${row.user_name}  的用户吗?`,
+    `确定要  ${text}  ${row.user_name}  吗?`,
     '切换用户状态',
     { type: 'warning' }
   )
