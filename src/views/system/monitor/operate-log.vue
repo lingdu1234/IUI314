@@ -115,7 +115,12 @@
         prop="oper_id"
         show-overflow-tooltip
       />
-      <el-table-column label="系统模块" align="center" prop="title" />
+      <el-table-column
+        label="系统模块"
+        align="center"
+        prop="title"
+        show-overflow-tooltip
+      />
       <el-table-column label="操作类型" align="center" prop="operator_type">
         <template #default="scope">
           <dict-tag
@@ -364,6 +369,6 @@ const handleView = (row: operateLog) => {
 
 // 导出名称
 defineOptions({
-  name: systemMenus.operateLog.path,
+  name: systemMenus.scheduledTasks.path,
 })
 </script>

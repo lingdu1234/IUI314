@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 20:42:35
+ * @LastEditTime: 2022-10-17 20:44:43
  * @FilePath: \IUI314\vite.config.ts
  * @Description:
  */
@@ -17,7 +17,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Components from 'unplugin-vue-components/vite'
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import { type ConfigEnv, defineConfig, loadEnv } from 'vite'
-import { createHtmlPlugin } from 'vite-plugin-html'
+import { createHtmlPlugin } from 'vite-plugin-html' //用于设置标题名称
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend' //为setup  主要用于定义名称;
 
