@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 20:07:44
+ * @LastEditTime: 2022-10-17 20:11:50
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -48,16 +48,16 @@ watch(
 
 const sideBarWidth = computed(() =>
   appStore.sideBar.isCollapse
-    ? { '--sider-bar-width': 'var(--sider-bar-isCollapse-width)' }
+    ? { '--side-bar-width': 'var(--side-bar-isCollapse-width)' }
     : null
 )
 </script>
 
 <style lang="scss" scoped>
 .el-aside {
-  width: var(--sider-bar-width);
-  background-color: var(--sider-bar-bg-color);
-  color: var(--sider-bar-font-color);
+  width: var(--side-bar-width);
+  background-color: var(--side-bar-bg-color);
+  color: var(--side-bar-font-color);
   height: 100vh;
   display: flex;
   flex-direction: column;

@@ -5,10 +5,10 @@
     --header-bar-bg-color: #fff;
     --header-bar-font-color: #000;
     // sidebar
-    --sider-bar-width: 200px;
-    --sider-bar-isCollapse-width: 66px;
-    --sider-bar-bg-color: #fff;
-    --sider-bar-font-color: #000;
+    --side-bar-width: 200px;
+    --side-bar-isCollapse-width: 66px;
+    --side-bar-bg-color: #fff;
+    --side-bar-font-color: #000;
     --side-bar-logo-bg-color: #FAFAFA;
     --side-bar-logo-title-color: #000;
 
@@ -39,6 +39,11 @@
     --nav-bar-operation-width: 200px;
     // dropdown icon color
     --drop-down-icon-color: '';
+}
+
+.el-scrollbar {
+    --el-scrollbar-bg-color: #991d28 !important;
+    --el-scrollbar-hover-bg-color: #991d28 !important;
 }
 
 // element-plus  begin
@@ -73,7 +78,7 @@ html.dark {
     --header-bar-bg-color: #000;
     --header-bar-font-color: #fff;
     // sidebar
-    --sider-bar-bg-color: #000;
+    --side-bar-bg-color: #000;
     --side-bar-logo-bg-color: #000;
     --side-bar-logo-title-color: #fff;
     // main
@@ -99,6 +104,12 @@ html.dark {
             color: #fff !important;
         }
     }
+
+    // 滚动条
+    .el-scrollbar {
+        --el-scrollbar-bg-color: #A3A6AD !important;
+        --el-scrollbar-hover-bg-color: #A3A6AD !important;
+    }
 }
 
 // 暗色主题
@@ -110,7 +121,7 @@ html.pink {
     --header-bar-bg-color: var(--main-color-1);
     --header-bar-font-color: #fff;
     // sidebar
-    --sider-bar-bg-color: var(--main-color-2);
+    --side-bar-bg-color: var(--main-color-2);
     --side-bar-logo-bg-color: var(--main-color-2);
     --side-bar-logo-title-color: #fff;
     // main
@@ -153,7 +164,7 @@ html.classic {
     --header-bar-bg-color: var(--main-color-1);
     --header-bar-font-color: #fff;
     // sidebar
-    --sider-bar-bg-color: var(--main-color-2);
+    --side-bar-bg-color: var(--main-color-2);
     --side-bar-logo-bg-color: var(--main-color-2);
     --side-bar-logo-title-color: #fff;
     // main
