@@ -94,7 +94,7 @@ function handleCurrentChange(val: number) {
 .pagination-container {
   background: rgb(245, 245, 245);
   height: 55px;
-  // padding: 32px 16px;
+  padding: 12px 16px 0px;
 }
 .pagination-container.hidden {
   display: none;

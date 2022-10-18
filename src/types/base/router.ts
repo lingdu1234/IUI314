@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 19:58:32
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-12 18:14:05
+ * @LastEditTime: 2022-10-18 16:57:55
  * @FilePath: \IUI314\src\types\base\router.ts
  * @Description:
  */
@@ -54,6 +54,7 @@ export enum MenuType {
 
 export interface TagProps {
   title: string
+  path: string
   name: string
   fullPath: string
   query?: any

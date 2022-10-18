@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-16 12:58:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 15:19:18
+ * @LastEditTime: 2022-10-18 08:51:01
  * @FilePath: \IUI314\src\views\system\auth\dept-manage.vue
  * @Description: 
 -->
@@ -71,10 +71,11 @@
       :default-expand-all="isExpandAll"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
       row-key="dept_id"
+      tooltip-effect="light"
     >
       <el-table-column label="部门名称" prop="dept_name" width="260" />
-      <el-table-column label="排序" prop="order_num" width="200" />
-      <el-table-column label="状态" prop="status" width="100">
+      <el-table-column label="排序" prop="order_num" show-overflow-tooltip />
+      <el-table-column label="状态" prop="status" show-overflow-tooltip>
         <template #default="scope">
           <dict-tag
             :options="dicts[dictKey.sysNormalDisable]"
@@ -86,7 +87,7 @@
         align="center"
         label="创建时间"
         prop="created_at"
-        width="200"
+        show-overflow-tooltip
       >
         <template #default="scope">
           <span>{{ parseTime(scope.row.created_at) }}</span>
@@ -166,7 +167,7 @@ import { systemMenus } from '@/router'
 import type { dept, deptQueryParam } from '@/types/system/dept'
 import { dictKey } from '@/types/system/dict'
 
-import DeptManageDialog from './components/dept-manage-dialog.vue'
+import DeptManageDialog from './pages/dept-manage-dialog.vue'
 
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()

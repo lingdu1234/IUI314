@@ -85,18 +85,36 @@
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
     </el-row>
     <!--    表格区域-->
-    <el-table :data="postListData" @selection-change="handleSelectionChange">
+    <el-table
+      :data="postListData"
+      @selection-change="handleSelectionChange"
+      tooltip-effect="light"
+    >
       <el-table-column align="center" type="selection" width="55" />
       <el-table-column
         align="center"
         label="岗位编号"
         prop="post_id"
         show-overflow-tooltip
-        width="100"
       />
-      <el-table-column align="center" label="岗位编码" prop="post_code" />
-      <el-table-column align="center" label="岗位名称" prop="post_name" />
-      <el-table-column align="center" label="岗位排序" prop="post_sort" />
+      <el-table-column
+        align="center"
+        label="岗位编码"
+        prop="post_code"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        align="center"
+        label="岗位名称"
+        prop="post_name"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        align="center"
+        label="岗位排序"
+        prop="post_sort"
+        show-overflow-tooltip
+      />
       <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
           <dict-tag
@@ -109,7 +127,7 @@
         align="center"
         label="创建时间"
         prop="created_at"
-        width="180"
+        show-overflow-tooltip
       >
         <template #default="scope">
           <span>{{ parseTime(scope.row.created_at) }}</span>
@@ -178,7 +196,8 @@ import {
 import { systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type { post, postQueryParam } from '@/types/system/post'
-import PostManageDialog from '@/views/system/auth/components/post-manage-dialog.vue'
+
+import PostManageDialog from './pages/post-manage-dialog.vue'
 
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()

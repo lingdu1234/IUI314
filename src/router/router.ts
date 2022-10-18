@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 12:57:15
+ * @LastEditTime: 2022-10-18 13:36:13
  * @FilePath: \IUI314\src\router\router.ts
  * @Description:
  */
@@ -21,6 +21,7 @@ import {
   InnerLink,
   Layout,
   REDIRECT_ROUTE_NAME,
+  ScheduledTasksLogRoute,
 } from './constant'
 
 //  固定路由
@@ -74,7 +75,11 @@ export const constantRoutes: AppRouteRecordRaw[] = [
 export const router = createRouter({
   // history: createWebHistory(),
   history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: [...constantRoutes, DictDataRoute] as Readonly<RouteRecordRaw[]>,
+  routes: [
+    ...constantRoutes,
+    DictDataRoute,
+    ScheduledTasksLogRoute,
+  ] as Readonly<RouteRecordRaw[]>,
   scrollBehavior() {
     return { top: 0 }
   },

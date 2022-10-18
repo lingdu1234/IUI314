@@ -108,7 +108,6 @@
           @change="fresh_option_changed"
         />
       </el-col>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" />
 
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
     </el-row>
@@ -257,6 +256,22 @@
       :total="total"
       @pagination="getList"
     />
+    <!-- 任务详情对话框 -->
+    <ScheduledTasksDetail
+      v-if="openDetail"
+      :job-id="jobId"
+      :open-detail="openDetail"
+      :title="title"
+      @close-dialog="closeDialog"
+    />
+    <!-- 新增编辑对话框 -->
+    <ScheduledTasksDialog
+      v-if="open"
+      :form-data="form"
+      :open="open"
+      :title="title"
+      @close-dialog="closeDialog"
+    />
   </div>
 </template>
 <script lang="ts" setup>
@@ -270,8 +285,9 @@ import {
   Search,
   View,
 } from '@element-plus/icons-vue'
+import { useIntervalFn } from '@vueuse/core'
 import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
-import { ref } from 'vue'
+import { onActivated, onDeactivated, ref } from 'vue'
 
 import { ApiSysScheduledTasks, ApiSysScheduledTasksLog } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
@@ -279,20 +295,23 @@ import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
   parseTime,
-  useDelete,
   useDeleteFn,
   useDicts,
   useFormUtil,
+  useGet,
   useListData,
   usePut,
   useTableUtil,
 } from '@/hooks'
-import { systemMenus } from '@/router'
+import { router, ScheduledTasksLogRouteName, systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type {
   scheduledTasks,
   scheduledTasksQueryParam,
 } from '@/types/system/scheduled-tasks'
+
+import ScheduledTasksDetail from './pages/scheduled-tasks-detail.vue'
+import ScheduledTasksDialog from './pages/scheduled-tasks-dialog.vue'
 
 const queryRef = ref<FormInstance>()
 const showSearch = ref(true)
@@ -301,19 +320,37 @@ const form = ref<scheduledTasks>({})
 const open = ref(false)
 //  字典数据
 const dicts = useDicts(dictKey.sysJobGroup, dictKey.sysJobStatus)
+
 const { formReset } = useFormUtil()
+
 const { useTableSelectChange } = useTableUtil()
 const { handleSelectionChangeFn, ids, values, single, selected } =
   useTableSelectChange()
-
 const handleSelectionChange = (v: scheduledTasks[]) =>
   handleSelectionChangeFn(v, 'job_id', 'job_name')
+
+// 定时任务 定时刷新任务
+const { pause, resume } = useIntervalFn(() => getList(), 1500)
+const fresh_enabled = ref(false)
+// 切换状态
+const fresh_option_changed = (v: boolean) => {
+  if (v) {
+    resume()
+  } else {
+    pause()
+  }
+}
 
 const queryParams = ref<scheduledTasksQueryParam>({
   page_num: 1,
   page_size: 10,
 })
 const dateRange = ref<string[]>([])
+
+const title = ref('')
+// 任务详情
+const openDetail = ref(false)
+const jobId = ref('')
 
 const {
   list,
@@ -329,6 +366,30 @@ const resetQuery = () => {
   formReset(queryRef.value)
   dateRange.value = []
   getList()
+}
+
+const handleAdd = () => {
+  form.value = {
+    task_count: 0,
+    task_id: 0,
+    status: '0',
+    misfire_policy: '1',
+  }
+  open.value = true
+  title.value = '新增任务'
+}
+const handleUpdate = async (row?: scheduledTasks) => {
+  if (row?.job_id) {
+    form.value = row
+  } else {
+    const job_id = ids.value[0]
+    const { data, execute } = useGet(ApiSysScheduledTasks.getById, { job_id })
+    await execute()
+    form.value = data.value!
+  }
+
+  open.value = true
+  title.value = '更新任务'
 }
 
 // 删除数据
@@ -386,12 +447,38 @@ const handleRun = async (row: scheduledTasks) => {
 }
 
 const handleView = (row: scheduledTasks) => {
-  form.value = row
-  open.value = true
+  jobId.value = row.job_id!
+  openDetail.value = true
+  title.value = '任务详情'
 }
+
+const handleJobLog = (row?: scheduledTasks) => {
+  const job_id = row?.job_id || 'all'
+  router.push({
+    name: ScheduledTasksLogRouteName,
+    query: { job_id },
+  })
+}
+
+const closeDialog = () => {
+  openDetail.value = false
+  open.value = false
+  getList()
+}
+
+onDeactivated(() => {
+  pause()
+})
+onActivated(() => {
+  if (fresh_enabled.value) {
+    resume()
+  } else {
+    pause()
+  }
+})
 
 // 导出名称
 defineOptions({
-  name: systemMenus.operateLog.path,
+  name: systemMenus.scheduledTasks.path,
 })
 </script>

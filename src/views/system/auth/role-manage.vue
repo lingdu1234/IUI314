@@ -223,8 +223,9 @@ import {
 import { systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type { role, roleQueryParam } from '@/types/system/role'
-import RoleManageDataScopeDialog from '@/views/system/auth/components/role-manage-data-scope-dialog.vue'
-import RoleManageDialog from '@/views/system/auth/components/role-manage-dialog.vue'
+
+import RoleManageDataScopeDialog from './pages/role-manage-data-scope-dialog.vue'
+import RoleManageDialog from './pages/role-manage-dialog.vue'
 
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()

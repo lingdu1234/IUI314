@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 14:56:51
+ * @LastEditTime: 2022-10-18 08:05:18
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */
@@ -14,6 +14,8 @@ import { freshToken } from '@/api/system/user'
 import defaultAvatar from '@/assets/av.webp'
 import { useEncrypt } from '@/hooks'
 import type { LoginForm, LoginFormLocal } from '@/types/base/login'
+
+import { usePermissionStore } from './permission'
 
 export const useUserStore = defineStore('userInfo', {
   state: () => ({
@@ -110,6 +112,8 @@ export const useUserStore = defineStore('userInfo', {
         expires: 0,
         exp_in: 0,
       }
+      // 重置为登录状态，下次进入路由刷新路由表
+      usePermissionStore().setIsReloading(true)
     },
     // 登出系统
     async logOut() {

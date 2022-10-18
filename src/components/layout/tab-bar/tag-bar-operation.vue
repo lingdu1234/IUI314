@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 13:43:22
+ * @LastEditTime: 2022-10-18 16:48:28
  * @FilePath: \IUI314\src\components\layout\tab-bar\tag-bar-operation.vue
  * @Description: 
 -->
@@ -10,7 +10,7 @@
   <div class="flex items-center justify-around tag-bar-operation">
     <el-icon
       class="cursor-pointer"
-      @click="refesh"
+      @click="refresh"
       :class="isFreshing ? 'is-loading' : ''"
     >
       <RefreshLeft />
@@ -18,7 +18,7 @@
     <el-dropdown
       class="cursor-pointer"
       trigger="click"
-      @command="actionchanged"
+      @command="actionChanged"
     >
       <el-icon color="var(--drop-down-icon-color)"><ArrowDownBold /></el-icon>
       <template #dropdown>
@@ -54,14 +54,14 @@ const appStore = useAppStore()
 
 const currentRoute = computed(() => formatTag(route))
 
-const refesh = () => {
+const refresh = () => {
   isFreshing.value = true
   setTabBarEmitter(Eaction.reload)
   setTimeout(() => {
     isFreshing.value = false
   }, 2000)
 }
-const actionchanged = async (value: Eaction) => {
+const actionChanged = async (value: Eaction) => {
   setTabBarEmitter(value)
 }
 </script>

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 20:44:43
+ * @LastEditTime: 2022-10-17 22:19:48
  * @FilePath: \IUI314\vite.config.ts
  * @Description:
  */
@@ -76,12 +76,12 @@ export default ({ mode }: ConfigEnv) =>
           index: fileURLToPath(new URL('index.html', import.meta.url)),
         },
       },
-      // terserOptions: {
-      //   compress: {
-      //     drop_console: true,
-      //     drop_debugger: true,
-      //   },
-      //   sourceMap: false,
-      // },
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+        sourceMap: false,
+      },
     },
   })

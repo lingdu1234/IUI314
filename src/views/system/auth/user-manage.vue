@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 16:31:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 14:53:14
+ * @LastEditTime: 2022-10-18 08:29:33
  * @FilePath: \IUI314\src\views\system\auth\user-manage.vue
  * @Description: 
 -->
@@ -48,7 +48,7 @@ import { useGet } from '@/hooks'
 import { systemMenus } from '@/router'
 import type { dept } from '@/types/system/dept'
 
-import UserManageForm from './components/user-manage-form.vue'
+import UserManageForm from './pages/user-manage-form.vue'
 
 const deptTreeProps = {
   label: 'dept_name',

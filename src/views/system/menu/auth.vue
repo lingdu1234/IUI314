@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 09:32:17
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 07:03:21
+ * @LastEditTime: 2022-10-18 08:25:50
  * @FilePath: \IUI314\src\views\system\menu\auth.vue
  * @Description: 
 -->
@@ -259,7 +259,7 @@ import { MenuType } from '@/types/base/router'
 import { dictKey } from '@/types/system/dict'
 import type { authMenu, menuQueryParam } from '@/types/system/menu'
 
-import AuthDialog from './components/auth-dialog.vue'
+import AuthDialog from './pages/auth-dialog.vue'
 
 const queryRef = ref<FormInstance>()
 const { formReset } = useFormUtil()

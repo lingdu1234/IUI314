@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 21:43:59
+ * @LastEditTime: 2022-10-18 13:59:37
  * @FilePath: \IUI314\src\types\system\dict.ts
  * @Description:dict type define
  */
@@ -23,6 +23,7 @@ export enum dictKey {
   sysCommonStatus = 'sys_common_status',
   sysJobGroup = 'sys_job_group',
   sysJobStatus = 'sys_job_status',
+  sysTaskIsOnce = 'sys_task_is_once',
 }
 
 /**

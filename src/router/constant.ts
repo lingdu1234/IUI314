@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 16:05:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 12:56:49
+ * @LastEditTime: 2022-10-18 17:01:28
  * @FilePath: \IUI314\src\router\constant.ts
  * @Description:
  */
@@ -19,10 +19,11 @@ export const ServerError = () => import('@/components/exception/500.vue')
 export const REDIRECT_ROUTE_NAME = 'redirect' //重定向
 export const DEFAULT_ROUTE_NAME = 'dashboard' //首页
 export const DictDataRouteName = 'dict_data' //字典数据
+export const ScheduledTasksLogRouteName = 'scheduled_tasks_log' //定时任务日志
 export const DEFAULT_ROUTE = {
   title: '首页',
   name: DEFAULT_ROUTE_NAME,
-  Path: '/index',
+  path: '/index',
   fullPath: '/index',
 }
 
@@ -60,6 +61,25 @@ export const DictDataRoute: AppRouteRecordRaw = {
       meta: {
         title: '字典数据',
         activeMenu: '/system/basic/dict',
+        no_cache: true,
+        icon: 'dict',
+      },
+    },
+  ],
+}
+export const ScheduledTasksLogRoute: AppRouteRecordRaw = {
+  path: '/monitor',
+  component: Layout,
+  hidden: true,
+  children: [
+    {
+      path: 'log',
+      component: () =>
+        import('@/views/system/monitor/pages/scheduled-tasks-log.vue'),
+      name: ScheduledTasksLogRouteName,
+      meta: {
+        title: '任务日志',
+        activeMenu: '/monitor/scheduled-tasks',
         no_cache: true,
         icon: 'dict',
       },

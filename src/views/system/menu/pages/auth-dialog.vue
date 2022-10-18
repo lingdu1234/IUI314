@@ -102,7 +102,7 @@
 <script lang="ts" setup name="menu-dialog">
 import { InfoFilled } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { type PropType, ref, watch } from 'vue'
+import { type PropType, ref } from 'vue'
 
 import { ApiSysDbApi, ApiSysMenu } from '@/api/apis'
 import { useDicts, usePost, usePut } from '@/hooks'
@@ -124,15 +124,9 @@ const props = defineProps({
   },
 })
 const emits = defineEmits(['closeDialog'])
-const form = ref<authMenu>({})
 
-watch(
-  () => props.formData,
-  (v) => {
-    form.value = { ...v }
-  },
-  { deep: true }
-)
+const form = ref<authMenu>(props.formData)
+
 // 字典数据
 const dicts = useDicts(
   dictKey.sysNormalDisable,

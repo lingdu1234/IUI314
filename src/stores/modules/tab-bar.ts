@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:54:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 18:47:13
+ * @LastEditTime: 2022-10-18 17:12:37
  * @FilePath: \IUI314\src\stores\modules\tab-bar.ts
  * @Description:
  */
@@ -14,11 +14,12 @@ import { DEFAULT_ROUTE, router } from '@/router'
 import type { TabBarState, TagProps } from '@/types/base/router'
 
 export const formatTag = (route: RouteLocationNormalized): TagProps => {
-  const { name, meta, fullPath, query } = route
+  const { name, meta, fullPath, query, path } = route
   return {
     title: meta.title || '',
     name: String(name),
     fullPath,
+    path,
     query,
     no_cache: meta.no_cache,
   }
@@ -45,6 +46,13 @@ export const useTabBarStore = defineStore('tab-bar', {
     updateTabList(route: RouteLocationNormalized) {
       if (route.fullPath.includes('redirect')) return
       this.tagList.push(formatTag(route))
+      if (route.meta.no_cache === false) {
+        this.cacheTabList.add(route.name as string)
+      }
+    },
+    setTabList(route: RouteLocationNormalized, index: number) {
+      if (route.fullPath.includes('redirect')) return
+      this.tagList[index] = formatTag(route)
       if (route.meta.no_cache === false) {
         this.cacheTabList.add(route.name as string)
       }
