@@ -2,12 +2,11 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 17:46:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 21:45:38
+ * @LastEditTime: 2022-10-18 19:10:44
  * @FilePath: \IUI314\src\components\layout\app-main.vue
  * @Description: 
 -->
 <template>
-  <!-- <section class="app-main-container"> -->
   <el-scrollbar :style="height">
     <router-view v-slot="{ Component, route }">
       <transition name="el-zoom-in-center" mode="out-in">
@@ -17,7 +16,6 @@
       </transition>
     </router-view>
   </el-scrollbar>
-  <!-- </section> -->
 </template>
 
 <script lang="ts" setup name="app-main">
@@ -45,11 +43,4 @@ const height = computed(() => 'height: ' + appMainHeight.value)
 const cacheList = computed(() => tabBarStore.getCacheList)
 </script>
 
-<style lang="scss" scoped>
-// .app-main-container {
-//   min-height: v-bind(appMainHeight);
-//   width: 100%;
-//   position: relative;
-//   overflow: hidden;
-// }
-</style>
+<style lang="scss" scoped></style>

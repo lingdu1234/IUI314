@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 20:11:50
+ * @LastEditTime: 2022-10-18 19:32:10
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -24,6 +24,7 @@
         </el-main>
       </el-container>
     </el-container>
+    <AppSettingsDrawer />
   </div>
 </template>
 <script lang="ts" setup name="lay-out">
@@ -32,6 +33,7 @@ import { computed, watch } from 'vue'
 import { useMobile } from '@/hooks'
 import { useAppStore } from '@/stores'
 
+import AppSettingsDrawer from '../app/app-settings-drawer.vue'
 import AppMain from './app-main.vue'
 import NavBar from './nav-bar/nav-bar.vue'
 import SideBar from './side-bar/index.vue'

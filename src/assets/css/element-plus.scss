@@ -35,18 +35,16 @@ div.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default>div>.el-menu--collapse
     }
 }
 
-// popper 
-// .el-popper.is-dark {
-//     background: red !important;
-
-//     .popper__arrow {
-//         background: red;
-//     }
-
-// }
+// 抽屉的form表单设置
+.drawer-form {
+    .el-form-item__content {
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+}
 
 
-
+// 菜单的颜色对比没那么强烈
 .nest-menu .el-sub-menu>.el-sub-menu__title,
 .el-sub-menu .el-menu-item {
 

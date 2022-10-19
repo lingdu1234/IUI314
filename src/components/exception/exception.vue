@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 15:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 17:01:19
+ * @LastEditTime: 2022-10-18 18:29:03
  * @FilePath: \IUI314\src\components\exception\exception.vue
  * @Description: 
 -->
@@ -27,7 +27,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="exception">
+<script lang="ts" setup>
 import { type ComponentInternalInstance, getCurrentInstance } from 'vue'
 
 import SvgIcon from '../common/svg-icon.vue'
@@ -46,6 +46,7 @@ function back() {
     proxy?.$router.go(-1)
   }
 }
+defineOptions({
+  name: 'exception',
+})
 </script>
-
-<style scoped></style>

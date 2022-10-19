@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 17:41:23
+ * @LastEditTime: 2022-10-18 21:43:50
  * @FilePath: \IUI314\src\stores\modules\dicts.ts
  * @Description: appStore
  */
@@ -24,11 +24,11 @@ export const useDictsStore = defineStore('dicts', {
       const dict_data = await getDictDataByType({ dict_type: dict_type })
       const it_data = dict_data.map(
         (data): dictUse => ({
-          label: data.dict_label,
-          value: data.dict_value,
+          label: data.dict_label!,
+          value: data.dict_value!,
           elTagType: data.list_class,
           elTagClass: data.css_class,
-          status: data.status,
+          status: data.status!,
         })
       )
       this.dicts[dict_type] = it_data

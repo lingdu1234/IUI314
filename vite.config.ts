@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 22:19:48
+ * @LastEditTime: 2022-10-18 18:33:00
  * @FilePath: \IUI314\vite.config.ts
  * @Description:
  */
@@ -71,9 +71,27 @@ export default ({ mode }: ConfigEnv) =>
       sourcemap: false,
       minify: 'terser',
       outDir: './dist',
+      cssCodeSplit: true,
       rollupOptions: {
         input: {
           index: fileURLToPath(new URL('index.html', import.meta.url)),
+        },
+        output: {
+          // 入口文件名
+          entryFileNames: 'assets/[name].js',
+          // 块文件名
+          chunkFileNames: 'assets/[name]-[hash].js',
+          // 资源文件名 css 图片等等
+          assetFileNames: 'assets/[name]-[hash].[ext]',
+          // manualChunks(id) {
+          //   if (id.includes('node_modules')) {
+          //     return id
+          //       .toString()
+          //       .split('node_modules/')[1]
+          //       .split('/')[0]
+          //       .toString()
+          //   }
+          // },
         },
       },
       terserOptions: {
@@ -82,6 +100,11 @@ export default ({ mode }: ConfigEnv) =>
           drop_debugger: true,
         },
         sourceMap: false,
+        format: {
+          comments: false,
+          // quote_style: 1,
+          // 会导致程序无法启动
+        },
       },
     },
   })

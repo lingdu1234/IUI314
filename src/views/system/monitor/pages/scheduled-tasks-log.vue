@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 12:19:37
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 16:39:19
+ * @LastEditTime: 2022-10-18 17:35:45
  * @FilePath: \IUI314\src\views\system\monitor\pages\scheduled-tasks-log.vue
  * @Description: 
 -->
@@ -341,7 +341,7 @@ const handleClean = async () => {
     type: 'warning',
   })
     .then(async () => {
-      const { execute } = useDelete(ApiSysScheduledTasksLog.clean, job_id)
+      const { execute } = useDelete(ApiSysScheduledTasksLog.clean, { job_id })
       await execute()
       ElMessage.success('清空登录日志成功')
     })

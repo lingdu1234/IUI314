@@ -2,8 +2,8 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 18:20:18
- * @FilePath: \IUI314\src\views\system\menu\components\menu-table.vue
+ * @LastEditTime: 2022-10-18 18:52:24
+ * @FilePath: \IUI314\src\views\system\menu\pages\menu-table.vue
  * @Description: 
 -->
 <template>
@@ -58,6 +58,7 @@
             :options="dicts[dictKey.sysNormalDisable]"
             :value="scope.row.data_scope"
           />
+          <el-tag v-else>not support</el-tag>
         </template>
       </el-table-column>
       <el-table-column prop="status" label="状态" width="60">

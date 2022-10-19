@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:31:05
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-04 17:32:16
+ * @LastEditTime: 2022-10-19 11:24:46
  * @FilePath: \IUI314\src\hooks\app\useTheme.ts
  * @Description: theme
  */
@@ -11,18 +11,29 @@ import { ElMessage } from 'element-plus'
 
 import { useAppStore } from '@/stores'
 
+import { useConfigTheme } from './useConfigTheme'
+
 export const useTheme = () => {
   const appStore = useAppStore()
-  const theme_list: string[] = ['light', 'dark', 'classic', 'pink', 'gray']
+  const theme_list: string[] = [
+    'light',
+    'dark',
+    'classic',
+    'pink',
+    'gray',
+    'userConfig',
+  ]
   const theme_map: Record<string, string> = {
     light: '亮色',
     dark: '黑暗',
     classic: '经典',
     pink: '粉色',
     gray: '灰色',
+    userConfig: '自定义',
   }
 
-  const node = window?.document.querySelector('html')
+  // const node = window?.document.querySelector('html')
+  const node = document.documentElement
 
   const setTheme = (theme: string) => {
     const last_color = appStore.app.theme
@@ -46,7 +57,16 @@ export const useTheme = () => {
     if (!color) {
       color = usePreferredColorScheme().value
     }
+    if (color !== 'userConfig') {
+      // 如果主题不是‘userConfig’移除‘style’
+      node?.removeAttribute('style')
+    }
+    if (color === 'userConfig') {
+      // 如果是自定义主题，需设置主题
+      useConfigTheme()
+    }
     node?.classList.add(color)
+
     appStore.setThemeColor(color)
     if (last_color) {
       notification(color)

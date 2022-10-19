@@ -112,7 +112,7 @@ html.dark {
     }
 }
 
-// 暗色主题
+// 粉色主题
 html.pink {
     --main-color-1: #CB1E83;
     --main-color-2: #F5319D;
@@ -177,6 +177,58 @@ html.classic {
     // tab-bar-item
     --tab-bar-item-bg-color: #02028f;
     --tab-bar-item-active-bg-color: #0202af;
+    --drop-down-icon-color: #fff;
+
+    // 菜单激活颜色
+    .el-menu-item.is-active {
+        background-color: var(--main-color-1);
+    }
+
+    //  菜单悬停颜色
+    .el-menu-item:hover,
+    .el-sub-menu__title:hover {
+        background-color: var(--main-color-1);
+    }
+
+    // 面包屑
+    .el-breadcrumb {
+        .no-redirect {
+            color: #fff !important;
+        }
+    }
+}
+
+
+// 用户自定义主题
+html.userConfig {
+
+    --main-color-1: #fff;
+    --main-color-2: #fff;
+    --main-bg-color: #fff;
+    // header-bar
+    --header-bar-bg-color: var(--main-color-1);
+    --header-bar-font-color: #000;
+    // sidebar
+    --side-bar-bg-color: var(--main-color-2);
+    --side-bar-logo-bg-color: var(--main-color-2);
+    --side-bar-logo-title-color: #fff;
+    // main
+    --main-container-bg-color: var(--main-bg-color);
+    --main-container-font-color: #fff;
+    // 菜单背景颜色
+    --el-menu-bg-color: var(--main-color-2);
+    // 菜单激活颜色
+    --el-menu-active-color: #fff;
+    // tab-bar-item
+    --tab-bar-item-bg-color: #02028f;
+    --tab-bar-item-active-bg-color: #0202af;
+    --tab-bar-item-bg-radius: 5px;
+    --tab-bar-item-active-color: rgb(8, 8, 244);
+    --tab-bar-item-inactive-color: #000;
+    --tab-bar-item-active-bg-color: rgb(184, 193, 199);
+    --tab-bar-item-height: 22px;
+    --tab-bar-operation-width: 80px;
+    // 
     --drop-down-icon-color: #fff;
 
     // 菜单激活颜色

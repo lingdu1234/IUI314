@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 14:14:58
+ * @LastEditTime: 2022-10-18 20:49:55
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
@@ -30,6 +30,7 @@ interface AppStore {
     tabBar: boolean
     isScreenOut: boolean
     isFullscreen: boolean
+    openSettingDrawer: boolean
   }
 }
 const { isFullscreen, toggle } = useFullscreen()
@@ -54,6 +55,7 @@ export const useAppStore = defineStore('app', {
       tabBar: true,
       isScreenOut: false,
       isFullscreen: false,
+      openSettingDrawer: false,
     },
   }),
   persist: {
@@ -101,6 +103,9 @@ export const useAppStore = defineStore('app', {
     },
     setAppSize(size: string) {
       this.app.size = size
+    },
+    setAppSettingDrawer(v: boolean) {
+      this.app.openSettingDrawer = v
     },
   },
 })
