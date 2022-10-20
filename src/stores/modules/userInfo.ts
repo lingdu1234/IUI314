@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 08:05:18
+ * @LastEditTime: 2022-10-20 20:38:43
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */
@@ -77,7 +77,6 @@ export const useUserStore = defineStore('userInfo', {
           user.user.avatar == '' || user.user.avatar == null
             ? defaultAvatar
             : import.meta.env.VITE_API_BASE_URL + user.user.avatar,
-
         roles: user.roles,
         role: user.user.role_id,
         depts: user.depts,

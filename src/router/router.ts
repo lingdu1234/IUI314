@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 13:36:13
+ * @LastEditTime: 2022-10-20 16:09:52
  * @FilePath: \IUI314\src\router\router.ts
  * @Description:
  */
@@ -22,6 +22,7 @@ import {
   Layout,
   REDIRECT_ROUTE_NAME,
   ScheduledTasksLogRoute,
+  UserProfileRoute,
 } from './constant'
 
 //  固定路由
@@ -79,6 +80,7 @@ export const router = createRouter({
     ...constantRoutes,
     DictDataRoute,
     ScheduledTasksLogRoute,
+    UserProfileRoute,
   ] as Readonly<RouteRecordRaw[]>,
   scrollBehavior() {
     return { top: 0 }

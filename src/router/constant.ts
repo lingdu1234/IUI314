@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 16:05:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 17:01:28
+ * @LastEditTime: 2022-10-20 16:11:18
  * @FilePath: \IUI314\src\router\constant.ts
  * @Description:
  */
@@ -20,6 +20,8 @@ export const REDIRECT_ROUTE_NAME = 'redirect' //重定向
 export const DEFAULT_ROUTE_NAME = 'dashboard' //首页
 export const DictDataRouteName = 'dict_data' //字典数据
 export const ScheduledTasksLogRouteName = 'scheduled_tasks_log' //定时任务日志
+export const UserProfileRouteName = 'user_profile' //用户中心
+
 export const DEFAULT_ROUTE = {
   title: '首页',
   name: DEFAULT_ROUTE_NAME,
@@ -82,6 +84,23 @@ export const ScheduledTasksLogRoute: AppRouteRecordRaw = {
         activeMenu: '/monitor/scheduled-tasks',
         no_cache: true,
         icon: 'dict',
+      },
+    },
+  ],
+}
+export const UserProfileRoute: AppRouteRecordRaw = {
+  path: '/user',
+  component: Layout,
+  hidden: true,
+  children: [
+    {
+      path: 'profile',
+      component: () => import('@/views/system/user/profile.vue'),
+      name: UserProfileRouteName,
+      meta: {
+        title: '用户中心',
+        no_cache: true,
+        icon: 'user',
       },
     },
   ],
