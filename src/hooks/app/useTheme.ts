@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:31:05
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-19 11:24:46
+ * @LastEditTime: 2022-10-19 20:03:13
  * @FilePath: \IUI314\src\hooks\app\useTheme.ts
  * @Description: theme
  */
@@ -57,13 +57,13 @@ export const useTheme = () => {
     if (!color) {
       color = usePreferredColorScheme().value
     }
+    if (color === 'userConfig') {
+      // 如果是自定义主题，需设置主题
+      useConfigTheme().setUserConfigTheme()
+    }
     if (color !== 'userConfig') {
       // 如果主题不是‘userConfig’移除‘style’
       node?.removeAttribute('style')
-    }
-    if (color === 'userConfig') {
-      // 如果是自定义主题，需设置主题
-      useConfigTheme()
     }
     node?.classList.add(color)
 

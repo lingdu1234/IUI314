@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 19:12:36
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-19 11:17:16
+ * @LastEditTime: 2022-10-20 13:18:56
  * @FilePath: \IUI314\src\components\app\app-settings-drawer.vue
  * @Description: 
 -->
@@ -11,13 +11,12 @@
     ref="appSettingDrawerRef"
     v-model="appStore.app.openSettingDrawer"
     direction="rtl"
-    :with-header="false"
     :before-close="handleClose"
     size="300px"
-    class="app-setting-drawer"
   >
-    <span class="font-bold">App 设置</span>
-    <el-divider />
+    <template #header>
+      <span class="font-bold">App 设置</span>
+    </template>
     <el-divider content-position="left">主题设置</el-divider>
     <el-form class="drawer-form" label-width="80px">
       <el-form-item label="主题设置">
@@ -31,29 +30,16 @@
         </el-select>
       </el-form-item>
     </el-form>
-    <el-divider
-      v-if="appStore.app.theme === 'userConfig'"
-      content-position="left"
-    >
-      自定义设置
-    </el-divider>
-    <el-form
-      class="drawer-form"
-      label-width="80px"
-      v-if="appStore.app.theme === 'userConfig'"
-    >
-      <el-form-item label="头部颜色">
-        <el-color-picker
-          v-model="themes[themeKey.headerBarBgColor]"
-          show-alpha
-          :predefine="predefineColors"
-        />
-      </el-form-item>
-    </el-form>
+    <div v-if="appStore.app.theme === 'userConfig'">
+      <el-divider content-position="left"> 自定义设置 </el-divider>
+      <!-- 主题相关自定义设置 -->
+      <AppUserConfigTheme />
+    </div>
     <template #footer>
-      <div style="flex: auto">
-        <el-button>cancel</el-button>
-        <el-button type="primary">confirm</el-button>
+      <div class="flex-auto">
+        <el-button @click="configThemeStore.resetTheme">重置</el-button>
+        <el-button type="info">取消</el-button>
+        <el-button type="primary">复制</el-button>
       </div>
     </template>
   </el-drawer>
@@ -62,45 +48,26 @@
 <script lang="ts" setup name="app-settings-drawer">
 import { ref } from 'vue'
 
-import { themeKey, useConfigTheme, useTheme } from '@/hooks'
-import { useAppStore } from '@/stores'
+import { useTheme } from '@/hooks'
+import { useAppStore, useConfigThemeStore } from '@/stores'
+
+import AppUserConfigTheme from './app-user-config-theme.vue'
+
 const appStore = useAppStore()
 const theme = ref(appStore.app.theme)
+const configThemeStore = useConfigThemeStore()
 const appSettingDrawerRef = ref(null)
 
 const { setTheme, theme_map, theme_list } = useTheme()
-const predefineColors = ref([
-  '#ff4500',
-  '#ff8c00',
-  '#ffd700',
-  '#90ee90',
-  '#00ced1',
-  '#1e90ff',
-  '#c71585',
-  'rgba(255, 69, 0, 0.68)',
-  'rgb(255, 120, 0)',
-  'hsv(51, 100, 98)',
-  'hsva(120, 40, 94, 0.5)',
-  'hsl(181, 100%, 37%)',
-  'hsla(209, 100%, 56%, 0.73)',
-  '#c7158577',
-])
 const handleClose = () => appStore.setAppSettingDrawer(false)
-// const navBarColor = ref(themeStore.setting.headerBarBgColor)
 
-const { themes } = useConfigTheme()
-console.log('themes :>> ', themes.value)
-
+// 修改主题
 const set_theme = (v: string) => {
   setTheme(v)
 }
 </script>
 <style lang="scss" scoped>
 .el-divider--horizontal {
-  margin: 12px 0 !important;
-}
-.el-form-item__content {
-  display: flex !important;
-  justify-content: flex-end !important;
+  margin: 16px 0 !important;
 }
 </style>

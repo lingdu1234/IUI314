@@ -1,4 +1,14 @@
 :root {
+    // login
+    --login-bg: #EDF2F0;
+    --login-neu-1: #ecf0f3;
+    --login-neu-2: #d1d9e6;
+    --login-white: #f9f9f9;
+    --login-white-fff: #fff;
+    --login-gray: #a0a5a8;
+    --login-black: #181818;
+    --login-purple: #4B70E2;
+    --login-transition: 1.25s;
 
     // header-bar
     --header-bar-height: 40px;
@@ -15,18 +25,7 @@
     // main
     --main-container-bg-color: #f2f3f5;
     --main-container-font-color: #000;
-
-    // login
-    --login-bg: #EDF2F0;
-    --login-neu-1: #ecf0f3;
-    --login-neu-2: #d1d9e6;
-    --login-white: #f9f9f9;
-    --login-white-fff: #fff;
-    --login-gray: #a0a5a8;
-    --login-black: #181818;
-    --login-purple: #4B70E2;
-    --login-transition: 1.25s;
-    // tab-bar var(--header-bar-bg-color)
+    // tab-bar var
     --tab-bar-bg-color: var(--header-bar-bg-color);
     --tab-bar-item-bg-color: #e1ebe6;
     --tab-bar-item-bg-radius: 5px;
@@ -37,8 +36,6 @@
     --tab-bar-item-active-bg-color: rgb(184, 193, 199);
     // nav-bar
     --nav-bar-operation-width: 200px;
-    // dropdown icon color
-    --drop-down-icon-color: '';
 }
 
 .el-scrollbar {
@@ -112,7 +109,7 @@ html.dark {
     }
 }
 
-// 粉色主题
+// 暗色主题
 html.pink {
     --main-color-1: #CB1E83;
     --main-color-2: #F5319D;
@@ -177,58 +174,6 @@ html.classic {
     // tab-bar-item
     --tab-bar-item-bg-color: #02028f;
     --tab-bar-item-active-bg-color: #0202af;
-    --drop-down-icon-color: #fff;
-
-    // 菜单激活颜色
-    .el-menu-item.is-active {
-        background-color: var(--main-color-1);
-    }
-
-    //  菜单悬停颜色
-    .el-menu-item:hover,
-    .el-sub-menu__title:hover {
-        background-color: var(--main-color-1);
-    }
-
-    // 面包屑
-    .el-breadcrumb {
-        .no-redirect {
-            color: #fff !important;
-        }
-    }
-}
-
-
-// 用户自定义主题
-html.userConfig {
-
-    --main-color-1: #fff;
-    --main-color-2: #fff;
-    --main-bg-color: #fff;
-    // header-bar
-    --header-bar-bg-color: var(--main-color-1);
-    --header-bar-font-color: #000;
-    // sidebar
-    --side-bar-bg-color: var(--main-color-2);
-    --side-bar-logo-bg-color: var(--main-color-2);
-    --side-bar-logo-title-color: #fff;
-    // main
-    --main-container-bg-color: var(--main-bg-color);
-    --main-container-font-color: #fff;
-    // 菜单背景颜色
-    --el-menu-bg-color: var(--main-color-2);
-    // 菜单激活颜色
-    --el-menu-active-color: #fff;
-    // tab-bar-item
-    --tab-bar-item-bg-color: #02028f;
-    --tab-bar-item-active-bg-color: #0202af;
-    --tab-bar-item-bg-radius: 5px;
-    --tab-bar-item-active-color: rgb(8, 8, 244);
-    --tab-bar-item-inactive-color: #000;
-    --tab-bar-item-active-bg-color: rgb(184, 193, 199);
-    --tab-bar-item-height: 22px;
-    --tab-bar-operation-width: 80px;
-    // 
     --drop-down-icon-color: #fff;
 
     // 菜单激活颜色

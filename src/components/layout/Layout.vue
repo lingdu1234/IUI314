@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 19:32:10
+ * @LastEditTime: 2022-10-19 19:16:47
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -23,8 +23,8 @@
           <AppMain />
         </el-main>
       </el-container>
+      <AppSettingsDrawer v-if="appStore.app.openSettingDrawer" />
     </el-container>
-    <AppSettingsDrawer />
   </div>
 </template>
 <script lang="ts" setup name="lay-out">

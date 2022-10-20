@@ -2,13 +2,15 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-19 11:11:15
- * @FilePath: \IUI314\src\stores\modules\theme.ts
+ * @LastEditTime: 2022-10-19 20:02:12
+ * @FilePath: \IUI314\src\stores\modules\userConfigTheme.ts
  * @Description: appStore
  */
+import { ElMessage } from 'element-plus'
 import { defineStore } from 'pinia'
 
 import type { themeKey } from '@/hooks'
+
 // 主题
 interface Theme {
   setting: ThemeSetting
@@ -16,7 +18,7 @@ interface Theme {
 // 主题设置
 export type ThemeSetting = Partial<Record<themeKey, string>>
 
-export const useThemeStore = defineStore('theme', {
+export const useConfigThemeStore = defineStore('userConfigTheme', {
   state: (): Theme => ({
     setting: {},
   }),
@@ -26,6 +28,11 @@ export const useThemeStore = defineStore('theme', {
   actions: {
     setThemeSetting(v: ThemeSetting) {
       this.setting = v
+    },
+    resetTheme() {
+      this.setting = {}
+      ElMessage.success('两秒后界面将强制刷新')
+      setTimeout(() => window.location.reload(), 2000)
     },
   },
 })

@@ -4,23 +4,17 @@
  * @Author= lingdu waong2005@126.com
  * @Date: 2022-10-19 08:20:58
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-19 12:44:02
+ * @LastEditTime: 2022-10-20 14:43:37
  * @FilePath: \IUI314\src\hooks\app\useConfigTheme.ts
  * @Description: 用户自定义主题
  */
 import { useCssVar } from '@vueuse/core'
 import { ref, watch } from 'vue'
 
-import { type ThemeSetting, useThemeStore } from '@/stores'
+import { type ThemeSetting, useAppStore, useConfigThemeStore } from '@/stores'
 
 export enum themeKey {
-  /**主要色1 */
-  mainColor_1 = '--main-color-1',
-  /**主要色2 */
-  mainColor_2 = '--main-color-2',
-  /**主背景色 */
-  mainBgColor = '--main-bg-color',
-  /** nav bar color 头部背景颜色 默认为主颜色1 */
+  /** nav bar color 头部背景颜色 */
   headerBarBgColor = '--header-bar-bg-color',
   /** 头部字体颜色 */
   headerBarFontColor = '--header-bar-font-color',
@@ -28,15 +22,15 @@ export enum themeKey {
   sideBarWidth = '--side-bar-width',
   /** 侧边栏折叠后宽度 */
   sideBarIsCollapseWidth = '--side-bar-isCollapse-width',
-  /** 侧边栏背景色 默认为 主颜色2 */
+  /** 侧边栏背景色 */
   sideBarBgColor = '--side-bar-bg-color',
   /** 侧边栏字体颜色 */
   sideBarFontColor = '--side-bar-font-color',
-  /** 侧边栏LOGO背景颜色 默认为 主颜色2  */
+  /** 侧边栏LOGO背景颜色*/
   sideBarLogoBgColor = '--side-bar-logo-bg-color',
   /** 侧边栏LOGO字体颜色 */
   sideBarLogoTitleColor = '--side-bar-logo-title-color',
-  /** 主容器背景颜色 默认为 主背景颜色*/
+  /** 主容器背景颜色 */
   mainContainerBgColor = '--main-container-bg-color',
   /** 主容器字体颜色*/
   mainContainerFontColor = '--main-container-font-color',
@@ -62,54 +56,28 @@ export enum themeKey {
   /** 菜单背景色 */
   elMenuBgColor = '--el-menu-bg-color',
   /** 菜单激活背景色 */
-  elMenuActiveColor = '--el-menu-active-color',
+  elMenuActiveBgColor = '--el-menu-item-active-bg-color',
+  /** 菜单激活字体色 */
+  elMenuActiveFontColor = '--el-menu-item-active-color',
+  /** 面包屑字体颜色 */
+  elBreadcrumbFontColor = '--el-breadcrumb-font-color',
+  /** 滚动条颜色 */
+  elScrollbarColor = '--el-scrollbar-color',
 }
 
-// 不会遍历enum数据，多维护一份数据
-export const themeKeyArray = [
-  '--main-color-1',
-  '--main-color-2',
-  '--main-bg-color',
-  //
-  '--header-bar-bg-color',
-  '--header-bar-font-color',
-  //
-  '--side-bar-width',
-  '--side-bar-isCollapse-width',
-  '--side-bar-bg-color',
-  '--side-bar-font-color',
-  '--side-bar-logo-bg-color',
-  '--side-bar-logo-title-color',
-  //
-  '--main-container-bg-color',
-  '--main-container-font-color',
-  //
-  '--tab-bar-bg-color',
-  '--tab-bar-item-bg-color',
-  '--tab-bar-item-bg-radius',
-  '--tab-bar-item-height',
-  '--tab-bar-operation-width',
-  '--tab-bar-item-active-color',
-  '--tab-bar-item-inactive-color',
-  '--tab-bar-item-active-bg-color',
-  //
-  '--drop-down-icon-color',
-  //
-  '--el-menu-bg-color',
-  '--el-menu-active-color',
-]
 export const useConfigTheme = () => {
   const rootEl = document.documentElement
   const themes = ref<ThemeSetting>({})
-  const themeStore = useThemeStore()
+  const themeStore = useConfigThemeStore()
 
   const setUserConfigTheme = () => {
-    for (const item of themeKeyArray) {
-      const color = useCssVar(item, rootEl)
-      if (themeStore.setting[item as themeKey]) {
-        color.value = themeStore.setting[item as themeKey]!
+    //  遍历enum
+    for (const [, v] of Object.entries(themeKey)) {
+      const color = useCssVar(v, rootEl)
+      if (themeStore.setting[v]) {
+        color.value = themeStore.setting[v]!
       }
-      themes.value[item as themeKey] = color.value
+      themes.value[v] = color.value
     }
   }
 
@@ -117,15 +85,16 @@ export const useConfigTheme = () => {
   watch(
     () => themes.value,
     (v) => {
-      for (const item in v) {
-        const color = useCssVar(item, rootEl)
-        color.value = v[item as themeKey]!
-        themeStore.setThemeSetting(v)
+      if (useAppStore().app.theme === 'userConfig') {
+        for (const item in v) {
+          const color = useCssVar(item, rootEl)
+          color.value = v[item as themeKey]!
+          themeStore.setThemeSetting(v)
+        }
       }
     },
     { deep: true }
   )
-  setUserConfigTheme()
   return {
     themes,
     setUserConfigTheme,

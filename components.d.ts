@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     AppMain: typeof import('./src/components/layout/app-main.vue')['default']
     AppSettings: typeof import('./src/components/app/app-settings.vue')['default']
     AppSettingsDrawer: typeof import('./src/components/app/app-settings-drawer.vue')['default']
+    AppUserConfigTheme: typeof import('./src/components/app/app-user-config-theme.vue')['default']
     Breadcrumb: typeof import('./src/components/layout/nav-bar/breadcrumb.vue')['default']
     DictTag: typeof import('./src/components/common/dict-tag.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']

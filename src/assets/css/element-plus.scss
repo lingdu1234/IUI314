@@ -41,6 +41,21 @@ div.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default>div>.el-menu--collapse
         display: flex !important;
         justify-content: flex-end !important;
     }
+
+    .el-form-item {
+        margin-bottom: 3px !important;
+    }
+}
+
+// 抽屉头部设置
+.el-drawer__header {
+    padding: 10px 10px 1px 10px !important;
+    margin: 0px !important;
+}
+
+// 抽屉主体设置
+.el-drawer__body {
+    padding: 5px 15px !important;
 }
 
 
@@ -52,14 +67,3 @@ div.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default>div>.el-menu--collapse
         background-color: rgba(0, 0, 0, 0.06) !important;
     }
 }
-
-// .el-menu-item,
-// .menu-title {
-//     overflow: hidden !important;
-//     text-overflow: ellipsis !important;
-//     white-space: nowrap !important;
-// }
-
-// .el-menu-item .el-menu-tooltip__trigger {
-//     display: inline-block !important;
-// }
