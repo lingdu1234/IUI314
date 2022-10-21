@@ -143,25 +143,29 @@
         width="150px"
       >
         <template #default="scope">
-          <el-tooltip content="修改" placement="top" effect="light">
-            <el-button
-              v-if="hasPermission(ApiSysRole.edit) && scope.row.role_id !== 1"
-              link
-              :icon="Edit"
-              @click="handleUpdate(scope.row)"
-            />
+          <el-tooltip
+            content="修改"
+            placement="top"
+            effect="light"
+            v-if="hasPermission(ApiSysRole.edit) && scope.row.role_id !== 1"
+          >
+            <el-button link :icon="Edit" @click="handleUpdate(scope.row)" />
           </el-tooltip>
-          <el-tooltip content="删除" placement="top" effect="light">
-            <el-button
-              v-if="hasPermission(ApiSysRole.delete) && scope.row.role_id !== 1"
-              link
-              :icon="Delete"
-              @click="handleDelete(scope.row)"
-            />
+          <el-tooltip
+            content="删除"
+            placement="top"
+            effect="light"
+            v-if="hasPermission(ApiSysRole.delete) && scope.row.role_id !== 1"
+          >
+            <el-button link :icon="Delete" @click="handleDelete(scope.row)" />
           </el-tooltip>
-          <el-tooltip content="数据权限" placement="top" effect="light">
+          <el-tooltip
+            content="数据权限"
+            placement="top"
+            effect="light"
+            v-if="hasPermission(ApiSysRole.setDataScope)"
+          >
             <el-button
-              v-if="hasPermission(ApiSysRole.setDataScope)"
               link
               :icon="CircleCheck"
               @click="handleDataScope(scope.row)"

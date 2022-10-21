@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-11 15:46:58
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 21:34:44
+ * @LastEditTime: 2022-10-21 11:16:17
  * @FilePath: \IUI314\src\hooks\util\usePermission.ts
  * @Description:
  */
@@ -10,18 +10,38 @@
 import type { APIS } from '@/api/apis'
 import { useUserStore } from '@/stores'
 
+/**具有一个权限就返回True */
 export const hasPermission = (...permissions: APIS[] | string[]): boolean => {
-  const all_permission = '*:*:*'
   const userPermissions = useUserStore().user.permissions
-  if (userPermissions.includes(all_permission)) return true
+  if (IsSuperMan(userPermissions)) return true
+  let flag = false
+  permissions.forEach((permission) => {
+    const p = formatPermission(permission)
+    if (userPermissions.includes(p)) {
+      flag = true
+    }
+  })
+  return flag
+}
+/**具有所有权限才返回True */
+export const hasPermissionALL = (
+  ...permissions: APIS[] | string[]
+): boolean => {
+  const userPermissions = useUserStore().user.permissions
+  if (IsSuperMan(userPermissions)) return true
   let flag = true
   permissions.forEach((permission) => {
     const p = formatPermission(permission)
-    if (!userPermissions.includes(p)) {
+    if (userPermissions.includes(p)) {
       flag = false
     }
   })
   return flag
+}
+
+const IsSuperMan = (userPermissions: string[]) => {
+  const all_permission = '*:*:*'
+  return userPermissions.includes(all_permission)
 }
 
 const formatPermission = (p: string): string => {

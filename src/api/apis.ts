@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 14:49:24
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 17:17:39
+ * @LastEditTime: 2022-10-21 10:05:19
  * @FilePath: \IUI314\src\api\apis.ts
  * @Description:
  */
@@ -25,6 +25,7 @@ import type {
   ApiSysServiceMonitor,
   ApiSysUser,
 } from './sysApis'
+import type { ApiDataScopeTest } from './tests'
 
 export type APIS =
   | ApiSysLogin
@@ -42,6 +43,8 @@ export type APIS =
   | ApiSysServiceMonitor
   | ApiSysScheduledTasks
   | ApiSysScheduledTasksLog
+  | ApiDataScopeTest
 
 export const ErrorFlag = '__________' //错误标志
 export * from './sysApis'
+export * from './tests'

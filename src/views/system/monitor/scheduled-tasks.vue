@@ -205,41 +205,45 @@
       </el-table-column>
       <el-table-column label="操作" align="center" width="200">
         <template #default="scope">
-          <el-tooltip content="修改" placement="top" effect="light">
-            <el-button
-              v-if="hasPermission(ApiSysScheduledTasks.edit)"
-              link
-              :icon="Edit"
-              @click="handleUpdate(scope.row)"
-            />
+          <el-tooltip
+            content="修改"
+            placement="top"
+            effect="light"
+            v-if="hasPermission(ApiSysScheduledTasks.edit)"
+          >
+            <el-button link :icon="Edit" @click="handleUpdate(scope.row)" />
           </el-tooltip>
-          <el-tooltip content="删除" placement="top" effect="light">
-            <el-button
-              v-if="hasPermission(ApiSysScheduledTasks.delete)"
-              link
-              :icon="Delete"
-              @click="handleDelete(scope.row)"
-            />
+          <el-tooltip
+            content="删除"
+            placement="top"
+            effect="light"
+            v-if="hasPermission(ApiSysScheduledTasks.delete)"
+          >
+            <el-button link :icon="Delete" @click="handleDelete(scope.row)" />
           </el-tooltip>
-          <el-tooltip content="执行一次" placement="top" effect="light">
-            <el-button
-              v-if="hasPermission(ApiSysScheduledTasks.runOnce)"
-              link
-              :icon="CaretRight"
-              @click="handleRun(scope.row)"
-            />
+          <el-tooltip
+            content="执行一次"
+            placement="top"
+            effect="light"
+            v-if="hasPermission(ApiSysScheduledTasks.runOnce)"
+          >
+            <el-button link :icon="CaretRight" @click="handleRun(scope.row)" />
           </el-tooltip>
-          <el-tooltip content="任务详细" placement="top" effect="light">
-            <el-button
-              v-if="hasPermission(ApiSysScheduledTasks.getById)"
-              link
-              :icon="View"
-              @click="handleView(scope.row)"
-            />
+          <el-tooltip
+            content="任务详细"
+            placement="top"
+            effect="light"
+            v-if="hasPermission(ApiSysScheduledTasks.getById)"
+          >
+            <el-button link :icon="View" @click="handleView(scope.row)" />
           </el-tooltip>
-          <el-tooltip content="调度日志" placement="top" effect="light">
+          <el-tooltip
+            content="调度日志"
+            placement="top"
+            effect="light"
+            v-if="hasPermission(ApiSysScheduledTasksLog.getList)"
+          >
             <el-button
-              v-if="hasPermission(ApiSysScheduledTasksLog.getList)"
               link
               :icon="Operation"
               @click="handleJobLog(scope.row)"

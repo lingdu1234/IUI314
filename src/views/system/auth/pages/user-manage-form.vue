@@ -2,8 +2,8 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 11:54:23
- * @FilePath: \IUI314\src\views\system\auth\components\user-manage-form.vue
+ * @LastEditTime: 2022-10-21 11:20:23
+ * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
  * @Description: 
 -->
 <template>
@@ -167,29 +167,29 @@
       </el-table-column>
       <el-table-column align="center" label="操作" width="150">
         <template #default="scope">
-          <el-tooltip content="修改" effect="light" placement="top">
-            <el-button
-              v-if="scope.row.userId !== 1"
-              :icon="Edit"
-              link
-              @click="handleUpdate(scope.row)"
-            />
+          <el-tooltip
+            content="修改"
+            effect="light"
+            placement="top"
+            v-if="scope.row.userId !== 1"
+          >
+            <el-button :icon="Edit" link @click="handleUpdate(scope.row)" />
           </el-tooltip>
-          <el-tooltip content="删除" effect="light" placement="top">
-            <el-button
-              v-if="scope.row.userId !== 1"
-              :icon="Delete"
-              link
-              @click="handleDelete(scope.row)"
-            />
+          <el-tooltip
+            content="删除"
+            effect="light"
+            placement="top"
+            v-if="scope.row.userId !== 1"
+          >
+            <el-button :icon="Delete" link @click="handleDelete(scope.row)" />
           </el-tooltip>
-          <el-tooltip content="重置密码" effect="light" placement="top">
-            <el-button
-              v-if="scope.row.userId !== 1"
-              :icon="Key"
-              link
-              @click="handleResetPwd(scope.row)"
-            />
+          <el-tooltip
+            content="重置密码"
+            effect="light"
+            placement="top"
+            v-if="scope.row.userId !== 1"
+          >
+            <el-button :icon="Key" link @click="handleResetPwd(scope.row)" />
           </el-tooltip>
         </template>
       </el-table-column>
