@@ -1,0 +1,32 @@
+{
+  "APP": "数据管理系统",
+  "common": {
+    "add": "新增",
+    "cancel": "取消",
+    "collapse": "折叠",
+    "createTime": "创建时间",
+    "delete": "删除",
+    "edit": "编辑",
+    "expand": "展开",
+    "operation": "操作",
+    "order": "排序",
+    "reset": "重置",
+    "search": "搜索",
+    "status": "状态",
+    "submit": "提交"
+  },
+  "dept": {
+    "add": "新增部门",
+    "name": "部门名称",
+    "status": "部门状态",
+    "update": "更新部门"
+  },
+  "hello": "您好",
+  "route": {
+    "dictData": "字典数据",
+    "home": "首页",
+    "none": "__",
+    "taskLog": "任务日志",
+    "userCenter": "用户中心"
+  }
+}

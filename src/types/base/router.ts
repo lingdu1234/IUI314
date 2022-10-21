@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 19:58:32
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 16:57:55
+ * @LastEditTime: 2022-10-21 17:56:32
  * @FilePath: \IUI314\src\types\base\router.ts
  * @Description:
  */
@@ -38,6 +38,7 @@ export interface AppRouteMeta {
   activeMenu?: string
   hidden?: boolean
   link?: string
+  i18n?: string
   no_cache?: boolean
 }
 
@@ -59,6 +60,7 @@ export interface TagProps {
   fullPath: string
   query?: any
   no_cache?: boolean
+  i18n?: string
 }
 
 export interface TabBarState {

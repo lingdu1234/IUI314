@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 18:33:00
+ * @LastEditTime: 2022-10-21 16:21:17
  * @FilePath: \IUI314\vite.config.ts
  * @Description:
  */
@@ -62,6 +62,8 @@ export default ({ mode }: ConfigEnv) =>
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
+        //i18n
+        'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
       },
     },
     server: {

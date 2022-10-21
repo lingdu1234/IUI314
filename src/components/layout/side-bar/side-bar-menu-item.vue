@@ -24,11 +24,14 @@
               />
             </el-icon>
             <span
-              :title="hasTitle(onlyOneChild.meta?.title)"
+              v-if="onlyOneChild.meta?.i18n !== undefined"
               class="menu-title"
             >
-              {{ onlyOneChild.meta?.title }}</span
-            >
+              {{ t(`route.${onlyOneChild.meta?.i18n}`) }}
+            </span>
+            <span v-else class="menu-title">
+              {{ onlyOneChild.meta?.title }}
+            </span>
           </template>
         </el-menu-item>
       </app-link>
@@ -39,7 +42,10 @@
         <el-icon>
           <SvgIcon :name="(item.meta && item.meta.icon) || ''" />
         </el-icon>
-        <span :title="hasTitle(item.meta?.title || '')" class="menu-title">
+        <span v-if="item.meta?.i18n !== undefined" class="menu-title">
+          {{ t(`route.${item.meta?.i18n}`) }}
+        </span>
+        <span v-else class="menu-title">
           {{ item.meta?.title }}
         </span>
       </template>
@@ -62,10 +68,12 @@ import { type PropType, ref } from 'vue'
 
 import SvgIcon from '@/components/common/svg-icon.vue'
 import { getNormalPath, getQueryUrl, isExternal } from '@/hooks'
+import { useSetupI18n } from '@/i18n'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 
 import AppLink from './app-link.vue'
-
+const { i18n } = useSetupI18n()
+const { t } = i18n.global
 const props = defineProps({
   item: {
     type: Object as PropType<AppRouteRecordRaw>,
@@ -127,14 +135,6 @@ function resolvePath(routePath: string, routeQuery?: string): string {
       .value
   }
   return getNormalPath(props.basePath + '/' + routePath)
-}
-
-function hasTitle(title: string) {
-  if (title.length > 2) {
-    return title
-  } else {
-    return ''
-  }
 }
 </script>
 <style lang="scss" scoped>

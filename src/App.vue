@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 14:04:12
+ * @LastEditTime: 2022-10-21 18:31:25
  * @FilePath: \IUI314\src\App.vue
  * @Description: 
 -->
@@ -15,10 +15,21 @@
 import { ElConfigProvider } from 'element-plus'
 import en from 'element-plus/es/locale/lang/en'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 
 import { useAppStore } from '@/stores'
 
+import { useDynamicTitle } from './hooks'
+
 const appStore = useAppStore()
+
 const localeLang = computed(() => (appStore.app.lang === 'zh-CN' ? zhCn : en))
+
+// 设置语言
+watch(
+  () => appStore.app.lang,
+  () => {
+    useDynamicTitle().setDynamicTitle()
+  }
+)
 </script>

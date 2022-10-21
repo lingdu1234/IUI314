@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 20:12:27
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-06 06:47:35
+ * @LastEditTime: 2022-10-21 17:58:14
  * @FilePath: \IUI314\src\router\typings.d.ts
  * @Description:
  */
@@ -20,6 +20,7 @@ declare module 'vue-router' {
     order?: number // Sort routing menu items. If set key, the higher the value, the more forward it is
     noAffix?: boolean // if set true, the tag will not affix in the tab-bar
     no_cache?: boolean // if set true, the page will not be cached
+    i18n?: string // if set,i18n flag
     title: string // The title
     link?: string // inner link
   }

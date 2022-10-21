@@ -8,7 +8,11 @@
         @click="goto(itemData)"
       >
         <span class="tag-link">
-          {{ itemData.title }}
+          {{
+            itemData.i18n !== undefined
+              ? t(`route.${itemData.i18n}`)
+              : itemData.title
+          }}
         </span>
         <span class="m-l-10px" @click.stop="tagClose(itemData, index)">
           <el-icon><Close /></el-icon>
@@ -26,6 +30,7 @@ import { Close } from '@element-plus/icons-vue'
 import type { PropType } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
+import { useSetupI18n } from '@/i18n'
 import { DEFAULT_ROUTE_NAME } from '@/router'
 import { useTabBarStore } from '@/stores'
 import type { TagProps } from '@/types/base/router'
@@ -33,6 +38,8 @@ import type { TagProps } from '@/types/base/router'
 import TabBarItemDropdown from './tab-bar-item-dropdown.vue'
 import { Eaction, useTabBar } from './useTabBar'
 
+const { i18n } = useSetupI18n()
+const { t } = i18n.global
 const props = defineProps({
   itemData: {
     type: Object as PropType<TagProps>,

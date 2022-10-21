@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 19:12:36
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 13:18:56
+ * @LastEditTime: 2022-10-21 17:06:11
  * @FilePath: \IUI314\src\components\app\app-settings-drawer.vue
  * @Description: 
 -->
@@ -19,6 +19,12 @@
     </template>
     <el-divider content-position="left">主题设置</el-divider>
     <el-form class="drawer-form" label-width="80px">
+      <el-form-item label="语言设置">
+        <el-select v-model="lang" @change="setLang">
+          <el-option label="中文" value="zh-CN" />
+          <el-option label="English" value="en-US" />
+        </el-select>
+      </el-form-item>
       <el-form-item label="主题设置">
         <el-select v-model="theme" @change="set_theme">
           <el-option
@@ -47,6 +53,7 @@
 
 <script lang="ts" setup name="app-settings-drawer">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useTheme } from '@/hooks'
 import { useAppStore, useConfigThemeStore } from '@/stores'
@@ -55,15 +62,23 @@ import AppUserConfigTheme from './app-user-config-theme.vue'
 
 const appStore = useAppStore()
 const theme = ref(appStore.app.theme)
+const lang = ref(appStore.app.lang)
 const configThemeStore = useConfigThemeStore()
 const appSettingDrawerRef = ref(null)
 
 const { setTheme, theme_map, theme_list } = useTheme()
 const handleClose = () => appStore.setAppSettingDrawer(false)
-
+const { locale } = useI18n()
 // 修改主题
 const set_theme = (v: string) => {
   setTheme(v)
+}
+// 修改语言
+const setLang = (v: string) => {
+  appStore.setLang(v)
+
+  console.log('locale :>> ', locale.value)
+  locale.value = v
 }
 </script>
 <style lang="scss" scoped>

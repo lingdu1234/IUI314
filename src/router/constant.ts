@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 16:05:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 16:11:18
+ * @LastEditTime: 2022-10-21 18:06:42
  * @FilePath: \IUI314\src\router\constant.ts
  * @Description:
  */
@@ -65,6 +65,7 @@ export const DictDataRoute: AppRouteRecordRaw = {
         activeMenu: '/system/basic/dict',
         no_cache: true,
         icon: 'dict',
+        i18n: 'dictData',
       },
     },
   ],
@@ -84,6 +85,7 @@ export const ScheduledTasksLogRoute: AppRouteRecordRaw = {
         activeMenu: '/monitor/scheduled-tasks',
         no_cache: true,
         icon: 'dict',
+        i18n: 'taskLog',
       },
     },
   ],
@@ -101,6 +103,7 @@ export const UserProfileRoute: AppRouteRecordRaw = {
         title: '用户中心',
         no_cache: true,
         icon: 'user',
+        i18n: 'userCenter',
       },
     },
   ],

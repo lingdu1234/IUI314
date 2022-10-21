@@ -1,0 +1,32 @@
+{
+  "APP": "DataManagerSystem",
+  "common": {
+    "add": "Add",
+    "cancel": "cancel",
+    "collapse": "Collapse",
+    "createTime": "create time",
+    "delete": "Delete",
+    "edit": "Edit",
+    "expand": "Expand",
+    "operation": "Operation",
+    "order": "Order",
+    "reset": "Reset",
+    "search": "Search",
+    "status": "status",
+    "submit": "Submit"
+  },
+  "dept": {
+    "add": "Add Dept",
+    "name": "dept name",
+    "status": "dept status",
+    "update": "Update Dept"
+  },
+  "hello": "hello",
+  "route": {
+    "dictData": "dict data",
+    "home": "home",
+    "none": "__",
+    "taskLog": "task log",
+    "userCenter": "user center"
+  }
+}

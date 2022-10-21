@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 20:49:55
+ * @LastEditTime: 2022-10-21 18:51:46
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
@@ -19,8 +19,8 @@ interface AppStore {
     isMobile: boolean
   }
   app: {
-    name: string
     title: string
+    titleI18n?: string
     size: any
     dynamicTitle: boolean
     isDark: boolean | undefined
@@ -44,7 +44,6 @@ export const useAppStore = defineStore('app', {
       isMobile: false,
     },
     app: {
-      name: import.meta.env.VITE_APP_TITLE,
       title: '',
       size: 'default',
       dynamicTitle: true,
@@ -81,12 +80,10 @@ export const useAppStore = defineStore('app', {
     setSideBar(sideBarStatus: boolean) {
       this.sideBar.isCollapse = sideBarStatus
     },
-    setAppName(name: string) {
-      this.app.name = name
-    },
-    setAppTitle(title: string) {
+    setAppTitle(title: string, i18nStr: string) {
       this.app.title = title
-      useDynamicTitle()
+      this.app.titleI18n = i18nStr
+      useDynamicTitle().setDynamicTitle()
     },
     toggleScreenOut() {
       this.app.isScreenOut = !this.app.isScreenOut
@@ -106,6 +103,9 @@ export const useAppStore = defineStore('app', {
     },
     setAppSettingDrawer(v: boolean) {
       this.app.openSettingDrawer = v
+    },
+    setLang(v: string) {
+      this.app.lang = v
     },
   },
 })

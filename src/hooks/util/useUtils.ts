@@ -2,13 +2,14 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:56:52
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-13 08:53:53
+ * @LastEditTime: 2022-10-21 19:23:12
  * @FilePath: \IUI314\src\hooks\util\useUtils.ts
  * @Description:
  */
 import { useDateFormat } from '@vueuse/core'
 import { ref } from 'vue'
 
+import { useSetupI18n } from '@/i18n'
 import { useAppStore, useDictsStore } from '@/stores'
 import type { pageQueryParam } from '@/types/base/apis'
 import type { dictUse } from '@/types/system/dict'
@@ -24,10 +25,22 @@ export function isString(obj: any): obj is string {
  */
 export const useDynamicTitle = () => {
   const appStore = useAppStore()
-  if (appStore.app.dynamicTitle) {
-    window.document.title = appStore.app.title + '-' + appStore.app.name
-  } else {
-    window.document.title = appStore.app.name
+
+  const { i18n } = useSetupI18n()
+  const { t } = i18n.global
+
+  const setDynamicTitle = () => {
+    if (appStore.app.dynamicTitle) {
+      const title = appStore.app.titleI18n
+        ? t(`route.${appStore.app.titleI18n}`)
+        : appStore.app.title
+      window.document.title = title + '-' + t('APP')
+    } else {
+      window.document.title = t('APP')
+    }
+  }
+  return {
+    setDynamicTitle,
   }
 }
 

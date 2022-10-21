@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 20:20:03
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 15:57:21
+ * @LastEditTime: 2022-10-21 19:23:37
  * @FilePath: \IUI314\src\components\layout\nav-bar\breadcrumb.vue
  * @Description: 
 -->
@@ -13,9 +13,13 @@
         <el-icon>
           <SvgIcon :name="item.meta! && item.meta.icon!" />
         </el-icon>
-        <span v-if="!appStore.device.isMobile" class="m-l-5px">{{
-          item.meta.title
-        }}</span>
+        <span v-if="!appStore.device.isMobile" class="m-l-5px">
+          {{
+            item.meta.i18n === undefined
+              ? item.meta.title
+              : t(`route.${item.meta.i18n}`)
+          }}
+        </span>
       </div>
     </el-breadcrumb-item>
   </el-breadcrumb>
@@ -26,10 +30,12 @@ import { ArrowRight } from '@element-plus/icons-vue'
 import { ref, watchEffect } from 'vue'
 import { type RouteLocationMatched, useRoute } from 'vue-router'
 
+import { useSetupI18n } from '@/i18n'
 import { useAppStore } from '@/stores'
 
 const appStore = useAppStore()
-
+const { i18n } = useSetupI18n()
+const { t } = i18n.global
 const route = useRoute()
 const levelList = ref<RouteLocationMatched[]>([])
 

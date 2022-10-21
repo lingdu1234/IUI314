@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 21:45:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 16:06:31
+ * @LastEditTime: 2022-10-21 20:57:07
  * @FilePath: \IUI314\src\components\layout\side-bar\side-bar-logo.vue
  * @Description: 
 -->
@@ -13,7 +13,7 @@
     </div>
     <div v-if="!appStore.sideBar.isCollapse" class="w-136px">
       <span class="logo-title truncate m-l-1px font-800">
-        {{ appStore.app.name }}
+        {{ t('APP') }}
       </span>
     </div>
   </router-link>
@@ -21,8 +21,11 @@
 
 <script lang="ts" setup name="side-bar-logo">
 import logo from '@/assets/logo.svg'
+import { useSetupI18n } from '@/i18n'
 import { useAppStore } from '@/stores'
 const appStore = useAppStore()
+const { i18n } = useSetupI18n()
+const { t } = i18n.global
 </script>
 
 <style lang="scss" scoped>

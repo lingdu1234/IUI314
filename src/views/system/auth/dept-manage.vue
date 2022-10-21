@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-16 12:58:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 08:51:01
+ * @LastEditTime: 2022-10-21 20:54:59
  * @FilePath: \IUI314\src\views\system\auth\dept-manage.vue
  * @Description: 
 -->
@@ -15,19 +15,19 @@
       :model="queryParams"
       class="base-form"
     >
-      <el-form-item label="部门名称" prop="dept_name">
+      <el-form-item :label="t('dept.name')" prop="dept_name">
         <el-input
           v-model="queryParams.dept_name"
           clearable
-          placeholder="请输入部门名称"
+          :placeholder="t('dept.name')"
           @keyup.enter="getList"
         />
       </el-form-item>
-      <el-form-item label="部门状态" prop="status">
+      <el-form-item :label="t('dept.status')" prop="status">
         <el-select
           v-model="queryParams.status"
           clearable
-          placeholder="部门状态"
+          :placeholder="t('dept.status')"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysNormalDisable]"
@@ -39,9 +39,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置</el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
     <!-- 操作区域 -->
@@ -54,12 +56,11 @@
           type="primary"
           @click="handleAdd"
         >
-          新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button :icon="Sort" plain type="info" @click="toggleExpandAll">
-          展开/折叠
+          {{ t('common.expand') + '/' + t('common.collapse') }}
         </el-button>
       </el-col>
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
@@ -73,9 +74,17 @@
       row-key="dept_id"
       tooltip-effect="light"
     >
-      <el-table-column label="部门名称" prop="dept_name" width="260" />
-      <el-table-column label="排序" prop="order_num" show-overflow-tooltip />
-      <el-table-column label="状态" prop="status" show-overflow-tooltip>
+      <el-table-column :label="t('dept.name')" prop="dept_name" width="260" />
+      <el-table-column
+        :label="t('common.order')"
+        prop="order_num"
+        show-overflow-tooltip
+      />
+      <el-table-column
+        :label="t('common.status')"
+        prop="status"
+        show-overflow-tooltip
+      >
         <template #default="scope">
           <dict-tag
             :options="dicts[dictKey.sysNormalDisable]"
@@ -85,7 +94,7 @@
       </el-table-column>
       <el-table-column
         align="center"
-        label="创建时间"
+        :label="t('common.createTime')"
         prop="created_at"
         show-overflow-tooltip
       >
@@ -96,7 +105,7 @@
       <el-table-column
         v-if="hasPermission(ApiSysDept.add, ApiSysUser.edit, ApiSysDept.delete)"
         align="center"
-        label="操作"
+        :label="t('common.operation')"
         width="220px"
       >
         <template #default="scope">
@@ -106,7 +115,7 @@
             link
             @click="handleUpdate(scope.row)"
           >
-            修改
+            {{ t('common.edit') }}
           </el-button>
           <el-button
             v-if="hasPermission(ApiSysDept.add)"
@@ -114,7 +123,7 @@
             link
             @click="handleAdd(scope.row)"
           >
-            新增
+            {{ t('common.add') }}
           </el-button>
           <el-button
             v-if="
@@ -124,7 +133,7 @@
             link
             @click="handleDelete(scope.row)"
           >
-            删除
+            {{ t('common.delete') }}
           </el-button>
         </template>
       </el-table-column>
@@ -163,12 +172,14 @@ import {
   useFormUtil,
   useGet,
 } from '@/hooks'
+import { useSetupI18n } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { dept, deptQueryParam } from '@/types/system/dept'
 import { dictKey } from '@/types/system/dict'
 
 import DeptManageDialog from './pages/dept-manage-dialog.vue'
-
+const { i18n } = useSetupI18n()
+const { t } = i18n.global
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()
 const refreshTable = ref(true)
@@ -204,12 +215,12 @@ const handleAdd = (row?: dept) => {
       status: '1',
     }
   }
-  title.value = '新增部门'
+  title.value = t('dept.add')
   open.value = true
 }
 const handleUpdate = (row: dept) => {
   deptData.value = row
-  title.value = `更新部门-${row.dept_name}`
+  title.value = t('dept.update') + `-${row.dept_name}`
   open.value = true
 }
 const handleDelete = (row: dept) => {

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 11:25:09
+ * @LastEditTime: 2022-10-21 17:49:31
  * @FilePath: \IUI314\src\router\router.ts
  * @Description:
  */
@@ -51,13 +51,13 @@ export const constantRoutes: AppRouteRecordRaw[] = [
     component: Layout,
     redirect: 'index',
     name: 'index',
-    meta: { title: '首页', icon: 'dashboard' },
+    meta: { title: '首页', icon: 'dashboard', i18n: 'home' },
     children: [
       {
         path: '/index',
         component: () => import('@/views/AboutView.vue'),
         name: 'dashboard',
-        meta: { title: '首页', icon: 'dashboard' },
+        meta: { title: '首页', icon: 'dashboard', i18n: 'home' },
       },
       {
         path: 'vue',

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:54:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 17:12:37
+ * @LastEditTime: 2022-10-21 17:57:27
  * @FilePath: \IUI314\src\stores\modules\tab-bar.ts
  * @Description:
  */
@@ -22,6 +22,7 @@ export const formatTag = (route: RouteLocationNormalized): TagProps => {
     path,
     query,
     no_cache: meta.no_cache,
+    i18n: meta.i18n,
   }
 }
 
