@@ -215,7 +215,6 @@ const dicts = useDicts(dictKey.sysNormalDisable, dictKey.sysJobGroup)
 
 //  提交按钮函数
 const submitForm = async () => {
-  console.log(form.value)
   if (!(await formValidate(taskFormRef.value))) return
   if (form.value.job_id !== undefined) {
     const { execute } = usePut(ApiSysScheduledTasks.edit, form)

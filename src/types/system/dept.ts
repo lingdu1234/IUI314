@@ -2,12 +2,12 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:23:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 15:05:54
+ * @LastEditTime: 2022-10-21 08:41:02
  * @FilePath: \IUI314\src\types\system\dept.ts
  * @Description: dept
  */
 
-import type { pageQueryParam } from '../base/apis'
+import type { pageData, pageQueryParam } from '../base/apis'
 
 export interface dept {
   dept_id?: string
@@ -20,6 +20,13 @@ export interface dept {
   status?: string
   create_at?: string
   children?: dept[]
+}
+
+/**
+ * 角色列表数据
+ */
+export interface deptList extends pageData {
+  list: dept[]
 }
 
 export interface deptQueryParam extends pageQueryParam {

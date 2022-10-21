@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 18:52:24
+ * @LastEditTime: 2022-10-21 08:05:16
  * @FilePath: \IUI314\src\views\system\menu\pages\menu-table.vue
  * @Description: 
 -->
@@ -356,7 +356,6 @@ async function updateChildrenDom(parentId: string) {
       show_menu_table.value = true
     })
   }
-  console.log(menuTableRef.value)
 }
 // 懒加载方法
 const load = (tree: menu, treeNode: unknown, resolve: any) => {

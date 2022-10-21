@@ -171,7 +171,6 @@ const submitForm = async (formRef: FormInstance | undefined) => {
 // 展开
 const handleCheckedTreeExpand = (v: boolean) => {
   const list = deptTree.value!
-  console.log(list)
   for (let i = 0; i < list.length; i++) {
     deptTreeRef.value!.store.nodesMap[list[i].dept_id!].expanded = v
   }

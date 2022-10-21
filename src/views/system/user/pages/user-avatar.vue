@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:58:25
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 21:00:51
+ * @LastEditTime: 2022-10-20 21:27:40
  * @FilePath: \IUI314\src\views\system\user\pages\user-avatar.vue
  * @Description: 
 -->
@@ -18,11 +18,11 @@
     <el-dialog
       v-model="openCropper"
       :title="title"
-      :width="appStore.device.isMobile ? '440px' : '768px'"
       append-to-body
+      class="min-w-440px max-w-800px"
     >
       <el-row>
-        <el-col :xs="24" :sm="12" class="w-420px h-420px">
+        <el-col :span="24" :md="12" class="w-420px h-420px">
           <el-row class="w-400px h-400px">
             <vue-cropper
               ref="cropper"
@@ -62,7 +62,7 @@
             </el-col>
           </el-row>
         </el-col>
-        <el-col :xs="24" :sm="12" class="w-400px h-400px">
+        <el-col :span="24" :md="12" class="w-400px h-400px">
           <el-row class="w-400px h-400px">
             <div class="translate-50% w-200px h-200px b-rd-50% overflow-hidden">
               <img :src="options.previews.url" :style="options.previews.img" />
@@ -90,9 +90,8 @@ import { VueCropper } from 'vue-cropper'
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
 import { usePost } from '@/hooks'
-import { useAppStore, useUserStore } from '@/stores'
+import { useUserStore } from '@/stores'
 const userStore = useUserStore()
-const appStore = useAppStore()
 const openCropper = ref(false)
 const title = ref('修改头像')
 
@@ -149,7 +148,7 @@ const uploadImg = async () => {
       ''
     )
     formData.append('avatarfile', v, old_url)
-    const { data, execute } = usePost(ApiSysUser.updateAvatar, formData)
+    const { data, execute } = usePost<string>(ApiSysUser.updateAvatar, formData)
     await execute()
     if (data.value === ErrorFlag) return
 

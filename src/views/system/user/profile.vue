@@ -2,14 +2,14 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 16:05:46
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 20:40:34
+ * @LastEditTime: 2022-10-20 21:12:34
  * @FilePath: \IUI314\src\views\system\user\profile.vue
  * @Description: 
 -->
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="12" :xs="24">
+      <el-col :span="24" :md="12">
         <el-card class="box-card">
           <template #header>
             <div class="clearfix">
@@ -86,7 +86,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="12" :xs="24">
+      <el-col :span="24" :md="12">
         <el-card>
           <template #header>
             <div class="clearfix">
