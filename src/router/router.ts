@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 16:09:52
+ * @LastEditTime: 2022-10-21 11:25:09
  * @FilePath: \IUI314\src\router\router.ts
  * @Description:
  */
@@ -60,11 +60,11 @@ export const constantRoutes: AppRouteRecordRaw[] = [
         meta: { title: '首页', icon: 'dashboard' },
       },
       {
-        path: 'baidu',
+        path: 'vue',
         component: InnerLink,
-        name: 'baidu',
+        name: 'vue',
         meta: {
-          title: '百度',
+          title: 'vue',
           icon: 'dashboard',
           link: 'https://cn.vuejs.org/',
         },

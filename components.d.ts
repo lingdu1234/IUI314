@@ -97,7 +97,4 @@ declare module '@vue/runtime-core' {
     TagBarOperation: typeof import('./src/components/layout/tab-bar/tag-bar-operation.vue')['default']
     ThemeChange: typeof import('./src/components/app/theme-change.vue')['default']
   }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
-  }
 }
