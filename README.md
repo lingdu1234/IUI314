@@ -1,20 +1,23 @@
 ![logo](src/assets/logo.svg)
 
 ## 关于名字
-有个域名iu1314,就写成iui314 就叫π UI 吧，随便画了个logo，整体像个`心` `♥`字，左边像 `IU` 右边像个 `π`字，再一看 不就是个`虾` 字，嗯，就是瞎写的，就这样吧，就让他叫  `πUI`   吧
 
-## 平台简介  
-本项目需配合后端项目配套使用，使用TypeScript重写，前面JS版本，是在[ruoyi-vue3](https://github.com/yangzongzhuan/RuoYi-Vue3) 3.8.1上简单修改的,现主要参考`ruoyi-vue3`和[
+有个域名iu1314,就写成iui314 就叫π UI 吧，随便画了个logo，整体像个`心` `♥`字，左边像 `IU` 右边像个 `π`字，再一看 不就是个`虾`
+字，嗯，就是瞎写的，就这样吧，就让他叫  `πUI`   吧
+
+## 平台简介
+
+本项目需配合后端项目配套使用，使用TypeScript重写，前面JS版本，是在[ruoyi-vue3](https://github.com/yangzongzhuan/RuoYi-Vue3)
+3.8.1上简单修改的,现主要参考`ruoyi-vue3`和[
 arco-design-pro-vue](https://github.com/arco-design/arco-design-pro-vue) 使用TypeScript重新编写，修复了大量js版本bug，方便后续自己使用
-
 
 前端git：  [poem_vue_admin](https://github.com/lingdu1234/poem_vue_admin)   <https://github.com/lingdu1234/poem_vue_admin>
 
 后端git：  [poem_admin](https://github.com/lingdu1234/poem_admin)   <https://github.com/lingdu1234/poem_admin>
 
 预览地址：
-[poem-vue-admin.vercel.app](https://poem-vue-admin.vercel.app/)
-[预览地址](https://poem.iu314.top/)
+[iui314.vercel.app](https://poem-vue-admin.vercel.app/)
+[预览地址](https://iui314preview.iu314.top/)
 
 ## 完成的功能
 
@@ -44,7 +47,8 @@ arco-design-pro-vue](https://github.com/arco-design/arco-design-pro-vue) 使用T
 
 - [x] 系统监控：完成系统信息的简单监控；
 
-- [x] 数据缓存：根据api缓存数据,分公共缓存(所有人缓存数据一致，用于公共数据缓存)和个人缓存(同一api不同用户不同数据的api缓存)，通过数据库名称将api关联在一起，当有数据更新时，清除关联api缓存数据，缓存时间到期，缓存数据清除；
+- [x] 数据缓存：根据api缓存数据,分公共缓存(所有人缓存数据一致，用于公共数据缓存)和个人缓存(
+  同一api不同用户不同数据的api缓存)，通过数据库名称将api关联在一起，当有数据更新时，清除关联api缓存数据，缓存时间到期，缓存数据清除；
 
 - [x] 操作日志：在菜单设置每个api的日志记录级别，分为文件记录，数据库记录，同时记录，不记录几种模式，根据不同api单独配置
 
@@ -81,6 +85,7 @@ vite dev
 ```sh
 pnpm build
 ```
+
 OR
 
 ```sh
