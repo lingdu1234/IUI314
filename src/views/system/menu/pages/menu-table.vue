@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 08:05:16
+ * @LastEditTime: 2022-10-22 22:09:18
  * @FilePath: \IUI314\src\views\system\menu\pages\menu-table.vue
  * @Description: 
 -->
@@ -316,10 +316,6 @@ const handleDelete = async (row: menu) => {
       ElMessage.info('取消删除')
     })
 }
-// 数据库关联
-// const handleDbRelation = (row: menu) => {
-//   console.log('row.id :>> ', row.id!)
-// }
 
 const show_menu_table = ref(true)
 

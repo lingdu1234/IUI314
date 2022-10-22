@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 16:05:46
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 21:12:34
+ * @LastEditTime: 2022-10-22 22:41:18
  * @FilePath: \IUI314\src\views\system\user\profile.vue
  * @Description: 
 -->
@@ -13,20 +13,24 @@
         <el-card class="box-card">
           <template #header>
             <div class="clearfix">
-              <span>个人信息</span>
+              <span>{{ t('profile.personalInformation') }}</span>
             </div>
           </template>
           <div>
             <div class="text-center">
               <UserAvatar />
             </div>
-            <el-form class="drawer-form" label-width="100px">
+            <el-form
+              class="drawer-form"
+              label-width="120px"
+              label-position="left"
+            >
               <el-form-item>
                 <template #label>
                   <el-icon class="m-t-10px">
                     <svg-icon name="user" />
                   </el-icon>
-                  <span class="m-l-3px">用户名称</span>
+                  <span class="m-l-3px">{{ t('profile.name') }}</span>
                 </template>
                 {{ userInfos.user_name }}
               </el-form-item>
@@ -35,7 +39,7 @@
                   <el-icon class="m-t-10px">
                     <svg-icon name="phone" />
                   </el-icon>
-                  <span class="m-l-3px">手机号码</span>
+                  <span class="m-l-3px">{{ t('common.phoneNum') }}</span>
                 </template>
                 {{ userInfos.phone_num }}
               </el-form-item>
@@ -44,7 +48,7 @@
                   <el-icon class="m-t-10px">
                     <svg-icon name="email" />
                   </el-icon>
-                  <span class="m-l-3px">用户邮箱</span>
+                  <span class="m-l-3px">{{ t('common.email') }}</span>
                 </template>
                 {{ userInfos.user_email }}
               </el-form-item>
@@ -53,7 +57,7 @@
                   <el-icon class="m-t-10px">
                     <svg-icon name="tree" />
                   </el-icon>
-                  <span class="m-l-3px">所属部门</span>
+                  <span class="m-l-3px">{{ t('profile.dept') }}</span>
                 </template>
                 {{ userInfos.dept?.dept_name }} / {{ postGroup }}
               </el-form-item>
@@ -62,7 +66,7 @@
                   <el-icon class="m-t-10px">
                     <svg-icon name="peoples" />
                   </el-icon>
-                  <span class="m-l-3px">所属角色</span>
+                  <span class="m-l-3px">{{ t('profile.role') }}</span>
                 </template>
                 <el-tag
                   v-for="v in roleGroup"
@@ -78,7 +82,7 @@
                   <el-icon class="m-t-10px">
                     <svg-icon name="date" />
                   </el-icon>
-                  <span class="m-l-3px">创建日期</span>
+                  <span class="m-l-3px">{{ t('common.createTime') }}</span>
                 </template>
                 {{ parseTime(userInfos.created_at) }}
               </el-form-item>
@@ -90,14 +94,14 @@
         <el-card>
           <template #header>
             <div class="clearfix">
-              <span>基本资料</span>
+              <span>{{ t('profile.basicInfo') }}</span>
             </div>
           </template>
           <el-tabs v-model="activeTab" type="border-card">
-            <el-tab-pane label="基本资料" name="userInfoTab">
+            <el-tab-pane :label="t('profile.basicInfo')" name="userInfoTab">
               <UserInformation :user="userInfos" />
             </el-tab-pane>
-            <el-tab-pane label="修改密码" name="resetPwd">
+            <el-tab-pane :label="t('common.updatePwd')" name="resetPwd">
               <ResetPassword />
             </el-tab-pane>
           </el-tabs>
@@ -108,9 +112,11 @@
 </template>
 <script lang="ts" setup name="user-profile">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysPost, ApiSysRole, ApiSysUser } from '@/api/sysApis'
 import { parseTime, useGet } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import type { pageQueryParam } from '@/types/base/apis'
 import type { postList } from '@/types/system/post'
 import type { roleList } from '@/types/system/role'
@@ -120,6 +126,7 @@ import ResetPassword from './pages/reset-password.vue'
 import UserAvatar from './pages/user-avatar.vue'
 import UserInformation from './pages/user-information.vue'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const postOptions = ref<{ [k: string]: string }>({})
 const roleOptions = ref<{ [k: string]: string }>({})
 

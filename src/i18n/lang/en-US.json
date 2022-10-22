@@ -1,19 +1,44 @@
 {
   "APP": "DataManage",
+  "avatar": {
+    "edit": "UpdateAvatar",
+    "errorTip": "File format error, please upload the image type, such as :JPG,PNG suffix file!",
+    "success": "Avatar has updated suceess",
+    "title": "ClickToUploadAvatar"
+  },
+  "command": {
+    "close": "Close",
+    "save": "Save",
+    "sexV": {
+      "unknown": "unknown"
+    }
+  },
   "common": {
     "add": "Add",
+    "back": "Back",
     "cancel": "cancel",
     "collapse": "Collapse",
     "createTime": "create time",
     "delete": "Delete",
     "edit": "Edit",
+    "email": "Email",
     "expand": "Expand",
+    "home": "home",
     "operation": "Operation",
     "order": "Order",
+    "phoneNum": "Phone",
     "reset": "Reset",
     "search": "Search",
+    "select": "Select",
+    "sex": "Sex",
+    "sexV": {
+      "female": "Female",
+      "male": "Male"
+    },
     "status": "status",
-    "submit": "Submit"
+    "submit": "Submit",
+    "tip": "Tips",
+    "updatePwd": "UpdatePassword"
   },
   "commonTip": {
     "delete": "Are you sure to delete data:",
@@ -30,17 +55,68 @@
     "update": "Update Dept"
   },
   "hello": "hello",
+  "nav": {
+    "Logout": "LogOut",
+    "app": {
+      "language": "Language",
+      "setting": "APP Setting",
+      "theme": "Theme Setting",
+      "themeConfig": "ThemeUserConfig"
+    },
+    "changeDept": "ChangeDept",
+    "changeDeptTip": "Dept has changed,Reloading soon!",
+    "changeRole": "ChangeRole",
+    "changeRoleTip": "Role has changed,Reloading soon!",
+    "fullScreen": "FullScreen",
+    "loginOutTip": "Are you sure to log off and exit the system?",
+    "setting": "Setting",
+    "size": "Size",
+    "theme": "theme"
+  },
+  "profile": {
+    "basicInfo": "BasicInfo",
+    "confirmPassword": "ConfirmPassword",
+    "dept": "Dept",
+    "name": "User",
+    "newPassword": "NewPaasword",
+    "nickName": "NickName",
+    "oldPassword": "OldPassword",
+    "personalInformation": "PersonalInformation",
+    "role": "Role"
+  },
   "route": {
-    "dictData": "dict data",
-    "home": "home",
-    "none": "__",
-    "taskLog": "taskLog",
-    "userCenter": "userCenter",
-    "sysManage": "System",
     "BasicData": "BasicData",
-    "menuManage": "Menu",
     "UserData": "UserData",
+    "authList": "AuthList",
+    "dataScopeTest": "Test",
+    "deptManage": "Dept",
+    "dict": "Dict",
+    "dictData": "DictData",
+    "home": "Home",
+    "loginLog": "LoginLog",
+    "menuManage": "Menu",
+    "monitor": "Monitor",
+    "none": "__",
+    "onlineUser": "Online",
+    "operaLog": "OperaLog",
+    "postManage": "Post",
+    "roleManage": "Role",
+    "server": "Server",
+    "sysManage": "System",
+    "task": "Task",
+    "taskLog": "TaskLog",
+    "test": "Test",
+    "userCenter": "userCenter",
+    "userManage": "User",
     "vue": "vue"
+  },
+  "tab": {
+    "closeAllTab": "CloseAllTab",
+    "closeCurrentTab": "CloseCurrentTab",
+    "closeLeftTab": "CloseLestTab",
+    "closeOtherTab": "CloseOtherTab",
+    "closeRightTab": "CloseRightTab",
+    "refresh": "Refresh"
   },
   "theme": {
     "changeTip": "Theme change to:",

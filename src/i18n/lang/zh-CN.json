@@ -1,19 +1,44 @@
 {
   "APP": "数据管理系统",
+  "avatar": {
+    "edit": "修改头像",
+    "errorTip": "文件格式错误，请上传图片类型,如:JPG,PNG后缀的文件!",
+    "success": "头像修改成功",
+    "title": "点击上传头像"
+  },
+  "command": {
+    "close": "关闭",
+    "save": "保存",
+    "sexV": {
+      "unknown": "未知"
+    }
+  },
   "common": {
     "add": "新增",
+    "back": "返回",
     "cancel": "取消",
     "collapse": "折叠",
     "createTime": "创建时间",
     "delete": "删除",
     "edit": "编辑",
+    "email": "用户邮箱",
     "expand": "展开",
+    "home": "首页",
     "operation": "操作",
     "order": "排序",
+    "phoneNum": "手机号码",
     "reset": "重置",
     "search": "搜索",
+    "select": "选择",
+    "sex": "性别",
+    "sexV": {
+      "female": "女",
+      "male": "男"
+    },
     "status": "状态",
-    "submit": "提交"
+    "submit": "提交",
+    "tip": "提示",
+    "updatePwd": "修改密码"
   },
   "commonTip": {
     "delete": "你是否确定删除数据:",
@@ -30,17 +55,68 @@
     "update": "更新部门"
   },
   "hello": "您好",
+  "nav": {
+    "Logout": "退出登录",
+    "app": {
+      "language": "语言",
+      "setting": "APP 设置",
+      "theme": "主题设置",
+      "themeConfig": "主题自定义设置"
+    },
+    "changeDept": "部门切换",
+    "changeDeptTip": "部门切换成功,马上重载界面",
+    "changeRole": "角色切换",
+    "changeRoleTip": "角色切换成功,马上重载界面",
+    "fullScreen": "全屏",
+    "loginOutTip": "你确定注销并退出系统吗?",
+    "setting": "设置",
+    "size": "布局大小",
+    "theme": "主题"
+  },
+  "profile": {
+    "basicInfo": "基础信息",
+    "confirmPassword": "确认密码",
+    "dept": "部门",
+    "name": "用户名称",
+    "newPassword": "新密码",
+    "nickName": "用户昵称",
+    "oldPassword": "旧密码",
+    "personalInformation": "个人信息",
+    "role": "角色"
+  },
   "route": {
+    "BasicData": "基础数据",
+    "UserData": "用户数据",
+    "authList": "权限查询",
+    "dataScopeTest": "数据权限测试",
+    "deptManage": "部门管理",
+    "dict": "字典管理",
     "dictData": "字典数据",
     "home": "首页",
-    "none": "__",
-    "taskLog": "任务日志",
-    "userCenter": "用户中心",
-    "sysManage": "系统管理",
-    "BasicData": "基础数据",
+    "loginLog": "登录日志",
     "menuManage": "菜单管理",
-    "UserData": "用户数据",
+    "monitor": "系统监控",
+    "none": "__",
+    "onlineUser": "在线用户",
+    "operaLog": "操作日志",
+    "postManage": "岗位管理",
+    "roleManage": "角色管理",
+    "server": "服务监控",
+    "sysManage": "系统管理",
+    "task": "定时任务",
+    "taskLog": "任务日志",
+    "test": "测试项目",
+    "userCenter": "个人中心",
+    "userManage": "用户管理",
     "vue": "vue"
+  },
+  "tab": {
+    "closeAllTab": "关闭全部标签页",
+    "closeCurrentTab": "关闭当前标签页",
+    "closeLeftTab": "关闭左侧标签页",
+    "closeOtherTab": "关闭其它标签页",
+    "closeRightTab": "关闭右侧标签页",
+    "refresh": "重新加载"
   },
   "theme": {
     "changeTip": "主题切换为:",

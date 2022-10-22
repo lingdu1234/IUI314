@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 19:12:36
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 09:56:44
+ * @LastEditTime: 2022-10-22 22:18:27
  * @FilePath: \IUI314\src\components\app\app-settings-drawer.vue
  * @Description: 
 -->
@@ -15,17 +15,19 @@
     size="300px"
   >
     <template #header>
-      <span class="font-bold">App 设置</span>
+      <span class="font-bold">{{ t('nav.app.setting') }}</span>
     </template>
-    <el-divider content-position="left">主题设置</el-divider>
+    <el-divider content-position="left">
+      {{ t('nav.app.theme') }}
+    </el-divider>
     <el-form class="drawer-form" label-width="80px">
-      <el-form-item label="语言设置">
+      <el-form-item :label="t('nav.app.language')">
         <el-select v-model="lang" @change="setLang">
           <el-option label="中文" value="zh-CN" />
           <el-option label="English" value="en-US" />
         </el-select>
       </el-form-item>
-      <el-form-item label="主题设置">
+      <el-form-item :label="t('nav.theme')">
         <el-select v-model="theme" @change="set_theme">
           <el-option
             v-for="theme in theme_list"
@@ -37,7 +39,9 @@
       </el-form-item>
     </el-form>
     <div v-if="appStore.app.theme === 'userConfig'">
-      <el-divider content-position="left"> 自定义设置 </el-divider>
+      <el-divider content-position="left">
+        {{ t('nav.app.themeConfig') }}
+      </el-divider>
       <!-- 主题相关自定义设置 -->
       <AppUserConfigTheme />
     </div>
@@ -78,8 +82,6 @@ const set_theme = (v: string) => {
 // 修改语言
 const setLang = (v: string) => {
   appStore.setLang(v)
-
-  console.log('locale :>> ', locale.value)
   locale.value = v
 }
 </script>

@@ -7,7 +7,7 @@
         :class="{ 'link-activated': itemData.fullPath === $route.fullPath }"
         @click="goto(itemData)"
       >
-        <span class="tag-link">
+        <span class="tag-link cursor-pointer">
           {{
             itemData.i18n !== undefined &&
             itemData.i18n !== null &&
@@ -16,7 +16,10 @@
               : itemData.title
           }}
         </span>
-        <span class="m-l-10px" @click.stop="tagClose(itemData, index)">
+        <span
+          class="m-l-10px cursor-pointer"
+          @click.stop="tagClose(itemData, index)"
+        >
           <el-icon><Close /></el-icon>
         </span>
       </span>

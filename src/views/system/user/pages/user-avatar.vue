@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:58:25
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 21:27:40
+ * @LastEditTime: 2022-10-22 23:09:24
  * @FilePath: \IUI314\src\views\system\user\pages\user-avatar.vue
  * @Description: 
 -->
@@ -11,7 +11,7 @@
     <div class="user-info-head" @click="openCropper = true">
       <img
         :src="options.img"
-        title="点击上传头像"
+        :title="t('avatar.title')"
         class="b-rd-50% w-120px h-120px"
       />
     </div>
@@ -35,7 +35,7 @@
               @realTime="realTime"
             />
           </el-row>
-          <el-row class="m-t-10px w-400px h-80px" :gutter="5">
+          <el-row class="m-t-10px w-400px h-80px">
             <el-col :span="5">
               <el-upload
                 action="#"
@@ -43,8 +43,8 @@
                 :show-file-list="false"
                 :before-upload="beforeUpload"
               >
-                <el-button>
-                  选择
+                <el-button size="small">
+                  {{ t('common.select') }}
                   <el-icon class="el-icon--right">
                     <Upload />
                   </el-icon>
@@ -52,13 +52,19 @@
               </el-upload>
             </el-col>
             <el-col :span="5">
-              <el-button type="primary" @click="uploadImg">提交</el-button>
+              <el-button type="primary" @click="uploadImg" size="small">
+                {{ t('common.submit') }}
+              </el-button>
             </el-col>
             <el-col :span="14">
-              <el-button :icon="Plus" @click="changeScale(1)" />
-              <el-button :icon="Minus" @click="changeScale(-1)" />
-              <el-button :icon="RefreshLeft" @click="rotateLeft" />
-              <el-button :icon="RefreshRight" @click="rotateRight" />
+              <el-button :icon="Plus" @click="changeScale(1)" size="small" />
+              <el-button :icon="Minus" @click="changeScale(-1)" size="small" />
+              <el-button :icon="RefreshLeft" @click="rotateLeft" size="small" />
+              <el-button
+                :icon="RefreshRight"
+                @click="rotateRight"
+                size="small"
+              />
             </el-col>
           </el-row>
         </el-col>
@@ -86,14 +92,19 @@ import {
 import { type UploadProps, ElMessage } from 'element-plus'
 import { ref } from 'vue'
 import { VueCropper } from 'vue-cropper'
+import { useI18n } from 'vue-i18n'
 
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
 import { usePost } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { useUserStore } from '@/stores'
+
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
+
 const userStore = useUserStore()
 const openCropper = ref(false)
-const title = ref('修改头像')
+const title = ref(t('avatar.edit'))
 
 const cropper = ref<InstanceType<typeof VueCropper>>()
 
@@ -129,7 +140,7 @@ const rotateRight = () => {
 /** 上传预处理 */
 const beforeUpload: UploadProps['beforeUpload'] = (file) => {
   if (file.type.indexOf('image/') == -1) {
-    ElMessage.error('文件格式错误，请上传图片类型,如:JPG,PNG后缀的文件。')
+    ElMessage.error(t('avatar.errorTip'))
   } else {
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -155,7 +166,7 @@ const uploadImg = async () => {
     openCropper.value = false
     options.value.img = import.meta.env.VITE_API_BASE_URL + data.value!
     userStore.user.avatar = options.value.img
-    ElMessage.success('头像修改成功')
+    ElMessage.success(t('avatar.success'))
   })
 }
 </script>
