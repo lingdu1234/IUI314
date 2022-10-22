@@ -7,7 +7,7 @@
         :class="{ 'link-activated': itemData.fullPath === $route.fullPath }"
         @click="goto(itemData)"
       >
-        <span class="tag-link">
+        <span class="tag-link cursor-pointer">
           {{
             itemData.i18n !== undefined
               ? t(`route.${itemData.i18n}`)
