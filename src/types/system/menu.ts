@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-12 18:15:58
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-15 14:42:34
+ * @LastEditTime: 2022-10-22 10:47:22
  * @FilePath: \IUI314\src\types\system\menu.ts
  * @Description: menu type define
  */
@@ -45,6 +45,7 @@ export interface menu extends operateInfo {
   children?: menu[]
   hasChildren?: boolean
   disabled?: boolean
+  i18n?: string
 }
 
 /**

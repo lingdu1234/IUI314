@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 18:06:54
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 18:48:10
+ * @LastEditTime: 2022-10-22 10:04:44
  * @FilePath: \IUI314\src\hooks\util\useEncrypt.ts
  * @Description:
  */
@@ -44,9 +44,9 @@ g6eumQxqy5KoI5namokFsFGZan26JBbB14onr3as00N7saof3CDVDxECQQDnzstT
  * @return {string} txt
  */
 function encrypt(txt: string): string | boolean {
-  const encryptor = new JSEncrypt()
-  encryptor.setPublicKey(publicKey) // 设置公钥
-  return encryptor.encrypt(txt) // 对数据进行加密
+  const encrypts = new JSEncrypt()
+  encrypts.setPublicKey(publicKey) // 设置公钥
+  return encrypts.encrypt(txt) // 对数据进行加密
 }
 
 /**
@@ -55,7 +55,7 @@ function encrypt(txt: string): string | boolean {
  * @return {string} txt
  */
 function decrypt(txt: string): string | boolean {
-  const encryptor = new JSEncrypt()
-  encryptor.setPrivateKey(privateKey) // 设置私钥
-  return encryptor.decrypt(txt) // 对数据进行解密
+  const encrypts = new JSEncrypt()
+  encrypts.setPrivateKey(privateKey) // 设置私钥
+  return encrypts.decrypt(txt) // 对数据进行解密
 }

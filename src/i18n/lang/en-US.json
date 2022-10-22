@@ -1,5 +1,5 @@
 {
-  "APP": "DataManagerSystem",
+  "APP": "DataManage",
   "common": {
     "add": "Add",
     "cancel": "cancel",
@@ -15,6 +15,14 @@
     "status": "status",
     "submit": "Submit"
   },
+  "commonTip": {
+    "delete": "Are you sure to delete data:",
+    "deleteCancel": "Delete Canceled",
+    "deleteSuccess": "Delete Success",
+    "deleteTitle": "Confirm Delete",
+    "loginExpired": "Login Expired",
+    "submitInvalid": "Submit error!,please check!"
+  },
   "dept": {
     "add": "Add Dept",
     "name": "dept name",
@@ -26,7 +34,21 @@
     "dictData": "dict data",
     "home": "home",
     "none": "__",
-    "taskLog": "task log",
-    "userCenter": "user center"
+    "taskLog": "taskLog",
+    "userCenter": "userCenter",
+    "sysManage": "System",
+    "BasicData": "BasicData",
+    "menuManage": "Menu",
+    "UserData": "UserData",
+    "vue": "vue"
+  },
+  "theme": {
+    "changeTip": "Theme change to:",
+    "classic": "classic",
+    "dark": "dark",
+    "gray": "gray",
+    "light": "light",
+    "pink": "pink",
+    "userConfig": "userConfig"
   }
 }

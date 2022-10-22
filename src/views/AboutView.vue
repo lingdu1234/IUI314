@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 20:58:09
+ * @LastEditTime: 2022-10-22 09:45:49
  * @FilePath: \IUI314\src\views\AboutView.vue
  * @Description: 字典类型数据
 -->
@@ -17,11 +17,12 @@
 </template>
 <script lang="ts" setup name="aboutabout">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import { useSetupI18n } from '@/i18n'
+import type { MessageSchema } from '@/i18n'
 
-const { i18n } = useSetupI18n()
-const { t } = i18n.global
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
+// const { t } = i18n.global
 
 const count = ref(0)
 </script>

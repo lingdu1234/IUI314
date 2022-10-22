@@ -9,7 +9,9 @@
       >
         <span class="tag-link">
           {{
-            itemData.i18n !== undefined
+            itemData.i18n !== undefined &&
+            itemData.i18n !== null &&
+            itemData.i18n !== ''
               ? t(`route.${itemData.i18n}`)
               : itemData.title
           }}
@@ -28,9 +30,10 @@
 <script lang="ts" setup name="tab-bar-item">
 import { Close } from '@element-plus/icons-vue'
 import type { PropType } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 
-import { useSetupI18n } from '@/i18n'
+import type { MessageSchema } from '@/i18n'
 import { DEFAULT_ROUTE_NAME } from '@/router'
 import { useTabBarStore } from '@/stores'
 import type { TagProps } from '@/types/base/router'
@@ -38,8 +41,7 @@ import type { TagProps } from '@/types/base/router'
 import TabBarItemDropdown from './tab-bar-item-dropdown.vue'
 import { Eaction, useTabBar } from './useTabBar'
 
-const { i18n } = useSetupI18n()
-const { t } = i18n.global
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const props = defineProps({
   itemData: {
     type: Object as PropType<TagProps>,

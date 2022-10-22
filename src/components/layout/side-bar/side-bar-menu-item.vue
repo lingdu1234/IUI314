@@ -24,7 +24,11 @@
               />
             </el-icon>
             <span
-              v-if="onlyOneChild.meta?.i18n !== undefined"
+              v-if="
+                onlyOneChild.meta?.i18n !== undefined &&
+                onlyOneChild.meta?.i18n !== null &&
+                onlyOneChild.meta?.i18n !== ''
+              "
               class="menu-title"
             >
               {{ t(`route.${onlyOneChild.meta?.i18n}`) }}
@@ -42,7 +46,14 @@
         <el-icon>
           <SvgIcon :name="(item.meta && item.meta.icon) || ''" />
         </el-icon>
-        <span v-if="item.meta?.i18n !== undefined" class="menu-title">
+        <span
+          v-if="
+            item.meta?.i18n !== undefined &&
+            item.meta?.i18n !== null &&
+            item.meta?.i18n !== ''
+          "
+          class="menu-title"
+        >
           {{ t(`route.${item.meta?.i18n}`) }}
         </span>
         <span v-else class="menu-title">
@@ -65,15 +76,15 @@
 </template>
 <script lang="ts" name="side-bar-menu-item" setup>
 import { type PropType, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import SvgIcon from '@/components/common/svg-icon.vue'
 import { getNormalPath, getQueryUrl, isExternal } from '@/hooks'
-import { useSetupI18n } from '@/i18n'
+import type { MessageSchema } from '@/i18n'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 
 import AppLink from './app-link.vue'
-const { i18n } = useSetupI18n()
-const { t } = i18n.global
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const props = defineProps({
   item: {
     type: Object as PropType<AppRouteRecordRaw>,

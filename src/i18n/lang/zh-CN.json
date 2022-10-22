@@ -15,6 +15,14 @@
     "status": "状态",
     "submit": "提交"
   },
+  "commonTip": {
+    "delete": "你是否确定删除数据:",
+    "deleteCancel": "取消删除",
+    "deleteSuccess": "删除成功",
+    "deleteTitle": "删除确认",
+    "loginExpired": "登录过期",
+    "submitInvalid": "提交错误,请检查后提交"
+  },
   "dept": {
     "add": "新增部门",
     "name": "部门名称",
@@ -27,6 +35,20 @@
     "home": "首页",
     "none": "__",
     "taskLog": "任务日志",
-    "userCenter": "用户中心"
+    "userCenter": "用户中心",
+    "sysManage": "系统管理",
+    "BasicData": "基础数据",
+    "menuManage": "菜单管理",
+    "UserData": "用户数据",
+    "vue": "vue"
+  },
+  "theme": {
+    "changeTip": "主题切换为:",
+    "classic": "经典",
+    "dark": "黑暗",
+    "gray": "灰色",
+    "light": "亮色",
+    "pink": "粉色",
+    "userConfig": "自定义"
   }
 }

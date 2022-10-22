@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 19:12:36
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 17:06:11
+ * @LastEditTime: 2022-10-22 09:56:44
  * @FilePath: \IUI314\src\components\app\app-settings-drawer.vue
  * @Description: 
 -->
@@ -30,7 +30,7 @@
           <el-option
             v-for="theme in theme_list"
             :key="theme"
-            :label="theme_map[theme]"
+            :label="t(`theme.${theme}`)"
             :value="theme"
           />
         </el-select>
@@ -56,6 +56,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useTheme } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { useAppStore, useConfigThemeStore } from '@/stores'
 
 import AppUserConfigTheme from './app-user-config-theme.vue'
@@ -66,8 +67,9 @@ const lang = ref(appStore.app.lang)
 const configThemeStore = useConfigThemeStore()
 const appSettingDrawerRef = ref(null)
 
-const { setTheme, theme_map, theme_list } = useTheme()
+const { setTheme, theme_list } = useTheme()
 const handleClose = () => appStore.setAppSettingDrawer(false)
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const { locale } = useI18n()
 // 修改主题
 const set_theme = (v: string) => {

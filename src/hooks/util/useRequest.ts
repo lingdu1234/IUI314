@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 13:09:40
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 18:39:26
+ * @LastEditTime: 2022-10-22 10:17:05
  * @FilePath: \IUI314\src\hooks\util\useRequest.ts
  * @Description: useRequest
  */
@@ -19,6 +19,7 @@ import { type LocationQueryRaw, stringifyQuery } from 'vue-router'
 
 import { ErrorFlag } from '@/api/apis'
 import { useToken } from '@/hooks'
+import { useSetupI18n } from '@/i18n'
 import { router } from '@/router'
 import { useUserStore } from '@/stores'
 
@@ -53,7 +54,9 @@ export const useRequest = createFetch({
     },
     onFetchError({ response, error }) {
       if (response?.status === 401) {
-        ElMessage.warning('登录过期')
+        const { i18n } = useSetupI18n()
+        const { t } = i18n.global
+        ElMessage.warning(t('commonTip.loginExpired'))
         useUserStore().frontEndLogout()
         setTimeout(() => {
           router.push('/login')

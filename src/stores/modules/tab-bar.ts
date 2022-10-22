@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 19:54:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 17:57:27
+ * @LastEditTime: 2022-10-22 11:42:35
  * @FilePath: \IUI314\src\stores\modules\tab-bar.ts
  * @Description:
  */
@@ -14,6 +14,7 @@ import { DEFAULT_ROUTE, router } from '@/router'
 import type { TabBarState, TagProps } from '@/types/base/router'
 
 export const formatTag = (route: RouteLocationNormalized): TagProps => {
+  console.log(route)
   const { name, meta, fullPath, query, path } = route
   return {
     title: meta.title || '',
