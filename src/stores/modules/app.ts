@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 18:51:46
+ * @LastEditTime: 2022-10-23 11:07:05
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
@@ -20,6 +20,7 @@ interface AppStore {
   }
   app: {
     title: string
+    animation: string
     titleI18n?: string
     size: any
     dynamicTitle: boolean
@@ -45,6 +46,7 @@ export const useAppStore = defineStore('app', {
     },
     app: {
       title: '',
+      animation: 'fade-transform',
       size: 'default',
       dynamicTitle: true,
       isDark: undefined,
@@ -106,6 +108,9 @@ export const useAppStore = defineStore('app', {
     },
     setLang(v: string) {
       this.app.lang = v
+    },
+    setAnimation(v: string) {
+      this.app.animation = v
     },
   },
 })

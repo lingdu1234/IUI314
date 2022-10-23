@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:22:30
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 21:51:56
+ * @LastEditTime: 2022-10-23 10:10:08
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-operator.vue
  * @Description: 
 -->
@@ -18,6 +18,13 @@
         placement="bottom"
       >
         <NavBarSearch />
+      </el-tooltip>
+      <el-tooltip
+        :content="t('nav.app.language')"
+        effect="light"
+        placement="bottom"
+      >
+        <NavBarLanguage />
       </el-tooltip>
       <el-tooltip :content="t('nav.theme')" effect="light" placement="bottom">
         <NavBarTheme />
@@ -46,6 +53,7 @@
 import { useI18n } from 'vue-i18n'
 
 import AppSettings from '@/components/app/app-settings.vue'
+import NavBarLanguage from '@/components/app/nav-bar-language.vue'
 import NavBarSearch from '@/components/app/nav-bar-search.vue'
 import NavBarSize from '@/components/app/nav-bar-size.vue'
 import NavBarTheme from '@/components/app/nav-bar-theme.vue'

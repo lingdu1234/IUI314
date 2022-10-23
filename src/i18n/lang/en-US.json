@@ -75,6 +75,7 @@
   "nav": {
     "Logout": "LogOut",
     "app": {
+      "animation": "Animation",
       "language": "Language",
       "setting": "APP Setting",
       "theme": "Theme Setting",

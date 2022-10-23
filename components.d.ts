@@ -72,6 +72,7 @@ declare module '@vue/runtime-core' {
     Login: typeof import('./src/components/login/index.vue')['default']
     LoginSwitch: typeof import('./src/components/login/login-switch.vue')['default']
     NavBar: typeof import('./src/components/layout/nav-bar/nav-bar.vue')['default']
+    NavBarLanguage: typeof import('./src/components/app/nav-bar-language.vue')['default']
     NavBarOperator: typeof import('./src/components/layout/nav-bar/nav-bar-operator.vue')['default']
     NavBarSearch: typeof import('./src/components/app/nav-bar-search.vue')['default']
     NavBarSize: typeof import('./src/components/app/nav-bar-size.vue')['default']

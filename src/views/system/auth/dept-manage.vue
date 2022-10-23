@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-16 12:58:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 09:46:27
+ * @LastEditTime: 2022-10-23 11:30:16
  * @FilePath: \IUI314\src\views\system\auth\dept-manage.vue
  * @Description: 
 -->
@@ -56,6 +56,7 @@
           type="primary"
           @click="handleAdd"
         >
+          {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">

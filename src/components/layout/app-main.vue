@@ -2,14 +2,14 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 17:46:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-19 13:00:30
+ * @LastEditTime: 2022-10-23 10:39:38
  * @FilePath: \IUI314\src\components\layout\app-main.vue
  * @Description: 
 -->
 <template>
   <el-scrollbar :style="height">
     <router-view v-slot="{ Component, route }">
-      <transition name="el-zoom-in-center" mode="out-in">
+      <transition :name="appStore.app.animation" mode="out-in">
         <keep-alive :include="cacheList">
           <component class="m-15px" :is="Component" :key="route.path" />
         </keep-alive>

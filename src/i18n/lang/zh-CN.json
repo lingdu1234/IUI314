@@ -75,6 +75,7 @@
   "nav": {
     "Logout": "退出登录",
     "app": {
+      "animation": "过渡动画",
       "language": "语言",
       "setting": "APP 设置",
       "theme": "主题设置",

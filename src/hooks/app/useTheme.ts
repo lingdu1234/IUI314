@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:31:05
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 10:03:04
+ * @LastEditTime: 2022-10-23 12:04:58
  * @FilePath: \IUI314\src\hooks\app\useTheme.ts
  * @Description: theme
  */
@@ -52,7 +52,7 @@ export const useTheme = () => {
       node?.classList.remove(last_color)
     }
     if (!color) {
-      color = usePreferredColorScheme().value
+      color = appStore.app.theme || usePreferredColorScheme().value
     }
     if (color === 'userConfig') {
       // 如果是自定义主题，需设置主题
@@ -69,7 +69,7 @@ export const useTheme = () => {
       notification(color)
     }
   }
-
+  init_theme()
   return {
     setTheme,
     nextColor,
