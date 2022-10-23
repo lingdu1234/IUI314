@@ -72,6 +72,7 @@ declare module '@vue/runtime-core' {
     Login: typeof import('./src/components/login/index.vue')['default']
     LoginSwitch: typeof import('./src/components/login/login-switch.vue')['default']
     NavBar: typeof import('./src/components/layout/nav-bar/nav-bar.vue')['default']
+    NavBarLanguage: typeof import('./src/components/app/nav-bar-language.vue')['default']
     NavBarOperator: typeof import('./src/components/layout/nav-bar/nav-bar-operator.vue')['default']
     NavBarSearch: typeof import('./src/components/app/nav-bar-search.vue')['default']
     NavBarSize: typeof import('./src/components/app/nav-bar-size.vue')['default']
@@ -95,6 +96,5 @@ declare module '@vue/runtime-core' {
     TabBarItemDropdown: typeof import('./src/components/layout/tab-bar/tab-bar-item-dropdown.vue')['default']
     TabItem: typeof import('./src/components/layout/tab-bar/tab-item.vue')['default']
     TagBarOperation: typeof import('./src/components/layout/tab-bar/tag-bar-operation.vue')['default']
-    ThemeChange: typeof import('./src/components/app/theme-change.vue')['default']
   }
 }

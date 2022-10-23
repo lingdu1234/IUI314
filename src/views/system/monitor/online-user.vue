@@ -26,9 +26,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置 </el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -122,7 +124,7 @@
             :icon="Delete"
             @click="handleForceLogout(scope.row)"
           >
-            强退
+            {{ t('common.kickOff') }}
           </el-button>
         </template>
       </el-table-column>
@@ -141,6 +143,7 @@
 import { Delete, Refresh, Search } from '@element-plus/icons-vue'
 import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysOnlineUser } from '@/api/apis'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
@@ -151,12 +154,14 @@ import {
   useFormUtil,
   useListData,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type {
   onlineUser,
   onlineUserQueryParam,
 } from '@/types/system/online-user'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const queryRef = ref<FormInstance>()
 const showSearch = ref(true)
 //  字典数据

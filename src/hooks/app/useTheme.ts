@@ -2,19 +2,24 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:31:05
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-19 20:03:13
+ * @LastEditTime: 2022-10-23 12:04:58
  * @FilePath: \IUI314\src\hooks\app\useTheme.ts
  * @Description: theme
  */
 import { usePreferredColorScheme } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
+import { useI18n } from 'vue-i18n'
 
+import type { MessageSchema } from '@/i18n'
 import { useAppStore } from '@/stores'
 
 import { useConfigTheme } from './useConfigTheme'
 
 export const useTheme = () => {
   const appStore = useAppStore()
+  // const { i18n } = useSetupI18n()
+  // const { t } = i18n.global
+  const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
   const theme_list: string[] = [
     'light',
     'dark',
@@ -23,14 +28,6 @@ export const useTheme = () => {
     'gray',
     'userConfig',
   ]
-  const theme_map: Record<string, string> = {
-    light: '亮色',
-    dark: '黑暗',
-    classic: '经典',
-    pink: '粉色',
-    gray: '灰色',
-    userConfig: '自定义',
-  }
 
   // const node = window?.document.querySelector('html')
   const node = document.documentElement
@@ -47,7 +44,7 @@ export const useTheme = () => {
   }
 
   const notification = (theme: string) => {
-    ElMessage.info('主题切换为:' + theme_map[theme] + '主题')
+    ElMessage.info(t('theme.changeTip') + t(`theme.${theme}`))
   }
 
   const init_theme = (color?: string, last_color?: string) => {
@@ -55,7 +52,7 @@ export const useTheme = () => {
       node?.classList.remove(last_color)
     }
     if (!color) {
-      color = usePreferredColorScheme().value
+      color = appStore.app.theme || usePreferredColorScheme().value
     }
     if (color === 'userConfig') {
       // 如果是自定义主题，需设置主题
@@ -72,12 +69,11 @@ export const useTheme = () => {
       notification(color)
     }
   }
-
+  init_theme()
   return {
     setTheme,
     nextColor,
     init_theme,
-    theme_map,
     theme_list,
   }
 }

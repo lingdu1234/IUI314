@@ -161,8 +161,12 @@
     </el-form>
     <template #footer>
       <div class="dialog-footer">
-        <el-button type="primary" @click="submitForm"> 确 定 </el-button>
-        <el-button @click="cancel"> 取 消 </el-button>
+        <el-button type="primary" @click="submitForm">
+          {{ t('common.submit') }}
+        </el-button>
+        <el-button @click="cancel">
+          {{ t('common.cancel') }}
+        </el-button>
       </div>
     </template>
   </el-dialog>
@@ -171,9 +175,11 @@
 import { InfoFilled, Timer } from '@element-plus/icons-vue'
 import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { type PropType, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysScheduledTasks } from '@/api/apis'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'
 import type { scheduledTasks } from '@/types/system/scheduled-tasks'
 
@@ -191,6 +197,8 @@ const props = defineProps({
     default: '',
   },
 })
+
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const emits = defineEmits(['closeDialog'])
 const { formValidate } = useFormUtil()
 

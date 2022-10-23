@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 15:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 18:29:03
+ * @LastEditTime: 2022-10-22 22:04:46
  * @FilePath: \IUI314\src\components\exception\exception.vue
  * @Description: 
 -->
@@ -17,33 +17,42 @@
       </el-icon>
     </div>
     <div>
-      <router-link :to="routeHomePath">
-        <el-button class="m-20px" type="primary" @click="back">返回</el-button>
+      <router-link :to="routeHomePath" class="decoration-none">
+        <el-button class="m-20px" type="primary" @click="back">
+          {{ t('common.back') }}
+        </el-button>
       </router-link>
-      <router-link :to="routeHomePath">
-        <el-button class="m-20px" type="primary">首页</el-button>
+      <router-link :to="routeHomePath" class="decoration-none">
+        <el-button class="m-20px" type="primary">
+          {{ t('common.home') }}
+        </el-button>
       </router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { type ComponentInternalInstance, getCurrentInstance } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
+
+import type { MessageSchema } from '@/i18n'
+import { router } from '@/router'
 
 import SvgIcon from '../common/svg-icon.vue'
-
-let { proxy } = getCurrentInstance() as ComponentInternalInstance
 type ExceptionType = '401' | '403' | '404' | '500'
 interface Props {
   type: ExceptionType
 }
 defineProps<Props>()
+
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
+const route = useRoute()
 const routeHomePath = '/index'
-function back() {
-  if (proxy?.$route.query.noGoBack) {
-    proxy.$router.push({ path: '/' })
+const back = () => {
+  if (route.query.noGoBack) {
+    router.push({ path: '/' })
   } else {
-    proxy?.$router.go(-1)
+    router.go(-1)
   }
 }
 defineOptions({

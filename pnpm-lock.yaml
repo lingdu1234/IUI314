@@ -2210,10 +2210,10 @@ packages:
     version: 6.1.0
     dev: true
 
-  registry.npmmirror.com/destr/1.1.1:
-    resolution: {integrity: sha512-QqkneF8LrYmwATMdnuD2MLI3GHQIcBnG6qFC2q9bSH430VTCDAVjcspPmUaKhPGtAtPAftIUFqY1obQYQuwmbg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/destr/-/destr-1.1.1.tgz}
+  registry.npmmirror.com/destr/1.2.0:
+    resolution: {integrity: sha512-JG+cG4ZPB1L27sl2C2URg8MIOmIUtTbE5wEx02BpmrTCqg/hXxFKXsYsnODl5PdpqNRaS1KQGUQ56V8jk8XpYQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/destr/-/destr-1.2.0.tgz}
     name: destr
-    version: 1.1.1
+    version: 1.2.0
     dev: true
 
   registry.npmmirror.com/dir-glob/3.0.1:
@@ -4494,7 +4494,7 @@ packages:
     name: ohmyfetch
     version: 0.4.20
     dependencies:
-      destr: registry.npmmirror.com/destr/1.1.1
+      destr: registry.npmmirror.com/destr/1.2.0
       node-fetch-native: registry.npmmirror.com/node-fetch-native/0.1.8
       ufo: registry.npmmirror.com/ufo/0.8.6
       undici: registry.npmmirror.com/undici/5.11.0

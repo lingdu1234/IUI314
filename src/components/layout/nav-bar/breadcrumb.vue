@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 20:20:03
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 19:23:37
+ * @LastEditTime: 2022-10-22 11:41:54
  * @FilePath: \IUI314\src\components\layout\nav-bar\breadcrumb.vue
  * @Description: 
 -->
@@ -15,7 +15,9 @@
         </el-icon>
         <span v-if="!appStore.device.isMobile" class="m-l-5px">
           {{
-            item.meta.i18n === undefined
+            item.meta.i18n === undefined ||
+            item.meta.i18n === null ||
+            item.meta.i18n === ''
               ? item.meta.title
               : t(`route.${item.meta.i18n}`)
           }}
@@ -28,14 +30,14 @@
 <script lang="ts" setup name="breadcrumb">
 import { ArrowRight } from '@element-plus/icons-vue'
 import { ref, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { type RouteLocationMatched, useRoute } from 'vue-router'
 
-import { useSetupI18n } from '@/i18n'
+import type { MessageSchema } from '@/i18n'
 import { useAppStore } from '@/stores'
 
 const appStore = useAppStore()
-const { i18n } = useSetupI18n()
-const { t } = i18n.global
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const route = useRoute()
 const levelList = ref<RouteLocationMatched[]>([])
 

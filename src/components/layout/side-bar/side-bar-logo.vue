@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 21:45:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 20:57:07
+ * @LastEditTime: 2022-10-22 09:48:45
  * @FilePath: \IUI314\src\components\layout\side-bar\side-bar-logo.vue
  * @Description: 
 -->
@@ -20,12 +20,13 @@
 </template>
 
 <script lang="ts" setup name="side-bar-logo">
+import { useI18n } from 'vue-i18n'
+
 import logo from '@/assets/logo.svg'
-import { useSetupI18n } from '@/i18n'
+import type { MessageSchema } from '@/i18n'
 import { useAppStore } from '@/stores'
 const appStore = useAppStore()
-const { i18n } = useSetupI18n()
-const { t } = i18n.global
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 </script>
 
 <style lang="scss" scoped>
@@ -39,12 +40,7 @@ const { t } = i18n.global
   text-decoration: none;
   cursor: pointer;
   .logo-title {
-    // width: 120px;
     font-size: 20px;
-    // font-weight: 800;
-    // margin-left: 1px;
-    // text-overflow: ellipsis;
-    // white-space: nowrap;
     color: var(--side-bar-logo-title-color);
   }
 }

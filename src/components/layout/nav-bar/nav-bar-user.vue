@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 11:04:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 08:59:22
+ * @LastEditTime: 2022-10-22 22:06:33
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-user.vue
  * @Description: 
 -->
@@ -10,7 +10,7 @@
 <template>
   <div>
     <el-dropdown trigger="click">
-      <div class="m-t-2px">
+      <div class="m-t-2px cursor-pointer">
         <img
           :src="userStore.user.avatar"
           class="w-32px h-32px cursor-pointer b-rd-30px"
@@ -21,7 +21,9 @@
         <el-dropdown-menu>
           <el-popover placement="left-start" :width="width">
             <template #reference>
-              <span> <el-dropdown-item>角色切换</el-dropdown-item> </span>
+              <span>
+                <el-dropdown-item>{{ t('nav.changeRole') }}</el-dropdown-item>
+              </span>
             </template>
             <el-radio-group v-model="role_id" @change="roleChanged">
               <el-row>
@@ -35,7 +37,11 @@
           </el-popover>
           <el-popover placement="left-start" :width="width">
             <template #reference>
-              <span><el-dropdown-item>部门切换</el-dropdown-item></span>
+              <span
+                ><el-dropdown-item>
+                  {{ t('nav.changeDept') }}</el-dropdown-item
+                ></span
+              >
             </template>
             <el-radio-group v-model="dept_id" @change="deptChanged">
               <el-row>
@@ -51,11 +57,13 @@
               </el-row>
             </el-radio-group>
           </el-popover>
-          <router-link to="/user/profile">
-            <el-dropdown-item divided> 个人中心 </el-dropdown-item>
+          <router-link to="/user/profile" class="decoration-none">
+            <el-dropdown-item divided>
+              {{ t('route.userCenter') }}
+            </el-dropdown-item>
           </router-link>
           <el-dropdown-item divided @click="logout">
-            退出登录
+            {{ t('nav.Logout') }}
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -66,15 +74,18 @@
 <script lang="ts" setup name="nav-bar-user">
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysDept, ApiSysRole, ApiSysUser } from '@/api/sysApis'
 import { useGet, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
 import { useUserStore } from '@/stores'
 import type { dept, deptList } from '@/types/system/dept'
 import type { role, roleList } from '@/types/system/role'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const userStore = useUserStore()
 const width = ref(0)
 const role_id = ref('')
@@ -123,7 +134,7 @@ async function roleChanged(v: string) {
   })
   await execute()
   if (data.value === ErrorFlag) return
-  ElMessage.success('角色切换成功,马上重载界面')
+  ElMessage.success(t('nav.changeRoleTip'))
 
   setTimeout(() => {
     window.location.reload()
@@ -136,7 +147,7 @@ async function deptChanged(v: string) {
   })
   await execute()
   if (data.value === ErrorFlag) return
-  ElMessage.success('部门切换成功,马上重载界面')
+  ElMessage.success(t('nav.changeDeptTip'))
 
   setTimeout(() => {
     window.location.reload()
@@ -144,9 +155,9 @@ async function deptChanged(v: string) {
 }
 
 const logout = () => {
-  ElMessageBox.confirm('确定注销并退出系统吗？', '提示', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
+  ElMessageBox.confirm(t('nav.loginOutTip'), t('common.tip'), {
+    confirmButtonText: t('common.submit'),
+    cancelButtonText: t('common.cancel'),
     type: 'warning',
   })
     .then(async () => {
@@ -159,10 +170,3 @@ const logout = () => {
 }
 get_options()
 </script>
-
-<style scoped>
-.router-link-active,
-a {
-  text-decoration: none;
-}
-</style>

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 11:20:23
+ * @LastEditTime: 2022-10-23 09:15:59
  * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
  * @Description: 
 -->
@@ -58,9 +58,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置</el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
     <!-- 操作区域 -->
@@ -73,7 +75,7 @@
           type="primary"
           @click="handleAdd"
         >
-          新增
+          {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -85,7 +87,7 @@
           type="success"
           @click="handleUpdate"
         >
-          修改
+          {{ t('common.edit') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -97,7 +99,7 @@
           type="danger"
           @click="handleDelete"
         >
-          删除
+          {{ t('common.delete') }}
         </el-button>
       </el-col>
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
@@ -223,6 +225,7 @@ import {
 import md5 from 'blueimp-md5'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysUser } from '@/api/apis'
 import {
@@ -234,12 +237,13 @@ import {
   usePut,
   useTableUtil,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import type { deptQueryParam } from '@/types/system/dept'
 import { dictKey } from '@/types/system/dict'
 import type { resetUserPwd, user, userQueryParam } from '@/types/system/user'
 
 import UserManageDialog from './user-manage-dialog.vue'
-
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const props = defineProps({
   dept_id: {
     type: String,

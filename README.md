@@ -1,3 +1,11 @@
+<!--
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-09-30 18:41:35
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-22 09:12:03
+ * @FilePath: \IUI314\README.md
+ * @Description: 
+-->
 ![logo](src/assets/logo.svg)
 
 ## 关于名字
@@ -7,7 +15,7 @@
 
 ## 平台简介
 
-本项目需配合后端项目配套使用，使用TypeScript重写，前面JS版本，是在[ruoyi-vue3](https://github.com/yangzongzhuan/RuoYi-Vue3)
+本项目需配合后端项目配套使用，使用TypeScript重写，前面JS版本(在poem分支)，是在[ruoyi-vue3](https://github.com/yangzongzhuan/RuoYi-Vue3)
 3.8.1上简单修改的,现主要参考`ruoyi-vue3`和[
 arco-design-pro-vue](https://github.com/arco-design/arco-design-pro-vue) 使用TypeScript重新编写，修复了大量js版本bug，方便后续自己使用
 

@@ -2,8 +2,8 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 07:44:59
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 18:35:45
- * @FilePath: \IUI314\src\components\app\nav-bar-theme.vue
+ * @LastEditTime: 2022-10-23 10:26:45
+ * @FilePath: \IUI314\src\components\app\nav-bar-language.vue
  * @Description: 
 -->
 <template>
@@ -14,18 +14,18 @@
         color="var(--drop-down-icon-color)"
         class="cursor-pointer"
       >
-        <SvgIcon name="theme" />
+        <SvgIcon name="language" />
       </el-icon>
       <template #dropdown>
         <el-dropdown-item
-          v-for="theme in theme_list"
-          :key="theme"
-          @click="setTheme(theme)"
+          v-for="lang in langList"
+          :key="lang.k"
+          @click="setLang(lang.k)"
         >
           <span
-            :class="appStore.app.theme === theme ? 'font-bold' : 'font-normal'"
+            :class="appStore.app.lang === lang.k ? 'font-bold' : 'font-normal'"
           >
-            {{ t(`theme.${theme}`) }}
+            {{ lang.v }}
           </span>
         </el-dropdown-item>
       </template>
@@ -33,14 +33,15 @@
   </div>
 </template>
 
-<script setup lang="ts" name="nav-bar-theme">
+<script setup lang="ts" name="nav-bar-language">
 import { useI18n } from 'vue-i18n'
 
-import { useTheme } from '@/hooks'
-import type { MessageSchema } from '@/i18n'
+import { langList } from '@/i18n'
 import { useAppStore } from '@/stores'
 const appStore = useAppStore()
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-
-const { setTheme, theme_list } = useTheme()
+const { locale } = useI18n()
+const setLang = (v: string) => {
+  appStore.setLang(v)
+  locale.value = v
+}
 </script>

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-16 12:58:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 20:54:59
+ * @LastEditTime: 2022-10-23 11:30:16
  * @FilePath: \IUI314\src\views\system\auth\dept-manage.vue
  * @Description: 
 -->
@@ -56,6 +56,7 @@
           type="primary"
           @click="handleAdd"
         >
+          {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -161,6 +162,7 @@ import {
 import type { FormInstance } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { nextTick, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysDept, ApiSysUser } from '@/api/apis'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
@@ -172,14 +174,13 @@ import {
   useFormUtil,
   useGet,
 } from '@/hooks'
-import { useSetupI18n } from '@/i18n'
+import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { dept, deptQueryParam } from '@/types/system/dept'
 import { dictKey } from '@/types/system/dict'
 
 import DeptManageDialog from './pages/dept-manage-dialog.vue'
-const { i18n } = useSetupI18n()
-const { t } = i18n.global
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()
 const refreshTable = ref(true)

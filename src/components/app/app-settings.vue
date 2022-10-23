@@ -2,13 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 22:35:53
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 20:50:45
+ * @LastEditTime: 2022-10-22 18:37:15
  * @FilePath: \IUI314\src\components\app\app-settings.vue
  * @Description: 
 -->
 <template>
   <div>
-    <el-icon>
+    <el-icon class="cursor-pointer">
       <SvgIcon
         name="app-settings"
         @click="appStore.setAppSettingDrawer(true)"

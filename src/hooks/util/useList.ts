@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-12 08:24:42
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 17:56:32
+ * @LastEditTime: 2022-10-22 10:14:27
  * @FilePath: \IUI314\src\hooks\util\useList.ts
  * @Description:
  */
@@ -11,6 +11,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { type Ref, ref } from 'vue'
 
 import type { APIS } from '@/api/apis'
+import { useSetupI18n } from '@/i18n'
 import type { operateInfo, pageData, pageQueryParam } from '@/types/base/apis'
 
 import { useDelete, useGet } from './useRequest'
@@ -62,22 +63,28 @@ export const useDeleteFn = async (
   deleteKey: string,
   row?: { [key: string]: any }
 ): Promise<boolean> => {
+  const { i18n } = useSetupI18n()
+  const { t } = i18n.global
   let flag = false
   const _ids = row?.[idsKey] ? [row?.[idsKey]] : ids.value
   const names = row?.[valuesKey] ? row?.[valuesKey] : values.value
-  await ElMessageBox.confirm(`你是否确定删除数据:${names}`, '删除确认', {
-    type: 'warning',
-  })
+  await ElMessageBox.confirm(
+    t('commonTip.delete') + names + '?',
+    t('commonTip.deleteTitle'),
+    {
+      type: 'warning',
+    }
+  )
     .then(async () => {
       const query = ref<{ [key: string]: any }>({})
       query.value[deleteKey] = _ids
       const { execute } = useDelete(api, query)
       await execute()
-      ElMessage.success('删除成功')
+      ElMessage.success(t('commonTip.deleteSuccess'))
       flag = true
     })
     .catch(() => {
-      ElMessage.info('取消删除')
+      ElMessage.info(t('commonTip.deleteCancel'))
     })
   return flag
 }

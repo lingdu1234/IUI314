@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 19:12:36
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 17:06:11
+ * @LastEditTime: 2022-10-23 11:11:37
  * @FilePath: \IUI314\src\components\app\app-settings-drawer.vue
  * @Description: 
 -->
@@ -15,29 +15,47 @@
     size="300px"
   >
     <template #header>
-      <span class="font-bold">App 设置</span>
+      <span class="font-bold">{{ t('nav.app.setting') }}</span>
     </template>
-    <el-divider content-position="left">主题设置</el-divider>
+    <el-divider content-position="left">
+      {{ t('nav.app.setting') }}
+    </el-divider>
     <el-form class="drawer-form" label-width="80px">
-      <el-form-item label="语言设置">
+      <el-form-item :label="t('nav.app.language')">
         <el-select v-model="lang" @change="setLang">
-          <el-option label="中文" value="zh-CN" />
-          <el-option label="English" value="en-US" />
+          <el-option
+            v-for="lang in langList"
+            :key="lang.k"
+            :label="lang.v"
+            :value="lang.k"
+          />
         </el-select>
       </el-form-item>
-      <el-form-item label="主题设置">
+      <el-form-item :label="t('nav.app.animation')">
+        <el-select v-model="animation" @change="setAnimation">
+          <el-option
+            v-for="v in animationList"
+            :key="v"
+            :label="v"
+            :value="v"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item :label="t('nav.theme')">
         <el-select v-model="theme" @change="set_theme">
           <el-option
             v-for="theme in theme_list"
             :key="theme"
-            :label="theme_map[theme]"
+            :label="t(`theme.${theme}`)"
             :value="theme"
           />
         </el-select>
       </el-form-item>
     </el-form>
     <div v-if="appStore.app.theme === 'userConfig'">
-      <el-divider content-position="left"> 自定义设置 </el-divider>
+      <el-divider content-position="left">
+        {{ t('nav.app.themeConfig') }}
+      </el-divider>
       <!-- 主题相关自定义设置 -->
       <AppUserConfigTheme />
     </div>
@@ -55,7 +73,8 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useTheme } from '@/hooks'
+import { useAnimation, useTheme } from '@/hooks'
+import { type MessageSchema, langList } from '@/i18n'
 import { useAppStore, useConfigThemeStore } from '@/stores'
 
 import AppUserConfigTheme from './app-user-config-theme.vue'
@@ -63,12 +82,15 @@ import AppUserConfigTheme from './app-user-config-theme.vue'
 const appStore = useAppStore()
 const theme = ref(appStore.app.theme)
 const lang = ref(appStore.app.lang)
+const animation = ref(appStore.app.animation)
 const configThemeStore = useConfigThemeStore()
 const appSettingDrawerRef = ref(null)
 
-const { setTheme, theme_map, theme_list } = useTheme()
+const { setTheme, theme_list } = useTheme()
 const handleClose = () => appStore.setAppSettingDrawer(false)
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const { locale } = useI18n()
+const { setAnimation, animationList } = useAnimation()
 // 修改主题
 const set_theme = (v: string) => {
   setTheme(v)
@@ -76,8 +98,6 @@ const set_theme = (v: string) => {
 // 修改语言
 const setLang = (v: string) => {
   appStore.setLang(v)
-
-  console.log('locale :>> ', locale.value)
   locale.value = v
 }
 </script>

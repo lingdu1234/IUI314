@@ -2,39 +2,43 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:37:13
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 17:52:41
+ * @LastEditTime: 2022-10-23 08:28:12
  * @FilePath: \IUI314\src\views\system\user\pages\reset-password.vue
  * @Description: 
 -->
 <template>
-  <el-form ref="pwdRef" :model="user" :rules="rules" label-width="80px">
-    <el-form-item label="旧密码" prop="oldPassword">
+  <el-form ref="pwdRef" :model="user" :rules="rules" label-width="120px">
+    <el-form-item :label="t('profile.oldPassword')" prop="oldPassword">
       <el-input
         v-model="user.oldPassword"
-        placeholder="请输入旧密码"
+        :placeholder="t('profile.oldPassword')"
         type="password"
         show-password
       />
     </el-form-item>
-    <el-form-item label="新密码" prop="newPassword">
+    <el-form-item :label="t('profile.newPassword')" prop="newPassword">
       <el-input
         v-model="user.newPassword"
-        placeholder="请输入新密码"
+        :placeholder="t('profile.newPassword')"
         type="password"
         show-password
       />
     </el-form-item>
-    <el-form-item label="确认密码" prop="confirmPassword">
+    <el-form-item :label="t('profile.confirmPassword')" prop="confirmPassword">
       <el-input
         v-model="user.confirmPassword"
-        placeholder="请确认密码"
+        :placeholder="t('profile.confirmPassword')"
         type="password"
         show-password
       />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submit"> 保存 </el-button>
-      <el-button type="danger" @click="handleClose"> 关闭 </el-button>
+      <el-button type="primary" @click="submit">
+        {{ t('common.save') }}
+      </el-button>
+      <el-button type="danger" @click="handleClose">
+        {{ t('common.close') }}
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -43,15 +47,18 @@
 import md5 from 'blueimp-md5'
 import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { reactive, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysUser, ErrorFlag } from '@/api/apis'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import { setTabBarEmitter, useFormUtil, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
 import { useUserStore } from '@/stores'
 
 const { formValidate } = useFormUtil()
 const userStore = useUserStore()
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const user = reactive({
   oldPassword: undefined,

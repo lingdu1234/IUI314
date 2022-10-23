@@ -99,9 +99,11 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button type="primary" @click="submitForm(dataScopeFormRef)">
-          确 定
+          {{ t('common.submit') }}
         </el-button>
-        <el-button @click="cancel"> 取 消</el-button>
+        <el-button @click="cancel">
+          {{ t('common.cancel') }}
+        </el-button>
       </div>
     </template>
   </el-dialog>
@@ -111,9 +113,11 @@ import type { ElTree, FormInstance } from 'element-plus'
 import { ElMessage } from 'element-plus'
 // import type node from 'element-plus/es/components/tree/src/model/node'
 import { type PropType, nextTick, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysDept, ApiSysRole } from '@/api/apis'
 import { useFormUtil, useGet, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import type { dept } from '@/types/system/dept'
 import type { role } from '@/types/system/role'
 
@@ -136,6 +140,7 @@ const form = ref<role>({ ...props.roleData })
 const dataScopeFormRef = ref<FormInstance>()
 const deptTreeRef = ref<InstanceType<typeof ElTree>>()
 const { formValidate } = useFormUtil()
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 // 菜单权限相关
 const deptTree = ref<dept[]>([])
 const isExpandAll = ref(true)

@@ -75,6 +75,23 @@
             <el-input v-model="form.menu_name" placeholder="请输入菜单名称" />
           </el-form-item>
         </el-col>
+        <el-col :span="12" v-if="form.i18n !== MenuType.F">
+          <el-form-item label="i18n标志" prop="i18n">
+            <template #label>
+              <span>
+                <el-tooltip
+                  content="国际化标志,前缀为(route.)无需输入,需在语言文件中配置"
+                  placement="top"
+                  effect="light"
+                >
+                  <el-icon><InfoFilled /></el-icon>
+                </el-tooltip>
+                i18n标志
+              </span>
+            </template>
+            <el-input v-model="form.i18n" placeholder="请输入国际化标志" />
+          </el-form-item>
+        </el-col>
         <el-col :span="12">
           <el-form-item label="显示排序" prop="order_sort">
             <el-input-number
@@ -84,7 +101,7 @@
             />
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type != 'F'" :span="12">
+        <el-col :span="12" v-if="form.i18n !== MenuType.F">
           <el-form-item>
             <template #label>
               <span>
@@ -103,7 +120,7 @@
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type != 'F'" :span="12">
+        <el-col :span="12" v-if="form.i18n !== MenuType.F">
           <el-form-item prop="path">
             <template #label>
               <span>
@@ -120,7 +137,7 @@
             <el-input v-model="form.path" placeholder="请输入路由地址" />
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type == 'C'" :span="12">
+        <el-col :span="12" v-if="form.i18n === MenuType.C">
           <el-form-item prop="component">
             <template #label>
               <span>
@@ -147,7 +164,7 @@
             <template #label>
               <span>
                 <el-tooltip
-                  v-if="form.menu_type == 'M'"
+                  v-if="form.menu_type === MenuType.M"
                   content="目录的唯一标志，建议格式M-name，如：`M-sys`,`M-system-menu`"
                   placement="top"
                   effect="light"
@@ -155,7 +172,7 @@
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
                 <el-tooltip
-                  v-else-if="form.menu_type == 'C'"
+                  v-else-if="form.menu_type === MenuType.C"
                   content="菜单唯一标志，同目录标志，如：`M-system-menu`"
                   placement="top"
                   effect="light"
@@ -163,21 +180,21 @@
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
                 <el-tooltip
-                  v-else-if="form.menu_type == 'F'"
+                  v-else-if="form.menu_type === MenuType.F"
                   content="API/按钮的唯一标志，可为API,如：`system/user/add`,若只是单纯控制按钮显示，建议B-name，如：`B-export`"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                <span v-if="form.menu_type == 'M'">目录标志</span>
-                <span v-else-if="form.menu_type == 'C'">菜单API</span>
-                <span v-else-if="form.menu_type == 'F'">api标志</span>
+                <span v-if="form.menu_type === MenuType.M">目录标志</span>
+                <span v-else-if="form.menu_type === MenuType.C">菜单API</span>
+                <span v-else-if="form.menu_type == MenuType.F">api标志</span>
               </span>
             </template>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type == 'F'" :span="12">
+        <el-col v-if="form.menu_type === MenuType.F" :span="12">
           <el-form-item prop="method">
             <template #label>
               <span>
@@ -201,7 +218,10 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type == 'F' && form.method == 'GET'" :span="12">
+        <el-col
+          v-if="form.menu_type === MenuType.F && form.method == 'GET'"
+          :span="12"
+        >
           <el-form-item>
             <template #label>
               <span>
@@ -230,7 +250,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type == 'F'" :span="12">
+        <el-col v-if="form.menu_type === MenuType.F" :span="12">
           <el-form-item>
             <template #label>
               <span>
@@ -257,7 +277,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type == 'C'" :span="12">
+        <el-col v-if="form.menu_type === MenuType.C" :span="12">
           <el-form-item>
             <el-input
               v-model="form.query"
@@ -278,7 +298,7 @@
             </template>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type == 'C'" :span="12">
+        <el-col v-if="form.menu_type === MenuType.C" :span="12">
           <el-form-item>
             <template #label>
               <span>
@@ -298,7 +318,10 @@
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type == 'F' && form.method == 'GET'" :span="12">
+        <el-col
+          v-if="form.menu_type === MenuType.F && form.method == 'GET'"
+          :span="12"
+        >
           <el-form-item>
             <template #label>
               <span>
@@ -343,7 +366,7 @@
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type != 'F'" :span="12">
+        <el-col v-if="form.menu_type !== MenuType.F" :span="12">
           <el-form-item>
             <template #label>
               <span>

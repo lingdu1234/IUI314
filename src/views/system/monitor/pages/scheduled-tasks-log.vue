@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 12:19:37
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 17:35:45
+ * @LastEditTime: 2022-10-23 09:57:00
  * @FilePath: \IUI314\src\views\system\monitor\pages\scheduled-tasks-log.vue
  * @Description: 
 -->
@@ -80,9 +80,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置 </el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
     <!-- 操作区域 -->
@@ -96,7 +98,7 @@
           :disabled="!selected"
           @click="handleDelete"
         >
-          删除
+          {{ t('common.delete') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -107,19 +109,19 @@
           :icon="Delete"
           @click="handleClean"
         >
-          清空
+          {{ t('common.clean') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button type="warning" plain :icon="Close" @click="handleClose">
-          关闭
+          {{ t('common.close') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-checkbox
           v-model="fresh_enabled"
           border
-          label="自动刷新"
+          :label="t('common.auto') + t('common.reFresh')"
           @change="fresh_option_changed"
         />
       </el-col>
@@ -213,8 +215,8 @@
         class-name="small-padding fixed-width"
       >
         <template #default="scope">
-          <el-button link icon="View" @click="handleView(scope.row)">
-            详细
+          <el-button link :icon="View" @click="handleView(scope.row)">
+            {{ t('common.detail') }}
           </el-button>
         </template>
       </el-table-column>
@@ -230,10 +232,11 @@
   </div>
 </template>
 <script lang="ts" setup name="dict-data">
-import { Close, Delete, Refresh, Search } from '@element-plus/icons-vue'
+import { Close, Delete, Refresh, Search, View } from '@element-plus/icons-vue'
 import { useIntervalFn } from '@vueuse/core'
 import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
 import { ApiSysScheduledTasks, ApiSysScheduledTasksLog } from '@/api/apis'
@@ -249,6 +252,7 @@ import {
   useGet,
   useTableUtil,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
 import { type dictData, dictKey } from '@/types/system/dict'
 import type {
@@ -264,6 +268,7 @@ const dicts = useDicts(
   dictKey.sysCommonStatus,
   dictKey.sysJobGroup
 )
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const route = useRoute()
 const { useTableSelectChange } = useTableUtil()
 const { formReset } = useFormUtil()

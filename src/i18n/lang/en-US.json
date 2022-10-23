@@ -1,32 +1,148 @@
 {
-  "APP": "DataManagerSystem",
+  "APP": "DataManage",
+  "avatar": {
+    "edit": "UpdateAvatar",
+    "errorTip": "File format error, please upload the image type, such as :JPG,PNG suffix file!",
+    "success": "Avatar has updated success",
+    "title": "ClickToUploadAvatar"
+  },
   "common": {
     "add": "Add",
+    "auto": "Auto",
+    "back": "Back",
     "cancel": "cancel",
+    "clean": "Clean",
+    "close": "Close",
     "collapse": "Collapse",
+    "copy": "Copy",
     "createTime": "create time",
     "delete": "Delete",
+    "detail": "Detail",
     "edit": "Edit",
+    "email": "Email",
     "expand": "Expand",
+    "hidden": "Hidden",
+    "home": "home",
+    "kickOff": "KickOff",
+    "log": "Log",
     "operation": "Operation",
     "order": "Order",
+    "phoneNum": "Phone",
+    "reFresh": "Refresh",
     "reset": "Reset",
+    "save": "Save",
     "search": "Search",
+    "select": "Select",
+    "sex": "Sex",
+    "sexV": {
+      "female": "Female",
+      "male": "Male",
+      "unknown": "unknown"
+    },
+    "show": "Show",
     "status": "status",
-    "submit": "Submit"
+    "submit": "Submit",
+    "tip": "Tips",
+    "update": "Update",
+    "updatePwd": "UpdatePassword"
+  },
+  "commonTip": {
+    "addSuccess": "Add Success",
+    "delete": "Are you sure to delete data:",
+    "deleteCancel": "Delete Canceled",
+    "deleteSuccess": "Delete Success",
+    "deleteTitle": "Confirm Delete",
+    "loginExpired": "Login Expired",
+    "submitInvalid": "Submit error!,please check!",
+    "updateSuccess": "Update Success"
   },
   "dept": {
     "add": "Add Dept",
     "name": "dept name",
+    "searchTip": "search with dept name",
     "status": "dept status",
     "update": "Update Dept"
   },
+  "dict": {
+    "dictData": "DictData"
+  },
   "hello": "hello",
+  "menu": {
+    "name": "Name",
+    "nameTip": "PleaseInputMenuName",
+    "status": "status"
+  },
+  "nav": {
+    "Logout": "LogOut",
+    "app": {
+      "animation": "Animation",
+      "language": "Language",
+      "setting": "APP Setting",
+      "theme": "Theme Setting",
+      "themeConfig": "ThemeUserConfig"
+    },
+    "changeDept": "ChangeDept",
+    "changeDeptTip": "Dept has changed,Reloading soon!",
+    "changeRole": "ChangeRole",
+    "changeRoleTip": "Role has changed,Reloading soon!",
+    "fullScreen": "FullScreen",
+    "loginOutTip": "Are you sure to log off and exit the system?",
+    "setting": "Setting",
+    "size": "Size",
+    "theme": "theme"
+  },
+  "profile": {
+    "basicInfo": "BasicInfo",
+    "confirmPassword": "ConfirmPassword",
+    "dept": "Dept",
+    "name": "User",
+    "newPassword": "NewPassword",
+    "nickName": "NickName",
+    "oldPassword": "OldPassword",
+    "personalInformation": "PersonalInformation",
+    "role": "Role"
+  },
   "route": {
-    "dictData": "dict data",
-    "home": "home",
+    "BasicData": "BasicData",
+    "UserData": "UserData",
+    "authList": "AuthList",
+    "dataScopeTest": "Test",
+    "deptManage": "Dept",
+    "dict": "Dict",
+    "dictData": "DictData",
+    "home": "Home",
+    "loginLog": "LoginLog",
+    "menuManage": "Menu",
+    "monitor": "Monitor",
     "none": "__",
-    "taskLog": "task log",
-    "userCenter": "user center"
+    "onlineUser": "Online",
+    "operaLog": "OperaLog",
+    "postManage": "Post",
+    "roleManage": "Role",
+    "server": "Server",
+    "sysManage": "System",
+    "task": "Task",
+    "taskLog": "TaskLog",
+    "test": "Test",
+    "userCenter": "userCenter",
+    "userManage": "User",
+    "vue": "vue"
+  },
+  "tab": {
+    "closeAllTab": "CloseAllTab",
+    "closeCurrentTab": "CloseCurrentTab",
+    "closeLeftTab": "CloseLestTab",
+    "closeOtherTab": "CloseOtherTab",
+    "closeRightTab": "CloseRightTab",
+    "refresh": "Refresh"
+  },
+  "theme": {
+    "changeTip": "Theme change to:",
+    "classic": "classic",
+    "dark": "dark",
+    "gray": "gray",
+    "light": "light",
+    "pink": "pink",
+    "userConfig": "userConfig"
   }
 }

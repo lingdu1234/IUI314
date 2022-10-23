@@ -2,13 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:48:56
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 12:28:18
+ * @LastEditTime: 2022-10-22 18:36:44
  * @FilePath: \IUI314\src\components\app\screen-full.vue
  * @Description: 
 -->
 <template>
   <div>
-    <el-icon @click="appStore.toggleFullScreen">
+    <el-icon @click="appStore.toggleFullScreen" class="cursor-pointer">
       <SvgIcon
         :name="appStore.app.isFullscreen ? 'fullscreen-exit' : 'fullscreen'"
       />

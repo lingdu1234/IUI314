@@ -50,9 +50,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置</el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -65,7 +67,7 @@
           type="primary"
           @click="handleAdd"
         >
-          新增
+          {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -77,7 +79,7 @@
           type="success"
           @click="handleUpdate"
         >
-          修改
+          {{ t('common.edit') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -89,7 +91,7 @@
           type="danger"
           @click="handleDelete"
         >
-          删除
+          {{ t('common.delete') }}
         </el-button>
       </el-col>
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
@@ -211,6 +213,7 @@ import {
 } from '@element-plus/icons-vue'
 import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysRole } from '@/api/apis'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
@@ -224,6 +227,7 @@ import {
   usePut,
   useTableUtil,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type { role, roleQueryParam } from '@/types/system/role'
@@ -231,6 +235,7 @@ import type { role, roleQueryParam } from '@/types/system/role'
 import RoleManageDataScopeDialog from './pages/role-manage-data-scope-dialog.vue'
 import RoleManageDialog from './pages/role-manage-dialog.vue'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()
 const dicts = useDicts(dictKey.sysNormalDisable)

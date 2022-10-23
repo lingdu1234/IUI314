@@ -2,31 +2,35 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:24:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 17:40:59
+ * @LastEditTime: 2022-10-23 08:22:55
  * @FilePath: \IUI314\src\views\system\user\pages\user-information.vue
  * @Description: 
 -->
 <template>
   <el-form ref="userRef" :model="user" :rules="rules" label-width="80px">
-    <el-form-item label="用户昵称" prop="user_nickname">
+    <el-form-item :label="t('profile.nickName')" prop="user_nickname">
       <el-input v-model="user.user_nickname" maxlength="30" />
     </el-form-item>
-    <el-form-item label="手机号码" prop="phone_num">
+    <el-form-item :label="t('common.phoneNum')" prop="phone_num">
       <el-input v-model="user.phone_num" maxlength="11" />
     </el-form-item>
-    <el-form-item label="邮箱" prop="user_email">
+    <el-form-item :label="t('common.email')" prop="user_email">
       <el-input v-model="user.user_email" maxlength="50" />
     </el-form-item>
-    <el-form-item label="性别">
+    <el-form-item :label="t('common.sex')">
       <el-radio-group v-model="user.sex">
-        <el-radio label="0"> 男 </el-radio>
-        <el-radio label="1"> 女 </el-radio>
-        <el-radio label="2"> 未知 </el-radio>
+        <el-radio label="0"> {{ t('common.sexV.male') }} </el-radio>
+        <el-radio label="1"> {{ t('common.sexV.female') }} </el-radio>
+        <el-radio label="2"> {{ t('common.sexV.unknown') }} </el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submit"> 保存 </el-button>
-      <el-button type="danger" @click="handleClose"> 关闭 </el-button>
+      <el-button type="primary" @click="submit">
+        {{ t('common.save') }}
+      </el-button>
+      <el-button type="danger" @click="handleClose">
+        {{ t('common.close') }}
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -34,11 +38,13 @@
 <script lang="ts" setup name="user-information">
 import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { type PropType, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import { setTabBarEmitter, useFormUtil, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
 import type { user } from '@/types/system/user'
 
@@ -51,6 +57,7 @@ const props = defineProps({
 
 const { formValidate } = useFormUtil()
 const userRef = ref<FormInstance>()
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const rules = ref<FormRules>({
   user_nickname: [

@@ -116,9 +116,11 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button type="primary" @click="submitForm(roleFormRef)">
-          确 定
+          {{ t('common.submit') }}
         </el-button>
-        <el-button @click="cancel"> 取 消</el-button>
+        <el-button @click="cancel">
+          {{ t('common.cancel') }}
+        </el-button>
       </div>
     </template>
   </el-dialog>
@@ -128,9 +130,11 @@ import type { ElTree, FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import type node from 'element-plus/es/components/tree/src/model/node'
 import { type PropType, nextTick, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu, ApiSysRole } from '@/api/apis'
 import { useDicts, useFormUtil, useGet, usePost, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'
 import type { menu } from '@/types/system/menu'
 import type { role } from '@/types/system/role'
@@ -154,6 +158,7 @@ const form = ref<role>({ ...props.roleData })
 const roleFormRef = ref<FormInstance>()
 const menuTreeRef = ref<InstanceType<typeof ElTree>>()
 const { formValidate } = useFormUtil()
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 // 菜单权限相关
 const menuTree = ref<menu[]>([])
 const menuExpand = ref(false)
@@ -180,7 +185,12 @@ const rules = ref<FormRules>({
 const submitForm = async (formRef: FormInstance | undefined) => {
   if (!(await formValidate(formRef))) return
   // 获取选择的节点
-  const menu_ids = menuTreeRef.value?.getCheckedKeys(false)
+  const menu_checked_ids = menuTreeRef.value?.getCheckedKeys(false)
+  // 获取半选择节点
+  const menu_half_checked_ids = menuTreeRef.value?.getHalfCheckedKeys()
+  // 这里需将半选择节点放到全选择节点前面
+  const menu_ids = [...menu_half_checked_ids!, ...menu_checked_ids!]
+
   if (form.value.role_id) {
     let data = { ...form.value }
     data.menu_ids = menu_ids as string[]
@@ -226,13 +236,10 @@ const getMenuTree = async () => {
   menuTree.value = tree.value!
 
   // 设置选择节点
-  // menuIds.value!.forEach((v) => {
-  //   nextTick(() => {
-  //     menuTreeRef.value?.setChecked(v, true, false)
-  //   })
-  // })
-  nextTick(() => {
-    menuTreeRef.value?.setCheckedKeys(menuIds.value!)
+  menuIds.value!.forEach((v) => {
+    nextTick(() => {
+      menuTreeRef.value?.setChecked(v, true, false)
+    })
   })
 }
 getMenuTree()

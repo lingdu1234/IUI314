@@ -45,7 +45,7 @@
         <el-select
           v-model="queryParams.status"
           :clearable="true"
-          placeholder="字典状态"
+          placeholder="状态"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysCommonStatus]"
@@ -67,9 +67,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置 </el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -177,7 +179,7 @@
       >
         <template #default="scope">
           <el-button link :icon="View" @click="handleView(scope.row)">
-            详细
+            {{ t('common.detail') }}
           </el-button>
         </template>
       </el-table-column>
@@ -192,7 +194,13 @@
     />
 
     <!-- 操作日志详细 -->
-    <el-dialog v-model="open" title="操作日志详细" width="700px" append-to-body>
+    <el-dialog
+      v-if="open"
+      v-model="open"
+      title="操作日志详细"
+      width="700px"
+      append-to-body
+    >
       <el-form :model="form" label-width="100px">
         <el-row>
           <el-col :span="12">
@@ -271,6 +279,7 @@
 import { Delete, Refresh, Search, View } from '@element-plus/icons-vue'
 import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysLoginLog, ApiSysOperateLog } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
@@ -285,6 +294,7 @@ import {
   useListData,
   useTableUtil,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type {
@@ -292,6 +302,7 @@ import type {
   operateLogQueryParam,
 } from '@/types/system/operate-log'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const queryRef = ref<FormInstance>()
 const showSearch = ref(true)
 
