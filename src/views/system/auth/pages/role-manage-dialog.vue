@@ -185,7 +185,12 @@ const rules = ref<FormRules>({
 const submitForm = async (formRef: FormInstance | undefined) => {
   if (!(await formValidate(formRef))) return
   // 获取选择的节点
-  const menu_ids = menuTreeRef.value?.getCheckedKeys(false)
+  const menu_checked_ids = menuTreeRef.value?.getCheckedKeys(false)
+  // 获取半选择节点
+  const menu_half_checked_ids = menuTreeRef.value?.getHalfCheckedKeys()
+  // 这里需将半选择节点放到全选择节点前面
+  const menu_ids = [...menu_half_checked_ids!, ...menu_checked_ids!]
+
   if (form.value.role_id) {
     let data = { ...form.value }
     data.menu_ids = menu_ids as string[]
@@ -231,13 +236,10 @@ const getMenuTree = async () => {
   menuTree.value = tree.value!
 
   // 设置选择节点
-  // menuIds.value!.forEach((v) => {
-  //   nextTick(() => {
-  //     menuTreeRef.value?.setChecked(v, true, false)
-  //   })
-  // })
-  nextTick(() => {
-    menuTreeRef.value?.setCheckedKeys(menuIds.value!)
+  menuIds.value!.forEach((v) => {
+    nextTick(() => {
+      menuTreeRef.value?.setChecked(v, true, false)
+    })
   })
 }
 getMenuTree()
