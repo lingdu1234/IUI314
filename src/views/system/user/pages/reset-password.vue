@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:37:13
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 22:57:12
+ * @LastEditTime: 2022-10-23 08:28:12
  * @FilePath: \IUI314\src\views\system\user\pages\reset-password.vue
  * @Description: 
 -->
@@ -34,10 +34,10 @@
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submit">
-        {{ t('command.save') }}
+        {{ t('common.save') }}
       </el-button>
       <el-button type="danger" @click="handleClose">
-        {{ t('command.close') }}
+        {{ t('common.close') }}
       </el-button>
     </el-form-item>
   </el-form>

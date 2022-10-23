@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 20:32:13
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 20:46:43
+ * @LastEditTime: 2022-10-23 09:38:18
  * @FilePath: \IUI314\src\components\common\right-tool-bar.vue
  * @Description: 
 -->
@@ -12,12 +12,21 @@
       <el-tooltip
         class="item"
         effect="light"
-        :content="showSearch ? '隐藏搜索' : '显示搜索'"
+        :content="
+          showSearch
+            ? t('common.hidden') + t('common.search')
+            : t('common.show') + t('common.search')
+        "
         placement="top"
       >
         <el-button circle :icon="Search" @click="toggleSearch()" />
       </el-tooltip>
-      <el-tooltip class="item" effect="light" content="刷新" placement="top">
+      <el-tooltip
+        class="item"
+        effect="light"
+        :content="t('common.reFresh')"
+        placement="top"
+      >
         <el-button circle :icon="Refresh" @click="refresh()" />
       </el-tooltip>
     </el-row>
@@ -25,12 +34,16 @@
 </template>
 <script setup lang="ts" name="right-tool-bar">
 import { Refresh, Search } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
+
+import type { MessageSchema } from '@/i18n'
 const props = defineProps({
   showSearch: {
     type: Boolean,
     default: true,
   },
 })
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const emits = defineEmits(['update:showSearch', 'queryTable'])
 
 // 搜索

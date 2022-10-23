@@ -46,9 +46,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置 </el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -62,7 +64,7 @@
           :icon="Plus"
           @click="handleAdd"
         >
-          新增
+          {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -74,7 +76,7 @@
           :disabled="!single"
           @click="handleUpdate"
         >
-          修改
+          {{ t('common.edit') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -86,7 +88,7 @@
           :disabled="!selected"
           @click="handleDelete"
         >
-          删除
+          {{ t('common.delete') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -97,14 +99,14 @@
           v-if="hasPermission(ApiSysScheduledTasksLog.getList)"
           @click="handleJobLog"
         >
-          日志
+          {{ t('common.log') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-checkbox
           v-model="fresh_enabled"
           border
-          label="自动刷新"
+          :label="t('common.auto') + t('common.reFresh')"
           @change="fresh_option_changed"
         />
       </el-col>
@@ -292,6 +294,7 @@ import {
 import { useIntervalFn } from '@vueuse/core'
 import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { onActivated, onDeactivated, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysScheduledTasks, ApiSysScheduledTasksLog } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
@@ -307,6 +310,7 @@ import {
   usePut,
   useTableUtil,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { router, ScheduledTasksLogRouteName, systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type {
@@ -317,6 +321,7 @@ import type {
 import ScheduledTasksDetail from './pages/scheduled-tasks-detail.vue'
 import ScheduledTasksDialog from './pages/scheduled-tasks-dialog.vue'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const queryRef = ref<FormInstance>()
 const showSearch = ref(true)
 

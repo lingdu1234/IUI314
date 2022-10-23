@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:24:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 22:50:21
+ * @LastEditTime: 2022-10-23 08:22:55
  * @FilePath: \IUI314\src\views\system\user\pages\user-information.vue
  * @Description: 
 -->
@@ -21,15 +21,15 @@
       <el-radio-group v-model="user.sex">
         <el-radio label="0"> {{ t('common.sexV.male') }} </el-radio>
         <el-radio label="1"> {{ t('common.sexV.female') }} </el-radio>
-        <el-radio label="2"> {{ t('command.sexV.unknown') }} </el-radio>
+        <el-radio label="2"> {{ t('common.sexV.unknown') }} </el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submit">
-        {{ t('command.save') }}
+        {{ t('common.save') }}
       </el-button>
       <el-button type="danger" @click="handleClose">
-        {{ t('command.close') }}
+        {{ t('common.close') }}
       </el-button>
     </el-form-item>
   </el-form>

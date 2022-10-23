@@ -40,9 +40,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置</el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -55,7 +57,7 @@
           type="primary"
           @click="handleAdd"
         >
-          新增
+          {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -67,7 +69,7 @@
           type="success"
           @click="handleUpdate"
         >
-          修改
+          {{ t('common.edit') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -79,7 +81,7 @@
           type="danger"
           @click="handleDelete"
         >
-          删除
+          {{ t('common.delete') }}
         </el-button>
       </el-col>
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
@@ -137,7 +139,7 @@
         v-if="hasPermission(ApiSysPost.edit, ApiSysPost.delete)"
         align="center"
         label="操作"
-        width="150px"
+        width="160px"
       >
         <template #default="scope">
           <el-button
@@ -146,7 +148,7 @@
             link
             @click="handleUpdate(scope.row)"
           >
-            修改
+            {{ t('common.edit') }}
           </el-button>
           <el-button
             v-if="hasPermission(ApiSysPost.delete)"
@@ -154,7 +156,7 @@
             link
             @click="handleDelete(scope.row)"
           >
-            删除
+            {{ t('common.delete') }}
           </el-button>
         </template>
       </el-table-column>
@@ -181,6 +183,7 @@
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysPost } from '@/api/apis'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
@@ -193,12 +196,14 @@ import {
   useListData,
   useTableUtil,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type { post, postQueryParam } from '@/types/system/post'
 
 import PostManageDialog from './pages/post-manage-dialog.vue'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()
 const dicts = useDicts(dictKey.sysNormalDisable)

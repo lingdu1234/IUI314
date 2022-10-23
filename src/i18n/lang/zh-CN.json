@@ -6,55 +6,72 @@
     "success": "头像修改成功",
     "title": "点击上传头像"
   },
-  "command": {
-    "close": "关闭",
-    "save": "保存",
-    "sexV": {
-      "unknown": "未知"
-    }
-  },
   "common": {
     "add": "新增",
+    "auto": "自动",
     "back": "返回",
     "cancel": "取消",
+    "clean": "清空",
+    "close": "关闭",
     "collapse": "折叠",
+    "copy": "复制",
     "createTime": "创建时间",
     "delete": "删除",
+    "detail": "详情",
     "edit": "编辑",
     "email": "用户邮箱",
     "expand": "展开",
+    "hidden": "隐藏",
     "home": "首页",
+    "kickOff": "强退",
+    "log": "日志",
     "operation": "操作",
     "order": "排序",
     "phoneNum": "手机号码",
+    "reFresh": "刷新",
     "reset": "重置",
+    "save": "保存",
     "search": "搜索",
     "select": "选择",
     "sex": "性别",
     "sexV": {
       "female": "女",
-      "male": "男"
+      "male": "男",
+      "unknown": "未知"
     },
+    "show": "显示",
     "status": "状态",
     "submit": "提交",
     "tip": "提示",
+    "update": "更新",
     "updatePwd": "修改密码"
   },
   "commonTip": {
+    "addSuccess": "新增成功",
     "delete": "你是否确定删除数据:",
     "deleteCancel": "取消删除",
     "deleteSuccess": "删除成功",
     "deleteTitle": "删除确认",
     "loginExpired": "登录过期",
-    "submitInvalid": "提交错误,请检查后提交"
+    "submitInvalid": "提交错误,请检查后提交",
+    "updateSuccess": "更新成功"
   },
   "dept": {
     "add": "新增部门",
     "name": "部门名称",
+    "searchTip": "请输入部门名称搜索",
     "status": "部门状态",
     "update": "更新部门"
   },
+  "dict": {
+    "dictData": "字典数据"
+  },
   "hello": "您好",
+  "menu": {
+    "name": "菜单名称",
+    "nameTip": "请输入字典名称",
+    "status": "菜单状态"
+  },
   "nav": {
     "Logout": "退出登录",
     "app": {

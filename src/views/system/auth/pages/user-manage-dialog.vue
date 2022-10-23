@@ -213,9 +213,11 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button type="primary" @click="submitForm(userRef)">
-          确 定
+          {{ t('common.submit') }}
         </el-button>
-        <el-button @click="cancel"> 取 消 </el-button>
+        <el-button @click="cancel">
+          {{ t('common.cancel') }}
+        </el-button>
       </div>
     </template>
   </el-dialog>
@@ -224,9 +226,11 @@
 import md5 from 'blueimp-md5'
 import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { inject, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysPost, ApiSysRole, ApiSysUser } from '@/api/apis'
 import { useDicts, useFormUtil, useGet, usePost, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import type { dept } from '@/types/system/dept'
 import { dictKey } from '@/types/system/dict'
 import type { post, postList } from '@/types/system/post'
@@ -255,6 +259,7 @@ const roleOptions = ref<role[]>([])
 const postOptions = ref<post[]>([])
 const userRef = ref<FormInstance>()
 const { formValidate } = useFormUtil()
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const deptTreeProps = {
   value: 'dept_id',

@@ -50,9 +50,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置 </el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -67,7 +69,7 @@
           @click="handleDelete"
           v-if="hasPermission(ApiSysLoginLog.delete)"
         >
-          删除
+          {{ t('common.delete') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -78,7 +80,7 @@
           @click="handleClean"
           v-if="hasPermission(ApiSysLoginLog.clean)"
         >
-          清空
+          {{ t('common.clean') }}
         </el-button>
       </el-col>
 
@@ -182,6 +184,7 @@
 import { Delete, Refresh, Search } from '@element-plus/icons-vue'
 import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysLoginLog } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
@@ -196,12 +199,14 @@ import {
   useListData,
   useTableUtil,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import { dictKey } from '@/types/system/dict'
 import type { loginLog, loginLogQueryParam } from '@/types/system/login-log'
 
 const queryRef = ref<FormInstance>()
 const showSearch = ref(true)
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 //  字典数据
 const dicts = useDicts(dictKey.sysNormalDisable)
 const { formReset } = useFormUtil()

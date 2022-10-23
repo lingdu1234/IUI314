@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 09:32:17
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 08:25:50
+ * @LastEditTime: 2022-10-23 08:53:59
  * @FilePath: \IUI314\src\views\system\menu\auth.vue
  * @Description: 
 -->
@@ -54,9 +54,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery()"> 重置 </el-button>
+        <el-button :icon="Refresh" @click="resetQuery()">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
     <!-- 表格区域 -->
@@ -245,6 +247,7 @@
 import { DataBoard, Refresh, Search } from '@element-plus/icons-vue'
 import type { FormInstance } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysDbApi, ApiSysMenu } from '@/api/apis'
 import {
@@ -254,6 +257,7 @@ import {
   useFormUtil,
   useListData,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import { MenuType } from '@/types/base/router'
 import { dictKey } from '@/types/system/dict'
@@ -261,6 +265,7 @@ import type { authMenu, menuQueryParam } from '@/types/system/menu'
 
 import AuthDialog from './pages/auth-dialog.vue'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const queryRef = ref<FormInstance>()
 const { formReset } = useFormUtil()
 // 字典数据

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 18:21:33
+ * @LastEditTime: 2022-10-23 08:53:13
  * @FilePath: \IUI314\src\views\system\dict\type.vue
  * @Description: 字典类型数据
 -->
@@ -58,9 +58,11 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          搜索
+          {{ t('common.search') }}
         </el-button>
-        <el-button :icon="Refresh" @click="resetQuery"> 重置 </el-button>
+        <el-button :icon="Refresh" @click="resetQuery">
+          {{ t('common.reset') }}
+        </el-button>
       </el-form-item>
     </el-form>
 
@@ -74,7 +76,7 @@
           @click="handleAdd"
           v-if="hasPermission(ApiSysDictType.add)"
         >
-          新增
+          {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -86,7 +88,7 @@
           @click="handleUpdate"
           v-if="hasPermission(ApiSysDictType.edit)"
         >
-          修改
+          {{ t('common.edit') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -98,7 +100,7 @@
           @click="handleDelete"
           v-if="hasPermission(ApiSysDictType.delete)"
         >
-          删除
+          {{ t('common.delete') }}
         </el-button>
       </el-col>
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
@@ -172,7 +174,7 @@
             @click="handleUpdate(scope.row)"
             v-if="hasPermission(ApiSysDictType.edit)"
           >
-            修改
+            {{ t('common.edit') }}
           </el-button>
           <el-button
             type="danger"
@@ -181,7 +183,7 @@
             @click="handleDelete(scope.row)"
             v-if="hasPermission(ApiSysDictType.delete)"
           >
-            删除
+            {{ t('common.delete') }}
           </el-button>
         </template>
       </el-table-column>
@@ -236,9 +238,11 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button type="primary" @click="submitForm(dictRef)">
-            确 定
+            {{ t('common.submit') }}
           </el-button>
-          <el-button @click="cancel"> 取 消 </el-button>
+          <el-button @click="cancel">
+            {{ t('common.cancel') }}
+          </el-button>
         </div>
       </template>
     </el-dialog>
@@ -248,6 +252,7 @@
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysDictType, ErrorFlag } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
@@ -264,6 +269,7 @@ import {
   usePut,
   useTableUtil,
 } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { DictDataRouteName, router, systemMenus } from '@/router'
 import {
   type dictType,
@@ -271,6 +277,7 @@ import {
   dictKey,
 } from '@/types/system/dict'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const queryRef = ref<FormInstance>()
 const dictRef = ref<FormInstance>()
 const showSearch = ref(true)

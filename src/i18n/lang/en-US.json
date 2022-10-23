@@ -3,58 +3,75 @@
   "avatar": {
     "edit": "UpdateAvatar",
     "errorTip": "File format error, please upload the image type, such as :JPG,PNG suffix file!",
-    "success": "Avatar has updated suceess",
+    "success": "Avatar has updated success",
     "title": "ClickToUploadAvatar"
-  },
-  "command": {
-    "close": "Close",
-    "save": "Save",
-    "sexV": {
-      "unknown": "unknown"
-    }
   },
   "common": {
     "add": "Add",
+    "auto": "Auto",
     "back": "Back",
     "cancel": "cancel",
+    "clean": "Clean",
+    "close": "Close",
     "collapse": "Collapse",
+    "copy": "Copy",
     "createTime": "create time",
     "delete": "Delete",
+    "detail": "Detail",
     "edit": "Edit",
     "email": "Email",
     "expand": "Expand",
+    "hidden": "Hidden",
     "home": "home",
+    "kickOff": "KickOff",
+    "log": "Log",
     "operation": "Operation",
     "order": "Order",
     "phoneNum": "Phone",
+    "reFresh": "Refresh",
     "reset": "Reset",
+    "save": "Save",
     "search": "Search",
     "select": "Select",
     "sex": "Sex",
     "sexV": {
       "female": "Female",
-      "male": "Male"
+      "male": "Male",
+      "unknown": "unknown"
     },
+    "show": "Show",
     "status": "status",
     "submit": "Submit",
     "tip": "Tips",
+    "update": "Update",
     "updatePwd": "UpdatePassword"
   },
   "commonTip": {
+    "addSuccess": "Add Success",
     "delete": "Are you sure to delete data:",
     "deleteCancel": "Delete Canceled",
     "deleteSuccess": "Delete Success",
     "deleteTitle": "Confirm Delete",
     "loginExpired": "Login Expired",
-    "submitInvalid": "Submit error!,please check!"
+    "submitInvalid": "Submit error!,please check!",
+    "updateSuccess": "Update Success"
   },
   "dept": {
     "add": "Add Dept",
     "name": "dept name",
+    "searchTip": "search with dept name",
     "status": "dept status",
     "update": "Update Dept"
   },
+  "dict": {
+    "dictData": "DictData"
+  },
   "hello": "hello",
+  "menu": {
+    "name": "Name",
+    "nameTip": "PleaseInputMenuName",
+    "status": "status"
+  },
   "nav": {
     "Logout": "LogOut",
     "app": {
@@ -78,7 +95,7 @@
     "confirmPassword": "ConfirmPassword",
     "dept": "Dept",
     "name": "User",
-    "newPassword": "NewPaasword",
+    "newPassword": "NewPassword",
     "nickName": "NickName",
     "oldPassword": "OldPassword",
     "personalInformation": "PersonalInformation",

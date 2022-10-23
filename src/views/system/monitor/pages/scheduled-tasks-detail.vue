@@ -90,16 +90,20 @@
     </el-form>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="cancel"> 关 闭 </el-button>
+        <el-button @click="cancel">
+          {{ t('common.close') }}
+        </el-button>
       </div>
     </template>
   </el-dialog>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysScheduledTasks } from '@/api/sysApis'
 import { parseTime, useDicts, useGet } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'
 import type { scheduledTasks } from '@/types/system/scheduled-tasks'
 
@@ -119,6 +123,7 @@ const props = defineProps({
 })
 const emits = defineEmits(['closeDialog'])
 const form = ref<scheduledTasks>({})
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const getTaskDetail = async () => {
   const { data, execute } = useGet(ApiSysScheduledTasks.getById, {

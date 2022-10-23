@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 22:09:18
+ * @LastEditTime: 2022-10-23 08:37:39
  * @FilePath: \IUI314\src\views\system\menu\pages\menu-table.vue
  * @Description: 
 -->
@@ -96,7 +96,7 @@
       >
         <template #default="scope">
           <el-tooltip
-            content="修改"
+            :content="t('common.edit')"
             placement="top"
             effect="light"
             v-if="hasPermission(ApiSysMenu.edit)"
@@ -109,7 +109,7 @@
             />
           </el-tooltip>
           <el-tooltip
-            content="复制"
+            :content="t('common.copy')"
             placement="top"
             effect="light"
             v-if="hasPermission(ApiSysMenu.edit)"
@@ -122,7 +122,7 @@
             />
           </el-tooltip>
           <el-tooltip
-            content="新增"
+            :content="t('common.add')"
             placement="top"
             effect="light"
             v-if="hasPermission(ApiSysMenu.add)"
@@ -130,7 +130,7 @@
             <el-button link :icon="FolderAdd" @click="handleAdd(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="删除"
+            :content="t('common.delete')"
             placement="top"
             effect="light"
             v-if="hasPermission(ApiSysMenu.delete)"
@@ -163,9 +163,11 @@
 import { CopyDocument, Delete, Edit, FolderAdd } from '@element-plus/icons-vue'
 import { type TableInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { type PropType, nextTick, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu } from '@/api/apis'
 import { hasPermission, parseTime, useDelete, useDicts } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { MenuType } from '@/types/base/router'
 import { dictKey } from '@/types/system/dict'
 import type { menu, menuQueryParam } from '@/types/system/menu'
@@ -173,6 +175,7 @@ import type { menu, menuQueryParam } from '@/types/system/menu'
 import MenuDialog from './menu-dialog.vue'
 import { getSelectTree, useHandleMenuLazy } from './useMenu'
 
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 // menuDialogRef
 const menuDialogRef = ref<InstanceType<typeof MenuDialog>>()
 const menuTableRef = ref<TableInstance>()

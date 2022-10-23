@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 16:31:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 08:29:33
+ * @LastEditTime: 2022-10-23 09:04:20
  * @FilePath: \IUI314\src\views\system\auth\user-manage.vue
  * @Description: 
 -->
@@ -13,7 +13,7 @@
         <div>
           <el-input
             v-model="dept_name"
-            placeholder="请输入部门名称"
+            :placeholder="t('dept.searchTip')"
             clearable
             :prefix-icon="Search"
             class="m-b-20px"
@@ -42,13 +42,17 @@
 import { Search } from '@element-plus/icons-vue'
 import type { ElTree } from 'element-plus'
 import { provide, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysDept } from '@/api/apis'
 import { useGet } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { dept } from '@/types/system/dept'
 
 import UserManageForm from './pages/user-manage-form.vue'
+
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const deptTreeProps = {
   label: 'dept_name',

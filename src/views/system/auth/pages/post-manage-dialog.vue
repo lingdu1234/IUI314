@@ -70,9 +70,11 @@
     <template #footer>
       <div class="dialog-footer">
         <el-button type="primary" @click="submitForm(userRef)">
-          确 定
+          {{ t('common.submit') }}
         </el-button>
-        <el-button @click="cancel"> 取 消</el-button>
+        <el-button @click="cancel">
+          {{ t('common.cancel') }}
+        </el-button>
       </div>
     </template>
   </el-dialog>
@@ -81,9 +83,11 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { type PropType, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysPost } from '@/api/apis'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'
 import type { post } from '@/types/system/post'
 
@@ -105,7 +109,7 @@ const emits = defineEmits(['closeDialog'])
 const form = ref<post>({ ...props.postData })
 const userRef = ref<FormInstance>()
 const { formValidate } = useFormUtil()
-
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 // 字典数据
 const dicts = useDicts(dictKey.sysNormalDisable)
 
