@@ -1,12 +1,11 @@
-<!--
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-09-30 18:41:35
- * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 09:12:03
- * @FilePath: \IUI314\README.md
- * @Description: 
--->
-![logo](src/assets/logo.svg)
+<p align="center">
+  <img src='src/assets/logo.svg' />
+  <br/>
+    <span size="30">π UI</span>
+  <br>
+   <a href="./README.md"><span>中文</span></a>   |    <a href="./README_EN.md"><span>english</span></a>
+</p>
+
 
 ## 关于名字
 
@@ -19,12 +18,17 @@
 3.8.1上简单修改的,现主要参考`ruoyi-vue3`和[
 arco-design-pro-vue](https://github.com/arco-design/arco-design-pro-vue) 使用TypeScript重新编写，修复了大量js版本bug，方便后续自己使用
 
-前端git：  [poem_vue_admin](https://github.com/lingdu1234/poem_vue_admin)   <https://github.com/lingdu1234/poem_vue_admin>
+## 配套后端
+* Poem 版本:[poem_admin](https://github.com/lingdu1234/poem_admin)    
+   <https://github.com/lingdu1234/poem_admin>
+  
+* Axum 版本:[axum_admin](https://github.com/lingdu1234/axum_admin)   
+  <https://github.com/lingdu1234/axum_admin> 
 
-后端git：  [poem_admin](https://github.com/lingdu1234/poem_admin)   <https://github.com/lingdu1234/poem_admin>
 
-预览地址：
-[iui314.vercel.app](https://poem-vue-admin.vercel.app/)
+## 预览地址：
+[iui314.vercel.app](https://iui314.vercel.app/)   
+   
 [预览地址](https://iui314preview.iu314.top/)
 
 ## 完成的功能
