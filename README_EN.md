@@ -35,6 +35,8 @@ arco-design-pro-vue](https://github.com/arco-design/arco-design-pro-vue) 使用T
 
 - [x] User management：The user is the operator of the system panel. This module is used to configure system users。
 
+- [x] internationalization:Relatively complete internationalization adn route internationalization with `vue-i18n`。
+
 - [x] Department management：Configure the  organization (company, department, and group), display data permissions in a tree structure。
 
 - [x] Post management：Set the position of a system user。

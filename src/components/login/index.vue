@@ -45,7 +45,7 @@ watch(
 
 .login-container {
   width: 100%;
-  min-width: 630px;
+  min-width: 600px;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -61,7 +61,7 @@ watch(
   width: 1000px;
   // min-width: 1000px;
   // min-height: 600px;
-  height: 600px;
+  height: 500px;
   padding: 25px;
   justify-content: center;
   align-items: center;
@@ -93,7 +93,24 @@ html.dark {
     display: none;
   }
   .login-main {
-    width: 620px !important;
+    width: 580px !important;
+    transform: scale(0.8);
+  }
+}
+@media (max-width: 720px) {
+  .login-tip {
+    display: none;
+  }
+  .login-main {
+    // width: 580px !important;
+    transform: scale(0.7);
+  }
+}
+
+@media (max-height: 900px) {
+  .login-main {
+    // width: 580px !important;
+    transform: scale(0.6);
   }
 }
 

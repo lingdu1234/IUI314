@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 16:21:17
+ * @LastEditTime: 2022-10-23 21:25:13
  * @FilePath: \IUI314\vite.config.ts
  * @Description:
  */
@@ -10,6 +10,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import { visualizer } from 'rollup-plugin-visualizer' //可视化显示文件大小
 import Unocss from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import ElementPlus from 'unplugin-element-plus/vite'
@@ -31,6 +32,7 @@ export default ({ mode }: ConfigEnv) =>
     plugins: [
       vue(),
       vueJsx(),
+      visualizer(),
       vueSetupExtend(),
       DefineOptions(),
       Unocss(),
