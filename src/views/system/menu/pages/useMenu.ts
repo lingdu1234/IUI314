@@ -1,3 +1,12 @@
+/*
+ * @Author: lingdu waong2005@126.com
+ * @Date: 2022-10-12 18:47:56
+ * @LastEditors: lingdu waong2005@126.com
+ * @LastEditTime: 2022-10-27 16:58:14
+ * @FilePath: \IUI314\src\views\system\menu\pages\useMenu.ts
+ * @Description:
+ */
+
 import { ref } from 'vue'
 
 import { ApiSysMenu } from '@/api/apis'
@@ -5,14 +14,6 @@ import { useGet } from '@/hooks'
 import { MenuType } from '@/types/base/router'
 import type { menu, menuList, menuQueryParam } from '@/types/system/menu'
 
-/*
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-12 18:47:56
- * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-14 21:08:00
- * @FilePath: \IUI314\src\views\system\menu\useMenu.ts
- * @Description:
- */
 export const useHandleMenuLazy = (queryParams: menuQueryParam) => {
   const mainTree = ref<menu[]>([])
   const menuTreeMap = ref<{ [key: string]: menu[] }>({})

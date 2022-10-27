@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 09:32:17
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 08:53:59
+ * @LastEditTime: 2022-10-27 16:02:14
  * @FilePath: \IUI314\src\views\system\menu\auth.vue
  * @Description: 
 -->
@@ -16,19 +16,19 @@
       label-width="68px"
       class="base-form"
     >
-      <el-form-item label="菜单名称" prop="menu_name">
+      <el-form-item :label="t('menu.name')" prop="menu_name">
         <el-input
           v-model="queryParams.menu_name"
           clearable
-          placeholder="请输入字典名称"
+          :placeholder="t('menu.nameTip')"
           @keyup.enter="getList"
         />
       </el-form-item>
-      <el-form-item label="菜单状态" prop="status">
+      <el-form-item :label="t('menu.status')" prop="status">
         <el-select
           v-model="queryParams.status"
           :clearable="true"
-          placeholder="字典状态"
+          :placeholder="t('menu.status')"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysNormalDisable]"
@@ -38,10 +38,10 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="请求方法" prop="method">
+      <el-form-item :label="t('menu.method')" prop="method">
         <el-select
           v-model="queryParams.method"
-          placeholder="菜单状态"
+          :placeholder="t('menu.method')"
           clearable
         >
           <el-option
@@ -64,20 +64,20 @@
     <!-- 表格区域 -->
     <el-table :data="menu_list" tooltip-effect="light">
       <el-table-column
-        label="菜单编号"
+        :label="t('menu.id')"
         align="center"
         width="100"
         show-overflow-tooltip
         prop="order_sort"
       />
       <el-table-column
-        label="菜单名称"
+        :label="t('menu.name')"
         align="center"
         prop="menu_name"
         show-overflow-tooltip
       />
       <el-table-column
-        label="菜单api"
+        label="api"
         align="center"
         width="150px"
         show-overflow-tooltip
@@ -91,7 +91,7 @@
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column label="请求方法" align="center" prop="method">
+      <el-table-column :label="t('menu.method')" align="center" prop="method">
         <template #default="scope">
           <dict-tag
             :options="dicts[dictKey.sysApiMethod]"
@@ -101,7 +101,7 @@
       </el-table-column>
       <el-table-column
         prop="data_scope"
-        label="数据权限"
+        :label="t('menu.dataScope')"
         width="100"
         align="center"
       >
@@ -114,11 +114,11 @@
           <el-tag v-else>not support</el-tag>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="数据库" width="160px">
+      <el-table-column align="center" :label="t('menu.database')" width="160px">
         <template #default="scope">
           <el-popover
             placement="top-start"
-            title="数据库"
+            :title="t('menu.database')"
             trigger="hover"
             :width="get_max_length(scope.row.dbs) * 9 + 5"
           >
@@ -164,7 +164,11 @@
           </el-popover>
         </template>
       </el-table-column>
-      <el-table-column label="日志" align="center" prop="log_method">
+      <el-table-column
+        :label="t('common.log')"
+        align="center"
+        prop="log_method"
+      >
         <template #default="scope">
           <dict-tag
             :options="dicts[dictKey.apiLogMethod]"
@@ -172,7 +176,11 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="缓存" align="center" prop="data_cache_method">
+      <el-table-column
+        :label="t('common.cache')"
+        align="center"
+        prop="data_cache_method"
+      >
         <template #default="scope">
           <div v-if="scope.row.method !== 'GET'" />
           <dict-tag
@@ -182,7 +190,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center" prop="status">
+      <el-table-column :label="t('common.status')" align="center" prop="status">
         <template #default="scope">
           <dict-tag
             :options="dicts[dictKey.sysNormalDisable]"
@@ -191,7 +199,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="创建时间"
+        :label="t('common.createTime')"
         align="center"
         prop="created_at"
         width="180"
@@ -202,7 +210,7 @@
       </el-table-column>
       <el-table-column
         v-if="hasPermission(ApiSysMenu.updateLogCache, ApiSysDbApi.edit)"
-        label="操作"
+        :label="t('common.operation')"
         align="center"
         width="200"
         class-name="small-padding fixed-width"
@@ -210,7 +218,7 @@
         <template #default="scope">
           <el-tooltip
             v-if="scope.row.menu_type == 'F'"
-            content="数据库关联"
+            :content="t('menu.dbRelation')"
             placement="top"
             effect="light"
           >
@@ -220,7 +228,7 @@
               :icon="DataBoard"
               @click="handleDbRelation(scope.row)"
             >
-              数据库
+              {{ t('menu.dbRelation') }}
             </el-button>
           </el-tooltip>
         </template>

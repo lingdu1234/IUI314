@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 19:58:32
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 17:56:32
+ * @LastEditTime: 2022-10-25 13:58:37
  * @FilePath: \IUI314\src\types\base\router.ts
  * @Description:
  */
@@ -33,13 +33,13 @@ export interface AppRouteRecordRaw {
 }
 
 export interface AppRouteMeta {
-  title: string
-  icon?: string
-  activeMenu?: string
-  hidden?: boolean
-  link?: string
-  i18n?: string
-  no_cache?: boolean
+  title: string // 标题显示
+  icon?: string // 图标名称
+  activeMenu?: string // 激活菜单路径
+  hidden?: boolean // 是否隐藏
+  link?: string // 外链
+  i18n?: string // 国际化标志
+  no_cache?: boolean // keep-alive 标志 true时不缓存
 }
 
 /**

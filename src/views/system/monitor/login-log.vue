@@ -147,7 +147,7 @@
       <el-table-column label="登录状态" align="center" prop="status">
         <template #default="scope">
           <dict-tag
-            :options="dicts[dictKey.sysNormalDisable]"
+            :options="dicts[dictKey.sysCommonStatus]"
             :value="scope.row.status"
           />
         </template>
@@ -208,7 +208,7 @@ const queryRef = ref<FormInstance>()
 const showSearch = ref(true)
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 //  字典数据
-const dicts = useDicts(dictKey.sysNormalDisable)
+const dicts = useDicts(dictKey.sysCommonStatus)
 const { formReset } = useFormUtil()
 const { useTableSelectChange } = useTableUtil()
 const { handleSelectionChangeFn, ids, values, selected } =

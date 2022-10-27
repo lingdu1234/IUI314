@@ -10,35 +10,35 @@
       ref="menuRef"
       :model="form"
       :rules="rules"
-      label-width="100px"
+      label-width="120px"
       class="base-form"
     >
       <el-row>
         <el-col :span="24">
-          <el-form-item label="上级菜单">
+          <el-form-item :label="t('menu.parentMenu')">
             <el-tree-select
               v-model="form.pid"
               :data="menuSelectTree"
               :props="menuSelectTreeProps"
               check-strictly
               :render-after-expand="false"
-              placeholder="请选择上级目录,不填为主目录"
+              :placeholder="t('menu.parentMenuTip')"
               clearable
               filterable
             />
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="菜单类型" prop="menu_type">
+          <el-form-item :label="t('menu.menuType')" prop="menu_type">
             <el-radio-group v-model="form.menu_type">
-              <el-radio label="M"> 目录 </el-radio>
-              <el-radio label="C"> 菜单 </el-radio>
-              <el-radio label="F"> api/按钮 </el-radio>
+              <el-radio label="M"> {{ t('menu.catalogs') }} </el-radio>
+              <el-radio label="C"> {{ t('menu.menu') }} </el-radio>
+              <el-radio label="F"> Api/{{ t('menu.button') }} </el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
         <el-col v-if="form.menu_type != 'F'" :span="24">
-          <el-form-item label="菜单图标" prop="icon">
+          <el-form-item :label="t('menu.menu') + t('common.icon')" prop="icon">
             <el-popover
               v-model:visible="showChooseIcon"
               placement="bottom-start"
@@ -49,7 +49,7 @@
               <template #reference>
                 <el-input
                   v-model="form.icon"
-                  placeholder="点击选择图标"
+                  :placeholder="t('menu.menuIconTip')"
                   readonly
                   @click="showSelectIcon"
                 >
@@ -71,29 +71,35 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="菜单名称" prop="menu_name">
-            <el-input v-model="form.menu_name" placeholder="请输入菜单名称" />
+          <el-form-item :label="t('menu.name')" prop="menu_name">
+            <el-input
+              v-model="form.menu_name"
+              :placeholder="t('menu.nameTip')"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12" v-if="form.i18n !== MenuType.F">
-          <el-form-item label="i18n标志" prop="i18n">
+          <el-form-item prop="i18n">
             <template #label>
               <span>
                 <el-tooltip
-                  content="国际化标志,前缀为(route.)无需输入,需在语言文件中配置"
+                  :content="t('menu.i18nFlagTip')"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                i18n标志
+                {{ t('menu.i18nFlag') }}
               </span>
             </template>
-            <el-input v-model="form.i18n" placeholder="请输入国际化标志" />
+            <el-input
+              v-model="form.i18n"
+              :placeholder="t('menu.i18nFlagTip2')"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
-          <el-form-item label="显示排序" prop="order_sort">
+          <el-form-item :label="t('common.order')" prop="order_sort">
             <el-input-number
               v-model="form.order_sort"
               controls-position="right"
@@ -106,17 +112,18 @@
             <template #label>
               <span>
                 <el-tooltip
-                  content="选择是外链则路由地址需要以`http(s)://`开头"
+                  :content="t('menu.isFrameTip')"
                   placement="top"
                   effect="light"
                 >
-                  <el-icon><InfoFilled /></el-icon> </el-tooltip
-                >是否外链
+                  <el-icon><InfoFilled /></el-icon>
+                </el-tooltip>
+                {{ t('menu.isFrame') }}
               </span>
             </template>
             <el-radio-group v-model="form.is_frame">
-              <el-radio label="1"> 是 </el-radio>
-              <el-radio label="0"> 否 </el-radio>
+              <el-radio label="1"> {{ t('common.yes') }} </el-radio>
+              <el-radio label="0"> {{ t('common.no') }} </el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -125,71 +132,72 @@
             <template #label>
               <span>
                 <el-tooltip
-                  content="访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头"
+                  :content="t('menu.pathTip')"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                路由地址
+                {{ t('menu.path') }}
               </span>
             </template>
-            <el-input v-model="form.path" placeholder="请输入路由地址" />
+            <el-input v-model="form.path" :placeholder="t('menu.pathTip2')" />
           </el-form-item>
         </el-col>
-        <el-col :span="12" v-if="form.i18n === MenuType.C">
+        <el-col :span="12" v-if="form.menu_type === MenuType.C">
           <el-form-item prop="component">
             <template #label>
               <span>
                 <el-tooltip
-                  content="访问的组件路径，如：`system/user/index`，默认在`views`目录下"
+                  :content="t('menu.compPathTip')"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                组件路径
+                {{ t('menu.compPath') }}
               </span>
             </template>
-            <el-input v-model="form.component" placeholder="请输入组件路径" />
+            <el-input
+              v-model="form.component"
+              :placeholder="t('menu.compPathTip2')"
+            />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item prop="api">
             <el-input
               v-model="form.api"
-              placeholder="请输入唯一标识"
+              :placeholder="t('menu.apiTip')"
               maxlength="100"
             />
             <template #label>
               <span>
                 <el-tooltip
                   v-if="form.menu_type === MenuType.M"
-                  content="目录的唯一标志，建议格式M-name，如：`M-sys`,`M-system-menu`"
                   placement="top"
                   effect="light"
                 >
+                  <template #content>
+                    <div>
+                      A:{{ t('menu.apiTipM') }}
+                      <br />
+                      B:{{ t('menu.apiTipC') }}
+                      <br />
+                      C:{{ t('menu.apiTipF') }}
+                    </div>
+                  </template>
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                <el-tooltip
-                  v-else-if="form.menu_type === MenuType.C"
-                  content="菜单唯一标志，同目录标志，如：`M-system-menu`"
-                  placement="top"
-                  effect="light"
-                >
-                  <el-icon><InfoFilled /></el-icon>
-                </el-tooltip>
-                <el-tooltip
-                  v-else-if="form.menu_type === MenuType.F"
-                  content="API/按钮的唯一标志，可为API,如：`system/user/add`,若只是单纯控制按钮显示，建议B-name，如：`B-export`"
-                  placement="top"
-                  effect="light"
-                >
-                  <el-icon><InfoFilled /></el-icon>
-                </el-tooltip>
-                <span v-if="form.menu_type === MenuType.M">目录标志</span>
-                <span v-else-if="form.menu_type === MenuType.C">菜单API</span>
-                <span v-else-if="form.menu_type == MenuType.F">api标志</span>
+                <span v-if="form.menu_type === MenuType.M">
+                  {{ t('menu.catalogsFlag') }}
+                </span>
+                <span v-else-if="form.menu_type === MenuType.C">
+                  {{ t('menu.menuFlag') }}
+                </span>
+                <span v-else-if="form.menu_type == MenuType.F">
+                  {{ t('menu.apiFlag') }}
+                </span>
               </span>
             </template>
           </el-form-item>
@@ -287,7 +295,7 @@
             <template #label>
               <span>
                 <el-tooltip
-                  content='访问路由的默认传递参数，如：`{id: 1, name: "\i"}`'
+                  content="访问路由的默认传递参数，如：{id: 1, name: 'i'} "
                   placement="top"
                   effect="light"
                 >
@@ -414,11 +422,13 @@
 import { InfoFilled, Search } from '@element-plus/icons-vue'
 import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { type PropType, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu, ErrorFlag } from '@/api/apis'
 import type IconSelect from '@/components/common/icon-select.vue'
 import SvgIcon from '@/components/common/svg-icon.vue'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { MenuType } from '@/types/base/router'
 import { dictKey } from '@/types/system/dict'
 import type { menu } from '@/types/system/menu'
@@ -441,6 +451,7 @@ const props = defineProps({
     default: '',
   },
 })
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const { formReset, formValidate } = useFormUtil()
 const emits = defineEmits(['closeDialog', 'getList', 'updateDom'])
 const form = ref<menu>({})

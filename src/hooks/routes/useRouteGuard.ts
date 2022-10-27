@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:54:48
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 18:11:37
+ * @LastEditTime: 2022-10-27 15:26:49
  * @FilePath: \IUI314\src\hooks\routes\useRouteGuard.ts
  * @Description: 路由守卫，刷新路由丢失，搞了一天也不知道到底是怎么好的
  */
@@ -65,7 +65,7 @@ export const useRouterGuard = async (router: Router) => {
         next(`/login?redirect=${to.fullPath}`) // 否则全部重定向到登录页
         NProgress.done()
       }
-      next()
+      // next()
     }
   })
 

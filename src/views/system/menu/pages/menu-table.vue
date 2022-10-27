@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 08:37:39
+ * @LastEditTime: 2022-10-27 16:48:41
  * @FilePath: \IUI314\src\views\system\menu\pages\menu-table.vue
  * @Description: 
 -->
@@ -21,29 +21,38 @@
     >
       <el-table-column
         prop="menu_name"
-        label="菜单名称"
+        :label="t('menu.name')"
         :show-overflow-tooltip="true"
         width="200"
       />
-      <el-table-column prop="icon" label="图标" align="center" width="100">
+      <el-table-column
+        prop="icon"
+        :label="t('common.icon')"
+        align="center"
+        width="100"
+      >
         <template #default="scope">
           <el-icon>
             <svg-icon :name="scope.row.icon" />
           </el-icon>
         </template>
       </el-table-column>
-      <el-table-column prop="order_sort" label="排序" width="100" />
+      <el-table-column
+        prop="order_sort"
+        :label="t('common.order')"
+        width="100"
+      />
       <el-table-column
         prop="api"
-        label="唯一标识"
+        :label="t('common.uniqueFlag')"
         :show-overflow-tooltip="true"
       />
       <el-table-column
         prop="component"
-        label="组件路径"
+        :label="t('menu.comp')"
         :show-overflow-tooltip="true"
       />
-      <el-table-column prop="method" label="方法" width="80">
+      <el-table-column prop="method" :label="t('menu.method')" width="80">
         <template #default="scope">
           <dict-tag
             :options="dicts[dictKey.sysApiMethod]"
@@ -51,7 +60,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="method" label="数据权限" width="80">
+      <el-table-column prop="method" :label="t('menu.dataScope')" width="100">
         <template #default="scope">
           <dict-tag
             v-if="scope.row.method == 'GET'"
@@ -61,7 +70,7 @@
           <el-tag v-else>not support</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="status" label="状态" width="60">
+      <el-table-column prop="status" :label="t('common.status')" width="60">
         <template #default="scope">
           <dict-tag
             :options="dicts[dictKey.sysNormalDisable]"
@@ -69,7 +78,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column prop="visible" label="显示" width="60">
+      <el-table-column prop="visible" :label="t('common.show')" width="60">
         <template #default="scope">
           <dict-tag
             :options="dicts[dictKey.sysShowHide]"
@@ -78,7 +87,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="创建时间"
+        :label="t('common.createTime')"
         align="center"
         prop="created_at"
         show-overflow-tooltip
@@ -88,7 +97,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="操作"
+        :label="t('common.operation')"
         align="center"
         width="200"
         class-name="small-padding fixed-width"
@@ -269,7 +278,7 @@ const handleAdd = (row?: menu) => {
   formData.value.menu_type = type
   formData.value.id = ''
   open.value = true
-  title.value = '添加菜单'
+  title.value = t('common.add') + t('menu.menu')
 }
 // 将方法开放给父组件
 defineExpose({ handleAdd, getList })
@@ -284,7 +293,7 @@ const handleAddByCopy = (row: menu) => {
   formData.value = row
   formData.value.id = ''
   open.value = true
-  title.value = '复制添加菜单'
+  title.value = t('common.copy') + t('common.add') + t('menu.menu')
 }
 // 编辑
 const handleUpdate = (row: menu) => {
@@ -296,14 +305,14 @@ const handleUpdate = (row: menu) => {
   getMenuSelectTree()
   formData.value = row
   open.value = true
-  title.value = `更新菜单-${row.menu_name}`
+  title.value = t('common.update') + t('menu.menu') + ' - ' + row.menu_name
 }
 // 删除
 const handleDelete = async (row: menu) => {
   const id = row.id!
   await ElMessageBox.confirm(
-    `你是否确定删除数据:${row.menu_name!}`,
-    '删除确认',
+    t('commonTip.delete') + row.menu_name + '?',
+    t('commonTip.deleteTitle'),
     {
       type: 'warning',
     }
@@ -313,10 +322,10 @@ const handleDelete = async (row: menu) => {
       await execute()
       await getList()
       await updateChildrenDom(row.pid!)
-      ElMessage.success('删除成功')
+      ElMessage.success(t('commonTip.deleteSuccess'))
     })
     .catch(() => {
-      ElMessage.info('取消删除')
+      ElMessage.info(t('commonTip.deleteCancel'))
     })
 }
 
@@ -335,7 +344,7 @@ const getMenuSelectTree = () => {
   menuSelectTree.value = [
     {
       id: '0',
-      menu_name: '主类目',
+      menu_name: t('menu.mainCategory'),
       children: menu,
     },
   ]
