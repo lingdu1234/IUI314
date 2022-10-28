@@ -66,6 +66,7 @@ declare module '@vue/runtime-core' {
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Exception: typeof import('./src/components/exception/exception.vue')['default']
+    Gauge: typeof import('./src/components/echarts/gauge.vue')['default']
     IconSelect: typeof import('./src/components/common/icon-select.vue')['default']
     InnerLink: typeof import('./src/components/layout/inner-link.vue')['default']
     Layout: typeof import('./src/components/layout/Layout.vue')['default']

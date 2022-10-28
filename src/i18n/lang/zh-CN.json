@@ -76,12 +76,14 @@
   },
   "dict": {
     "dictData": "字典数据",
+    "dictTypeRuleTip": "字典类型不能为空",
     "dictTypeTip": "请输入字典类型",
     "nameTip": "请输入字典名称",
     "type": "字典类型",
     "typeId": "字典ID",
     "typeName": "字典名称"
   },
+  "dict_dictNameRuleTip": "字典名称不能为空",
   "hello": "您好",
   "menu": {
     "apiFlag": "api标志",
@@ -136,6 +138,22 @@
     "routeParam": "请输入路由参数",
     "routeParamTip": "默认路由参数",
     "status": "菜单状态"
+  },
+  "monitor": {
+    "attribute": "属性",
+    "cores": "核心数",
+    "cpuUsage": "CPU 使用率",
+    "memory": "内存",
+    "processors": "线程数",
+    "serverInfo": "服务器信息",
+    "serverName": "服务器名称",
+    "swap": "总共虚拟",
+    "system": "系统",
+    "thisSystem": "本系统",
+    "total": "总共",
+    "usage": "使用率",
+    "used": "已用",
+    "usedSwap": "已用虚拟"
   },
   "nav": {
     "Logout": "退出登录",

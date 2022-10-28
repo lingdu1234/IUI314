@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 08:00:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 16:30:06
+ * @LastEditTime: 2022-10-28 14:50:31
  * @FilePath: \IUI314\src\router\constDynamicRoutes.ts
  * @Description:  菜单路由命名管理
  */
@@ -57,8 +57,8 @@ export const systemMenus: Record<string, routeMenuInfo> = {
     path: 'scheduled-tasks',
     name: '定时任务',
   },
-  serviceMonitoring: {
-    path: 'service-monitoring',
+  serverMonitor: {
+    path: 'server-monitor',
     name: '服务监控',
   },
 }

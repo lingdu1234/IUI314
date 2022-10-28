@@ -15,6 +15,7 @@
     "@element-plus/icons-vue": "^2.0.10",
     "@vueuse/core": "^9.4.0",
     "blueimp-md5": "^2.19.0",
+    "echarts": "^5.4.0",
     "element-plus": "^2.2.19",
     "jsencrypt": "~3.2.1",
     "mitt": "^3.0.0",
@@ -23,6 +24,7 @@
     "pinia-plugin-persistedstate": "^2.3.0",
     "vue": "^3.2.41",
     "vue-cropper": "^1.0.5",
+    "vue-echarts": "^6.2.3",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6"
   },

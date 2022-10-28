@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-28 11:27:19
+ * @LastEditTime: 2022-10-28 14:45:05
  * @FilePath: \IUI314\src\views\system\dict\type.vue
  * @Description: 字典类型数据
 -->
@@ -209,13 +209,16 @@
         label-width="80px"
         class="base-form"
       >
-        <el-form-item label="字典名称" prop="dict_name">
-          <el-input v-model="form.dict_name" placeholder="请输入字典名称" />
+        <el-form-item :label="t('dict.typeName')" prop="dict_name">
+          <el-input v-model="form.dict_name" :placeholder="t('dict.nameTip')" />
         </el-form-item>
-        <el-form-item label="字典类型" prop="dict_type">
-          <el-input v-model="form.dict_type" placeholder="请输入字典类型" />
+        <el-form-item :label="t('dict.type')" prop="dict_type">
+          <el-input
+            v-model="form.dict_type"
+            :placeholder="t('dict.dictTypeTip')"
+          />
         </el-form-item>
-        <el-form-item label="状态" prop="status">
+        <el-form-item :label="t('common.status')" prop="status">
           <el-radio-group v-model="form.status">
             <el-radio
               v-for="dict in dicts[dictKey.sysNormalDisable]"
@@ -226,11 +229,11 @@
             </el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
+        <el-form-item :label="t('common.remark')" prop="remark">
           <el-input
             v-model="form.remark"
             type="textarea"
-            placeholder="请输入内容"
+            :placeholder="t('common.remarkTip')"
           />
         </el-form-item>
       </el-form>
@@ -316,8 +319,12 @@ const {
 )
 
 const rules = ref<FormRules>({
-  dict_name: [{ required: true, message: '字典名称不能为空', trigger: 'blur' }],
-  dict_type: [{ required: true, message: '字典类型不能为空', trigger: 'blur' }],
+  dict_name: [
+    { required: true, message: t('dict_dictNameRuleTip'), trigger: 'blur' },
+  ],
+  dict_type: [
+    { required: true, message: t('dict.dictTypeRuleTip'), trigger: 'blur' },
+  ],
 })
 
 const resetQuery = () => {
@@ -335,7 +342,7 @@ const handleAdd = () => {
   formReset(dictRef.value)
   open.value = true
   form.value.dict_type_id = undefined
-  title.value = '添加字典类型'
+  title.value = t('common.add') + t('dict.type')
 }
 const handleUpdate = async (row?: dictType) => {
   formReset(dictRef.value)
@@ -344,7 +351,7 @@ const handleUpdate = async (row?: dictType) => {
   const { data, execute } = useGet(ApiSysDictType.getById, { dict_type_id })
   await execute()
   form.value = data.value as dictType
-  title.value = '修改字典类型'
+  title.value = t('common.update') + t('dict.type')
 }
 
 // 删除数据
@@ -367,12 +374,12 @@ const submitForm = async (formRef: FormInstance | undefined) => {
     const { execute, data } = usePut(ApiSysDictType.edit, form)
     await execute()
     if (data.value === ErrorFlag) return
-    ElMessage.success('修改成功')
+    ElMessage.success(t('commonTip.updateSuccess'))
   } else {
     const { execute, data } = usePost(ApiSysDictType.add, form)
     await execute()
     if (data.value === ErrorFlag) return
-    ElMessage.success('新增成功')
+    ElMessage.success(t('commonTip.addSuccess'))
   }
   open.value = false
   getList()

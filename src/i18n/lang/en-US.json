@@ -76,12 +76,14 @@
   },
   "dict": {
     "dictData": "DictData",
+    "dictTypeRuleTip": "Dict type can not be empty",
     "dictTypeTip": "please input dict type",
     "nameTip": "please input dict name",
-    "type": "dictType",
+    "type": "DictType",
     "typeId": "typeId",
     "typeName": "name"
   },
+  "dict_dictNameRuleTip": "Dict name can not be empty",
   "hello": "hello",
   "menu": {
     "apiFlag": "apiFlag",
@@ -134,6 +136,22 @@
     "routeParam": "routeParams",
     "routeParamTip": "Default route parameters",
     "status": "status"
+  },
+  "monitor": {
+    "attribute": "attribute",
+    "cores": "cores",
+    "cpuUsage": "CPU Usage",
+    "memory": "memory",
+    "processors": "processors",
+    "serverInfo": "server info",
+    "serverName": "server name",
+    "swap": "total swap",
+    "system": "system",
+    "thisSystem": "this system",
+    "total": "total",
+    "usage": "usage",
+    "used": "used",
+    "usedSwap": "used swap"
   },
   "nav": {
     "Logout": "LogOut",

@@ -13,6 +13,7 @@ specifiers:
   '@vue/tsconfig': ^0.1.3
   '@vueuse/core': ^9.4.0
   blueimp-md5: ^2.19.0
+  echarts: ^5.4.0
   element-plus: ^2.2.19
   eslint: ^8.26.0
   eslint-plugin-simple-import-sort: ^8.0.0
@@ -39,6 +40,7 @@ specifiers:
   vite-plugin-vue-setup-extend: ^0.4.0
   vue: ^3.2.41
   vue-cropper: ^1.0.5
+  vue-echarts: ^6.2.3
   vue-i18n: ^9.2.2
   vue-router: ^4.1.6
   vue-tsc: ^1.0.9
@@ -47,6 +49,7 @@ dependencies:
   '@element-plus/icons-vue': registry.npmmirror.com/@element-plus/icons-vue/2.0.10_vue@3.2.41
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/9.4.0_vue@3.2.41
   blueimp-md5: registry.npmmirror.com/blueimp-md5/2.19.0
+  echarts: registry.npmmirror.com/echarts/5.4.0
   element-plus: registry.npmmirror.com/element-plus/2.2.19_vue@3.2.41
   jsencrypt: registry.npmmirror.com/jsencrypt/3.2.1
   mitt: registry.npmmirror.com/mitt/3.0.0
@@ -55,6 +58,7 @@ dependencies:
   pinia-plugin-persistedstate: registry.npmmirror.com/pinia-plugin-persistedstate/2.3.0_pinia@2.0.23
   vue: registry.npmmirror.com/vue/3.2.41
   vue-cropper: registry.npmmirror.com/vue-cropper/1.0.5
+  vue-echarts: registry.npmmirror.com/vue-echarts/6.2.3_echarts@5.4.0+vue@3.2.41
   vue-i18n: registry.npmmirror.com/vue-i18n/9.2.2_vue@3.2.41
   vue-router: registry.npmmirror.com/vue-router/4.1.6_vue@3.2.41
 
@@ -2342,6 +2346,15 @@ packages:
     name: duplexer
     version: 0.1.2
     dev: true
+
+  registry.npmmirror.com/echarts/5.4.0:
+    resolution: {integrity: sha512-uPsO9VRUIKAdFOoH3B0aNg7NRVdN7aM39/OjovjO9MwmWsAkfGyeXJhK+dbRi51iDrQWliXV60/XwLA7kg3z0w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/echarts/-/echarts-5.4.0.tgz}
+    name: echarts
+    version: 5.4.0
+    dependencies:
+      tslib: registry.npmmirror.com/tslib/2.3.0
+      zrender: registry.npmmirror.com/zrender/5.4.0
+    dev: false
 
   registry.npmmirror.com/ejs/3.1.8:
     resolution: {integrity: sha512-/sXZeMlhS0ArkfX2Aw780gJzXSMPnKjtspYZv+f3NiKLlubezAHDU5+9xz6gd3/NhG3txQCo6xlglmTS+oTGEQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/ejs/-/ejs-3.1.8.tgz}
@@ -5023,6 +5036,12 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  registry.npmmirror.com/resize-detector/0.3.0:
+    resolution: {integrity: sha512-R/tCuvuOHQ8o2boRP6vgx8hXCCy87H1eY9V5imBYeVNyNVpuL9ciReSccLj2gDcax9+2weXy3bc8Vv+NRXeEvQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/resize-detector/-/resize-detector-0.3.0.tgz}
+    name: resize-detector
+    version: 0.3.0
+    dev: false
+
   registry.npmmirror.com/resolve-from/4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/resolve-from/-/resolve-from-4.0.0.tgz}
     name: resolve-from
@@ -5690,6 +5709,12 @@ packages:
     version: 1.14.1
     dev: true
 
+  registry.npmmirror.com/tslib/2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tslib/-/tslib-2.3.0.tgz}
+    name: tslib
+    version: 2.3.0
+    dev: false
+
   registry.npmmirror.com/tslib/2.4.0:
     resolution: {integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tslib/-/tslib-2.4.0.tgz}
     name: tslib
@@ -6145,6 +6170,26 @@ packages:
     dependencies:
       vue: registry.npmmirror.com/vue/3.2.41
 
+  registry.npmmirror.com/vue-echarts/6.2.3_echarts@5.4.0+vue@3.2.41:
+    resolution: {integrity: sha512-xHzUvgsgk/asJTcNa8iVVwoovZU3iEUHvmBa3bzbiP3Y6OMxM1YXsoWOKVmVVaUusGs4ob4pSwjwNy2FemAz9w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-echarts/-/vue-echarts-6.2.3.tgz}
+    id: registry.npmmirror.com/vue-echarts/6.2.3
+    name: vue-echarts
+    version: 6.2.3
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.5
+      echarts: ^5.1.2
+      vue: ^2.6.12 || ^3.1.1
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      echarts: registry.npmmirror.com/echarts/5.4.0
+      resize-detector: registry.npmmirror.com/resize-detector/0.3.0
+      vue: registry.npmmirror.com/vue/3.2.41
+      vue-demi: registry.npmmirror.com/vue-demi/0.13.11_vue@3.2.41
+    dev: false
+
   registry.npmmirror.com/vue-eslint-parser/9.1.0_eslint@8.26.0:
     resolution: {integrity: sha512-NGn/iQy8/Wb7RrRa4aRkokyCZfOUWk19OP5HP6JEozQFX5AoS/t+Z0ZN7FY4LlmWc4FNI922V7cvX28zctN8dQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-eslint-parser/-/vue-eslint-parser-9.1.0.tgz}
     id: registry.npmmirror.com/vue-eslint-parser/9.1.0
@@ -6344,3 +6389,11 @@ packages:
     version: 0.1.0
     engines: {node: '>=10'}
     dev: true
+
+  registry.npmmirror.com/zrender/5.4.0:
+    resolution: {integrity: sha512-rOS09Z2HSVGFs2dn/TuYk5BlCaZcVe8UDLLjj1ySYF828LATKKdxuakSZMvrDz54yiKPDYVfjdKqcX8Jky3BIA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/zrender/-/zrender-5.4.0.tgz}
+    name: zrender
+    version: 5.4.0
+    dependencies:
+      tslib: registry.npmmirror.com/tslib/2.3.0
+    dev: false

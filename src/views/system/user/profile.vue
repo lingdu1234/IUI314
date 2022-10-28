@@ -2,17 +2,17 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 16:05:46
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 22:41:18
+ * @LastEditTime: 2022-10-28 15:42:56
  * @FilePath: \IUI314\src\views\system\user\profile.vue
  * @Description: 
 -->
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="24" :md="12">
+      <el-col :span="24" :md="12" class="m-b-20px">
         <el-card class="box-card">
           <template #header>
-            <div class="clearfix">
+            <div>
               <span>{{ t('profile.personalInformation') }}</span>
             </div>
           </template>
@@ -90,10 +90,10 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="24" :md="12">
+      <el-col :span="24" :md="12" class="m-b-20px">
         <el-card>
           <template #header>
-            <div class="clearfix">
+            <div>
               <span>{{ t('profile.basicInfo') }}</span>
             </div>
           </template>

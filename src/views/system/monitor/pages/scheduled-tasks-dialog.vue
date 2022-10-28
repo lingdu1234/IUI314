@@ -227,11 +227,11 @@ const submitForm = async () => {
   if (form.value.job_id !== undefined) {
     const { execute } = usePut(ApiSysScheduledTasks.edit, form)
     await execute()
-    ElMessage.success('任务更新成功')
+    ElMessage.success(t('commonTip.updateSuccess'))
   } else {
     const { execute } = usePost(ApiSysScheduledTasks.add, form)
     await execute()
-    ElMessage.success('任务新增成功')
+    ElMessage.success(t('commonTip.addSuccess'))
   }
   cancel()
 }
