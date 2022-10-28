@@ -95,10 +95,9 @@ function handleCurrentChange(val: number) {
   background: rgb(245, 245, 245);
   height: 55px;
   padding: 12px 16px 0px;
+  margin-bottom: 30px;
 }
-.pagination-container.hidden {
-  display: none;
-}
+
 html.dark {
   .pagination-container {
     background: rgb(22, 22, 22);

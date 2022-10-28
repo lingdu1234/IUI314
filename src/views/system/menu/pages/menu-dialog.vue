@@ -207,16 +207,22 @@
             <template #label>
               <span>
                 <el-tooltip
-                  content="API 请求方法，如：`GET`,`POST`，`PUT`,`DELETE`"
+                  :content="
+                    t('menu.methodTip') + '`GET`,`POST`，`PUT`,`DELETE`'
+                  "
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                请求方法
+                {{ t('menu.method') }}
               </span>
             </template>
-            <el-select v-model="form.method" placeholder="请求方法" clearable>
+            <el-select
+              v-model="form.method"
+              :placeholder="t('menu.method')"
+              clearable
+            >
               <el-option
                 v-for="dict in dicts[dictKey.sysApiMethod]"
                 :key="dict.value"
@@ -236,19 +242,24 @@
                 <el-tooltip placement="top" effect="light">
                   <template #content>
                     <div>
-                      日志记录方式:
-                      <br />分为三种方式:
-                      <br />不缓存:每次都从数据库获取，用于经常更新的数据
-                      <br />按访问人:用于缓存每个人访问数据都不同的数据
-                      <br />公共缓存:用于数据更新较少，不区分个人的数据
+                      {{ t('common.cache') }}
+                      <br />
+                      {{ t('menu.cacheTipNoCache') }}
+                      <br />
+                      {{ t('menu.cacheTipByPerson') }}
+                      <br />
+                      {{ t('menu.cacheTipCommon') }}
                     </div>
                   </template>
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                缓存方式
+                {{ t('common.cache') }}
               </span>
             </template>
-            <el-select v-model="form.data_cache_method" placeholder="请求方法">
+            <el-select
+              v-model="form.data_cache_method"
+              :placeholder="t('common.cache')"
+            >
               <el-option
                 v-for="dict in dicts[dictKey.apiCacheMethod]"
                 :key="dict.value"
@@ -265,17 +276,23 @@
                 <el-tooltip placement="top" effect="light">
                   <template #content>
                     <div>
-                      日志记录方式:
-                      <br />分为四种方式: <br />不记录 <br />文件记录
-                      <br />数据库记录 <br />文件+数据库记录
+                      {{ t('common.log') }}
+                      <br />
+                      {{ t('menu.logNo') }}
+                      <br />
+                      {{ t('menu.logTipFile') }}
+                      <br />
+                      {{ t('menu.logTipDb') }}
+                      <br />
+                      {{ t('menu.logTipFile') + '+' + t('menu.logTipDb') }}
                     </div>
                   </template>
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                日志记录
+                {{ t('common.log') }}
               </span>
             </template>
-            <el-select v-model="form.log_method" placeholder="请求方法">
+            <el-select v-model="form.log_method">
               <el-option
                 v-for="dict in dicts[dictKey.apiLogMethod]"
                 :key="dict.value"
@@ -289,19 +306,19 @@
           <el-form-item>
             <el-input
               v-model="form.query"
-              placeholder="请输入路由参数"
+              :placeholder="t('menu.routeParam')"
               maxlength="255"
             />
             <template #label>
               <span>
                 <el-tooltip
-                  content="访问路由的默认传递参数，如：{id: 1, name: 'i'} "
+                  :content="t('menu.routeParamTip') + ` {id: 1, name: 'i'} `"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                路由参数
+                {{ t('menu.routeParam') }}
               </span>
             </template>
           </el-form-item>
@@ -311,18 +328,18 @@
             <template #label>
               <span>
                 <el-tooltip
-                  content="选择是则会被`keep-alive`缓存，需要匹配组件的`name`和地址保持一致"
+                  content="t('menu.keepAliveTip')"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                是否缓存
+                keep-alive
               </span>
             </template>
             <el-radio-group v-model="form.is_cache">
-              <el-radio label="1"> 缓存 </el-radio>
-              <el-radio label="0"> 不缓存 </el-radio>
+              <el-radio label="1"> keepAlive </el-radio>
+              <el-radio label="0"> noCache </el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -334,18 +351,18 @@
             <template #label>
               <span>
                 <el-tooltip
-                  content="是否开启数据权限,开启后可以设置数据权限"
+                  :content="t('menu.dataScopeTip')"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                数据权限
+                {{ t('menu.dataScope') }}
               </span>
             </template>
             <el-radio-group v-model="form.data_scope">
-              <el-radio label="0"> 关闭 </el-radio>
-              <el-radio label="1"> 开启 </el-radio>
+              <el-radio label="0"> {{ t('common.close') }} </el-radio>
+              <el-radio label="1"> {{ t('common.enable') }} </el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -354,13 +371,13 @@
             <template #label>
               <span>
                 <el-tooltip
-                  content="选择隐藏则路由将不会出现在侧边栏，但仍然可以访问"
+                  :content="t('menu.isHideTip')"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                显示状态
+                {{ t('menu.isHide') }}
               </span>
             </template>
             <el-radio-group v-model="form.visible">
@@ -379,13 +396,13 @@
             <template #label>
               <span>
                 <el-tooltip
-                  content="选择停用则路由将不会出现在侧边栏，也不能被访问"
+                  :content="t('menu.isDisableTip')"
                   placement="top"
                   effect="light"
                 >
                   <el-icon><InfoFilled /></el-icon>
                 </el-tooltip>
-                菜单状态
+                {{ t('menu.menuStatus') }}
               </span>
             </template>
             <el-radio-group v-model="form.status">
@@ -400,11 +417,11 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="备注" prop="remark">
+          <el-form-item :label="t('common.remark')" prop="remark">
             <el-input
               v-model="form.remark"
               type="textarea"
-              placeholder="请输入备注"
+              :placeholder="t('common.remarkTip')"
             />
           </el-form-item>
         </el-col>
@@ -412,8 +429,12 @@
     </el-form>
     <template #footer>
       <div class="dialog-footer">
-        <el-button type="primary" @click="submitForm"> 确 定 </el-button>
-        <el-button @click="cancel"> 取 消 </el-button>
+        <el-button type="primary" @click="submitForm">
+          {{ t('common.submit') }}
+        </el-button>
+        <el-button @click="cancel">
+          {{ t('common.cancel') }}
+        </el-button>
       </div>
     </template>
   </el-dialog>

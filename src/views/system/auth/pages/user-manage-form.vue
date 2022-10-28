@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 09:15:59
+ * @LastEditTime: 2022-10-28 11:44:38
  * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
  * @Description: 
 -->
@@ -16,27 +16,27 @@
       class="base-form"
       label-width="68px"
     >
-      <el-form-item label="用户名称" prop="user_name">
+      <el-form-item :label="t('user.name')" prop="user_name">
         <el-input
           v-model="queryParams.user_name"
           clearable
-          placeholder="请输入用户名称"
+          :placeholder="t('user.nameTip')"
           @keyup.enter="getList"
         />
       </el-form-item>
-      <el-form-item label="手机号码" prop="phone_num">
+      <el-form-item :label="t('common.phoneNum')" prop="phone_num">
         <el-input
           v-model="queryParams.phone_num"
           clearable
-          placeholder="请输入手机号码"
+          :placeholder="t('common.phoneNum')"
           @keyup.enter="getList"
         />
       </el-form-item>
-      <el-form-item label="状态" prop="user_status">
+      <el-form-item :label="t('common.status')" prop="user_status">
         <el-select
           v-model="queryParams.user_status"
           clearable
-          placeholder="用户状态"
+          :placeholder="t('common.status')"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysNormalDisable]"
@@ -46,12 +46,12 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="创建时间">
+      <el-form-item :label="t('common.createTime2')">
         <el-date-picker
           v-model="dateRange"
-          end-placeholder="结束日期"
+          :start-placeholder="t('common.beginTime')"
+          :end-placeholder="t('common.endTime')"
           range-separator="-"
-          start-placeholder="开始日期"
           type="daterange"
           value-format="YYYY-MM-DD"
         />
@@ -114,7 +114,7 @@
       <el-table-column
         key="id"
         align="center"
-        label="用户编号"
+        label="ID"
         prop="id"
         show-overflow-tooltip
         width="100"
@@ -123,21 +123,21 @@
         key="user_name"
         :show-overflow-tooltip="true"
         align="center"
-        label="用户名称"
+        :label="t('profile.name')"
         prop="user_name"
       />
       <el-table-column
         key="user_nickname"
         :show-overflow-tooltip="true"
         align="center"
-        label="用户昵称"
+        :label="t('profile.nickName')"
         prop="user_nickname"
       />
       <el-table-column
         key="dept_id"
         :show-overflow-tooltip="true"
         align="center"
-        label="部门"
+        :label="t('user.dept')"
         prop="dept.dept_name"
       />
       <el-table-column
@@ -147,7 +147,11 @@
         prop="phone_num"
         width="120"
       />
-      <el-table-column key="user_status" align="center" label="状态">
+      <el-table-column
+        key="user_status"
+        align="center"
+        :label="t('common.status')"
+      >
         <template #default="scope">
           <el-switch
             v-model="scope.row.user_status"
@@ -159,7 +163,7 @@
       </el-table-column>
       <el-table-column
         align="center"
-        label="创建时间"
+        :label="t('common.createTime')"
         prop="created_at"
         width="170"
       >
@@ -167,10 +171,14 @@
           <span>{{ parseTime(scope.row.created_at) }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="操作" width="150">
+      <el-table-column
+        align="center"
+        :label="t('common.operation')"
+        width="150"
+      >
         <template #default="scope">
           <el-tooltip
-            content="修改"
+            :content="t('common.edit')"
             effect="light"
             placement="top"
             v-if="scope.row.userId !== 1"
@@ -178,7 +186,7 @@
             <el-button :icon="Edit" link @click="handleUpdate(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="删除"
+            :content="t('common.delete')"
             effect="light"
             placement="top"
             v-if="scope.row.userId !== 1"
@@ -186,7 +194,7 @@
             <el-button :icon="Delete" link @click="handleDelete(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="重置密码"
+            :content="t('user.restPwd')"
             effect="light"
             placement="top"
             v-if="scope.row.userId !== 1"
@@ -284,6 +292,7 @@ const {
 
 const resetQuery = () => {
   queryParams.value.dept_id = undefined
+  dateRange.value = []
   getList()
 }
 

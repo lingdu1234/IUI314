@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 08:53:13
+ * @LastEditTime: 2022-10-28 11:27:19
  * @FilePath: \IUI314\src\views\system\dict\type.vue
  * @Description: 字典类型数据
 -->
@@ -16,27 +16,27 @@
       label-width="68px"
       class="base-form"
     >
-      <el-form-item label="字典名称" prop="dict_name">
+      <el-form-item :label="t('dict.typeName')" prop="dict_name">
         <el-input
           v-model="queryParams.dict_name"
           clearable
-          placeholder="请输入字典名称"
+          :placeholder="t('dict.nameTip')"
           @keyup.enter="getList"
         />
       </el-form-item>
-      <el-form-item label="字典类型" prop="dict_type">
+      <el-form-item :label="t('dict.type')" prop="dict_type">
         <el-input
           v-model="queryParams.dict_type"
           clearable
-          placeholder="请输入字典类型"
+          :placeholder="t('dict.dictTypeTip')"
           @keyup.enter="getList"
         />
       </el-form-item>
-      <el-form-item label="字典状态" prop="status">
+      <el-form-item :label="t('common.status')" prop="status">
         <el-select
           v-model="queryParams.status"
           :clearable="true"
-          placeholder="字典状态"
+          :placeholder="t('common.status')"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysNormalDisable]"
@@ -46,12 +46,12 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="创建时间">
+      <el-form-item :label="t('common.createTime2')">
         <el-date-picker
           v-model="dateRange"
-          end-placeholder="结束日期"
+          :start-placeholder="t('common.beginTime')"
+          :end-placeholder="t('common.endTime')"
           range-separator="-"
-          start-placeholder="开始日期"
           type="daterange"
           value-format="YYYY-MM-DD"
         />
@@ -114,20 +114,20 @@
     >
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column
-        label="字典编号"
+        :label="t('dict.typeId')"
         align="center"
         prop="dict_type_id"
         width="100"
         show-overflow-tooltip
       />
       <el-table-column
-        label="字典名称"
+        :label="t('dict.typeName')"
         align="center"
         prop="dict_name"
         :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="字典类型"
+        :label="t('dict.type')"
         align="center"
         :show-overflow-tooltip="true"
       >
@@ -137,7 +137,7 @@
           </el-link>
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center" prop="status">
+      <el-table-column :label="t('common.status')" align="center" prop="status">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysNormalDisable]"
@@ -146,13 +146,13 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="备注"
+        :label="t('common.remark')"
         align="center"
         prop="remark"
         :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="创建时间"
+        :label="t('common.createTime')"
         align="center"
         prop="created_at"
         width="180"
@@ -162,10 +162,9 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="操作"
+        :label="t('common.operation')"
         align="center"
-        class-name="small-padding fixed-width"
-        width="150"
+        width="160"
       >
         <template #default="scope">
           <el-button
