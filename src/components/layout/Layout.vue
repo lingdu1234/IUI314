@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-20 15:57:48
+ * @LastEditTime: 2022-10-29 08:31:47
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -60,7 +60,7 @@ const sideBarWidth = computed(() =>
   width: var(--side-bar-width);
   background-color: var(--side-bar-bg-color);
   color: var(--side-bar-font-color);
-  height: 100vh;
+  height: calc(var(--vh) * 100);
   display: flex;
   flex-direction: column;
   overflow: hidden;

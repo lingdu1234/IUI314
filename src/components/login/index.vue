@@ -46,7 +46,7 @@ watch(
 .login-container {
   width: 100%;
   min-width: 600px;
-  height: 100vh;
+  height: calc(var(--vh) * 100);
   display: flex;
   justify-content: center;
   align-items: center;

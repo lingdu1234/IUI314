@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 18:31:25
+ * @LastEditTime: 2022-10-29 08:44:48
  * @FilePath: \IUI314\src\App.vue
  * @Description: 
 -->
@@ -19,11 +19,14 @@ import { computed, watch } from 'vue'
 
 import { useAppStore } from '@/stores'
 
-import { useDynamicTitle } from './hooks'
+import { useDynamicTitle, useSetVh } from './hooks'
 
 const appStore = useAppStore()
 
 const localeLang = computed(() => (appStore.app.lang === 'zh-CN' ? zhCn : en))
+
+//  程序启动设置自定义Vh
+useSetVh()
 
 // 设置语言
 watch(

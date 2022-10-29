@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:31:05
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 12:04:58
+ * @LastEditTime: 2022-10-29 08:46:02
  * @FilePath: \IUI314\src\hooks\app\useTheme.ts
  * @Description: theme
  */
@@ -13,6 +13,7 @@ import { useI18n } from 'vue-i18n'
 import type { MessageSchema } from '@/i18n'
 import { useAppStore } from '@/stores'
 
+import { useSetVh } from './useAppUtil'
 import { useConfigTheme } from './useConfigTheme'
 
 export const useTheme = () => {
@@ -68,6 +69,8 @@ export const useTheme = () => {
     if (last_color) {
       notification(color)
     }
+    // 主题设置完成，设置自定义vh
+    useSetVh().setVh()
   }
   init_theme()
   return {

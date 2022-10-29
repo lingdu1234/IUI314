@@ -2,16 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:22:30
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 10:10:08
+ * @LastEditTime: 2022-10-29 09:25:37
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-operator.vue
  * @Description: 
 -->
 <template>
   <div class="flex items-center justify-end">
-    <div
-      v-show="!appStore.device.isMobile"
-      class="nav-bar-operator flex justify-evenly items-center"
-    >
+    <div class="nav-bar-operator flex justify-evenly items-center">
       <el-tooltip
         :content="t('common.search')"
         effect="light"
@@ -59,12 +56,10 @@ import NavBarSize from '@/components/app/nav-bar-size.vue'
 import NavBarTheme from '@/components/app/nav-bar-theme.vue'
 import ScreenFull from '@/components/app/screen-full.vue'
 import type { MessageSchema } from '@/i18n'
-import { useAppStore } from '@/stores'
 
 import NavBarUser from './nav-bar-user.vue'
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-const appStore = useAppStore()
 </script>
 <style lang="scss" scoped>
 .nav-bar-operator {

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 17:46:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 10:39:38
+ * @LastEditTime: 2022-10-29 08:33:24
  * @FilePath: \IUI314\src\components\layout\app-main.vue
  * @Description: 
 -->
@@ -27,7 +27,7 @@ const tabBarStore = useTabBarStore()
 const appStore = useAppStore()
 
 const appMainHeight = computed(() => {
-  let h = 'calc(100vh'
+  let h = 'calc(var(--vh) * 100'
   if (appStore.app.navBar) {
     h += ' - var(--header-bar-height)'
   }
