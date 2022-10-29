@@ -539,7 +539,7 @@ const submitForm = async () => {
     if (data.value === ErrorFlag) return
     emits('updateDom', form.value.pid)
     cancel()
-    ElMessage.success('修改成功')
+    ElMessage.success(t('commonTip.updateSuccess'))
   }
 }
 

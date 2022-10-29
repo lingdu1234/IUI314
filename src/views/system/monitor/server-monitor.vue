@@ -42,7 +42,6 @@
           :table-data="programData"
           :row-one-label="t('monitor.attribute')"
           :row-two-label="t('monitor.system')"
-          :row-three-label="t('monitor.thisSystem')"
         />
       </el-col>
     </el-row>
