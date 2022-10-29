@@ -25,9 +25,9 @@ export interface CPULoad {
 }
 
 export interface Memory {
-  totol_memory: number
+  total_memory: number
   used_memory: number
-  totol_swap: number
+  total_swap: number
   used_swap: number
 }
 

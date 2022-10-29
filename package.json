@@ -17,6 +17,7 @@
     "blueimp-md5": "^2.19.0",
     "echarts": "^5.4.0",
     "element-plus": "^2.2.19",
+    "event-source-polyfill": "^1.0.31",
     "jsencrypt": "~3.2.1",
     "mitt": "^3.0.0",
     "nprogress": "^0.2.0",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/blueimp-md5": "^2.18.0",
+    "@types/event-source-polyfill": "^1.0.0",
     "@types/node": "^16.18.2",
     "@types/nprogress": "^0.2.0",
     "@vitejs/plugin-vue": "^3.2.0",

@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-17 16:46:50
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 17:03:20
+ * @LastEditTime: 2022-10-29 16:02:59
  * @FilePath: \IUI314\src\api\sysApis.ts
  * @Description:
  */
@@ -159,6 +159,7 @@ export enum ApiSysOnlineUser {
  */
 export enum ApiSysServiceMonitor {
   getList = 'system/monitor/server',
+  getEvent = 'system/monitor/server-event',
 }
 
 /**
