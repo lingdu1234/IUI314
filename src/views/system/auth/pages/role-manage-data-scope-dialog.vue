@@ -115,7 +115,7 @@ import { ElMessage } from 'element-plus'
 import { type PropType, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysDept, ApiSysRole } from '@/api/apis'
+import { ApiSysDept, ApiSysRole, ErrorFlag } from '@/api/apis'
 import { useFormUtil, useGet, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import type { dept } from '@/types/system/dept'
@@ -168,8 +168,9 @@ const submitForm = async (formRef: FormInstance | undefined) => {
   const deptIds = deptTreeRef.value?.getCheckedKeys(false)
   let data = { ...form.value }
   data.dept_ids = data.data_scope === '2' ? (deptIds as string[]) : []
-  const { execute } = usePut(ApiSysRole.setDataScope, data)
+  const { data: dataRes, execute } = usePut(ApiSysRole.setDataScope, data)
   await execute()
+  if (dataRes.value === ErrorFlag) return
   ElMessage.success(`更新 ${form.value.role_name} 数据权限成功`)
   cancel()
 }

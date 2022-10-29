@@ -132,7 +132,7 @@ import type node from 'element-plus/es/components/tree/src/model/node'
 import { type PropType, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysMenu, ApiSysRole } from '@/api/apis'
+import { ApiSysMenu, ApiSysRole, ErrorFlag } from '@/api/apis'
 import { useDicts, useFormUtil, useGet, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'
@@ -194,14 +194,16 @@ const submitForm = async (formRef: FormInstance | undefined) => {
   if (form.value.role_id) {
     let data = { ...form.value }
     data.menu_ids = menu_ids as string[]
-    const { execute } = usePut(ApiSysRole.edit, data)
+    const { data: dataRes, execute } = usePut(ApiSysRole.edit, data)
     await execute()
+    if (dataRes.value === ErrorFlag) return
     ElMessage.success(`更新 ${form.value.role_name} 成功`)
   } else {
     let data = { ...form.value }
     data.menu_ids = menu_ids as string[]
-    const { execute } = usePost(ApiSysRole.add, data)
+    const { data: dataRes, execute } = usePost(ApiSysRole.add, data)
     await execute()
+    if (dataRes.value === ErrorFlag) return
     ElMessage.success(`新增 ${form.value.role_name} 成功`)
   }
   cancel()

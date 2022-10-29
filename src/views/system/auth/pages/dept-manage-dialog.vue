@@ -108,7 +108,7 @@ import { ElMessage } from 'element-plus'
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysDept } from '@/api/apis'
+import { ApiSysDept, ErrorFlag } from '@/api/apis'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import type { dept } from '@/types/system/dept'
@@ -160,12 +160,14 @@ const rules = ref<FormRules>({
 const submitForm = async (formRef: FormInstance | undefined) => {
   if (!(await formValidate(formRef))) return
   if (form.value.dept_id) {
-    const { execute } = usePut(ApiSysDept.edit, form)
+    const { data, execute } = usePut(ApiSysDept.edit, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success(`更新 ${form.value.dept_name} 成功`)
   } else {
-    const { execute } = usePost(ApiSysDept.add, form)
+    const { data, execute } = usePost(ApiSysDept.add, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success(`新增 ${form.value.dept_name} 成功`)
   }
   cancel()

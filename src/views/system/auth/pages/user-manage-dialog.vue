@@ -228,7 +228,7 @@ import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { inject, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysPost, ApiSysRole, ApiSysUser } from '@/api/apis'
+import { ApiSysPost, ApiSysRole, ApiSysUser, ErrorFlag } from '@/api/apis'
 import { useDicts, useFormUtil, useGet, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import type { dept } from '@/types/system/dept'
@@ -353,15 +353,17 @@ const submitForm = async (formRef: FormInstance | undefined) => {
   if (form.value.id) {
     let data = { ...form.value }
     data.user_password = md5(form.value.user_password!)
-    const { execute } = usePut(ApiSysUser.edit, data)
+    const { data: dataRes, execute } = usePut(ApiSysUser.edit, data)
     await execute()
+    if (dataRes.value === ErrorFlag) return
     ElMessage.success(`成功更新用户 ${form.value.user_name}`)
     cancel()
   } else {
     let data = { ...form.value }
     data.user_password = md5(form.value.user_password!)
-    const { execute } = usePost(ApiSysUser.add, data)
+    const { data: dataRes, execute } = usePost(ApiSysUser.add, data)
     await execute()
+    if (dataRes.value === ErrorFlag) return
     ElMessage.success(`成功新增用户 ${form.value.user_name}`)
     cancel()
   }

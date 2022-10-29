@@ -85,7 +85,7 @@ import { ElMessage } from 'element-plus'
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysPost } from '@/api/apis'
+import { ApiSysPost, ErrorFlag } from '@/api/apis'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'
@@ -123,12 +123,14 @@ const rules = ref<FormRules>({
 const submitForm = async (formRef: FormInstance | undefined) => {
   if (!(await formValidate(formRef))) return
   if (form.value.post_id) {
-    const { execute } = usePut(ApiSysPost.edit, form)
+    const { data, execute } = usePut(ApiSysPost.edit, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success(`更新 ${form.value.post_name} 成功`)
   } else {
-    const { execute } = usePost(ApiSysPost.add, form)
+    const { data, execute } = usePost(ApiSysPost.add, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success(`新增 ${form.value.post_name} 成功`)
   }
   cancel()

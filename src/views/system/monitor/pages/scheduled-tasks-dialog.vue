@@ -177,7 +177,7 @@ import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysScheduledTasks } from '@/api/apis'
+import { ApiSysScheduledTasks, ErrorFlag } from '@/api/apis'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'
@@ -225,12 +225,14 @@ const dicts = useDicts(dictKey.sysNormalDisable, dictKey.sysJobGroup)
 const submitForm = async () => {
   if (!(await formValidate(taskFormRef.value))) return
   if (form.value.job_id !== undefined) {
-    const { execute } = usePut(ApiSysScheduledTasks.edit, form)
+    const { data, execute } = usePut(ApiSysScheduledTasks.edit, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success(t('commonTip.updateSuccess'))
   } else {
-    const { execute } = usePost(ApiSysScheduledTasks.add, form)
+    const { data, execute } = usePost(ApiSysScheduledTasks.add, form)
     await execute()
+    if (data.value === ErrorFlag) return
     ElMessage.success(t('commonTip.addSuccess'))
   }
   cancel()

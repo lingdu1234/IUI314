@@ -215,7 +215,7 @@ import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysRole } from '@/api/apis'
+import { ApiSysRole, ErrorFlag } from '@/api/apis'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
@@ -300,11 +300,12 @@ const handleStatusChange = async (row: role) => {
     { type: 'warning' }
   )
     .then(async () => {
-      const { execute } = usePut(ApiSysRole.changeStatus, {
+      const { data, execute } = usePut(ApiSysRole.changeStatus, {
         role_id: row.role_id,
         status: row.status,
       })
       await execute()
+      if (data.value === ErrorFlag) return
       ElMessage.success(`你成功 ${text} 用户 ${row.role_name}`)
       getList()
     })

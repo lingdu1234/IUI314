@@ -296,7 +296,11 @@ import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
 import { onActivated, onDeactivated, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysScheduledTasks, ApiSysScheduledTasksLog } from '@/api/apis'
+import {
+  ApiSysScheduledTasks,
+  ApiSysScheduledTasksLog,
+  ErrorFlag,
+} from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
@@ -423,11 +427,12 @@ const handleStatusChange = async (row: scheduledTasks) => {
     { type: 'warning' }
   )
     .then(async () => {
-      const { execute } = usePut(ApiSysScheduledTasks.changeStatus, {
+      const { data, execute } = usePut(ApiSysScheduledTasks.changeStatus, {
         job_id: row.job_id,
         status: row.status,
       })
       await execute()
+      if (data.value === ErrorFlag) return
       ElMessage.success(`你成功 ${text} 任务 ${row.job_name}`)
       getList()
     })
@@ -443,11 +448,12 @@ const handleRun = async (row: scheduledTasks) => {
     { type: 'info' }
   )
     .then(async () => {
-      const { execute } = usePut(ApiSysScheduledTasks.runOnce, {
+      const { data, execute } = usePut(ApiSysScheduledTasks.runOnce, {
         job_id: row.job_id,
         task_id: row.task_id,
       })
       await execute()
+      if (data.value === ErrorFlag) return
       ElMessage.success(`你成功运行任务 ${row.job_name}`)
     })
     .catch(() => {

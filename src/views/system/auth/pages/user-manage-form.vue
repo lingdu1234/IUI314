@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-28 11:44:38
+ * @LastEditTime: 2022-10-29 09:38:26
  * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
  * @Description: 
 -->
@@ -235,7 +235,7 @@ import { ElMessage, ElMessageBox } from 'element-plus'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { ApiSysUser } from '@/api/apis'
+import { ApiSysUser, ErrorFlag } from '@/api/apis'
 import {
   hasPermission,
   parseTime,
@@ -305,11 +305,12 @@ const handleStatusChange = async (row: user) => {
     { type: 'warning' }
   )
     .then(async () => {
-      const { execute } = usePut(ApiSysUser.changeStatus, {
+      const { data: dataRes, execute } = usePut(ApiSysUser.changeStatus, {
         user_id: row.id,
         status: row.user_status,
       })
       await execute()
+      if (dataRes.value === ErrorFlag) return
       ElMessage.success(`你成功 ${text} 用户 ${row.user_name}`)
       getList()
     })
@@ -356,8 +357,9 @@ const handleResetPwd = (row: user) => {
         user_id: row.id!,
         new_passwd: md5(value),
       }
-      const { execute } = usePut(ApiSysUser.resetPwd, data)
+      const { data: dataRes, execute } = usePut(ApiSysUser.resetPwd, data)
       await execute()
+      if (dataRes.value === ErrorFlag) return
       ElMessage.success(`用户 ${row.user_name} 的密码成功重置为 ${value}`)
     })
     .catch(() => {
