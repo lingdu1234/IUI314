@@ -277,6 +277,7 @@
     "title": "cron表达式生成器",
     "to": "到",
     "toInterval": "每",
+    "validateTip": "请先验证cron表达式后，再提交!",
     "validateTipError": "cron表达式后端验证错误，请重新调整!",
     "validateTipInfo": "生成的cron表达式由后端验证，保证正确性，前端不验证！",
     "validateTipSuccess": "cron表达式正确无误!",

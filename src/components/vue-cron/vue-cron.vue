@@ -128,6 +128,7 @@
   </el-dialog>
 </template>
 <script lang="ts" setup name="vue-cron">
+import { ElMessage } from 'element-plus'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -265,8 +266,8 @@ const validateCron = async () => {
   validTip.value = t('vueCron.validateTipSuccess')
   next_ten.value = data.value.next_ten!
 }
-const submitForm = async () => {
-  await validateCron()
+const submitForm = () => {
+  if (!valid.value) return ElMessage.info(t('vueCron.validateTip'))
   emits('setCronExp', cronExpression.value.second)
   cancel()
 }

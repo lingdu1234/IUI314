@@ -277,8 +277,9 @@
     "title": "Cron expression Builder",
     "to": "to",
     "toInterval": "every",
+    "validateTip": "please validate the cron expression before submit!",
     "validateTipError": "Cron expression backend validation error, please re-adjust!",
-    "validateTipInfo": "The generated cron expression validte by back-end,  the front-end does not validte!",
+    "validateTipInfo": "The generated cron expression validate by back-end,  the front-end does not validate!",
     "validateTipSuccess": "Cron expression is OK!",
     "week": {
       "1": "Sunday",
