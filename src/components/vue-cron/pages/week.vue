@@ -197,7 +197,7 @@ watch(
   () => cycle.value,
   (v) => {
     if (v.from >= v.to) {
-      cycle.value.to = cycle.value.from + 1 <= 7 ? cycle.value.from + 1 : 7
+      cycle.value.to = cycle.value.from + 1 <= 7 ? cycle.value.from : 7
     }
     if (v.from + v.every >= 7) {
       cycle.value.every = 6 - cycle.value.from

@@ -118,7 +118,7 @@ const cycle = ref({
 })
 const emits = defineEmits(['setCronData'])
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-const groupV = ref(DayGroup.EVERY)
+const groupV = ref(DayGroup.NONE)
 const fixData = ref([])
 const fixDataString = ref('')
 

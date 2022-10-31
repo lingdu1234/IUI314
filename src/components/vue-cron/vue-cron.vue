@@ -6,7 +6,7 @@
     append-to-body
     width="800px"
   >
-    <el-tabs v-model="activeTab">
+    <el-tabs v-model="activeTab" class="cronTabs">
       <el-tab-pane :label="t('vueCron.secondTitle')" name="second">
         <SecondOrMinute
           :cron-type-v="CronType.SECOND"
@@ -277,6 +277,13 @@ const submitForm = async () => {
   .el-card__body {
     padding-top: 5px !important;
     padding-bottom: 5px !important;
+  }
+}
+.cronTabs .el-form {
+  .el-form-item--default,
+  .el-form-item--small,
+  .el-form-item--large {
+    margin-bottom: 5px !important;
   }
 }
 </style>
