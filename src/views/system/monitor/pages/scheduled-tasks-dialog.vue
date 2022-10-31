@@ -169,6 +169,13 @@
         </el-button>
       </div>
     </template>
+    <!-- cron 表达式对话框 -->
+    <VueCron
+      v-if="openCron"
+      :open="openCron"
+      @close-dialog="closeCron"
+      @set-cron-exp="setCronExp"
+    />
   </el-dialog>
 </template>
 <script lang="ts" setup name="menu-dialog">
@@ -178,6 +185,7 @@ import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysScheduledTasks, ErrorFlag } from '@/api/apis'
+import VueCron from '@/components/vue-cron/vue-cron.vue'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'
@@ -198,6 +206,7 @@ const props = defineProps({
   },
 })
 
+const openCron = ref(false)
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const emits = defineEmits(['closeDialog'])
 const { formValidate } = useFormUtil()
@@ -238,7 +247,14 @@ const submitForm = async () => {
   cancel()
 }
 const handleShowCron = () => {
-  console.log('to do')
+  openCron.value = true
+}
+
+const closeCron = () => {
+  openCron.value = false
+}
+const setCronExp = (v: string) => {
+  form.value.cron_expression = v
 }
 
 const cancel = () => {

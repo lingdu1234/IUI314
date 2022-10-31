@@ -68,6 +68,17 @@ div.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default>div>.el-menu--collapse
     }
 }
 
+.el-dialog__body {
+    padding-top: 1px !important;
+    padding-bottom: 5px !important;
+}
+
+.el-dialog__header {
+    padding-top: 8px !important;
+    padding-bottom: 3px !important;
+}
+
+
 // 优化屏幕较窄时
 @media (max-width: 1000px) {
     .pagination-container {

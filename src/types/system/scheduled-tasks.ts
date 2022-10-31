@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 22:34:39
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 15:21:55
+ * @LastEditTime: 2022-10-31 14:22:46
  * @FilePath: \IUI314\src\types\system\scheduled-tasks.ts
  * @Description:
  */
@@ -60,4 +60,9 @@ export interface scheduledTasksLogQueryParam extends pageQueryParam {
   job_group?: string
   status?: string
   is_once?: string
+}
+
+export interface validateRes {
+  validate: boolean
+  next_ten?: string[]
 }

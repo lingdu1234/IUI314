@@ -257,10 +257,19 @@ const timeFormat2DHMS = (sec: any) => {
 
 const { data } = useSSE(ApiSysServiceMonitor.getEvent)
 
+// const { pause, resume } = useIntervalFn(() => getServerData(), 1500)
+
 watch(
   () => data.value,
   (v) => setServerData(JSON.parse(v!))
 )
+
+// onActivated(() => {
+//   resume()
+// })
+// onDeactivated(() => {
+//   pause()
+// })
 
 // 导出名称
 defineOptions({

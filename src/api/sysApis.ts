@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-17 16:46:50
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-29 16:02:59
+ * @LastEditTime: 2022-10-31 14:12:49
  * @FilePath: \IUI314\src\api\sysApis.ts
  * @Description:
  */
@@ -173,6 +173,7 @@ export enum ApiSysScheduledTasks {
   delete = '/system/job/delete',
   changeStatus = '/system/job/change_status',
   runOnce = '/system/job/run_task_once',
+  validateCronStr = 'system/job/validate_cron_str',
 }
 
 /**

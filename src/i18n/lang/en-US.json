@@ -55,6 +55,7 @@
     "uniqueFlag": "uniqueFlag",
     "update": "Update",
     "updatePwd": "UpdatePassword",
+    "validate": "validate",
     "yes": "Yes"
   },
   "commonTip": {
@@ -133,6 +134,8 @@
     "path": "RoutePath",
     "pathTip": "The routing address to be accessed, such as `user`. If the public network address needs to be accessed within the internal chain, it starts with `user` (s): / / `.",
     "pathTip2": "Please enter a route path",
+    "remark": "remark",
+    "remarkTip": "please input the remark",
     "routeParam": "routeParams",
     "routeParamTip": "Default route parameters",
     "status": "status"
@@ -231,5 +234,63 @@
     "name": "name",
     "nameTip": "please input user name",
     "restPwd": "reset password"
+  },
+  "vueCron": {
+    "allowed": "the allowed regex:",
+    "closestDay": "the closest work day",
+    "dayTitle": "day",
+    "dayTitle2": "day(s)",
+    "expression": "expression",
+    "expressionField": "expressionField",
+    "from": "from",
+    "hourTitle": "hour",
+    "hourTitle2": "hour(s)",
+    "minuteTitle": "minute",
+    "minuteTitle2": "minute(s)",
+    "monthTitle": "month",
+    "monthTitle2": "month(s)",
+    "resetCheckBox": "reset checkBox",
+    "runOneTime": "run one time",
+    "second": {
+      "cycle": "cycle",
+      "fix": "fix",
+      "fixWeek": "fix mouth week",
+      "interval": "interval"
+    },
+    "secondTip": "the from must less than to",
+    "secondTitle": "second",
+    "secondTitle2": "second(s)",
+    "t": {
+      "closestWorkDay": "closest work day",
+      "day": "every day",
+      "hour": "every hour",
+      "lastDay": "last day of the month",
+      "lastWeekDay": "last week of month",
+      "minute": "every minute",
+      "month": "every month",
+      "none": "none",
+      "notSpecify": "not specify",
+      "second": "every second",
+      "week": "every week",
+      "year": "every year"
+    },
+    "title": "Cron expression Builder",
+    "to": "to",
+    "toInterval": "every",
+    "validateTipError": "Cron expression backend validation error, please re-adjust!",
+    "validateTipInfo": "The generated cron expression validte by back-end,  the front-end does not validte!",
+    "validateTipSuccess": "Cron expression is OK!",
+    "week": {
+      "1": "Sunday",
+      "2": "Monday",
+      "3": "Tuesday",
+      "4": "Wednesday",
+      "5": "Thursday",
+      "6": "Friday",
+      "7": "Saturday"
+    },
+    "weekTitle": "week",
+    "yearTitle": "year",
+    "yearTitle2": "year(s)"
   }
 }

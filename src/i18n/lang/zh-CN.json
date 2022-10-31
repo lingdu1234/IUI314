@@ -55,6 +55,7 @@
     "uniqueFlag": "唯一标志",
     "update": "更新",
     "updatePwd": "修改密码",
+    "validate": "验证",
     "yes": "是"
   },
   "commonTip": {
@@ -134,7 +135,7 @@
     "pathTip": "访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头",
     "pathTip2": "请输入路由地址",
     "remark": "备注",
-    "remarkTip": "清输入备注",
+    "remarkTip": "请输入备注",
     "routeParam": "请输入路由参数",
     "routeParamTip": "默认路由参数",
     "status": "菜单状态"
@@ -233,5 +234,63 @@
     "name": "用户名称",
     "nameTip": "请输入用户名称",
     "restPwd": "重置密码"
+  },
+  "vueCron": {
+    "allowed": "允许的统配符:",
+    "closestDay": "最接近的工作日",
+    "dayTitle": "日",
+    "dayTitle2": "日",
+    "expression": "Cron表达式",
+    "expressionField": "表达式字段",
+    "from": "从",
+    "hourTitle": "时",
+    "hourTitle2": "时",
+    "minuteTitle": "分",
+    "minuteTitle2": "分",
+    "monthTitle": "月",
+    "monthTitle2": "月",
+    "resetCheckBox": "重置复选框",
+    "runOneTime": "运行一次",
+    "second": {
+      "cycle": "周期",
+      "fix": "指定",
+      "fixWeek": "每月周",
+      "interval": "间隔"
+    },
+    "secondTip": "开始时间只能比结束时间小",
+    "secondTitle": "秒",
+    "secondTitle2": "秒",
+    "t": {
+      "closestWorkDay": "最近工作日",
+      "day": "每日",
+      "hour": "每小时",
+      "lastDay": "每月最后一天",
+      "lastWeekDay": "本月最后一周",
+      "minute": "每分",
+      "month": "每月",
+      "none": "不填",
+      "notSpecify": "不指定",
+      "second": "每秒",
+      "week": "每周",
+      "year": "每年"
+    },
+    "title": "cron表达式生成器",
+    "to": "到",
+    "toInterval": "每",
+    "validateTipError": "cron表达式后端验证错误，请重新调整!",
+    "validateTipInfo": "生成的cron表达式由后端验证，保证正确性，前端不验证！",
+    "validateTipSuccess": "cron表达式正确无误!",
+    "week": {
+      "1": "星期天",
+      "2": "星期一",
+      "3": "星期二",
+      "4": "星期三",
+      "5": "星期四",
+      "6": "星期五",
+      "7": "星期六"
+    },
+    "weekTitle": "周",
+    "yearTitle": "年",
+    "yearTitle2": "年"
   }
 }
