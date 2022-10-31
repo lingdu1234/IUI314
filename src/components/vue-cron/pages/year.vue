@@ -131,7 +131,7 @@ const fixDataChange = (v: string[]) => {
 
 // 监控相关值的变化，生成表达式,并提交给父组件
 watch(
-  [fixDataString, () => cycle.value],
+  [fixDataString, () => cycle.value, groupV],
   () => {
     switch (groupV.value) {
       case DayGroup.NONE:
