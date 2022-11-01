@@ -75,6 +75,7 @@
   </div>
 </template>
 <script lang="ts" name="side-bar-menu-item" setup>
+import { ElIcon, ElMenuItem, ElSubMenu } from 'element-plus'
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

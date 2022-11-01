@@ -37,11 +37,13 @@ specifiers:
   unplugin-vue-components: ^0.22.9
   unplugin-vue-define-options: ^0.12.5
   vite: ^3.2.2
+  vite-plugin-cdn-import: ^0.3.5
   vite-plugin-html: ^3.2.0
   vite-plugin-svg-icons: ^2.0.1
   vite-plugin-vue-setup-extend: ^0.4.0
   vue: ^3.2.41
   vue-cropper: ^1.0.5
+  vue-demi: ^0.13.11
   vue-echarts: ^6.2.3
   vue-i18n: ^9.2.2
   vue-router: ^4.1.6
@@ -81,19 +83,21 @@ devDependencies:
   eslint-plugin-vue: registry.npmmirror.com/eslint-plugin-vue/9.7.0_eslint@8.26.0
   npm-run-all: registry.npmmirror.com/npm-run-all/4.1.5
   prettier: registry.npmmirror.com/prettier/2.7.1
-  rollup-plugin-visualizer: registry.npmmirror.com/rollup-plugin-visualizer/5.8.3
+  rollup-plugin-visualizer: registry.npmmirror.com/rollup-plugin-visualizer/5.8.3_rollup@2.79.1
   sass: registry.npmmirror.com/sass/1.55.0
   terser: registry.npmmirror.com/terser/5.15.1
   typescript: registry.npmmirror.com/typescript/4.8.4
-  unocss: registry.npmmirror.com/unocss/0.45.30_vite@3.2.2
-  unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.11.4_@vueuse+core@9.4.0
-  unplugin-element-plus: registry.npmmirror.com/unplugin-element-plus/0.4.1_vite@3.2.2
-  unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.22.9_vue@3.2.41
+  unocss: registry.npmmirror.com/unocss/0.45.30_rollup@2.79.1+vite@3.2.2
+  unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.11.4_6atjafs3v6znsplg3j7hgljsd4
+  unplugin-element-plus: registry.npmmirror.com/unplugin-element-plus/0.4.1_rollup@2.79.1+vite@3.2.2
+  unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.22.9_rollup@2.79.1+vue@3.2.41
   unplugin-vue-define-options: registry.npmmirror.com/unplugin-vue-define-options/0.12.5
   vite: registry.npmmirror.com/vite/3.2.2_sass@1.55.0+terser@5.15.1
+  vite-plugin-cdn-import: registry.npmmirror.com/vite-plugin-cdn-import/0.3.5_rollup@2.79.1
   vite-plugin-html: registry.npmmirror.com/vite-plugin-html/3.2.0_vite@3.2.2
   vite-plugin-svg-icons: registry.npmmirror.com/vite-plugin-svg-icons/2.0.1_vite@3.2.2
   vite-plugin-vue-setup-extend: registry.npmmirror.com/vite-plugin-vue-setup-extend/0.4.0_vite@3.2.2
+  vue-demi: registry.npmmirror.com/vue-demi/0.13.11_vue@3.2.41
   vue-tsc: registry.npmmirror.com/vue-tsc/1.0.9_typescript@4.8.4
 
 packages:
@@ -744,8 +748,9 @@ packages:
       picomatch: registry.npmmirror.com/picomatch/2.3.1
     dev: true
 
-  registry.npmmirror.com/@rollup/pluginutils/5.0.2:
+  registry.npmmirror.com/@rollup/pluginutils/5.0.2_rollup@2.79.1:
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@rollup/pluginutils/-/pluginutils-5.0.2.tgz}
+    id: registry.npmmirror.com/@rollup/pluginutils/5.0.2
     name: '@rollup/pluginutils'
     version: 5.0.2
     engines: {node: '>=14.0.0'}
@@ -758,6 +763,7 @@ packages:
       '@types/estree': registry.npmmirror.com/@types/estree/1.0.0
       estree-walker: registry.npmmirror.com/estree-walker/2.0.2
       picomatch: registry.npmmirror.com/picomatch/2.3.1
+      rollup: registry.npmmirror.com/rollup/2.79.1
     dev: true
 
   registry.npmmirror.com/@rushstack/eslint-patch/1.2.0:
@@ -997,7 +1003,7 @@ packages:
       eslint-visitor-keys: registry.npmmirror.com/eslint-visitor-keys/3.3.0
     dev: true
 
-  registry.npmmirror.com/@unocss/astro/0.45.30_vite@3.2.2:
+  registry.npmmirror.com/@unocss/astro/0.45.30_rollup@2.79.1+vite@3.2.2:
     resolution: {integrity: sha512-eF5FxSasaKveOAIFVJlHD0dlvKDmL7oBCFQihr6XR8RhbkkMI8mO0lJB0i6QK3PtJY7F6ceCSMe+bAht6Q067w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@unocss/astro/-/astro-0.45.30.tgz}
     id: registry.npmmirror.com/@unocss/astro/0.45.30
     name: '@unocss/astro'
@@ -1005,21 +1011,22 @@ packages:
     dependencies:
       '@unocss/core': registry.npmmirror.com/@unocss/core/0.45.30
       '@unocss/reset': registry.npmmirror.com/@unocss/reset/0.45.30
-      '@unocss/vite': registry.npmmirror.com/@unocss/vite/0.45.30_vite@3.2.2
+      '@unocss/vite': registry.npmmirror.com/@unocss/vite/0.45.30_rollup@2.79.1+vite@3.2.2
     transitivePeerDependencies:
       - rollup
       - vite
     dev: true
 
-  registry.npmmirror.com/@unocss/cli/0.45.30:
+  registry.npmmirror.com/@unocss/cli/0.45.30_rollup@2.79.1:
     resolution: {integrity: sha512-QmaMx7w5Nc4R7Nm/oB7hb9xwQeZqjNaUpFejqLP0b8gKSdBxecAOw2aknOV+NH8YvKwsqLvTOoRzmpVmbI1Xqg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@unocss/cli/-/cli-0.45.30.tgz}
+    id: registry.npmmirror.com/@unocss/cli/0.45.30
     name: '@unocss/cli'
     version: 0.45.30
     engines: {node: '>=14'}
     hasBin: true
     dependencies:
       '@ampproject/remapping': registry.npmmirror.com/@ampproject/remapping/2.2.0
-      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2
+      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2_rollup@2.79.1
       '@unocss/config': registry.npmmirror.com/@unocss/config/0.45.30
       '@unocss/core': registry.npmmirror.com/@unocss/core/0.45.30
       '@unocss/preset-uno': registry.npmmirror.com/@unocss/preset-uno/0.45.30
@@ -1177,7 +1184,7 @@ packages:
       '@unocss/core': registry.npmmirror.com/@unocss/core/0.45.30
     dev: true
 
-  registry.npmmirror.com/@unocss/vite/0.45.30_vite@3.2.2:
+  registry.npmmirror.com/@unocss/vite/0.45.30_rollup@2.79.1+vite@3.2.2:
     resolution: {integrity: sha512-4yx3W/SicS1ovpYdwbRQEGSdLZKxM76T5R0bGR9VRp6WcMoExY3Ph50LRCq1PIHT2L/GARSpJ/gGOW4hJ9lMYg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@unocss/vite/-/vite-0.45.30.tgz}
     id: registry.npmmirror.com/@unocss/vite/0.45.30
     name: '@unocss/vite'
@@ -1186,7 +1193,7 @@ packages:
       vite: ^2.9.0 || ^3.0.0-0
     dependencies:
       '@ampproject/remapping': registry.npmmirror.com/@ampproject/remapping/2.2.0
-      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2
+      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2_rollup@2.79.1
       '@unocss/config': registry.npmmirror.com/@unocss/config/0.45.30
       '@unocss/core': registry.npmmirror.com/@unocss/core/0.45.30
       '@unocss/inspector': registry.npmmirror.com/@unocss/inspector/0.45.30
@@ -3835,6 +3842,14 @@ packages:
       isobject: registry.npmmirror.com/isobject/3.0.1
     dev: true
 
+  registry.npmmirror.com/is-reference/1.2.1:
+    resolution: {integrity: sha512-U82MsXXiFIrjCK4otLT+o2NA2Cd2g5MLoOVXUZjIOhLurrRxpEXzI8O0KZHr3IjLvlAH1kTPYSuqer5T9ZVBKQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-reference/-/is-reference-1.2.1.tgz}
+    name: is-reference
+    version: 1.2.1
+    dependencies:
+      '@types/estree': registry.npmmirror.com/@types/estree/1.0.0
+    dev: true
+
   registry.npmmirror.com/is-regex/1.1.4:
     resolution: {integrity: sha512-kvRdxDsxZjhzUX07ZnLydzS1TU/TJlTUHHY4YLL87e37oUA49DfkLqgy+VjFocowy29cKvcSiu+kIv728jTTVg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-regex/-/is-regex-1.1.4.tgz}
     name: is-regex
@@ -5106,8 +5121,24 @@ packages:
       glob: registry.npmmirror.com/glob/7.2.3
     dev: true
 
-  registry.npmmirror.com/rollup-plugin-visualizer/5.8.3:
+  registry.npmmirror.com/rollup-plugin-external-globals/0.6.1_rollup@2.79.1:
+    resolution: {integrity: sha512-mlp3KNa5sE4Sp9UUR2rjBrxjG79OyZAh/QC18RHIjM+iYkbBwNXSo8DHRMZWtzJTrH8GxQ+SJvCTN3i14uMXIA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rollup-plugin-external-globals/-/rollup-plugin-external-globals-0.6.1.tgz}
+    id: registry.npmmirror.com/rollup-plugin-external-globals/0.6.1
+    name: rollup-plugin-external-globals
+    version: 0.6.1
+    peerDependencies:
+      rollup: ^2.25.0
+    dependencies:
+      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/4.2.1
+      estree-walker: registry.npmmirror.com/estree-walker/2.0.2
+      is-reference: registry.npmmirror.com/is-reference/1.2.1
+      magic-string: registry.npmmirror.com/magic-string/0.25.9
+      rollup: registry.npmmirror.com/rollup/2.79.1
+    dev: true
+
+  registry.npmmirror.com/rollup-plugin-visualizer/5.8.3_rollup@2.79.1:
     resolution: {integrity: sha512-QGJk4Bqe4AOat5AjipOh8esZH1nck5X2KFpf4VytUdSUuuuSwvIQZjMGgjcxe/zXexltqaXp5Vx1V3LmnQH15Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rollup-plugin-visualizer/-/rollup-plugin-visualizer-5.8.3.tgz}
+    id: registry.npmmirror.com/rollup-plugin-visualizer/5.8.3
     name: rollup-plugin-visualizer
     version: 5.8.3
     engines: {node: '>=14'}
@@ -5119,6 +5150,7 @@ packages:
         optional: true
     dependencies:
       open: registry.npmmirror.com/open/8.4.0
+      rollup: registry.npmmirror.com/rollup/2.79.1
       source-map: registry.npmmirror.com/source-map/0.7.4
       yargs: registry.npmmirror.com/yargs/17.6.0
     dev: true
@@ -5809,12 +5841,13 @@ packages:
       busboy: registry.npmmirror.com/busboy/1.6.0
     dev: true
 
-  registry.npmmirror.com/unimport/0.7.0:
+  registry.npmmirror.com/unimport/0.7.0_rollup@2.79.1:
     resolution: {integrity: sha512-Cr0whz4toYVid3JHlni/uThwavDVVCk6Zw0Gxnol1c7DprTA+Isr4T+asO6rDGkhkgV7r3vSdSs5Ym8F15JA+w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unimport/-/unimport-0.7.0.tgz}
+    id: registry.npmmirror.com/unimport/0.7.0
     name: unimport
     version: 0.7.0
     dependencies:
-      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2
+      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2_rollup@2.79.1
       escape-string-regexp: registry.npmmirror.com/escape-string-regexp/5.0.0
       fast-glob: registry.npmmirror.com/fast-glob/3.2.12
       local-pkg: registry.npmmirror.com/local-pkg/0.4.2
@@ -5848,7 +5881,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  registry.npmmirror.com/unocss/0.45.30_vite@3.2.2:
+  registry.npmmirror.com/unocss/0.45.30_rollup@2.79.1+vite@3.2.2:
     resolution: {integrity: sha512-6ODOL358gIS7IYdGmVc+DfsW881VZQPXACz5WySdSYcVgQnJvuvEVmvuXn670zN2K8TIEIP/22julybHtwDZ4Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unocss/-/unocss-0.45.30.tgz}
     id: registry.npmmirror.com/unocss/0.45.30
     name: unocss
@@ -5860,8 +5893,8 @@ packages:
       '@unocss/webpack':
         optional: true
     dependencies:
-      '@unocss/astro': registry.npmmirror.com/@unocss/astro/0.45.30_vite@3.2.2
-      '@unocss/cli': registry.npmmirror.com/@unocss/cli/0.45.30
+      '@unocss/astro': registry.npmmirror.com/@unocss/astro/0.45.30_rollup@2.79.1+vite@3.2.2
+      '@unocss/cli': registry.npmmirror.com/@unocss/cli/0.45.30_rollup@2.79.1
       '@unocss/core': registry.npmmirror.com/@unocss/core/0.45.30
       '@unocss/preset-attributify': registry.npmmirror.com/@unocss/preset-attributify/0.45.30
       '@unocss/preset-icons': registry.npmmirror.com/@unocss/preset-icons/0.45.30
@@ -5876,14 +5909,14 @@ packages:
       '@unocss/transformer-compile-class': registry.npmmirror.com/@unocss/transformer-compile-class/0.45.30
       '@unocss/transformer-directives': registry.npmmirror.com/@unocss/transformer-directives/0.45.30
       '@unocss/transformer-variant-group': registry.npmmirror.com/@unocss/transformer-variant-group/0.45.30
-      '@unocss/vite': registry.npmmirror.com/@unocss/vite/0.45.30_vite@3.2.2
+      '@unocss/vite': registry.npmmirror.com/@unocss/vite/0.45.30_rollup@2.79.1+vite@3.2.2
     transitivePeerDependencies:
       - rollup
       - supports-color
       - vite
     dev: true
 
-  registry.npmmirror.com/unplugin-auto-import/0.11.4_@vueuse+core@9.4.0:
+  registry.npmmirror.com/unplugin-auto-import/0.11.4_6atjafs3v6znsplg3j7hgljsd4:
     resolution: {integrity: sha512-lh/bRDRYwgnb9Cm5ur8TlTMGxA1GRZvgzCvBIf0vyuVRy7ebWcWefFElpUDpr8vLl+ZRGsPVCOGiYJ8TCR625Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-auto-import/-/unplugin-auto-import-0.11.4.tgz}
     id: registry.npmmirror.com/unplugin-auto-import/0.11.4
     name: unplugin-auto-import
@@ -5896,17 +5929,17 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': registry.npmmirror.com/@antfu/utils/0.6.0
-      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2
+      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2_rollup@2.79.1
       '@vueuse/core': registry.npmmirror.com/@vueuse/core/9.4.0_vue@3.2.41
       local-pkg: registry.npmmirror.com/local-pkg/0.4.2
       magic-string: registry.npmmirror.com/magic-string/0.26.7
-      unimport: registry.npmmirror.com/unimport/0.7.0
+      unimport: registry.npmmirror.com/unimport/0.7.0_rollup@2.79.1
       unplugin: registry.npmmirror.com/unplugin/0.10.2
     transitivePeerDependencies:
       - rollup
     dev: true
 
-  registry.npmmirror.com/unplugin-element-plus/0.4.1_vite@3.2.2:
+  registry.npmmirror.com/unplugin-element-plus/0.4.1_rollup@2.79.1+vite@3.2.2:
     resolution: {integrity: sha512-x8L35sppkbtnAf+aSPXNsLPjCUrM0mWKgujqMIgrHiDQaGbpMlNnbN2kjP5CMclykNOw8fUCreEhtxPyzg8tmw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-element-plus/-/unplugin-element-plus-0.4.1.tgz}
     id: registry.npmmirror.com/unplugin-element-plus/0.4.1
     name: unplugin-element-plus
@@ -5916,7 +5949,7 @@ packages:
       '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/4.2.1
       es-module-lexer: registry.npmmirror.com/es-module-lexer/0.10.5
       magic-string: registry.npmmirror.com/magic-string/0.26.7
-      unplugin: registry.npmmirror.com/unplugin/0.7.2_vite@3.2.2
+      unplugin: registry.npmmirror.com/unplugin/0.7.2_rollup@2.79.1+vite@3.2.2
     transitivePeerDependencies:
       - esbuild
       - rollup
@@ -5924,7 +5957,7 @@ packages:
       - webpack
     dev: true
 
-  registry.npmmirror.com/unplugin-vue-components/0.22.9_vue@3.2.41:
+  registry.npmmirror.com/unplugin-vue-components/0.22.9_rollup@2.79.1+vue@3.2.41:
     resolution: {integrity: sha512-qBvooq3EgpjtYicxeccRUGUBBQCCw9rJ0kHPZPOSJd8TBZViSv86vuKLTRDHPyjWtclwOIkVStZJfPdJFhYUMw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin-vue-components/-/unplugin-vue-components-0.22.9.tgz}
     id: registry.npmmirror.com/unplugin-vue-components/0.22.9
     name: unplugin-vue-components
@@ -5938,7 +5971,7 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': registry.npmmirror.com/@antfu/utils/0.6.0
-      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2
+      '@rollup/pluginutils': registry.npmmirror.com/@rollup/pluginutils/5.0.2_rollup@2.79.1
       chokidar: registry.npmmirror.com/chokidar/3.5.3
       debug: registry.npmmirror.com/debug/4.3.4
       fast-glob: registry.npmmirror.com/fast-glob/3.2.12
@@ -5976,7 +6009,7 @@ packages:
       webpack-virtual-modules: registry.npmmirror.com/webpack-virtual-modules/0.4.5
     dev: true
 
-  registry.npmmirror.com/unplugin/0.7.2_vite@3.2.2:
+  registry.npmmirror.com/unplugin/0.7.2_rollup@2.79.1+vite@3.2.2:
     resolution: {integrity: sha512-m7thX4jP8l5sETpLdUASoDOGOcHaOVtgNyrYlToyQUvILUtEzEnngRBrHnAX3IKqooJVmXpoa/CwQ/QqzvGaHQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/unplugin/-/unplugin-0.7.2.tgz}
     id: registry.npmmirror.com/unplugin/0.7.2
     name: unplugin
@@ -5998,6 +6031,7 @@ packages:
     dependencies:
       acorn: registry.npmmirror.com/acorn/8.8.1
       chokidar: registry.npmmirror.com/chokidar/3.5.3
+      rollup: registry.npmmirror.com/rollup/2.79.1
       vite: registry.npmmirror.com/vite/3.2.2_sass@1.55.0+terser@5.15.1
       webpack-sources: registry.npmmirror.com/webpack-sources/3.2.3
       webpack-virtual-modules: registry.npmmirror.com/webpack-virtual-modules/0.4.5
@@ -6069,6 +6103,17 @@ packages:
     name: vary
     version: 1.1.2
     engines: {node: '>= 0.8'}
+    dev: true
+
+  registry.npmmirror.com/vite-plugin-cdn-import/0.3.5_rollup@2.79.1:
+    resolution: {integrity: sha512-e1raoalfBiIhv+hnMeSp1UNjloDDBhHpeFxkwRRdPBmTdDRqdEEn8owUmT5u8UBSVCs4xN3n/od4a91vXEhXPQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-cdn-import/-/vite-plugin-cdn-import-0.3.5.tgz}
+    id: registry.npmmirror.com/vite-plugin-cdn-import/0.3.5
+    name: vite-plugin-cdn-import
+    version: 0.3.5
+    dependencies:
+      rollup-plugin-external-globals: registry.npmmirror.com/rollup-plugin-external-globals/0.6.1_rollup@2.79.1
+    transitivePeerDependencies:
+      - rollup
     dev: true
 
   registry.npmmirror.com/vite-plugin-html/3.2.0_vite@3.2.2:

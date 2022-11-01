@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 07:44:59
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 10:26:45
+ * @LastEditTime: 2022-11-01 11:12:44
  * @FilePath: \IUI314\src\components\app\nav-bar-language.vue
  * @Description: 
 -->
@@ -34,10 +34,14 @@
 </template>
 
 <script setup lang="ts" name="nav-bar-language">
+import { ElDropdown, ElDropdownItem, ElIcon } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 
 import { langList } from '@/i18n'
 import { useAppStore } from '@/stores'
+
+import SvgIcon from '../common/svg-icon.vue'
+
 const appStore = useAppStore()
 const { locale } = useI18n()
 const setLang = (v: string) => {

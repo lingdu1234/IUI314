@@ -98,6 +98,14 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
+import {
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElRow,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

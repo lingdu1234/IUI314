@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-29 09:38:26
+ * @LastEditTime: 2022-11-01 15:43:21
  * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
  * @Description: 
 -->
@@ -85,7 +85,7 @@
           :icon="Edit"
           plain
           type="success"
-          @click="handleUpdate"
+          @click="handleUpdate()"
         >
           {{ t('common.edit') }}
         </el-button>
@@ -97,7 +97,7 @@
           :icon="Delete"
           plain
           type="danger"
-          @click="handleDelete"
+          @click="handleDelete()"
         >
           {{ t('common.delete') }}
         </el-button>
@@ -231,7 +231,23 @@ import {
   Search,
 } from '@element-plus/icons-vue'
 import md5 from 'blueimp-md5'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import {
+  ElButton,
+  ElCol,
+  ElDatePicker,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElMessageBox,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElSwitch,
+  ElTable,
+  ElTableColumn,
+  ElTooltip,
+} from 'element-plus'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -326,13 +342,13 @@ const handleAdd = () => {
   open.value = true
 }
 // 更新
-const handleUpdate = async (row: user) => {
-  propsUserId.value = row.id || ids.value[0]
-  title.value = `修改用户 - ${row.user_name}`
+const handleUpdate = async (row?: user) => {
+  propsUserId.value = row?.id || ids.value[0]
+  title.value = '修改用户'
   open.value = true
 }
 // 删除
-const handleDelete = async (row: user) => {
+const handleDelete = async (row?: user) => {
   const flag = await useDeleteFn(
     ApiSysUser.delete,
     'id',

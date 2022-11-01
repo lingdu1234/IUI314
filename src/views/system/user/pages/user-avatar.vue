@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:58:25
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 23:09:24
+ * @LastEditTime: 2022-11-01 14:50:07
  * @FilePath: \IUI314\src\views\system\user\pages\user-avatar.vue
  * @Description: 
 -->
@@ -89,7 +89,15 @@ import {
   RefreshRight,
   Upload,
 } from '@element-plus/icons-vue'
-import { type UploadProps, ElMessage } from 'element-plus'
+import {
+  type UploadProps,
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElIcon,
+  ElMessage,
+  ElRow,
+} from 'element-plus'
 import { ref } from 'vue'
 import { VueCropper } from 'vue-cropper'
 import { useI18n } from 'vue-i18n'

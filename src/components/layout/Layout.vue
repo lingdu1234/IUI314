@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-29 08:31:47
+ * @LastEditTime: 2022-11-01 10:30:55
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
@@ -28,6 +28,7 @@
   </div>
 </template>
 <script lang="ts" setup name="lay-out">
+import { ElAside, ElContainer, ElHeader, ElMain } from 'element-plus'
 import { computed, watch } from 'vue'
 
 import { useMobile } from '@/hooks'

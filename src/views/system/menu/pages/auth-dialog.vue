@@ -101,7 +101,19 @@
 </template>
 <script lang="ts" setup name="menu-dialog">
 import { InfoFilled } from '@element-plus/icons-vue'
-import { ElMessage } from 'element-plus'
+import {
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElIcon,
+  ElMessage,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElTooltip,
+} from 'element-plus'
 import { type PropType, ref } from 'vue'
 
 import { ApiSysDbApi, ApiSysMenu, ErrorFlag } from '@/api/apis'

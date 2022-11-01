@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 09:32:17
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-27 16:02:14
+ * @LastEditTime: 2022-11-01 14:25:38
  * @FilePath: \IUI314\src\views\system\menu\auth.vue
  * @Description: 
 -->
@@ -253,7 +253,20 @@
 </template>
 <script lang="ts" setup>
 import { DataBoard, Refresh, Search } from '@element-plus/icons-vue'
-import type { FormInstance } from 'element-plus'
+import {
+  type FormInstance,
+  ElButton,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElOption,
+  ElPopover,
+  ElSelect,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+  ElTooltip,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

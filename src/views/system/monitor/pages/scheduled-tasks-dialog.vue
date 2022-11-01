@@ -180,7 +180,25 @@
 </template>
 <script lang="ts" setup name="menu-dialog">
 import { InfoFilled, Timer } from '@element-plus/icons-vue'
-import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
+import {
+  type FormInstance,
+  type FormRules,
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElIcon,
+  ElInput,
+  ElInputNumber,
+  ElMessage,
+  ElOption,
+  ElRadioButton,
+  ElRadioGroup,
+  ElRow,
+  ElSelect,
+  ElTooltip,
+} from 'element-plus'
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

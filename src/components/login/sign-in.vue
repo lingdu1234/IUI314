@@ -60,7 +60,15 @@
 </template>
 <script lang="ts" name="sign-in" setup>
 import { usePreferredColorScheme } from '@vueuse/core'
-import type { FormInstance, FormRules } from 'element-plus'
+import {
+  type FormInstance,
+  type FormRules,
+  ElButton,
+  ElCheckbox,
+  ElForm,
+  ElFormItem,
+  ElInput,
+} from 'element-plus'
 import { computed, reactive, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 

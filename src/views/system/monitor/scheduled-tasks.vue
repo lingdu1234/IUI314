@@ -74,7 +74,7 @@
           plain
           :icon="Edit"
           :disabled="!single"
-          @click="handleUpdate"
+          @click="handleUpdate()"
         >
           {{ t('common.edit') }}
         </el-button>
@@ -86,7 +86,7 @@
           plain
           :icon="Delete"
           :disabled="!selected"
-          @click="handleDelete"
+          @click="handleDelete()"
         >
           {{ t('common.delete') }}
         </el-button>
@@ -97,7 +97,7 @@
           plain
           :icon="Operation"
           v-if="hasPermission(ApiSysScheduledTasksLog.getList)"
-          @click="handleJobLog"
+          @click="handleJobLog()"
         >
           {{ t('common.log') }}
         </el-button>
@@ -292,7 +292,26 @@ import {
   View,
 } from '@element-plus/icons-vue'
 import { useIntervalFn } from '@vueuse/core'
-import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
+import {
+  type FormInstance,
+  ElButton,
+  ElCheckbox,
+  ElCol,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElLink,
+  ElMessage,
+  ElMessageBox,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElSwitch,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+  ElTooltip,
+} from 'element-plus'
 import { onActivated, onDeactivated, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -346,7 +365,7 @@ const handleSelectionChange = (v: scheduledTasks[]) =>
 const { pause, resume } = useIntervalFn(() => getList(), 1500)
 const fresh_enabled = ref(false)
 // 切换状态
-const fresh_option_changed = (v: boolean) => {
+const fresh_option_changed = (v: string | number | boolean) => {
   if (v) {
     resume()
   } else {

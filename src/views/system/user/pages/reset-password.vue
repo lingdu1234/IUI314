@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:37:13
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 08:28:12
+ * @LastEditTime: 2022-11-01 14:49:25
  * @FilePath: \IUI314\src\views\system\user\pages\reset-password.vue
  * @Description: 
 -->
@@ -45,7 +45,15 @@
 
 <script lang="ts" setup name="reset-password">
 import md5 from 'blueimp-md5'
-import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
+import {
+  type FormInstance,
+  type FormRules,
+  ElButton,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+} from 'element-plus'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

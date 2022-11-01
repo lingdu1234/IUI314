@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts" setup name="pagination">
+import { ElPagination } from 'element-plus'
 import { computed } from 'vue'
 
 const props = defineProps({

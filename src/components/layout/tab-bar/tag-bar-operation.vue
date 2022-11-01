@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 16:48:28
+ * @LastEditTime: 2022-11-01 10:41:16
  * @FilePath: \IUI314\src\components\layout\tab-bar\tag-bar-operation.vue
  * @Description: 
 -->
@@ -36,6 +36,7 @@
 
 <script lang="ts" setup name="tab-bar-operation">
 import { ArrowDownBold, RefreshLeft } from '@element-plus/icons-vue'
+import { ElDropdown, ElIcon } from 'element-plus'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 

@@ -50,7 +50,7 @@
 
     <el-row :gutter="10" class="mb8" style="height: 35px">
       <el-col :span="1.5">
-        <el-button type="primary" plain icon="Plus" @click="handleAdd">
+        <el-button type="primary" plain :icon="Plus" @click="handleAdd">
           新增
         </el-button>
       </el-col>
@@ -58,16 +58,16 @@
         <el-button
           type="danger"
           plain
-          icon="Delete"
+          :icon="Delete"
           :disabled="!selected"
-          @click="handleDelete"
+          @click="handleDelete()"
           >删除</el-button
         >
       </el-col>
-      <right-toolbar
+      <RightToolBar
         v-model:showSearch="showSearch"
         @queryTable="getList"
-      ></right-toolbar>
+      ></RightToolBar>
     </el-row>
 
     <el-table :data="list" @selection-change="handleSelectionChange">
@@ -107,12 +107,26 @@
 </template>
 
 <script setup lang="ts" name="data-scope">
-import { Refresh, Search } from '@element-plus/icons-vue'
-import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
+import { Delete, Plus, Refresh, Search } from '@element-plus/icons-vue'
+import {
+  type FormInstance,
+  type FormRules,
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElRow,
+  ElTable,
+  ElTableColumn,
+} from 'element-plus'
 import { ref } from 'vue'
 
 import { ErrorFlag } from '@/api/apis'
 import { ApiDataScopeTest } from '@/api/tests'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   useDeleteFn,
   useFormUtil,

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 16:05:46
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-28 15:42:56
+ * @LastEditTime: 2022-11-01 14:48:46
  * @FilePath: \IUI314\src\views\system\user\profile.vue
  * @Description: 
 -->
@@ -111,6 +111,7 @@
   </div>
 </template>
 <script lang="ts" setup name="user-profile">
+import { ElCol, ElForm, ElFormItem, ElIcon, ElRow } from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

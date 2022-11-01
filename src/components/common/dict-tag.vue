@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 17:25:13
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 21:26:52
+ * @LastEditTime: 2022-11-01 10:51:48
  * @FilePath: \IUI314\src\components\common\dict-tag.vue
  * @Description: 
 -->
@@ -34,6 +34,7 @@
 </template>
 
 <script lang="ts" setup name="dict-tag">
+import { ElTag } from 'element-plus'
 import { type PropType, computed } from 'vue'
 
 import type { dictUse } from '@/types/system/dict'

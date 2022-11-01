@@ -80,8 +80,21 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
-import type { FormInstance, FormRules } from 'element-plus'
-import { ElMessage } from 'element-plus'
+import {
+  type FormInstance,
+  type FormRules,
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElInputNumber,
+  ElMessage,
+  ElRadio,
+  ElRadioGroup,
+  ElRow,
+} from 'element-plus'
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

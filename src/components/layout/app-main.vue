@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 17:46:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-29 08:33:24
+ * @LastEditTime: 2022-11-01 10:38:40
  * @FilePath: \IUI314\src\components\layout\app-main.vue
  * @Description: 
 -->
@@ -19,6 +19,7 @@
 </template>
 
 <script lang="ts" setup name="app-main">
+import { ElScrollbar } from 'element-plus'
 import { computed } from 'vue'
 
 import { useAppStore, useTabBarStore } from '@/stores'

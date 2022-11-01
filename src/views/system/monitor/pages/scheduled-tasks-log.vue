@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 12:19:37
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 09:57:00
+ * @LastEditTime: 2022-11-01 15:19:09
  * @FilePath: \IUI314\src\views\system\monitor\pages\scheduled-tasks-log.vue
  * @Description: 
 -->
@@ -11,7 +11,7 @@
   <div>
     <el-form>
       <el-form-item label="任务信息" prop="job_group">
-        <dict-tag :options="dicts[dictKey.sysJobGroup]" :value="job_group" />
+        <DictTag :options="dicts[dictKey.sysJobGroup]" :value="job_group" />
         <span> {{ job_name }}</span>
       </el-form-item>
     </el-form>
@@ -96,7 +96,7 @@
           plain
           :icon="Delete"
           :disabled="!selected"
-          @click="handleDelete"
+          @click="handleDelete()"
         >
           {{ t('common.delete') }}
         </el-button>
@@ -234,12 +234,27 @@
 <script lang="ts" setup name="dict-data">
 import { Close, Delete, Refresh, Search, View } from '@element-plus/icons-vue'
 import { useIntervalFn } from '@vueuse/core'
-import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
+import {
+  type FormInstance,
+  ElButton,
+  ElCol,
+  ElDatePicker,
+  ElForm,
+  ElFormItem,
+  ElMessage,
+  ElMessageBox,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElTable,
+  ElTableColumn,
+} from 'element-plus'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
 import { ApiSysScheduledTasks, ApiSysScheduledTasksLog } from '@/api/apis'
+import DictTag from '@/components/common/dict-tag.vue'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,

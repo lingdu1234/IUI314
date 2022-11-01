@@ -42,6 +42,7 @@
   </div>
 </template>
 <script lang="ts" setup name="monitor-table">
+import { ElCard, ElTable, ElTableColumn } from 'element-plus'
 import type { PropType } from 'vue'
 
 import type { MonitorTable } from '@/types/system/server-monitor'

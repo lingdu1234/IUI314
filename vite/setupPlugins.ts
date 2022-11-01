@@ -6,8 +6,10 @@ import type { PluginOption } from 'vite'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 import {
-  setupAutoImport,
+  setupElementPlus,
+  // setupAutoImport,
   setupHtmlPlugin,
+  setupImportCDN,
   setupSvgIcons,
   setupUnocss,
 } from './plugins'
@@ -22,7 +24,9 @@ export const setupVitePlugins = (mode: string): PluginOption[] => {
     setupSvgIcons(),
     setupHtmlPlugin(mode),
     setupUnocss(),
-    ...setupAutoImport(),
+    setupImportCDN(),
+    ...setupElementPlus(),
+    // ...setupAutoImport(),
   ]
   return vitePlugins
 }

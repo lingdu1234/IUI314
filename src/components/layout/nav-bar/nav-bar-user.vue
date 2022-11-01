@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 11:04:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 22:06:33
+ * @LastEditTime: 2022-11-01 11:22:08
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-user.vue
  * @Description: 
 -->
@@ -72,7 +72,18 @@
 </template>
 
 <script lang="ts" setup name="nav-bar-user">
-import { ElMessage, ElMessageBox } from 'element-plus'
+import {
+  ElCol,
+  ElDropdown,
+  ElDropdownItem,
+  ElDropdownMenu,
+  ElMessage,
+  ElMessageBox,
+  ElPopover,
+  ElRadio,
+  ElRadioGroup,
+  ElRow,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -127,7 +138,7 @@ const get_options = async () => {
   deptMapOptions.value = map
   dept_id.value = userStore.user.dept
 }
-async function roleChanged(v: string) {
+async function roleChanged(v: string | number | boolean) {
   const { data, execute } = usePut(ApiSysUser.changeRole, {
     user_id: userStore.user.uid,
     role_id: v,
@@ -140,7 +151,7 @@ async function roleChanged(v: string) {
     window.location.reload()
   }, 1000)
 }
-async function deptChanged(v: string) {
+async function deptChanged(v: string | number | boolean) {
   const { data, execute } = usePut(ApiSysUser.changeDept, {
     user_id: userStore.user.uid,
     dept_id: v,

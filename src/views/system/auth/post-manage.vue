@@ -67,7 +67,7 @@
           :icon="Edit"
           plain
           type="success"
-          @click="handleUpdate"
+          @click="handleUpdate()"
         >
           {{ t('common.edit') }}
         </el-button>
@@ -79,7 +79,7 @@
           :icon="Delete"
           plain
           type="danger"
-          @click="handleDelete"
+          @click="handleDelete()"
         >
           {{ t('common.delete') }}
         </el-button>
@@ -181,7 +181,19 @@
 </template>
 <script lang="ts" setup>
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
-import type { FormInstance } from 'element-plus'
+import {
+  type FormInstance,
+  ElButton,
+  ElCol,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElTable,
+  ElTableColumn,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -193,6 +205,7 @@ import {
   useDeleteFn,
   useDicts,
   useFormUtil,
+  useGet,
   useListData,
   useTableUtil,
 } from '@/hooks'
@@ -235,9 +248,17 @@ const handleAdd = () => {
   title.value = '新增岗位'
   open.value = true
 }
-const handleUpdate = (row: post) => {
-  postData.value = row
-  title.value = `更新岗位-${row.post_name}`
+const handleUpdate = async (row?: post) => {
+  if (row?.post_id) {
+    postData.value = row
+  } else {
+    const { data, execute } = useGet<post>(ApiSysPost.getById, {
+      post_id: ids.value[0],
+    })
+    await execute()
+    postData.value = data.value!
+  }
+  title.value = `更新岗位-${postData.value.post_name}`
   open.value = true
 }
 

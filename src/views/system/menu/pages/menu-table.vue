@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-27 16:48:41
+ * @LastEditTime: 2022-11-01 14:15:35
  * @FilePath: \IUI314\src\views\system\menu\pages\menu-table.vue
  * @Description: 
 -->
@@ -170,7 +170,17 @@
 </template>
 <script lang="ts" setup name="menu-table">
 import { CopyDocument, Delete, Edit, FolderAdd } from '@element-plus/icons-vue'
-import { type TableInstance, ElMessage, ElMessageBox } from 'element-plus'
+import {
+  type TableInstance,
+  ElButton,
+  ElIcon,
+  ElMessage,
+  ElMessageBox,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+  ElTooltip,
+} from 'element-plus'
 import { type PropType, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

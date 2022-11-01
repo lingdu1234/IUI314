@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 07:44:59
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 18:35:45
+ * @LastEditTime: 2022-11-01 11:13:11
  * @FilePath: \IUI314\src\components\app\nav-bar-theme.vue
  * @Description: 
 -->
@@ -34,11 +34,14 @@
 </template>
 
 <script setup lang="ts" name="nav-bar-theme">
+import { ElDropdown, ElDropdownItem, ElIcon } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 
 import { useTheme } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { useAppStore } from '@/stores'
+
+import SvgIcon from '../common/svg-icon.vue'
 const appStore = useAppStore()
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 07:44:59
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 18:36:56
+ * @LastEditTime: 2022-11-01 11:13:01
  * @FilePath: \IUI314\src\components\app\nav-bar-size.vue
  * @Description: 设置app element 部分组件大小
 -->
@@ -30,9 +30,12 @@
 </template>
 
 <script setup lang="ts" name="nav-bar-size">
+import { ElDropdown, ElDropdownItem, ElIcon } from 'element-plus'
 import { ref } from 'vue'
 
 import { useAppStore } from '@/stores'
+
+import SvgIcon from '../common/svg-icon.vue'
 
 const appStore = useAppStore()
 

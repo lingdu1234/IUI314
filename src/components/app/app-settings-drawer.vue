@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 19:12:36
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 11:11:37
+ * @LastEditTime: 2022-11-01 14:59:06
  * @FilePath: \IUI314\src\components\app\app-settings-drawer.vue
  * @Description: 
 -->
@@ -70,6 +70,15 @@
 </template>
 
 <script lang="ts" setup name="app-settings-drawer">
+import {
+  ElButton,
+  ElDivider,
+  ElDrawer,
+  ElForm,
+  ElFormItem,
+  ElOption,
+  ElSelect,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 20:32:13
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 09:38:18
+ * @LastEditTime: 2022-11-01 10:53:34
  * @FilePath: \IUI314\src\components\common\right-tool-bar.vue
  * @Description: 
 -->
@@ -34,6 +34,7 @@
 </template>
 <script setup lang="ts" name="right-tool-bar">
 import { Refresh, Search } from '@element-plus/icons-vue'
+import { ElButton, ElRow, ElTooltip } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 
 import type { MessageSchema } from '@/i18n'

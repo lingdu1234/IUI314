@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-16 12:58:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 11:30:16
+ * @LastEditTime: 2022-11-01 15:20:43
  * @FilePath: \IUI314\src\views\system\auth\dept-manage.vue
  * @Description: 
 -->
@@ -54,7 +54,7 @@
           :icon="Plus"
           plain
           type="primary"
-          @click="handleAdd"
+          @click="handleAdd()"
         >
           {{ t('common.add') }}
         </el-button>
@@ -159,8 +159,21 @@ import {
   Search,
   Sort,
 } from '@element-plus/icons-vue'
-import type { FormInstance } from 'element-plus'
-import { ElMessage, ElMessageBox } from 'element-plus'
+import {
+  type FormInstance,
+  ElButton,
+  ElCol,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElMessageBox,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElTable,
+  ElTableColumn,
+} from 'element-plus'
 import { nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

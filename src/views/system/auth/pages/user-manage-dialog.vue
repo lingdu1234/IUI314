@@ -224,7 +224,23 @@
 </template>
 <script lang="ts" setup>
 import md5 from 'blueimp-md5'
-import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
+import {
+  type FormInstance,
+  type FormRules,
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElRadio,
+  ElRadioGroup,
+  ElRow,
+  ElSelect,
+  ElTreeSelect,
+} from 'element-plus'
 import { inject, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

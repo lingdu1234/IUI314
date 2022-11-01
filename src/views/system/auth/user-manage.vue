@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 16:31:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 09:04:20
+ * @LastEditTime: 2022-11-01 14:27:38
  * @FilePath: \IUI314\src\views\system\auth\user-manage.vue
  * @Description: 
 -->
@@ -40,7 +40,7 @@
 </template>
 <script lang="ts" setup>
 import { Search } from '@element-plus/icons-vue'
-import type { ElTree } from 'element-plus'
+import { ElCol, ElInput, ElRow, ElTree } from 'element-plus'
 import { provide, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 

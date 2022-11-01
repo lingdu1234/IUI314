@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 16:26:54
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 08:34:40
+ * @LastEditTime: 2022-11-01 14:16:30
  * @FilePath: \IUI314\src\views\system\menu\menu-manage.vue
  * @Description: 
 -->
@@ -74,7 +74,18 @@
 </template>
 <script lang="ts" setup>
 import { Plus, Refresh, Search } from '@element-plus/icons-vue'
-import type { FormInstance } from 'element-plus'
+import {
+  type FormInstance,
+  ElButton,
+  ElCol,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElSkeleton,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

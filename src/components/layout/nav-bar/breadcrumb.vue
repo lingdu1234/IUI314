@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 20:20:03
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 11:41:54
+ * @LastEditTime: 2022-11-01 10:41:33
  * @FilePath: \IUI314\src\components\layout\nav-bar\breadcrumb.vue
  * @Description: 
 -->
@@ -29,6 +29,7 @@
 
 <script lang="ts" setup name="breadcrumb">
 import { ArrowRight } from '@element-plus/icons-vue'
+import { ElBreadcrumb, ElBreadcrumbItem, ElIcon } from 'element-plus'
 import { ref, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { type RouteLocationMatched, useRoute } from 'vue-router'

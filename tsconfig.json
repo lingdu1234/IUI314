@@ -18,7 +18,8 @@
     "types": [
       "vite-plugin-svg-icons/client",
       "vite/client",
-      "unplugin-vue-define-options/macros-global"
+      "unplugin-vue-define-options/macros-global",
+      "element-plus/global"
     ],
     "allowJs": true
   },

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 23:56:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-28 14:45:05
+ * @LastEditTime: 2022-11-01 15:46:53
  * @FilePath: \IUI314\src\views\system\dict\type.vue
  * @Description: 字典类型数据
 -->
@@ -85,7 +85,7 @@
           plain
           :icon="Edit"
           :disabled="!single"
-          @click="handleUpdate"
+          @click="handleUpdate()"
           v-if="hasPermission(ApiSysDictType.edit)"
         >
           {{ t('common.edit') }}
@@ -97,7 +97,7 @@
           plain
           :icon="Delete"
           :disabled="!selected"
-          @click="handleDelete"
+          @click="handleDelete()"
           v-if="hasPermission(ApiSysDictType.delete)"
         >
           {{ t('common.delete') }}
@@ -252,7 +252,26 @@
 </template>
 <script lang="ts" setup>
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
-import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
+import {
+  type FormInstance,
+  type FormRules,
+  ElButton,
+  ElCol,
+  ElDatePicker,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElLink,
+  ElMessage,
+  ElOption,
+  ElRadio,
+  ElRadioGroup,
+  ElRow,
+  ElSelect,
+  ElTable,
+  ElTableColumn,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

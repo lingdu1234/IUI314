@@ -32,6 +32,7 @@
 
 <script lang="ts" setup name="tab-bar-item">
 import { Close } from '@element-plus/icons-vue'
+import { ElDropdown, ElIcon } from 'element-plus'
 import type { PropType } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute, useRouter } from 'vue-router'

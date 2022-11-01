@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 19:32:07
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 21:43:09
+ * @LastEditTime: 2022-11-01 10:39:47
  * @FilePath: \IUI314\src\components\layout\tab-bar\tab-bar-item-dropdown.vue
  * @Description: 
 -->
@@ -43,6 +43,7 @@ import {
   Smoking,
   Switch,
 } from '@element-plus/icons-vue'
+import { ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'
 import { type PropType, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'

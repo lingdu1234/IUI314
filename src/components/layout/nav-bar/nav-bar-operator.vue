@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:22:30
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-29 09:26:59
+ * @LastEditTime: 2022-11-01 10:42:12
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-operator.vue
  * @Description: 
 -->
@@ -47,6 +47,7 @@
 </template>
 
 <script lang="ts" setup name="nav-bar-operator">
+import { ElTooltip } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 
 import AppSettings from '@/components/app/app-settings.vue'

@@ -66,7 +66,7 @@
           plain
           :icon="Delete"
           :disabled="!selected"
-          @click="handleDelete"
+          @click="handleDelete()"
           v-if="hasPermission(ApiSysLoginLog.delete)"
         >
           {{ t('common.delete') }}
@@ -182,7 +182,22 @@
 </template>
 <script lang="ts" setup>
 import { Delete, Refresh, Search } from '@element-plus/icons-vue'
-import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
+import {
+  type FormInstance,
+  ElButton,
+  ElCol,
+  ElDatePicker,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElMessageBox,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElTable,
+  ElTableColumn,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

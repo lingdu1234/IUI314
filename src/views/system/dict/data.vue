@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 08:49:55
+ * @LastEditTime: 2022-11-01 15:47:33
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -84,7 +84,7 @@
           plain
           :icon="Edit"
           :disabled="!single"
-          @click="handleUpdate"
+          @click="handleUpdate()"
           v-if="hasPermission(ApiSysDictData.edit)"
         >
           {{ t('common.edit') }}
@@ -96,7 +96,7 @@
           plain
           :icon="Delete"
           :disabled="!selected"
-          @click="handleDelete"
+          @click="handleDelete()"
           v-if="hasPermission(ApiSysDictData.delete)"
         >
           {{ t('common.delete') }}
@@ -277,7 +277,26 @@ import {
   Refresh,
   Search,
 } from '@element-plus/icons-vue'
-import { type FormInstance, type FormRules, ElMessage } from 'element-plus'
+import {
+  type FormInstance,
+  type FormRules,
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElInputNumber,
+  ElMessage,
+  ElOption,
+  ElRadio,
+  ElRadioGroup,
+  ElRow,
+  ElSelect,
+  ElTable,
+  ElTableColumn,
+  ElTag,
+} from 'element-plus'
 import { onActivated, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'

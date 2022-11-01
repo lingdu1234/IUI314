@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 15:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 22:04:46
+ * @LastEditTime: 2022-11-01 10:50:57
  * @FilePath: \IUI314\src\components\exception\exception.vue
  * @Description: 
 -->
@@ -32,6 +32,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ElButton, ElIcon } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 

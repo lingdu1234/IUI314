@@ -77,7 +77,7 @@
           :icon="Edit"
           plain
           type="success"
-          @click="handleUpdate"
+          @click="handleUpdate()"
         >
           {{ t('common.edit') }}
         </el-button>
@@ -89,7 +89,7 @@
           :icon="Delete"
           plain
           type="danger"
-          @click="handleDelete"
+          @click="handleDelete()"
         >
           {{ t('common.delete') }}
         </el-button>
@@ -211,7 +211,24 @@ import {
   Refresh,
   Search,
 } from '@element-plus/icons-vue'
-import { type FormInstance, ElMessage, ElMessageBox } from 'element-plus'
+import {
+  type FormInstance,
+  ElButton,
+  ElCol,
+  ElDatePicker,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElMessageBox,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElSwitch,
+  ElTable,
+  ElTableColumn,
+  ElTooltip,
+} from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -223,6 +240,7 @@ import {
   useDeleteFn,
   useDicts,
   useFormUtil,
+  useGet,
   useListData,
   usePut,
   useTableUtil,
@@ -269,9 +287,17 @@ const handleAdd = () => {
   title.value = '新增角色'
   open.value = true
 }
-const handleUpdate = (row: role) => {
-  roleData.value = row
-  title.value = `更新角色-${row.role_name}`
+const handleUpdate = async (row?: role) => {
+  if (row?.role_id) {
+    roleData.value = row
+  } else {
+    const { data, execute } = useGet<role>(ApiSysRole.getById, {
+      role_id: ids.value[0],
+    })
+    await execute()
+    roleData.value = data.value!
+  }
+  title.value = `更新角色-${roleData.value.role_name}`
   open.value = true
 }
 const handleDataScope = (row: role) => {

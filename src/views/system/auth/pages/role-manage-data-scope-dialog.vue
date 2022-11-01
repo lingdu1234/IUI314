@@ -109,9 +109,20 @@
   </el-dialog>
 </template>
 <script lang="ts" setup>
-import type { ElTree, FormInstance } from 'element-plus'
-import { ElMessage } from 'element-plus'
-// import type node from 'element-plus/es/components/tree/src/model/node'
+import {
+  type FormInstance,
+  ElButton,
+  ElCol,
+  ElDialog,
+  ElForm,
+  ElFormItem,
+  ElInput,
+  ElMessage,
+  ElOption,
+  ElRow,
+  ElSelect,
+  ElTree,
+} from 'element-plus'
 import { type PropType, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 

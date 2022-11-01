@@ -9,7 +9,11 @@
   "compilerOptions": {
     "composite": true,
     "types": [
-      "node"
+      "node",
+      "vite-plugin-svg-icons/client",
+      "vite/client",
+      "unplugin-vue-define-options/macros-global",
+      "element-plus/global"
     ]
   }
 }
