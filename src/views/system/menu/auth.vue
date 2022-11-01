@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 09:32:17
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 14:25:38
+ * @LastEditTime: 2022-11-01 20:38:49
  * @FilePath: \IUI314\src\views\system\menu\auth.vue
  * @Description: 
 -->
@@ -234,7 +234,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination
+    <Pagination
       v-show="total > 0"
       v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
@@ -271,6 +271,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysDbApi, ApiSysMenu } from '@/api/apis'
+import Pagination from '@/components/common/pagination.vue'
 import {
   hasPermission,
   parseTime,

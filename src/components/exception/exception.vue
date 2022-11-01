@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 15:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 10:50:57
+ * @LastEditTime: 2022-11-01 20:44:06
  * @FilePath: \IUI314\src\components\exception\exception.vue
  * @Description: 
 -->
@@ -10,10 +10,10 @@
   <div class="flex m-t-10vh items-center flex-col w-full h-full">
     <div class="text-400px text-70px">
       <el-icon size="500px">
-        <svg-icon v-if="type === '401'" name="exception401" />
-        <svg-icon v-if="type === '403'" name="exception403" />
-        <svg-icon v-if="type === '404'" name="exception404" />
-        <svg-icon v-if="type === '500'" name="exception500" />
+        <SvgIcon v-if="type === '401'" name="exception401" />
+        <SvgIcon v-if="type === '403'" name="exception403" />
+        <SvgIcon v-if="type === '404'" name="exception404" />
+        <SvgIcon v-if="type === '500'" name="exception500" />
       </el-icon>
     </div>
     <div>

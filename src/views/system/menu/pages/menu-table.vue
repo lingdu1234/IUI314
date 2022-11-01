@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 14:15:35
+ * @LastEditTime: 2022-11-01 20:42:56
  * @FilePath: \IUI314\src\views\system\menu\pages\menu-table.vue
  * @Description: 
 -->
@@ -33,7 +33,7 @@
       >
         <template #default="scope">
           <el-icon>
-            <svg-icon :name="scope.row.icon" />
+            <SvgIcon :name="scope.row.icon" />
           </el-icon>
         </template>
       </el-table-column>
@@ -185,6 +185,7 @@ import { type PropType, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu } from '@/api/apis'
+import SvgIcon from '@/components/common/svg-icon.vue'
 import { hasPermission, parseTime, useDelete, useDicts } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { MenuType } from '@/types/base/router'

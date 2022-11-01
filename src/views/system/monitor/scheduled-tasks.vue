@@ -255,7 +255,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination
+    <Pagination
       v-show="total > 0"
       v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
@@ -321,6 +321,7 @@ import {
   ErrorFlag,
 } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
+import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,

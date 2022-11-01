@@ -130,7 +130,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination
+    <Pagination
       v-show="total > 0"
       v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
@@ -157,6 +157,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysOnlineUser } from '@/api/apis'
+import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,

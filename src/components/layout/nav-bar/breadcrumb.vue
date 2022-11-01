@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 20:20:03
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 10:41:33
+ * @LastEditTime: 2022-11-01 20:36:00
  * @FilePath: \IUI314\src\components\layout\nav-bar\breadcrumb.vue
  * @Description: 
 -->
@@ -34,6 +34,7 @@ import { ref, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { type RouteLocationMatched, useRoute } from 'vue-router'
 
+import SvgIcon from '@/components/common/svg-icon.vue'
 import type { MessageSchema } from '@/i18n'
 import { useAppStore } from '@/stores'
 

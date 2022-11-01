@@ -78,7 +78,7 @@
       <el-table-column label="创建人" align="center" prop="created_by" />
     </el-table>
 
-    <pagination
+    <Pagination
       v-show="total > 0"
       :total="total"
       v-model:page="queryParams.page_num"
@@ -126,6 +126,7 @@ import { ref } from 'vue'
 
 import { ErrorFlag } from '@/api/apis'
 import { ApiDataScopeTest } from '@/api/tests'
+import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   useDeleteFn,

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 15:43:21
+ * @LastEditTime: 2022-11-01 20:38:14
  * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
  * @Description: 
 -->
@@ -204,7 +204,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <pagination
+    <Pagination
       v-show="total > 0"
       v-model:limit="queryParams.page_size"
       v-model:page="queryParams.page_num"
@@ -252,6 +252,7 @@ import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysUser, ErrorFlag } from '@/api/apis'
+import Pagination from '@/components/common/pagination.vue'
 import {
   hasPermission,
   parseTime,

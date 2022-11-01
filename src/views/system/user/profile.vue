@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 16:05:46
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 16:04:16
+ * @LastEditTime: 2022-11-01 20:43:18
  * @FilePath: \IUI314\src\views\system\user\profile.vue
  * @Description: 
 -->
@@ -28,7 +28,7 @@
               <el-form-item>
                 <template #label>
                   <el-icon class="m-t-10px">
-                    <svg-icon name="user" />
+                    <SvgIcon name="user" />
                   </el-icon>
                   <span class="m-l-3px">{{ t('profile.name') }}</span>
                 </template>
@@ -37,7 +37,7 @@
               <el-form-item>
                 <template #label>
                   <el-icon class="m-t-10px">
-                    <svg-icon name="phone" />
+                    <SvgIcon name="phone" />
                   </el-icon>
                   <span class="m-l-3px">{{ t('common.phoneNum') }}</span>
                 </template>
@@ -46,7 +46,7 @@
               <el-form-item>
                 <template #label>
                   <el-icon class="m-t-10px">
-                    <svg-icon name="email" />
+                    <SvgIcon name="email" />
                   </el-icon>
                   <span class="m-l-3px">{{ t('common.email') }}</span>
                 </template>
@@ -55,7 +55,7 @@
               <el-form-item>
                 <template #label>
                   <el-icon class="m-t-10px">
-                    <svg-icon name="tree" />
+                    <SvgIcon name="tree" />
                   </el-icon>
                   <span class="m-l-3px">{{ t('profile.dept') }}</span>
                 </template>
@@ -64,7 +64,7 @@
               <el-form-item>
                 <template #label>
                   <el-icon class="m-t-10px">
-                    <svg-icon name="peoples" />
+                    <SvgIcon name="peoples" />
                   </el-icon>
                   <span class="m-l-3px">{{ t('profile.role') }}</span>
                 </template>
@@ -80,7 +80,7 @@
               <el-form-item>
                 <template #label>
                   <el-icon class="m-t-10px">
-                    <svg-icon name="date" />
+                    <SvgIcon name="date" />
                   </el-icon>
                   <span class="m-l-3px">{{ t('common.createTime') }}</span>
                 </template>
@@ -126,6 +126,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysPost, ApiSysRole, ApiSysUser } from '@/api/sysApis'
+import SvgIcon from '@/components/common/SvgIcon.vue'
 import { parseTime, useGet } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import type { pageQueryParam } from '@/types/base/apis'

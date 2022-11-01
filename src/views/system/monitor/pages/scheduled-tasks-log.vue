@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 12:19:37
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 15:19:09
+ * @LastEditTime: 2022-11-01 20:40:21
  * @FilePath: \IUI314\src\views\system\monitor\pages\scheduled-tasks-log.vue
  * @Description: 
 -->
@@ -222,7 +222,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination
+    <Pagination
       v-show="total > 0"
       v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
@@ -255,6 +255,7 @@ import { useRoute } from 'vue-router'
 
 import { ApiSysScheduledTasks, ApiSysScheduledTasksLog } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
+import Pagination from '@/components/common/pagination.vue'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,

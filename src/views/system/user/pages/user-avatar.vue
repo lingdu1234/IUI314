@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:58:25
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 16:03:15
+ * @LastEditTime: 2022-11-01 18:47:03
  * @FilePath: \IUI314\src\views\system\user\pages\user-avatar.vue
  * @Description: 
 -->
@@ -22,7 +22,7 @@
       class="min-w-440px max-w-800px"
     >
       <el-row>
-        <el-col :span="24" :md="12" class="w-420px h-420px">
+        <el-col :span="24" :md="12" class="w-420px h-440px">
           <el-row class="w-400px h-400px">
             <vue-cropper
               ref="cropper"
