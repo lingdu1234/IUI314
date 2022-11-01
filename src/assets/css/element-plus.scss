@@ -78,6 +78,12 @@ div.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default>div>.el-menu--collapse
     padding-bottom: 3px !important;
 }
 
+.el-input-number__increase,
+.el-input-number__decrease {
+    // 修复 数字输入框 边框显色问题 不知道啥原因,不导入任何css都这样
+    margin-top: 1px !important;
+}
+
 
 // 优化屏幕较窄时
 @media (max-width: 1000px) {

@@ -296,7 +296,7 @@ const submitForm = () => {
   .el-form-item--default,
   .el-form-item--small,
   .el-form-item--large {
-    margin-bottom: 5px !important;
+    margin-bottom: 10px !important;
   }
 }
 </style>
