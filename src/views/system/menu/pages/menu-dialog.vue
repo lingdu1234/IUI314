@@ -509,7 +509,7 @@ watch(
 )
 
 const checkApi = (rule: any, value: any, callback: any) => {
-  if (value === '') {
+  if (value === '' || value === undefined) {
     callback(new Error('菜单唯一标志不能为空'))
   } else if (form.value.menu_type !== MenuType.F && value.indexOf('/') !== -1) {
     callback(new Error('格式错误!不能为api路径,不能包含"/"!'))

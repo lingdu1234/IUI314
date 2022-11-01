@@ -27,37 +27,21 @@ export const setupImportCDN = (): PluginOption => {
         path: 'dist/index.full.min.js',
         css: 'dist/index.css',
       },
-      {
-        name: 'echarts',
-        var: 'echarts',
-        path: 'dist/echarts.min.js',
-      },
-      {
-        name: 'vue-echarts',
-        var: 'VueECharts',
-        path: 'dist/index.umd.min.js',
-      },
-      {
-        name: 'vue-cropper',
-        var: 'VueCropper',
-        path: 'dist/vue-cropper.umd.js',
-        css: 'dist/index.css',
-      },
-      {
-        name: 'event-source-polyfill',
-        var: 'EventSourcePolyfill',
-        path: 'src/eventsource.min.js',
-      },
+      // {
+      //   name: 'echarts',
+      //   var: 'echarts',
+      //   path: 'dist/echarts.min.js',
+      // },
+      // {
+      //   name: 'vue-echarts',
+      //   var: 'VueECharts',
+      //   path: 'dist/index.umd.min.js',
+      // },
       {
         name: 'vue-i18n',
         var: 'VueI18n',
         path: 'dist/vue-i18n.global.prod.js',
       },
-      //   {
-      //     name: 'mitt',
-      //     var: 'mitt',
-      //     path: 'dist/mitt.min.js',
-      //   },
     ],
   })
 }

@@ -7,15 +7,13 @@ import {
   type TooltipComponentOption,
   TooltipComponent,
 } from 'echarts/components'
-import * as echarts from 'echarts/core'
+import { type ComposeOption, use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
 import { ref, watch } from 'vue'
 import VChart from 'vue-echarts'
-type EChartsOption = echarts.ComposeOption<
-  TooltipComponentOption | GaugeSeriesOption
->
+type EChartsOption = ComposeOption<TooltipComponentOption | GaugeSeriesOption>
 
-echarts.use([TooltipComponent, GaugeChart, CanvasRenderer])
+use([TooltipComponent, GaugeChart, CanvasRenderer])
 
 const props = defineProps({
   name: {

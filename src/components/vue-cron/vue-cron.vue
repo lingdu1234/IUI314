@@ -128,7 +128,19 @@
   </el-dialog>
 </template>
 <script lang="ts" setup name="vue-cron">
-import { ElMessage } from 'element-plus'
+import {
+  ElAlert,
+  ElButton,
+  ElCard,
+  ElCol,
+  ElDialog,
+  ElMessage,
+  ElRow,
+  ElTable,
+  ElTableColumn,
+  ElTabPane,
+  ElTabs,
+} from 'element-plus'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 

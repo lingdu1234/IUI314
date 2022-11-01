@@ -111,7 +111,10 @@
             </el-radio>
           </el-row>
           <el-row class="m-l-30px">
-            <el-checkbox-group v-model="fixData" @change="fixDataChange">
+            <el-checkbox-group
+              v-model="fixData"
+              @change="fixDataChange(fixData)"
+            >
               <el-col>
                 <el-row v-for="i in 4" :key="i">
                   <el-checkbox
@@ -135,6 +138,17 @@
   </div>
 </template>
 <script lang="ts" setup name="vue-cron-day">
+import {
+  ElButton,
+  ElCheckbox,
+  ElCheckboxGroup,
+  ElCol,
+  ElForm,
+  ElFormItem,
+  ElInputNumber,
+  ElRadio,
+  ElRow,
+} from 'element-plus'
 import { type PropType, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
