@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 16:05:46
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 20:43:18
+ * @LastEditTime: 2022-11-01 20:48:38
  * @FilePath: \IUI314\src\views\system\user\profile.vue
  * @Description: 
 -->
@@ -126,7 +126,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysPost, ApiSysRole, ApiSysUser } from '@/api/sysApis'
-import SvgIcon from '@/components/common/SvgIcon.vue'
+import SvgIcon from '@/components/common/svg-icon.vue'
 import { parseTime, useGet } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import type { pageQueryParam } from '@/types/base/apis'
