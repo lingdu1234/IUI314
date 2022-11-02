@@ -66,7 +66,7 @@
                   </template>
                 </el-input>
               </template>
-              <icon-select ref="iconSelectRef" @selected="selected" />
+              <IconSelect ref="iconSelectRef" @selected="selected" />
             </el-popover>
           </el-form-item>
         </el-col>
@@ -466,7 +466,7 @@ import { type PropType, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu, ErrorFlag } from '@/api/apis'
-import type IconSelect from '@/components/common/icon-select.vue'
+import IconSelect from '@/components/common/icon-select.vue'
 import SvgIcon from '@/components/common/svg-icon.vue'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
