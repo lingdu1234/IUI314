@@ -2,7 +2,7 @@
   <div class="login-container flex justify-center items-center w-100% h-100%">
     <div v-for="item of 50" :key="item" class="snowflake" />
     <el-row :gutter="width >= 992 ? 30 : 0">
-      <el-col :span="24" :md="12">
+      <el-col :span="24" :md="12" v-if="width >= 992">
         <LoginLeft />
       </el-col>
       <el-col :span="24" :md="12">
