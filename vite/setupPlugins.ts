@@ -9,7 +9,7 @@ import {
   setupElementPlus,
   // setupAutoImport,
   setupHtmlPlugin,
-  setupImportCDN,
+  // setupImportCDN,
   setupSvgIcons,
   setupUnocss,
 } from './plugins'
@@ -24,7 +24,7 @@ export const setupVitePlugins = (mode: string): PluginOption[] => {
     setupSvgIcons(),
     setupHtmlPlugin(mode),
     setupUnocss(),
-    setupImportCDN(),
+    // setupImportCDN(),
     ...setupElementPlus(),
     // ...setupAutoImport(),
   ]

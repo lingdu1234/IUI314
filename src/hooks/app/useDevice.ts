@@ -3,7 +3,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 19:56:42
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-29 09:19:48
+ * @LastEditTime: 2022-11-02 11:01:54
  * @FilePath: \IUI314\src\hooks\app\useDevice.ts
  * @Description: 设备相关
  */
@@ -23,7 +23,8 @@ export const useMobile = () => {
     (v: number) => {
       isMobile.value = getIsMobile(v)
       appStore.setIsMobile(isMobile.value)
-    }
+    },
+    { immediate: true }
   )
   return {
     isMobile,
@@ -52,7 +53,7 @@ enum OS {
 }
 
 // 获取系统OS
-const getOS = () => {
+const getOS = (): OS => {
   const u = navigator.userAgent
   if (!!u.match(/compatible/i) || u.match(/Windows/i)) {
     return OS.WINDOWS
@@ -73,7 +74,7 @@ const getIsMobile = (screenSize: number): boolean => {
   const os = getOS()
   if (screenSize < mobileWidth) {
     isMobile = true
-  } else if ((os === OS.ANDROID || os === OS.IOS) && screenSize <= 1080) {
+  } else if ((os === OS.ANDROID || os === OS.IOS) && screenSize <= 1200) {
     isMobile = true
   }
   return isMobile

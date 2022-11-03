@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-12 18:47:56
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-27 16:58:14
+ * @LastEditTime: 2022-11-03 16:16:36
  * @FilePath: \IUI314\src\views\system\menu\pages\useMenu.ts
  * @Description:
  */
@@ -30,7 +30,7 @@ export const useHandleMenuLazy = (queryParams: menuQueryParam) => {
     menuList.value = list
 
     // 1.先是制作字典能够获得每一行的信息
-    const newArr = []
+    // const newArr = []
     const map: { [key: string]: menu } = {}
     list.forEach((item) => {
       // 为了方便给每一项都添加上children
@@ -44,9 +44,10 @@ export const useHandleMenuLazy = (queryParams: menuQueryParam) => {
       const parent = map[item.pid!]
       if (parent) {
         parent.children?.push(item)
-      } else {
-        newArr.push(item)
       }
+      // else {
+      //   newArr.push(item)
+      // }
     })
     list.forEach((item) => {
       if (map[item.id!]?.children?.length === 0) {
