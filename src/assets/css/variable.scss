@@ -1,15 +1,12 @@
 :root {
     --vh: 100vh;
     // login
-    --login-bg: #EDF2F0;
+    --login-bg: #ecf0f3;
     --login-neu-1: #ecf0f3;
     --login-neu-2: #d1d9e6;
     --login-white: #f9f9f9;
-    --login-white-fff: #fff;
     --login-gray: #a0a5a8;
     --login-black: #181818;
-    --login-purple: #4B70E2;
-    --login-transition: 1.25s;
 
     // header-bar
     --header-bar-height: 40px;
@@ -91,10 +88,7 @@ html.dark {
     --login-neu-1: #1a1b1b;
     --login-neu-2: #1f232e;
     --login-white: #503a3a;
-    --login-gray: #c3cfd8;
     --login-black: #d1c6c6;
-    --login-purple: #8fa3e1;
-    --login-transition: 1.25s;
 
     // 面包屑
     .el-breadcrumb {
