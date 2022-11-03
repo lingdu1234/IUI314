@@ -1,19 +1,20 @@
 <template>
   <div class="w-100% flex justify-center items-center m-t-30px">
     <div
-      class="login-right-container h-450px w-400px flex justify-center b-rd-20px"
+      class="login-son-container h-450px w-400px flex justify-center b-rd-20px"
     >
       <el-form
-        id="b-form"
         ref="loginFormRef"
         :model="loginForm"
         :rules="loginRules"
         class="formClass"
       >
-        <div class="flex items-center justify-center m-t-30px">
-          <img :src="logo" alt="logo" class="w-64px h-64px" />
+        <div class="flex items-center justify-center m-t-20px">
+          <div class="circle flex items-center justify-center w-72px h-72px">
+            <img :src="logo" alt="logo" class="w-48px h-48px" />
+          </div>
         </div>
-        <h2 class="title m-t-10px m-b-20px text-center">π 数据管理系统</h2>
+        <h2 class="m-t-10px m-b-20px text-center">π 数据管理系统</h2>
         <el-form-item prop="user_name">
           <el-input
             v-model="loginForm.user_name"
@@ -136,11 +137,6 @@ getLocalUserInfo()
 </script>
 
 <style lang="scss" scoped>
-.login-right-container {
-  background-color: var(--login-neu-1);
-  overflow: hidden;
-  box-shadow: 4px 4px 10px var(--login-neu-2), -4px -4px 10px var(--login-white);
-}
 .formClass {
   .el-input {
     --el-input-bg-color: var(--login-neu-1);

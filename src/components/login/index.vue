@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="login-container flex justify-center items-center w-100% h-100% p-20px"
-  >
+  <div class="login-container flex justify-center items-center w-100% h-100%">
     <div v-for="item of 50" :key="item" class="snowflake" />
-    <el-row :gutter="30">
+    <el-row :gutter="width >= 992 ? 30 : 0">
       <el-col :span="24" :md="12">
         <LoginLeft />
       </el-col>
@@ -15,7 +13,7 @@
 </template>
 
 <script lang="ts" setup name="login">
-import { usePreferredColorScheme } from '@vueuse/core'
+import { usePreferredColorScheme, useWindowSize } from '@vueuse/core'
 import { ElCol, ElRow } from 'element-plus'
 import { computed, watch } from 'vue'
 
@@ -24,6 +22,8 @@ import { useAppStore } from '@/stores'
 
 import LoginLeft from './login-left.vue'
 import LoginRight from './login-right.vue'
+
+const { width } = useWindowSize()
 
 const { init_theme } = useTheme()
 const appStore = useAppStore()
@@ -46,6 +46,18 @@ init_theme(color.value! || appStore.app.theme)
 .login-container {
   background-color: var(--login-neu-1);
   color: var(login-black);
+  :deep(.circle) {
+    border-radius: 50%;
+    background-color: var(--login-neu-1);
+    box-shadow: inset 8px 8px 12px var(--login-neu-2),
+      inset -8px -8px 12px var(--login-white);
+  }
+  :deep(.login-son-container) {
+    background-color: var(--login-neu-1);
+    overflow: hidden;
+    box-shadow: 4px 4px 10px var(--login-neu-2),
+      -4px -4px 10px var(--login-white);
+  }
 }
 .snowflake {
   --size: 1vw;
