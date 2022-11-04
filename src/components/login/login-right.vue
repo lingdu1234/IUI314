@@ -10,7 +10,9 @@
         class="formClass"
       >
         <div class="flex items-center justify-center m-t-20px">
-          <div class="circle flex items-center justify-center w-72px h-72px">
+          <div
+            class="logo_circle flex items-center justify-center w-72px h-72px"
+          >
             <img :src="logo" alt="logo" class="w-48px h-48px" />
           </div>
         </div>

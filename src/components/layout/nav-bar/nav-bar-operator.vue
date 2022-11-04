@@ -2,19 +2,15 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:22:30
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 10:42:12
+ * @LastEditTime: 2022-11-04 14:16:58
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-operator.vue
  * @Description: 
 -->
 <template>
   <div class="flex items-center justify-end">
     <div class="nav-bar-operator flex justify-evenly items-center">
-      <el-tooltip
-        :content="t('common.search')"
-        effect="light"
-        placement="bottom"
-      >
-        <NavBarSearch />
+      <el-tooltip :content="t('common.lock')" effect="light" placement="bottom">
+        <NavBarLock />
       </el-tooltip>
       <el-tooltip
         :content="t('nav.app.language')"
@@ -52,7 +48,7 @@ import { useI18n } from 'vue-i18n'
 
 import AppSettings from '@/components/app/app-settings.vue'
 import NavBarLanguage from '@/components/app/nav-bar-language.vue'
-import NavBarSearch from '@/components/app/nav-bar-search.vue'
+import NavBarLock from '@/components/app/nav-bar-lock.vue'
 import NavBarSize from '@/components/app/nav-bar-size.vue'
 import NavBarTheme from '@/components/app/nav-bar-theme.vue'
 import ScreenFull from '@/components/app/screen-full.vue'

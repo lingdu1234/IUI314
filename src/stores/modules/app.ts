@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 11:07:05
+ * @LastEditTime: 2022-11-04 16:14:07
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
@@ -32,6 +32,8 @@ interface AppStore {
     isScreenOut: boolean
     isFullscreen: boolean
     openSettingDrawer: boolean
+    isLocked: boolean
+    LockedTime: number
   }
 }
 const { isFullscreen, toggle } = useFullscreen()
@@ -57,6 +59,8 @@ export const useAppStore = defineStore('app', {
       isScreenOut: false,
       isFullscreen: false,
       openSettingDrawer: false,
+      isLocked: false,
+      LockedTime: 5 * 60 * 1000, //300秒 5分钟自动锁屏
     },
   }),
   persist: {
@@ -111,6 +115,12 @@ export const useAppStore = defineStore('app', {
     },
     setAnimation(v: string) {
       this.app.animation = v
+    },
+    setIsLocked(v: boolean) {
+      this.app.isLocked = v
+    },
+    setLockedTime(v: number) {
+      this.app.LockedTime = v
     },
   },
 })

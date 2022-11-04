@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:21:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-15 07:59:34
+ * @LastEditTime: 2022-11-04 19:27:31
  * @FilePath: \IUI314\src\stores\modules\permission.ts
  * @Description:
  */
@@ -29,6 +29,7 @@ export const usePermissionStore = defineStore('permission', {
     routes: new Array<AppRouteRecordRaw>(),
     addRoutes: new Array<AppRouteRecordRaw>(),
     isReloading: true,
+    routeIsDone: false,
   }),
   actions: {
     setRoutes(routes: AppRouteRecordRaw[]) {
@@ -56,6 +57,9 @@ export const usePermissionStore = defineStore('permission', {
     },
     setIsReloading(isReloading: boolean) {
       this.isReloading = isReloading
+    },
+    setRouteIsDone(v: boolean) {
+      this.routeIsDone = v
     },
   },
 })

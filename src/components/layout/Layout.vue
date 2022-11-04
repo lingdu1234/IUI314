@@ -2,13 +2,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 20:13:09
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 10:30:55
+ * @LastEditTime: 2022-11-04 14:44:25
  * @FilePath: \IUI314\src\components\layout\Layout.vue
  * @Description: 
 -->
 <template>
   <div>
-    <el-container>
+    <el-container v-if="!appStore.app.isLocked">
       <el-aside :style="sideBarWidth">
         <SideBar />
       </el-aside>
@@ -25,12 +25,14 @@
       </el-container>
       <AppSettingsDrawer v-if="appStore.app.openSettingDrawer" />
     </el-container>
+    <AppLockScreen v-if="appStore.app.isLocked" />
   </div>
 </template>
 <script lang="ts" setup name="lay-out">
 import { ElAside, ElContainer, ElHeader, ElMain } from 'element-plus'
 import { computed, watch } from 'vue'
 
+import AppLockScreen from '@/components/lock-screen/app-lock-screen.vue'
 import { useMobile } from '@/hooks'
 import { useAppStore } from '@/stores'
 

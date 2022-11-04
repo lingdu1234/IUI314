@@ -43,22 +43,6 @@ init_theme(color.value! || appStore.app.theme)
 //
 </script>
 <style lang="scss" scoped>
-.login-container {
-  background-color: var(--login-neu-1);
-  color: var(login-black);
-  :deep(.circle) {
-    border-radius: 50%;
-    background-color: var(--login-neu-1);
-    box-shadow: inset 8px 8px 12px var(--login-neu-2),
-      inset -8px -8px 12px var(--login-white);
-  }
-  :deep(.login-son-container) {
-    background-color: var(--login-neu-1);
-    overflow: hidden;
-    box-shadow: 4px 4px 10px var(--login-neu-2),
-      -4px -4px 10px var(--login-white);
-  }
-}
 .snowflake {
   --size: 1vw;
   width: var(--size);

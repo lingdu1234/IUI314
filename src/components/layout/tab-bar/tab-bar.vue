@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 10:37:49
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 17:26:44
+ * @LastEditTime: 2022-11-04 20:28:37
  * @FilePath: \IUI314\src\components\layout\tab-bar\tab-bar.vue
  * @Description: 
 -->
@@ -29,7 +29,7 @@
 
 <script lang="ts" name="tab-bar" setup>
 import { ElScrollbar } from 'element-plus'
-import { onUnmounted, ref } from 'vue'
+import { nextTick, onUnmounted, ref, watch } from 'vue'
 import type { RouteLocationNormalized } from 'vue-router'
 
 import TabItem from '@/components/layout/tab-bar/tab-item.vue'
@@ -39,7 +39,7 @@ import {
   removeRouteListener,
   removeTabBarActionListener,
 } from '@/hooks'
-import { useTabBarStore } from '@/stores'
+import { usePermissionStore, useTabBarStore } from '@/stores'
 
 import type tabItem from './tab-item.vue'
 import TagBarOperation from './tag-bar-operation.vue'
@@ -50,8 +50,24 @@ const scrollbarRef = ref<InstanceType<typeof ElScrollbar>>()
 const tabItemRef = ref<InstanceType<typeof tabItem>[]>()
 
 const { tagList, findCurrentRouteIndex } = useTabBar()
+const permissionStore = usePermissionStore()
 
-const actionSelect = async (value: any) => {
+watch(
+  () => [tagList.value, permissionStore.routeIsDone],
+  () => {
+    // 只能设置一个变量来监控路由加载完成后再操作
+    if (permissionStore.routeIsDone) {
+      nextTick(() => {
+        moveToTarget()
+      })
+    }
+  },
+  {
+    deep: true,
+  }
+)
+
+const actionSelect = async (value: Eaction) => {
   const index = findCurrentRouteIndex()
   tabItemRef.value![index].actionSelect(value)
 }
@@ -61,6 +77,25 @@ const tabScroll = (e: WheelEvent) => {
   const tab_scroll_position =
     (scrollbarRef.value?.wrap$?.scrollLeft as number) + eventDelta
   scrollbarRef.value!.setScrollLeft(tab_scroll_position)
+}
+
+const moveToTarget = () => {
+  const index = findCurrentRouteIndex()
+  const barWidth = scrollbarRef.value?.$el.offsetWidth as number
+  const scrollWidth = scrollbarRef.value?.wrap$?.scrollWidth!
+  // 如果滚动的内容款到大于容器宽度
+  if (scrollWidth > barWidth) {
+    const tabBarLength = tagList.value.length
+    // 如果是最后一个标签
+    if (index === tabBarLength - 1) {
+      const position = scrollWidth - barWidth
+      scrollbarRef.value!.setScrollLeft(position)
+      return
+    }
+    const left = tabItemRef.value![index].$el.offsetLeft as number
+    const position = left - barWidth / 2
+    scrollbarRef.value!.setScrollLeft(position)
+  }
 }
 
 listenerRouteChange((route: RouteLocationNormalized) => {
