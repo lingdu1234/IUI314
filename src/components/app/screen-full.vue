@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:48:56
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 11:07:48
+ * @LastEditTime: 2022-11-04 21:52:12
  * @FilePath: \IUI314\src\components\app\screen-full.vue
  * @Description: 
 -->

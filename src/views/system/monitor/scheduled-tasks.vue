@@ -149,7 +149,7 @@
       </el-table-column>
       <el-table-column label="任务组名" align="center" prop="job_group">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysJobGroup]"
             :value="scope.row.job_group"
           />

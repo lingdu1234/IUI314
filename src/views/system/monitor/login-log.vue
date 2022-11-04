@@ -146,7 +146,7 @@
       />
       <el-table-column label="登录状态" align="center" prop="status">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysCommonStatus]"
             :value="scope.row.status"
           />

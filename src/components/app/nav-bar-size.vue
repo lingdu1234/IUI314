@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 07:44:59
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 11:13:01
+ * @LastEditTime: 2022-11-04 21:52:22
  * @FilePath: \IUI314\src\components\app\nav-bar-size.vue
  * @Description: 设置app element 部分组件大小
 -->

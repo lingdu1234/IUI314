@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 09:32:17
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 20:38:49
+ * @LastEditTime: 2022-11-04 22:10:52
  * @FilePath: \IUI314\src\views\system\menu\auth.vue
  * @Description: 
 -->
@@ -93,7 +93,7 @@
       </el-table-column>
       <el-table-column :label="t('menu.method')" align="center" prop="method">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysApiMethod]"
             :value="scope.row.method"
           />
@@ -106,7 +106,7 @@
         align="center"
       >
         <template #default="scope">
-          <dict-tag
+          <DictTag
             v-if="scope.row.method == 'GET'"
             :options="dicts[dictKey.sysNormalDisable]"
             :value="scope.row.data_scope"
@@ -170,7 +170,7 @@
         prop="log_method"
       >
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.apiLogMethod]"
             :value="scope.row.log_method"
           />
@@ -183,7 +183,7 @@
       >
         <template #default="scope">
           <div v-if="scope.row.method !== 'GET'" />
-          <dict-tag
+          <DictTag
             v-else
             :options="dicts[dictKey.apiCacheMethod]"
             :value="scope.row.data_cache_method"
@@ -192,7 +192,7 @@
       </el-table-column>
       <el-table-column :label="t('common.status')" align="center" prop="status">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysNormalDisable]"
             :value="scope.row.status"
           />
@@ -271,6 +271,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysDbApi, ApiSysMenu } from '@/api/apis'
+import DictTag from '@/components/common/dict-tag.vue'
 import Pagination from '@/components/common/pagination.vue'
 import {
   hasPermission,

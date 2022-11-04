@@ -119,7 +119,7 @@
       />
       <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysNormalDisable]"
             :value="scope.row.status"
           />
@@ -198,6 +198,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysPost } from '@/api/apis'
+import DictTag from '@/components/common/dict-tag.vue'
 import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {

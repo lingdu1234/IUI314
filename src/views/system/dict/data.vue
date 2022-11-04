@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 15:47:33
+ * @LastEditTime: 2022-11-04 22:10:36
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -146,7 +146,7 @@
       <el-table-column label="字典排序" align="center" prop="dict_sort" />
       <el-table-column label="状态" align="center" prop="status">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysNormalDisable]"
             :value="scope.row.status"
           />
@@ -302,6 +302,7 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
 import { ApiSysDictData, ApiSysDictType, ErrorFlag } from '@/api/apis'
+import DictTag from '@/components/common/dict-tag.vue'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,

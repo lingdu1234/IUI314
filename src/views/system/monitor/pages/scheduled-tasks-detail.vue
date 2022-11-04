@@ -15,7 +15,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item label="任务分组:">
-            <dict-tag
+            <DictTag
               :options="dicts[dictKey.sysJobGroup]"
               :value="form.job_group"
             />
@@ -110,6 +110,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysScheduledTasks } from '@/api/sysApis'
+import DictTag from '@/components/common/dict-tag.vue'
 import { parseTime, useDicts, useGet } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { dictKey } from '@/types/system/dict'

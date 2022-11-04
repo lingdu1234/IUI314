@@ -4,12 +4,11 @@ import type { PluginOption } from 'vite'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 import {
-  setupElementPlus,
+  // setupElementPlus,
   // setupAutoImport,
   setupHtmlPlugin,
-  // setupImportCDN,
+  setupImportCDN,
   setupSvgIcons,
-  setupUnocss,
 } from './plugins'
 
 export const setupVitePlugins = (mode: string): PluginOption[] => {
@@ -19,9 +18,8 @@ export const setupVitePlugins = (mode: string): PluginOption[] => {
     vueSetupExtend(),
     setupSvgIcons(),
     setupHtmlPlugin(mode),
-    setupUnocss(),
-    // setupImportCDN(),
-    ...setupElementPlus(),
+    setupImportCDN(),
+    // ...setupElementPlus(),
     // ...setupAutoImport(),
   ]
   return vitePlugins

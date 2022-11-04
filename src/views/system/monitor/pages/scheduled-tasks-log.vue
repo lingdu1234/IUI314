@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 12:19:37
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 20:40:21
+ * @LastEditTime: 2022-11-04 22:14:22
  * @FilePath: \IUI314\src\views\system\monitor\pages\scheduled-tasks-log.vue
  * @Description: 
 -->
@@ -153,7 +153,7 @@
         :show-overflow-tooltip="true"
       >
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysJobGroup]"
             :value="scope.row.job_group"
           />
@@ -185,7 +185,7 @@
       />
       <el-table-column label="执行状态" align="center" prop="status">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysCommonStatus]"
             :value="scope.row.status"
           />
@@ -193,7 +193,7 @@
       </el-table-column>
       <el-table-column label="任务属性" align="center" prop="is_once">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysTaskIsOnce]"
             :value="scope.row.is_once"
           />
@@ -278,7 +278,6 @@ import type {
   scheduledTasksLogList,
   scheduledTasksLogQueryParam,
 } from '@/types/system/scheduled-tasks'
-
 const dicts = useDicts(
   dictKey.sysTaskIsOnce,
   dictKey.sysCommonStatus,

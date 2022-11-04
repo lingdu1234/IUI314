@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 09:59:51
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 20:42:56
+ * @LastEditTime: 2022-11-04 22:11:06
  * @FilePath: \IUI314\src\views\system\menu\pages\menu-table.vue
  * @Description: 
 -->
@@ -54,7 +54,7 @@
       />
       <el-table-column prop="method" :label="t('menu.method')" width="80">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysApiMethod]"
             :value="scope.row.method"
           />
@@ -62,7 +62,7 @@
       </el-table-column>
       <el-table-column prop="method" :label="t('menu.dataScope')" width="100">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             v-if="scope.row.method == 'GET'"
             :options="dicts[dictKey.sysNormalDisable]"
             :value="scope.row.data_scope"
@@ -72,7 +72,7 @@
       </el-table-column>
       <el-table-column prop="status" :label="t('common.status')" width="60">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysNormalDisable]"
             :value="scope.row.status"
           />
@@ -80,7 +80,7 @@
       </el-table-column>
       <el-table-column prop="visible" :label="t('common.show')" width="60">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysShowHide]"
             :value="scope.row.visible"
           />
@@ -185,6 +185,7 @@ import { type PropType, nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu } from '@/api/apis'
+import DictTag from '@/components/common/dict-tag.vue'
 import SvgIcon from '@/components/common/svg-icon.vue'
 import { hasPermission, parseTime, useDelete, useDicts } from '@/hooks'
 import type { MessageSchema } from '@/i18n'

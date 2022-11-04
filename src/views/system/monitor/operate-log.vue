@@ -125,7 +125,7 @@
       />
       <el-table-column label="操作类型" align="center" prop="operator_type">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysOperType]"
             :value="scope.row.operator_type"
           />
@@ -133,7 +133,7 @@
       </el-table-column>
       <el-table-column label="请求方式" align="center" prop="request_method">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysApiMethod]"
             :value="scope.row.request_method"
           />
@@ -155,7 +155,7 @@
       />
       <el-table-column label="操作状态" align="center" prop="status">
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysCommonStatus]"
             :value="scope.row.status"
           />

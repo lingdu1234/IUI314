@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-16 12:58:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 15:20:43
+ * @LastEditTime: 2022-11-04 22:10:13
  * @FilePath: \IUI314\src\views\system\auth\dept-manage.vue
  * @Description: 
 -->
@@ -87,7 +87,7 @@
         show-overflow-tooltip
       >
         <template #default="scope">
-          <dict-tag
+          <DictTag
             :options="dicts[dictKey.sysNormalDisable]"
             :value="scope.row.status"
           />
@@ -178,6 +178,7 @@ import { nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysDept, ApiSysUser } from '@/api/apis'
+import DictTag from '@/components/common/dict-tag.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
