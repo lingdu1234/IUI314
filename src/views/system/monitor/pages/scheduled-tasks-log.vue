@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-18 12:19:37
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 22:14:22
+ * @LastEditTime: 2022-11-05 17:04:26
  * @FilePath: \IUI314\src\views\system\monitor\pages\scheduled-tasks-log.vue
  * @Description: 
 -->
@@ -256,6 +256,7 @@ import { useRoute } from 'vue-router'
 import { ApiSysScheduledTasks, ApiSysScheduledTasksLog } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
 import Pagination from '@/components/common/pagination.vue'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,

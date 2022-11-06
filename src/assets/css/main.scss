@@ -10,7 +10,7 @@ body,
   height: calc(var(--vh) * 100);
   margin: 0;
   // min-width: 500px;
-  overflow-y: hidden;
+  // overflow-y: hidden; // 可禁用移动端下拉刷新
 }
 
 ::-webkit-scrollbar,
@@ -51,4 +51,9 @@ html,
   scrollbar-3dlight-color: #991d28;
   scrollbar-darkshadow-color: #991d28;
   scrollbar-base-color: #991d28;
+}
+
+// 密码填充背景
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
 }

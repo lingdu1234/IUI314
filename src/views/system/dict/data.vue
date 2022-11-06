@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 22:10:36
+ * @LastEditTime: 2022-11-05 17:05:44
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -185,7 +185,7 @@
       </el-table-column>
     </el-table>
 
-    <pagination
+    <Pagination
       v-show="total > 0"
       v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
@@ -303,6 +303,8 @@ import { useRoute } from 'vue-router'
 
 import { ApiSysDictData, ApiSysDictType, ErrorFlag } from '@/api/apis'
 import DictTag from '@/components/common/dict-tag.vue'
+import Pagination from '@/components/common/pagination.vue'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,

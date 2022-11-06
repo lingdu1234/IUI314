@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 20:38:14
+ * @LastEditTime: 2022-11-05 17:03:57
  * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
  * @Description: 
 -->
@@ -253,6 +253,7 @@ import { useI18n } from 'vue-i18n'
 
 import { ApiSysUser, ErrorFlag } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
   parseTime,
