@@ -33,6 +33,7 @@ const calcChargingTime = computed(() => {
 .container {
   position: absolute;
   bottom: calc(var(--vh) * 20);
+  top: calc(var(--vh) * 30);
   left: 50vw;
   width: 300px;
   height: 500px;

@@ -3,7 +3,7 @@
     <div
       class="login-son-container h-450px w-400px flex justify-center b-rd-20px"
     >
-      <el-form>
+      <div>
         <div class="flex items-center justify-center m-t-40px">
           <div
             class="logo_circle flex items-center justify-center w-256px h-256px"
@@ -12,7 +12,7 @@
           </div>
         </div>
         <h1 class="m-t-50px m-b-20px text-center">Welcome Back !</h1>
-      </el-form>
+      </div>
     </div>
   </div>
 </template>

@@ -1,22 +1,23 @@
 <template>
-  <div class="login-container w-100% flex justify-center">
+  <div class="login-container w-100% flex-col justify-center">
     <!-- 解锁区域 -->
-    <div>
+    <div class="flex items-center justify-center lockLogoContainer">
       <div
-        class="flex items-center justify-center m-t-40px cursor-pointer"
+        class="flex items-center justify-center m-t-10px cursor-pointer"
         @click="unLockScreen"
       >
         <div
-          class="logo_circle flex items-center justify-center w-256px h-256px"
+          class="logo_circle flex items-center justify-center lockLogoContainer2"
         >
-          <img :src="logo" alt="logo" class="w-128px h-128px" />
+          <img :src="logo" alt="logo" class="lockLogo" />
         </div>
       </div>
-      <!-- 充电区域 -->
-      <ReCharge />
-      <!-- 时间区域 -->
-      <LockScreenTime />
     </div>
+
+    <!-- 充电区域 -->
+    <ReCharge />
+    <!-- 时间区域 -->
+    <LockScreenTime />
   </div>
 </template>
 
@@ -33,3 +34,16 @@ const unLockScreen = () => {
   appStore.setIsLocked(false)
 }
 </script>
+<style lang="scss" scoped>
+.lockLogoContainer {
+  height: calc(var(--vh) * 25);
+}
+.lockLogoContainer2 {
+  height: calc(var(--vh) * 24);
+  width: calc(var(--vh) * 24);
+}
+.lockLogo {
+  height: calc(var(--vh) * 18);
+  width: calc(var(--vh) * 18);
+}
+</style>
