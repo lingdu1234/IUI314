@@ -11,7 +11,7 @@
             <img :src="logo" alt="logo" class="w-128px h-128px" />
           </div>
         </div>
-        <h1 class="m-t-50px m-b-20px text-center">Welcome Back !</h1>
+        <h1 class="m-t-50px m-b-20px text-center">Welcome Back!</h1>
       </div>
     </div>
   </div>
