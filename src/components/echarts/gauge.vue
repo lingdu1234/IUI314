@@ -1,5 +1,9 @@
 <template>
-  <v-chart class="chart flex justify-center" :option="option" />
+  <v-chart
+    class="chart flex justify-center"
+    :option="option"
+    :autoresize="true"
+  />
 </template>
 <script lang="ts" setup name="gauge-echart">
 import { type GaugeSeriesOption, GaugeChart } from 'echarts/charts'
