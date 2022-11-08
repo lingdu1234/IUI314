@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 22:26:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 21:52:26
  * @FilePath: \IUI314\src\components\app\nav-bar-lock.vue
  * @Description: 
 -->
@@ -14,13 +13,14 @@
   </div>
 </template>
 
-<script lang="ts" setup name="nav-bar-lock">
+<script lang="ts" name="nav-bar-lock" setup>
 import { Unlock } from '@element-plus/icons-vue'
 import { useIdle } from '@vueuse/core'
 import { ElIcon } from 'element-plus'
 import { watch } from 'vue'
 
 import { useAppStore } from '@/stores'
+
 const appStore = useAppStore()
 const { idle } = useIdle(appStore.app.LockedTime)
 watch(

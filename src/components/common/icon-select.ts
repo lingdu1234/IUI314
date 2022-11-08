@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 20:24:58
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-13 20:38:24
  * @FilePath: \IUI314\src\components\common\icon-select.ts
  * @Description: icon
  */

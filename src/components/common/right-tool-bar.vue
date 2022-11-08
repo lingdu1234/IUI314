@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-09 20:32:13
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 10:53:34
  * @FilePath: \IUI314\src\components\common\right-tool-bar.vue
  * @Description: 
 -->
@@ -10,34 +9,35 @@
   <div class="top-right-btn">
     <el-row>
       <el-tooltip
-        class="item"
-        effect="light"
         :content="
           showSearch
             ? t('common.hidden') + t('common.search')
             : t('common.show') + t('common.search')
         "
-        placement="top"
-      >
-        <el-button circle :icon="Search" @click="toggleSearch()" />
-      </el-tooltip>
-      <el-tooltip
         class="item"
         effect="light"
-        :content="t('common.reFresh')"
         placement="top"
       >
-        <el-button circle :icon="Refresh" @click="refresh()" />
+        <el-button :icon="Search" circle @click="toggleSearch()" />
+      </el-tooltip>
+      <el-tooltip
+        :content="t('common.reFresh')"
+        class="item"
+        effect="light"
+        placement="top"
+      >
+        <el-button :icon="Refresh" circle @click="refresh()" />
       </el-tooltip>
     </el-row>
   </div>
 </template>
-<script setup lang="ts" name="right-tool-bar">
+<script lang="ts" name="right-tool-bar" setup>
 import { Refresh, Search } from '@element-plus/icons-vue'
 import { ElButton, ElRow, ElTooltip } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 
 import type { MessageSchema } from '@/i18n'
+
 const props = defineProps({
   showSearch: {
     type: Boolean,
@@ -51,6 +51,7 @@ const emits = defineEmits(['update:showSearch', 'queryTable'])
 function toggleSearch() {
   emits('update:showSearch', !props.showSearch)
 }
+
 // 刷新
 function refresh() {
   emits('queryTable')

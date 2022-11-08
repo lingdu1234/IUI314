@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-13 20:24:05
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 21:51:56
  * @FilePath: \IUI314\src\components\common\icon-select.vue
  * @Description: icon-select
 -->
@@ -10,9 +9,9 @@
   <div class="icon-body">
     <el-input
       v-model="iconName"
-      style="position: relative"
       clearable
       placeholder="请输入图标名称"
+      style="position: relative"
       @clear="filterIcons"
       @input="filterIcons"
     >
@@ -20,7 +19,7 @@
         <i class="el-icon-search el-input__icon" />
       </template>
     </el-input>
-    <el-scrollbar height="200px" class="icon-list">
+    <el-scrollbar class="icon-list" height="200px">
       <div
         v-for="(item, index) in iconList"
         :key="index"
@@ -33,7 +32,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="icon-select">
+<script lang="ts" name="icon-select" setup>
 import { ElInput, ElScrollbar } from 'element-plus'
 import { ref } from 'vue'
 
@@ -74,6 +73,7 @@ defineExpose({
 .icon-body {
   width: 100%;
   padding: 10px;
+
   .icon-list {
     div {
       height: 30px;
@@ -83,6 +83,7 @@ defineExpose({
       width: 33%;
       float: left;
     }
+
     span {
       display: inline-block;
       vertical-align: -0.15em;

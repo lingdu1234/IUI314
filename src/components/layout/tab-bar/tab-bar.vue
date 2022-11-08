@@ -27,6 +27,7 @@
 </template>
 
 <script lang="ts" name="tab-bar" setup>
+import { useWindowSize } from '@vueuse/core'
 import { ElScrollbar } from 'element-plus'
 import { nextTick, onUnmounted, ref, watch } from 'vue'
 import type { RouteLocationNormalized } from 'vue-router'
@@ -50,9 +51,10 @@ const tabItemRef = ref<InstanceType<typeof tabItem>[]>()
 
 const { tagList, findCurrentRouteIndex } = useTabBar()
 const permissionStore = usePermissionStore()
+const { width } = useWindowSize()
 
 watch(
-  () => [tagList.value, permissionStore.routeIsDone],
+  () => [tagList.value, permissionStore.routeIsDone, width.value],
   () => {
     // 只能设置一个变量来监控路由加载完成后再操作
     if (permissionStore.routeIsDone) {

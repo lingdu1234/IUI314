@@ -2,8 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:05:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-09 14:49:46
- * @FilePath: \IUI314\src\api\user.ts
+ * @FilePath: \IUI314\src\api\system\user.ts
  * @Description:
  */
 /* eslint-disable no-unused-vars */

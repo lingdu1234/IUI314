@@ -2,13 +2,12 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:48:56
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 21:52:12
  * @FilePath: \IUI314\src\components\app\screen-full.vue
  * @Description: 
 -->
 <template>
   <div>
-    <el-icon @click="appStore.toggleFullScreen" class="cursor-pointer">
+    <el-icon class="cursor-pointer" @click="appStore.toggleFullScreen">
       <SvgIcon
         :name="appStore.app.isFullscreen ? 'fullscreen-exit' : 'fullscreen'"
       />
@@ -16,7 +15,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="screen-full">
+<script lang="ts" name="screen-full" setup>
 import { ElIcon } from 'element-plus'
 
 import { useAppStore } from '@/stores'

@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 07:44:59
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 21:52:22
  * @FilePath: \IUI314\src\components\app\nav-bar-size.vue
  * @Description: 设置app element 部分组件大小
 -->
@@ -10,9 +9,9 @@
   <div>
     <el-dropdown trigger="click">
       <el-icon
-        size="large"
-        color="var(--drop-down-icon-color)"
         class="cursor-pointer"
+        color="var(--drop-down-icon-color)"
+        size="large"
       >
         <SvgIcon name="size-change" />
       </el-icon>
@@ -29,7 +28,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="nav-bar-size">
+<script lang="ts" name="nav-bar-size" setup>
 import { ElDropdown, ElDropdownItem, ElIcon } from 'element-plus'
 import { ref } from 'vue'
 

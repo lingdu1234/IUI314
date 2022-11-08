@@ -3,7 +3,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:16:45
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-11 14:33:19
  * @FilePath: \IUI314\src\api\system\dict.ts
  * @Description:
  */
