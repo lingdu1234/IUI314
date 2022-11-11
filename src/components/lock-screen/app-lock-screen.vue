@@ -1,21 +1,23 @@
 <template>
-  <div class="login-container w-100% flex-col justify-center">
-    <!-- 解锁区域 -->
-    <div class="flex items-center justify-center lockLogoContainer">
-      <div
-        class="flex items-center justify-center m-t-10px cursor-pointer"
-        @click="unLockScreen"
-      >
+  <div class="login-container w-100% flex flex-col justify-between">
+    <div>
+      <!-- 解锁区域 -->
+      <div class="flex items-center justify-center lockLogoContainer">
         <div
-          class="logo_circle flex items-center justify-center lockLogoContainer2"
+          class="flex items-center justify-center m-t-10px cursor-pointer"
+          @click="unLockScreen"
         >
-          <img :src="logo" alt="logo" class="lockLogo" />
+          <div
+            class="logo_circle flex items-center justify-center lockLogoContainer2"
+          >
+            <img :src="logo" alt="logo" class="lockLogo" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 充电区域 -->
-    <ReCharge />
+      <!-- 充电区域 -->
+      <ReCharge />
+    </div>
     <!-- 时间区域 -->
     <LockScreenTime />
   </div>

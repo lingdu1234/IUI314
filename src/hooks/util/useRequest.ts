@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-02 13:09:40
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 10:17:05
  * @FilePath: \IUI314\src\hooks\util\useRequest.ts
  * @Description: useRequest
  */
@@ -24,7 +23,7 @@ import { router } from '@/router'
 import { useUserStore } from '@/stores'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
-const RequestTimeout = 2000
+const RequestTimeout = 1000 * 60 * 10
 
 export const useRequest = createFetch({
   baseUrl,
