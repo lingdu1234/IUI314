@@ -163,8 +163,7 @@ li {
     animation: moveToTop
       #{random(6) +
       3}s
-      ease-in-out -#{random(5000) /
-      1000}s
+      ease-in-out -#{calc(random(5000) / 1000)}s
       infinite;
   }
 }
