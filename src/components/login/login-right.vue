@@ -141,7 +141,7 @@ getLocalUserInfo()
 <style lang="scss" scoped>
 .formClass {
   .el-input {
-    --el-input-bg-color: var(--login-neu-1);
+    --el-input-bg-color: var(--main-bg-color);
   }
 }
 </style>

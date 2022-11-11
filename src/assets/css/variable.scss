@@ -1,9 +1,8 @@
 :root {
     --vh: 100vh;
     // login
-    --login-bg: #ecf0f3;
-    --login-neu-1: #ecf0f3;
-    --login-neu-2: #d1d9e6;
+    --main-bg-color: #fff;
+    --second-bg-color: #d1d9e6;
     --login-white: #f9f9f9;
     --login-gray: #a0a5a8;
     --login-black: #181818;
@@ -84,9 +83,8 @@ html.dark {
     --tab-bar-item-active-bg-color: rgb(45, 45, 45);
 
     // login
-    --login-bg: #1a1b1b;
-    --login-neu-1: #1a1b1b;
-    --login-neu-2: #1f232e;
+    --main-bg-color: #000;
+    --second-bg-color: #1f232e;
     --login-white: #503a3a;
     --login-black: #d1c6c6;
 

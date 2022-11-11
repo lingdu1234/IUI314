@@ -5,7 +5,7 @@
  * @FilePath: \IUI314\src\hooks\app\useAppUtil.ts
  * @Description:
  */
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import { useAppStore } from '@/stores'
 
@@ -27,12 +27,14 @@ export const useAnimation = () => {
 }
 
 export const useSetVh = () => {
+  const vHeight = ref(window.innerHeight)
   const setVh = () => {
-    const vh = window.innerHeight * 0.01
+    vHeight.value = window.innerHeight
+    const vh = vHeight.value * 0.01
     document.documentElement.style.setProperty('--vh', `${vh}px`)
   }
   // 监控屏幕高度 设置 --vh
   window.addEventListener('resize', () => setVh())
   onMounted(() => setVh())
-  return { setVh }
+  return { setVh, vHeight }
 }

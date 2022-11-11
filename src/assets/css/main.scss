@@ -9,6 +9,7 @@ body,
 #app {
   height: calc(var(--vh) * 100);
   margin: 0;
+  background-color: var(--main-bg-color);
   // min-width: 500px;
   // overflow-y: hidden; // 可禁用移动端下拉刷新
 }
