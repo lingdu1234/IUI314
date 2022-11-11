@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    v-model="open"
+    :model-value="open"
     :title="title"
     width="680px"
     :before-close="cancel"

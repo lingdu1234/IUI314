@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    v-model="open"
+    :model-value="open"
     :before-close="cancel"
     :title="t('vueCron.title')"
     append-to-body

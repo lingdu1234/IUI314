@@ -57,10 +57,10 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          {{ t("common.search") }}
+          {{ t('common.search') }}
         </el-button>
         <el-button :icon="Refresh" @click="resetQuery">
-          {{ t("common.reset") }}
+          {{ t('common.reset') }}
         </el-button>
       </el-form-item>
     </el-form>
@@ -75,7 +75,7 @@
           @click="handleAdd"
           v-if="hasPermission(ApiSysDictType.add)"
         >
-          {{ t("common.add") }}
+          {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -87,7 +87,7 @@
           @click="handleUpdate()"
           v-if="hasPermission(ApiSysDictType.edit)"
         >
-          {{ t("common.edit") }}
+          {{ t('common.edit') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -99,7 +99,7 @@
           @click="handleDelete()"
           v-if="hasPermission(ApiSysDictType.delete)"
         >
-          {{ t("common.delete") }}
+          {{ t('common.delete') }}
         </el-button>
       </el-col>
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
@@ -172,7 +172,7 @@
             @click="handleUpdate(scope.row)"
             v-if="hasPermission(ApiSysDictType.edit)"
           >
-            {{ t("common.edit") }}
+            {{ t('common.edit') }}
           </el-button>
           <el-button
             type="danger"
@@ -181,7 +181,7 @@
             @click="handleDelete(scope.row)"
             v-if="hasPermission(ApiSysDictType.delete)"
           >
-            {{ t("common.delete") }}
+            {{ t('common.delete') }}
           </el-button>
         </template>
       </el-table-column>
@@ -239,10 +239,10 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button type="primary" @click="submitForm(dictRef)">
-            {{ t("common.submit") }}
+            {{ t('common.submit') }}
           </el-button>
           <el-button @click="cancel">
-            {{ t("common.cancel") }}
+            {{ t('common.cancel') }}
           </el-button>
         </div>
       </template>
@@ -250,7 +250,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { Delete, Edit, Plus, Refresh, Search } from "@element-plus/icons-vue";
+import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import {
   type FormInstance,
   type FormRules,
@@ -269,15 +269,15 @@ import {
   ElRow,
   ElSelect,
   ElTable,
-  ElTableColumn
-} from "element-plus";
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
+  ElTableColumn,
+} from 'element-plus'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import { ApiSysDictType, ErrorFlag } from "@/api/apis";
-import DictTag from "@/components/common/dict-tag.vue";
-import Pagination from "@/components/common/pagination.vue";
-import RightToolBar from "@/components/common/right-tool-bar.vue";
+import { ApiSysDictType, ErrorFlag } from '@/api/apis'
+import DictTag from '@/components/common/dict-tag.vue'
+import Pagination from '@/components/common/pagination.vue'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
   parseTime,
@@ -288,130 +288,130 @@ import {
   useListData,
   usePost,
   usePut,
-  useTableUtil
-} from "@/hooks";
-import type { MessageSchema } from "@/i18n";
-import { DictDataRouteName, router, systemMenus } from "@/router";
+  useTableUtil,
+} from '@/hooks'
+import type { MessageSchema } from '@/i18n'
+import { DictDataRouteName, router, systemMenus } from '@/router'
 import {
   type dictType,
   type dictTypeQueryParam,
-  dictKey
-} from "@/types/system/dict";
+  dictKey,
+} from '@/types/system/dict'
 
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: "global" });
-const queryRef = ref<FormInstance>();
-const dictRef = ref<FormInstance>();
-const showSearch = ref(true);
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
+const queryRef = ref<FormInstance>()
+const dictRef = ref<FormInstance>()
+const showSearch = ref(true)
 //  字典数据
-const dicts = useDicts(dictKey.sysNormalDisable);
-const { formValidate, formReset } = useFormUtil();
-const { useTableSelectChange } = useTableUtil();
+const dicts = useDicts(dictKey.sysNormalDisable)
+const { formValidate, formReset } = useFormUtil()
+const { useTableSelectChange } = useTableUtil()
 const { handleSelectionChangeFn, ids, values, single, selected } =
-  useTableSelectChange();
+  useTableSelectChange()
 
 const handleSelectionChange = (v: dictType[]) =>
-  handleSelectionChangeFn(v, "dict_type_id", "dict_name");
+  handleSelectionChangeFn(v, 'dict_type_id', 'dict_name')
 
 const queryParams = ref<dictTypeQueryParam>({
   page_num: 1,
-  page_size: 10
-});
-const dateRange = ref<string[]>([]);
-const open = ref(false);
+  page_size: 10,
+})
+const dateRange = ref<string[]>([])
+const open = ref(false)
 const form = ref<dictType>({
-  dict_name: "",
-  dict_type: "",
+  dict_name: '',
+  dict_type: '',
   dict_type_id: undefined,
-  remark: "",
-  status: "1"
-});
-const title = ref("");
+  remark: '',
+  status: '1',
+})
+const title = ref('')
 
 const {
   list: dictTypeList,
   getListFn: getList,
-  total
+  total,
 } = useListData<dictTypeQueryParam, dictType>(
   ApiSysDictType.getList,
   queryParams,
   dateRange
-);
+)
 
 const rules = ref<FormRules>({
   dict_name: [
-    { required: true, message: t("dict_dictNameRuleTip"), trigger: "blur" }
+    { required: true, message: t('dict_dictNameRuleTip'), trigger: 'blur' },
   ],
   dict_type: [
-    { required: true, message: t("dict.dictTypeRuleTip"), trigger: "blur" }
-  ]
-});
+    { required: true, message: t('dict.dictTypeRuleTip'), trigger: 'blur' },
+  ],
+})
 
 const resetQuery = () => {
-  formReset(queryRef.value);
-  dateRange.value = [];
-  getList();
-};
+  formReset(queryRef.value)
+  dateRange.value = []
+  getList()
+}
 
 const cancel = () => {
-  open.value = false;
-  formReset(dictRef.value);
-};
+  open.value = false
+  formReset(dictRef.value)
+}
 
 const handleAdd = () => {
-  formReset(dictRef.value);
-  open.value = true;
-  form.value.dict_type_id = undefined;
-  title.value = t("common.add") + t("dict.type");
-};
+  formReset(dictRef.value)
+  open.value = true
+  form.value.dict_type_id = undefined
+  title.value = t('common.add') + t('dict.type')
+}
 const handleUpdate = async (row?: dictType) => {
-  formReset(dictRef.value);
-  open.value = true;
-  const dict_type_id = row?.dict_type_id || ids.value[0];
-  const { data, execute } = useGet(ApiSysDictType.getById, { dict_type_id });
-  await execute();
-  form.value = data.value as dictType;
-  title.value = t("common.update") + t("dict.type");
-};
+  formReset(dictRef.value)
+  open.value = true
+  const dict_type_id = row?.dict_type_id || ids.value[0]
+  const { data, execute } = useGet(ApiSysDictType.getById, { dict_type_id })
+  await execute()
+  form.value = data.value as dictType
+  title.value = t('common.update') + t('dict.type')
+}
 
 // 删除数据
 const handleDelete = async (row?: dictType) => {
   const flag = await useDeleteFn(
     ApiSysDictType.delete,
-    "dict_type_id",
+    'dict_type_id',
     ids,
-    "dict_name",
+    'dict_name',
     values,
-    "dict_type_ids",
+    'dict_type_ids',
     row
-  );
-  if (flag) getList();
-};
+  )
+  if (flag) getList()
+}
 
 const submitForm = async (formRef: FormInstance | undefined) => {
-  if (!(await formValidate(formRef))) return;
+  if (!(await formValidate(formRef))) return
   if (form.value.dict_type_id !== undefined) {
-    const { execute, data } = usePut(ApiSysDictType.edit, form);
-    await execute();
-    if (data.value === ErrorFlag) return;
-    ElMessage.success(t("commonTip.updateSuccess"));
+    const { execute, data } = usePut(ApiSysDictType.edit, form)
+    await execute()
+    if (data.value === ErrorFlag) return
+    ElMessage.success(t('commonTip.updateSuccess'))
   } else {
-    const { execute, data } = usePost(ApiSysDictType.add, form);
-    await execute();
-    if (data.value === ErrorFlag) return;
-    ElMessage.success(t("commonTip.addSuccess"));
+    const { execute, data } = usePost(ApiSysDictType.add, form)
+    await execute()
+    if (data.value === ErrorFlag) return
+    ElMessage.success(t('commonTip.addSuccess'))
   }
-  open.value = false;
-  getList();
-};
+  open.value = false
+  getList()
+}
 
 const goto_data = (row: dictType) => {
   router.push({
     name: DictDataRouteName,
-    query: { dict: row.dict_type_id, dict_type: row.dict_type }
-  });
-};
+    query: { dict: row.dict_type_id, dict_type: row.dict_type },
+  })
+}
 // 导出名称
 defineOptions({
-  name: systemMenus.dict.path
-});
+  name: systemMenus.dict.path,
+})
 </script>

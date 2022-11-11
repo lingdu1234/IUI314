@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    v-model="open"
+    :model-value="open"
     :before-close="cancel"
     :title="title"
     append-to-body
