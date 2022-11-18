@@ -53,10 +53,10 @@
       </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
-          {{ t("common.search") }}
+          {{ t('common.search') }}
         </el-button>
         <el-button :icon="Refresh" @click="resetQuery()">
-          {{ t("common.reset") }}
+          {{ t('common.reset') }}
         </el-button>
       </el-form-item>
     </el-form>
@@ -125,10 +125,10 @@
               <span>
                 {{
                   scope.row.dbs.length > 1
-                    ? scope.row.dbs[0] + " ↑ "
+                    ? scope.row.dbs[0] + ' ↑ '
                     : scope.row.dbs.length == 0
-                      ? ""
-                      : scope.row.dbs[0]
+                    ? ''
+                    : scope.row.dbs[0]
                 }}</span
               >
             </template>
@@ -150,10 +150,10 @@
               <span>
                 {{
                   scope.row.apis.length > 1
-                    ? scope.row.apis[0] + " ↑ "
+                    ? scope.row.apis[0] + ' ↑ '
                     : scope.row.apis.length == 0
-                      ? ""
-                      : scope.row.apis[0]
+                    ? ''
+                    : scope.row.apis[0]
                 }}</span
               >
             </template>
@@ -227,7 +227,7 @@
               style="color: green"
               @click="handleDbRelation(scope.row)"
             >
-              {{ t("menu.dbRelation") }}
+              {{ t('menu.dbRelation') }}
             </el-button>
           </el-tooltip>
         </template>
@@ -251,8 +251,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { DataBoard, Refresh, Search } from "@element-plus/icons-vue";
+import { DataBoard, Refresh, Search } from '@element-plus/icons-vue'
 import {
+  type FormInstance,
   ElButton,
   ElForm,
   ElFormItem,
@@ -264,74 +265,79 @@ import {
   ElTableColumn,
   ElTag,
   ElTooltip,
-  type FormInstance
-} from "element-plus";
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
+} from 'element-plus'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import { ApiSysDbApi, ApiSysMenu } from "@/api/apis";
-import DictTag from "@/components/common/dict-tag.vue";
-import Pagination from "@/components/common/pagination.vue";
-import { hasPermission, parseTime, useDicts, useFormUtil, useListData } from "@/hooks";
-import type { MessageSchema } from "@/i18n";
-import { systemMenus } from "@/router";
-import { MenuType } from "@/types/base/router";
-import { dictKey } from "@/types/system/dict";
-import type { authMenu, menuQueryParam } from "@/types/system/menu";
+import { ApiSysDbApi, ApiSysMenu } from '@/api/apis'
+import DictTag from '@/components/common/dict-tag.vue'
+import Pagination from '@/components/common/pagination.vue'
+import {
+  hasPermission,
+  parseTime,
+  useDicts,
+  useFormUtil,
+  useListData,
+} from '@/hooks'
+import type { MessageSchema } from '@/i18n'
+import { systemMenus } from '@/router'
+import { MenuType } from '@/types/base/router'
+import { dictKey } from '@/types/system/dict'
+import type { authMenu, menuQueryParam } from '@/types/system/menu'
 
-import AuthDialog from "./pages/auth-dialog.vue";
+import AuthDialog from './pages/auth-dialog.vue'
 
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: "global" });
-const queryRef = ref<FormInstance>();
-const { formReset } = useFormUtil();
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
+const queryRef = ref<FormInstance>()
+const { formReset } = useFormUtil()
 // 字典数据
 const dicts = useDicts(
   dictKey.sysNormalDisable,
   dictKey.sysApiMethod,
   dictKey.apiCacheMethod,
   dictKey.apiLogMethod
-);
-const showSearch = ref(true);
-const open = ref(false);
-const title = ref("");
-const formData = ref<authMenu>({});
+)
+const showSearch = ref(true)
+const open = ref(false)
+const title = ref('')
+const formData = ref<authMenu>({})
 const queryParams = ref<menuQueryParam>({
   page_num: 1,
   page_size: 10,
-  menu_type: MenuType.F
-});
+  menu_type: MenuType.F,
+})
 
 const {
   list: menu_list,
   getListFn: getList,
-  total
-} = useListData<menuQueryParam, authMenu>(ApiSysMenu.getAuthList, queryParams);
+  total,
+} = useListData<menuQueryParam, authMenu>(ApiSysMenu.getAuthList, queryParams)
 
 const get_max_length = (v: string[]) => {
-  let l = 0;
+  let l = 0
   v.forEach((element) => {
-    l = Math.max(l, element.length);
-  });
-  return l;
-};
+    l = Math.max(l, element.length)
+  })
+  return l
+}
 
 const resetQuery = () => {
-  formReset(queryRef.value);
-  getList();
-};
+  formReset(queryRef.value)
+  getList()
+}
 
 const handleDbRelation = (row: authMenu) => {
-  formData.value = row;
-  title.value = row.menu_name + "  数据库关联+日志+缓存";
-  open.value = true;
-};
+  formData.value = row
+  title.value = row.menu_name + '  数据库关联+日志+缓存'
+  open.value = true
+}
 const closeDialog = () => {
-  open.value = false;
-  getList();
-};
+  open.value = false
+  getList()
+}
 
 // 导出名称
 defineOptions({
-  name: systemMenus.menu_auth.path
-});
+  name: systemMenus.menu_auth.path,
+})
 </script>

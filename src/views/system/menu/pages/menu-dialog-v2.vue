@@ -494,7 +494,7 @@ const props = defineProps({
 })
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const { formReset, formValidate } = useFormUtil()
-const emits = defineEmits(['closeDialog', 'getList', 'updateDom'])
+const emits = defineEmits(['closeDialog', 'getList'])
 const form = ref<menu>({})
 const showChooseIcon = ref(false)
 const iconSelectRef = ref<InstanceType<typeof IconSelect>>()
@@ -560,14 +560,12 @@ const submitForm = async () => {
     const { execute, data } = usePost(ApiSysMenu.add, form)
     await execute()
     if (data.value === ErrorFlag) return
-    emits('updateDom', form.value.pid)
     cancel()
-    ElMessage.success('新增成功')
+    ElMessage.success(t('commonTip.addSuccess'))
   } else {
     const { execute, data } = usePut(ApiSysMenu.edit, form)
     await execute()
     if (data.value === ErrorFlag) return
-    emits('updateDom', form.value.pid)
     cancel()
     ElMessage.success(t('commonTip.updateSuccess'))
   }
@@ -583,6 +581,7 @@ const selected = (name: string) => {
 }
 const resetMenuForm = () => formReset(menuRef.value)
 const cancel = () => {
+  emits('getList')
   emits('closeDialog')
   showChooseIcon.value = false
 }

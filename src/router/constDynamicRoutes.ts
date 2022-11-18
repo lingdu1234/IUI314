@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 08:00:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-28 14:50:31
+ * @LastEditTime: 2022-11-18 14:33:13
  * @FilePath: \IUI314\src\router\constDynamicRoutes.ts
  * @Description:  菜单路由命名管理
  */
@@ -20,6 +20,10 @@ export const systemMenus: Record<string, routeMenuInfo> = {
   menu: {
     path: 'menu-manage',
     name: '菜单管理',
+  },
+  menuV2: {
+    path: 'menu-manage-v2',
+    name: '菜单管理V2',
   },
   menu_auth: {
     path: 'auth_list',

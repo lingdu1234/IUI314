@@ -24,6 +24,14 @@ import { useUserStore } from '@/stores'
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 const RequestTimeout = 1000 * 60 * 10
+// const RepeatTime = 1000 //单位毫秒
+// const RepeatValidateKey = 'efewfew22ew2fsfsd32'
+
+// interface RepeatValidateData {
+//   url: string
+//   data?: string
+//   timeout: number
+// }
 
 export const useRequest = createFetch({
   baseUrl,
@@ -31,6 +39,28 @@ export const useRequest = createFetch({
     immediate: false,
     timeout: RequestTimeout,
     beforeFetch({ options }) {
+      // 添加节流 没啥用处
+      // 如果是get方法
+      // if (options.method === 'GET') {
+      //   const x = window.sessionStorage.getItem(RepeatValidateKey)
+      //   const v: RepeatValidateData = {
+      //     url: url,
+      //     timeout: new Date().getTime(),
+      //   }
+      //   if (x === null) {
+      //     // 如果x值为空值，存储该请求
+      //     window.sessionStorage.setItem(RepeatValidateKey, JSON.stringify(v))
+      //   } else {
+      //     // x不能空值对比该请求
+      //     const y: RepeatValidateData = JSON.parse(x)
+      //     if (y.url === url && v.timeout - y.timeout < RepeatTime) {
+      //       cancel()
+      //     } else {
+      //       window.sessionStorage.setItem(RepeatValidateKey, JSON.stringify(v))
+      //     }
+      //   }
+      // }
+      //  添加token
       const { token } = useToken()
       options.headers = Object.assign(options.headers || {}, {
         Authorization: token,

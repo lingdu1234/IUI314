@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-12 08:24:42
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-25 15:50:55
  * @FilePath: \IUI314\src\hooks\util\useList.ts
  * @Description:
  */
@@ -43,8 +42,10 @@ export const useListData = <Q extends pageQueryParam, V extends operateInfo>(
     }
     const { data, execute } = useGet<listType<V>>(api, queryParam)
     await execute()
-    list.value = data.value?.list!
-    total.value = data.value?.total!
+    if (data.value !== undefined) {
+      list.value = data.value?.list!
+      total.value = data.value?.total!
+    }
   }
   getListFn()
   return {
