@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 18:06:54
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 10:04:44
+ * @LastEditTime: 2022-11-24 11:15:41
  * @FilePath: \IUI314\src\hooks\util\useEncrypt.ts
  * @Description:
  */
@@ -11,12 +11,7 @@ import { JSEncrypt } from 'jsencrypt'
 
 // 密钥对生成 http://web.chacuo.net/netrsakeypair
 
-export const useEncrypt = () => {
-  return {
-    encrypt,
-    decrypt,
-  }
-}
+
 
 const publicKey = `MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDjn10gpBJ5Gi1sgtrCK1O3Prqi
 8xK5vVCC9wevwyZMaJ+6nbmWKuLw3U+L1GErbjAnU7O9GVIYtA/KprS0gK4DKqhP
@@ -38,24 +33,35 @@ g6eumQxqy5KoI5namokFsFGZan26JBbB14onr3as00N7saof3CDVDxECQQDnzstT
 /MGtDhLbbcWxyS8QOItjPJHf4YR0zx4ulVPgKEhwzKmrfmaYCGN1gDlID7Og2vtl
 7fqo6XY/kf4ZIdiQ`
 
-/**
- *  加密
- * @param {string} txt
- * @return {string} txt
- */
-function encrypt(txt: string): string | boolean {
-  const encrypts = new JSEncrypt()
-  encrypts.setPublicKey(publicKey) // 设置公钥
-  return encrypts.encrypt(txt) // 对数据进行加密
+
+
+export const useEncrypt = () => {
+
+  /**
+*  加密
+* @param {string} txt
+* @return {string} txt
+*/
+  function encrypt(txt: string): string | boolean {
+    const encrypts = new JSEncrypt()
+    encrypts.setPublicKey(publicKey) // 设置公钥
+    return encrypts.encrypt(txt) // 对数据进行加密
+  }
+
+  /**
+   *  解密
+   * @param {string} txt
+   * @return {string} txt
+   */
+  function decrypt(txt: string): string | boolean {
+    const encrypts = new JSEncrypt()
+    encrypts.setPrivateKey(privateKey) // 设置私钥
+    return encrypts.decrypt(txt) // 对数据进行解密
+  }
+
+  return {
+    encrypt,
+    decrypt,
+  }
 }
 
-/**
- *  解密
- * @param {string} txt
- * @return {string} txt
- */
-function decrypt(txt: string): string | boolean {
-  const encrypts = new JSEncrypt()
-  encrypts.setPrivateKey(privateKey) // 设置私钥
-  return encrypts.decrypt(txt) // 对数据进行解密
-}

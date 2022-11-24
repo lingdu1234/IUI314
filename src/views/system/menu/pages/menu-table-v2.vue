@@ -266,7 +266,6 @@ const resetFormData = () => {
  * 获取菜单数据数据
  */
 const getList = async () => {
-  // show_menu_table.value = false
   const { data, execute } = useGet<menu[]>(
     ApiSysMenu.getEnabledTree,
     props.queryParam
@@ -278,14 +277,24 @@ const getList = async () => {
     menuDataAll.value = data.value!
     isFirstLoad.value = false
   }
-  // show_menu_table.value = true
 }
-const getMenuSelectTree = () => {
+/**
+ * 获取表单供选择的菜单数
+ */
+const getMenuSelectTree = async () => {
+  const queryParam: menuQueryParam = {
+    menu_types: [MenuType.C, MenuType.M].join(','),
+  }
+  const { data, execute } = useGet<menu[]>(
+    ApiSysMenu.getEnabledTree,
+    queryParam
+  )
+  await execute()
   menuSelectTree.value = [
     {
       id: '0',
       menu_name: t('menu.mainCategory'),
-      children: menuDataAll.value,
+      children: data.value!,
     },
   ]
 }

@@ -76,6 +76,8 @@ const actionSelect = async (value: Eaction) => {
 const tabScroll = (e: WheelEvent) => {
   const eventDelta = -e.deltaY * 40
   const tab_scroll_position =
+  // @ts-nocheck
+  // @ts-ignore
     (scrollbarRef.value?.wrap$?.scrollLeft as number) + eventDelta
   scrollbarRef.value!.setScrollLeft(tab_scroll_position)
 }
@@ -83,6 +85,8 @@ const tabScroll = (e: WheelEvent) => {
 const moveToTarget = () => {
   const index = findCurrentRouteIndex()
   const barWidth = scrollbarRef.value?.$el.offsetWidth as number
+    // @ts-nocheck
+  // @ts-ignore
   const scrollWidth = scrollbarRef.value?.wrap$?.scrollWidth!
   // 如果滚动的内容款到大于容器宽度
   if (scrollWidth > barWidth) {

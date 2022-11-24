@@ -17,11 +17,6 @@ export const setupImportCDN = (): PluginOption => {
         path: 'dist/vue-router.global.prod.js',
       },
       {
-        name: 'jsencrypt',
-        var: 'JSEncrypt',
-        path: 'bin/jsencrypt.min.js',
-      },
-      {
         name: 'element-plus',
         var: 'ElementPlus',
         path: 'dist/index.full.min.js',

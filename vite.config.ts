@@ -24,7 +24,9 @@ export default ({ mode }: ConfigEnv) =>
       },
     },
     server: {
+      host: '0.0.0.0',
       port: 9876,
+      open: true,
     },
     build: setupBuildOptions(),
     json: {

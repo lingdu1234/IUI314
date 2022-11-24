@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-12 18:15:58
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-22 10:47:22
  * @FilePath: \IUI314\src\types\system\menu.ts
  * @Description: menu type define
  */
@@ -16,6 +15,7 @@ import type { MenuType } from '../base/router'
 export interface menuQueryParam extends pageQueryParam {
   menu_name?: string
   menu_type?: MenuType
+  menu_types?: string
   method?: string
   status?: string
 }

@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 09:17:21
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-03 23:33:47
+ * @LastEditTime: 2022-11-24 11:20:12
  * @FilePath: \IUI314\src\types\base\login.ts
  * @Description:
  */
@@ -19,9 +19,15 @@ export interface codeData {
 /**
  * @description: login form data
  */
-export interface LoginForm {
+export interface LocalUser {
   user_name: string
   user_password: string
+}
+
+/**
+ * @description: login form data
+ */
+export interface LoginForm extends LocalUser {
   code: string
   uuid: string
 }
