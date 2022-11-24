@@ -22,7 +22,7 @@ specifiers:
   eslint-plugin-simple-import-sort: ^8.0.0
   eslint-plugin-vue: ^9.8.0
   event-source-polyfill: ^1.0.31
-  jsencrypt: ~3.2.1
+  jsencrypt: ^3.3.1
   mitt: ^3.0.0
   npm-run-all: ^4.1.5
   nprogress: ^0.2.0
@@ -57,7 +57,7 @@ dependencies:
   echarts: registry.npmmirror.com/echarts/5.4.0
   element-plus: registry.npmmirror.com/element-plus/2.2.22_vue@3.2.45
   event-source-polyfill: registry.npmmirror.com/event-source-polyfill/1.0.31
-  jsencrypt: registry.npmmirror.com/jsencrypt/3.2.1
+  jsencrypt: registry.npmmirror.com/jsencrypt/3.3.1
   mitt: registry.npmmirror.com/mitt/3.0.0
   nprogress: registry.npmmirror.com/nprogress/0.2.0
   pinia: registry.npmmirror.com/pinia/2.0.26_mgnvym7yiazkylwwogi5r767ue
@@ -3791,10 +3791,10 @@ packages:
       argparse: registry.npmmirror.com/argparse/2.0.1
     dev: true
 
-  registry.npmmirror.com/jsencrypt/3.2.1:
-    resolution: {integrity: sha512-k1sD5QV0KPn+D8uG9AdGzTQuamt82QZ3A3l6f7TRwMU6Oi2Vg0BsL+wZIQBONcraO1pc78ExMdvmBBJ8WhNYUA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/jsencrypt/-/jsencrypt-3.2.1.tgz}
+  registry.npmmirror.com/jsencrypt/3.3.1:
+    resolution: {integrity: sha512-dVvV54GdFuJgmEKn+oBiaifDMen4p6o6j/lJh0OVMcouME8sST0bJ7bldIgKBQk4za0zyGn0/pm4vOznR25mLw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/jsencrypt/-/jsencrypt-3.3.1.tgz}
     name: jsencrypt
-    version: 3.2.1
+    version: 3.3.1
     dev: false
 
   registry.npmmirror.com/jsesc/2.5.2:
