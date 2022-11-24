@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-24 11:26:05
+ * @LastEditTime: 2022-11-24 11:40:08
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */
@@ -12,7 +12,8 @@ import { defineStore } from 'pinia'
 import { getFullUserInfo, loginUser, logOutUser } from '@/api/system/login'
 import { freshToken } from '@/api/system/user'
 import defaultAvatar from '@/assets/av.webp'
-import type { LoginForm, LoginFormLocal, LocalUser } from '@/types/base/login'
+import { useEncrypt } from '@/hooks'
+import type { LoginForm, LoginFormLocal } from '@/types/base/login'
 
 import { usePermissionStore } from './permission'
 
@@ -46,6 +47,12 @@ export const useUserStore = defineStore('userInfo', {
   actions: {
     // 登录
     async login(userInfo: LoginFormLocal) {
+      const { encrypt } = useEncrypt()
+      this.rememberMe = userInfo.rememberMe
+      if (this.rememberMe) {
+        this.localUserInfo.username = encrypt(userInfo.user_name) as string
+        this.localUserInfo.password = encrypt(userInfo.user_password) as string
+      }
       const user_data: LoginForm = {
         user_name: userInfo.user_name,
         user_password: md5(userInfo.user_password),
@@ -59,11 +66,6 @@ export const useUserStore = defineStore('userInfo', {
         exp_in: token.exp_in,
         type: token.token_type,
       }
-    },
-    // 设置本地登录信息
-    setLocalUserInfo(userInfo: LocalUser) {
-      this.localUserInfo.username = userInfo.user_name
-      this.localUserInfo.password = userInfo.user_password
     },
     // 获取用户信息
     async getUserInfo() {
@@ -81,6 +83,14 @@ export const useUserStore = defineStore('userInfo', {
         dept: user.user.dept_id,
         uid: user.user.id,
         permissions: user.permissions,
+      }
+    },
+    // 获取本地用户信息
+    getLocalUserInfo() {
+      const { decrypt } = useEncrypt()
+      return {
+        user_name: decrypt(this.localUserInfo.username) as string,
+        user_password: decrypt(this.localUserInfo.password) as string,
       }
     },
     // 刷新token

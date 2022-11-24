@@ -83,13 +83,11 @@ import { useCaptcha } from '@/api/system/login'
 import logo from '@/assets/logo.svg'
 import { useFormUtil } from '@/hooks'
 import { useAppStore, useUserStore } from '@/stores'
-import type { LocalUser, LoginFormLocal } from '@/types/base/login'
-import {  useEncrypt} from '@/hooks'
+import type { LoginFormLocal } from '@/types/base/login'
 
 const userStore = useUserStore()
 const appStore = useAppStore()
 const router = useRouter()
-const {decrypt, encrypt} = useEncrypt()
 const { captchaData, getCaptcha } = useCaptcha()
 const { formValidate, formReset } = useFormUtil()
 
@@ -126,21 +124,14 @@ const submitLogin = async (formRef: FormInstance | undefined) => {
   loginForm.value.uuid = captchaData.value?.uuid!
   await userStore.login(loginForm.value)
   const redirect = router.currentRoute.value.query.redirect as string
-  if(loginForm.value.rememberMe){
-    const localUserInfo:LocalUser = {
-    user_name: encrypt(loginForm.value.user_name) as string,
-    user_password: encrypt(loginForm.value.user_password) as string,
-}
-userStore.setLocalUserInfo(localUserInfo)
-  }
   await router.push({ path: redirect })
 }
 // 获取本地用户信息
 const getLocalUserInfo = () => {
   if (loginForm.value.rememberMe) {
-    const { username, password } = userStore.localUserInfo
-    loginForm.value.user_name = decrypt(username) as string
-    loginForm.value.user_password = decrypt(password) as string
+    const { user_name, user_password } = userStore.getLocalUserInfo()
+    loginForm.value.user_name = user_name
+    loginForm.value.user_password = user_password
   }
 }
 
