@@ -3,7 +3,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 13:59:37
  * @FilePath: \IUI314\src\types\system\dict.ts
  * @Description:dict type define
  */
@@ -65,6 +64,7 @@ export interface dictType extends operateInfo {
   status: string
   remark: string
 }
+
 /**
  * 字典数据
  */
@@ -80,12 +80,14 @@ export interface dictData extends operateInfo {
   status?: string
   remark?: string
 }
+
 /**
  * 字典列表请请求返回数据
  */
 export interface dictTypeList extends pageData {
   list: dictType[]
 }
+
 /**
  * 字典列表请请求返回数据
  */

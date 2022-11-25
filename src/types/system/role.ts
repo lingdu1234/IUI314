@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 22:30:55
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-17 14:00:23
  * @FilePath: \IUI314\src\types\system\role.ts
  * @Description: 角色
  */

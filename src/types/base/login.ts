@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 09:17:21
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-24 11:20:12
  * @FilePath: \IUI314\src\types\base\login.ts
  * @Description:
  */

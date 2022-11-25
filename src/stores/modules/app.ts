@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 16:14:07
  * @FilePath: \IUI314\src\stores\modules\app.ts
  * @Description: appStore
  */
@@ -36,6 +35,7 @@ interface AppStore {
     LockedTime: number
   }
 }
+
 const { isFullscreen, toggle } = useFullscreen()
 
 export const useAppStore = defineStore('app', {

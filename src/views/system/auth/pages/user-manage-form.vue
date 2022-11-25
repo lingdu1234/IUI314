@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:47:35
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-05 17:03:57
  * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
  * @Description: 
 -->
@@ -19,24 +18,24 @@
       <el-form-item :label="t('user.name')" prop="user_name">
         <el-input
           v-model="queryParams.user_name"
-          clearable
           :placeholder="t('user.nameTip')"
+          clearable
           @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item :label="t('common.phoneNum')" prop="phone_num">
         <el-input
           v-model="queryParams.phone_num"
-          clearable
           :placeholder="t('common.phoneNum')"
+          clearable
           @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item :label="t('common.status')" prop="user_status">
         <el-select
           v-model="queryParams.user_status"
-          clearable
           :placeholder="t('common.status')"
+          clearable
         >
           <el-option
             v-for="dict in dicts[dictKey.sysNormalDisable]"
@@ -49,8 +48,8 @@
       <el-form-item :label="t('common.createTime2')">
         <el-date-picker
           v-model="dateRange"
-          :start-placeholder="t('common.beginTime')"
           :end-placeholder="t('common.endTime')"
+          :start-placeholder="t('common.beginTime')"
           range-separator="-"
           type="daterange"
           value-format="YYYY-MM-DD"
@@ -121,23 +120,23 @@
       />
       <el-table-column
         key="user_name"
+        :label="t('profile.name')"
         :show-overflow-tooltip="true"
         align="center"
-        :label="t('profile.name')"
         prop="user_name"
       />
       <el-table-column
         key="user_nickname"
+        :label="t('profile.nickName')"
         :show-overflow-tooltip="true"
         align="center"
-        :label="t('profile.nickName')"
         prop="user_nickname"
       />
       <el-table-column
         key="dept_id"
+        :label="t('user.dept')"
         :show-overflow-tooltip="true"
         align="center"
-        :label="t('user.dept')"
         prop="dept.dept_name"
       />
       <el-table-column
@@ -149,8 +148,8 @@
       />
       <el-table-column
         key="user_status"
-        align="center"
         :label="t('common.status')"
+        align="center"
       >
         <template #default="scope">
           <el-switch
@@ -162,8 +161,8 @@
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
         :label="t('common.createTime')"
+        align="center"
         prop="created_at"
         width="170"
       >
@@ -172,32 +171,32 @@
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
         :label="t('common.operation')"
+        align="center"
         width="150"
       >
         <template #default="scope">
           <el-tooltip
+            v-if="scope.row.userId !== 1"
             :content="t('common.edit')"
             effect="light"
             placement="top"
-            v-if="scope.row.userId !== 1"
           >
             <el-button :icon="Edit" link @click="handleUpdate(scope.row)" />
           </el-tooltip>
           <el-tooltip
+            v-if="scope.row.userId !== 1"
             :content="t('common.delete')"
             effect="light"
             placement="top"
-            v-if="scope.row.userId !== 1"
           >
             <el-button :icon="Delete" link @click="handleDelete(scope.row)" />
           </el-tooltip>
           <el-tooltip
+            v-if="scope.row.userId !== 1"
             :content="t('user.restPwd')"
             effect="light"
             placement="top"
-            v-if="scope.row.userId !== 1"
           >
             <el-button :icon="Key" link @click="handleResetPwd(scope.row)" />
           </el-tooltip>
@@ -269,6 +268,7 @@ import { dictKey } from '@/types/system/dict'
 import type { resetUserPwd, user, userQueryParam } from '@/types/system/user'
 
 import UserManageDialog from './user-manage-dialog.vue'
+
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const props = defineProps({
   dept_id: {

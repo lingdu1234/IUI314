@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-06 18:40:42
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 20:31:44
  * @FilePath: \IUI314\src\components\layout\tab-bar\useTabBar.ts
  * @Description:
  */
@@ -12,6 +11,7 @@ import { useRoute, useRouter } from 'vue-router'
 
 import { useTabBarStore } from '@/stores'
 import type { TagProps } from '@/types/base/router'
+
 export enum Eaction {
   // eslint-disable-next-line no-unused-vars
   reload = 'reload',
@@ -26,6 +26,7 @@ export enum Eaction {
   // eslint-disable-next-line no-unused-vars
   all = 'all',
 }
+
 export const useTabBar = () => {
   const router = useRouter()
   const route = useRoute()

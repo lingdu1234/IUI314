@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-19 20:02:12
  * @FilePath: \IUI314\src\stores\modules\userConfigTheme.ts
  * @Description: appStore
  */
@@ -15,6 +14,7 @@ import type { themeKey } from '@/hooks'
 interface Theme {
   setting: ThemeSetting
 }
+
 // 主题设置
 export type ThemeSetting = Partial<Record<themeKey, string>>
 

@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 16:31:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 14:27:38
  * @FilePath: \IUI314\src\views\system\auth\user-manage.vue
  * @Description: 
 -->
@@ -14,18 +13,18 @@
           <el-input
             v-model="dept_name"
             :placeholder="t('dept.searchTip')"
-            clearable
             :prefix-icon="Search"
             class="m-b-20px"
+            clearable
           />
         </div>
         <div>
           <el-tree
             ref="deptTreeRef"
             :data="deptTree"
-            :props="deptTreeProps"
             :expand-on-click-node="false"
             :filter-node-method="filterNode"
+            :props="deptTreeProps"
             default-expand-all
             @node-click="handleNodeClick"
           />

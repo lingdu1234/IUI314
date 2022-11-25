@@ -1,14 +1,13 @@
-import type { pageData, pageQueryParam } from '../base/apis'
-import type { dept } from './dept'
-
 /*
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:58:44
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-16 13:25:47
  * @FilePath: \IUI314\src\types\system\user.ts
  * @Description:
  */
+import type { pageData, pageQueryParam } from '../base/apis'
+import type { dept } from './dept'
+
 export interface user {
   id?: string
   user_name?: string
@@ -29,6 +28,7 @@ export interface user {
   created_at?: string
   dept?: dept
 }
+
 export interface userQueryParam extends pageQueryParam {
   dept_id?: string
   user_name?: string

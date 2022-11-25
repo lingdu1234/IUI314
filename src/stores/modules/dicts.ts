@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 14:50:08
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-18 21:43:50
  * @FilePath: \IUI314\src\stores\modules\dicts.ts
  * @Description: appStore
  */

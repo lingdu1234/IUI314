@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 16:28:26
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-24 11:40:08
  * @FilePath: \IUI314\src\stores\modules\userInfo.ts
  * @Description: userInfo
  */

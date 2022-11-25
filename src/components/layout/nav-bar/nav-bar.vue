@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 16:32:14
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-07 14:39:03
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar.vue
  * @Description: 
 -->
@@ -22,7 +21,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="nav-bar">
+<script lang="ts" name="nav-bar" setup>
 import Breadcrumb from './breadcrumb.vue'
 import NavBarOperator from './nav-bar-operator.vue'
 import SideBarToggle from './side-bar-toggle.vue'
@@ -31,6 +30,7 @@ import SideBarToggle from './side-bar-toggle.vue'
 <style lang="scss" scoped>
 .nav-bar-container {
   background-color: var(--header-bar-bg-color);
+
   .nav-bar-box-scroll {
     padding: 1px 0px;
     width: calc(100% - var(--nav-bar-operation-width));

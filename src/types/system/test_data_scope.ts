@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 18:23:23
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 10:38:21
  * @FilePath: \IUI314\src\types\system\test_data_scope.ts
  * @Description: dept
  */

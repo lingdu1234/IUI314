@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-10 14:35:22
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-05 17:05:44
  * @FilePath: \IUI314\src\views\system\dict\data.vue
  * @Description: 
 -->
@@ -13,8 +12,8 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="68px"
       class="base-form"
+      label-width="68px"
     >
       <el-form-item label="字典名称" prop="dictType">
         <el-select v-model="queryParams.dict_type">
@@ -29,8 +28,8 @@
       <el-form-item label="字典标签" prop="dict_label">
         <el-input
           v-model="queryParams.dict_label"
-          placeholder="请输入字典标签"
           clearable
+          placeholder="请输入字典标签"
           @keyup.enter="getList"
         />
       </el-form-item>
@@ -69,41 +68,41 @@
     <el-row :gutter="10" class="m-b-8px" style="height: 35px">
       <el-col :span="1.5">
         <el-button
-          type="primary"
-          plain
-          :icon="Plus"
-          @click="handleAdd"
           v-if="hasPermission(ApiSysDictData.add)"
+          :icon="Plus"
+          plain
+          type="primary"
+          @click="handleAdd"
         >
           {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="success"
-          plain
-          :icon="Edit"
-          :disabled="!single"
-          @click="handleUpdate()"
           v-if="hasPermission(ApiSysDictData.edit)"
+          :disabled="!single"
+          :icon="Edit"
+          plain
+          type="success"
+          @click="handleUpdate()"
         >
           {{ t('common.edit') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          :icon="Delete"
-          :disabled="!selected"
-          @click="handleDelete()"
           v-if="hasPermission(ApiSysDictData.delete)"
+          :disabled="!selected"
+          :icon="Delete"
+          plain
+          type="danger"
+          @click="handleDelete()"
         >
           {{ t('common.delete') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="warning" plain :icon="Close" @click="handleClose">
+        <el-button :icon="Close" plain type="warning" @click="handleClose">
           {{ t('common.close') }}
         </el-button>
       </el-col>
@@ -111,18 +110,18 @@
     </el-row>
     <el-table
       :data="dictDataList"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column align="center" type="selection" width="55" />
       <el-table-column
-        label="字典编码"
         align="center"
+        label="字典编码"
         prop="dict_data_id"
-        width="100"
         show-overflow-tooltip
+        width="100"
       />
-      <el-table-column label="字典标签" align="center" prop="dict_label">
+      <el-table-column align="center" label="字典标签" prop="dict_label">
         <template #default="scope">
           <span
             v-if="
@@ -142,9 +141,9 @@
           </el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="字典键值" align="center" prop="dict_value" />
-      <el-table-column label="字典排序" align="center" prop="dict_sort" />
-      <el-table-column label="状态" align="center" prop="status">
+      <el-table-column align="center" label="字典键值" prop="dict_value" />
+      <el-table-column align="center" label="字典排序" prop="dict_sort" />
+      <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysNormalDisable]"
@@ -153,14 +152,14 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="备注"
-        align="center"
-        prop="remark"
         :show-overflow-tooltip="true"
+        align="center"
+        label="备注"
+        prop="remark"
       />
       <el-table-column
-        label="创建时间"
         align="center"
+        label="创建时间"
         prop="created_at"
         width="180"
       >
@@ -169,16 +168,16 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="操作"
         align="center"
-        width="150"
         class-name="small-padding fixed-width"
+        label="操作"
+        width="150"
       >
         <template #default="scope">
-          <el-button link icon="Edit" @click="handleUpdate(scope.row)">
+          <el-button icon="Edit" link @click="handleUpdate(scope.row)">
             修改
           </el-button>
-          <el-button link icon="Delete" @click="handleDelete(scope.row)">
+          <el-button icon="Delete" link @click="handleDelete(scope.row)">
             删除
           </el-button>
         </template>
@@ -187,8 +186,8 @@
 
     <Pagination
       v-show="total > 0"
-      v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
       :total="total"
       @pagination="getList"
     />
@@ -197,15 +196,15 @@
       v-if="open"
       v-model="open"
       :title="title"
-      width="500px"
       append-to-body
+      width="500px"
     >
       <el-form
         ref="dictRef"
         :model="form"
         :rules="rules"
-        label-width="80px"
         class="base-form"
+        label-width="80px"
       >
         <el-form-item label="字典类型">
           <el-input v-model="form.dict_type" :disabled="true" />
@@ -222,8 +221,8 @@
         <el-form-item label="显示排序" prop="dict_sort">
           <el-input-number
             v-model="form.dict_sort"
-            controls-position="right"
             :min="0"
+            controls-position="right"
           />
         </el-form-item>
         <el-form-item label="回显样式" prop="list_class">
@@ -250,8 +249,8 @@
         <el-form-item label="备注" prop="remark">
           <el-input
             v-model="form.remark"
-            type="textarea"
             placeholder="请输入内容"
+            type="textarea"
           />
         </el-form-item>
       </el-form>
@@ -268,7 +267,7 @@
     </el-dialog>
   </div>
 </template>
-<script lang="ts" setup name="dict-data">
+<script lang="ts" name="dict-data" setup>
 import {
   Close,
   Delete,

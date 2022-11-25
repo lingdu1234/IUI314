@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 21:22:30
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 14:16:58
  * @FilePath: \IUI314\src\components\layout\nav-bar\nav-bar-operator.vue
  * @Description: 
 -->
@@ -42,7 +41,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="nav-bar-operator">
+<script lang="ts" name="nav-bar-operator" setup>
 import { ElTooltip } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 

@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-15 22:34:39
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-31 14:22:46
  * @FilePath: \IUI314\src\types\system\scheduled-tasks.ts
  * @Description:
  */
@@ -26,6 +25,7 @@ export interface scheduledTasks extends operateInfo {
   next_time?: string
   end_time?: string
 }
+
 export interface scheduledTasksLog extends operateInfo {
   job_log_id?: string
   job_id?: string
@@ -45,6 +45,7 @@ export interface scheduledTasksLog extends operateInfo {
 export interface scheduledTasksList extends pageData {
   list: scheduledTasks[]
 }
+
 export interface scheduledTasksLogList extends pageData {
   list: scheduledTasksLog[]
 }
@@ -54,6 +55,7 @@ export interface scheduledTasksQueryParam extends pageQueryParam {
   job_group?: string
   status?: string
 }
+
 export interface scheduledTasksLogQueryParam extends pageQueryParam {
   job_id?: string
   job_name?: string

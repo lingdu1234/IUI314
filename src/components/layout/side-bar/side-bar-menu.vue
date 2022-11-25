@@ -2,27 +2,26 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 21:49:15
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-01 10:49:43
  * @FilePath: \IUI314\src\components\layout\side-bar\side-bar-menu.vue
  * @Description: 
 -->
 <template>
   <el-menu
-    :default-active="activeMenu"
     :collapse="appStore.sideBar.isCollapse"
-    :unique-opened="true"
     :collapse-transition="false"
+    :default-active="activeMenu"
+    :unique-opened="true"
     mode="vertical"
   >
     <SideBarMenuItem
       v-for="(router, index) in routes"
       :key="router.path + index"
-      :item="router"
       :base-path="router.path"
+      :item="router"
     />
   </el-menu>
 </template>
-<script lang="ts" setup name="side-bar-menu">
+<script lang="ts" name="side-bar-menu" setup>
 import { ElMenu } from 'element-plus'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'

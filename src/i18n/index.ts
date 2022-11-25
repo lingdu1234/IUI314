@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-21 14:33:39
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-23 10:21:13
  * @FilePath: \IUI314\src\i18n\index.ts
  * @Description:
  */

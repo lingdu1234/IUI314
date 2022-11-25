@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-05 20:12:27
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 17:58:14
  * @FilePath: \IUI314\src\router\typings.d.ts
  * @Description:
  */

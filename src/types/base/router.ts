@@ -3,7 +3,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 19:58:32
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-25 13:58:37
  * @FilePath: \IUI314\src\types\base\router.ts
  * @Description:
  */

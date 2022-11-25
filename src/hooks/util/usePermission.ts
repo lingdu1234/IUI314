@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-11 15:46:58
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-10-21 11:16:17
  * @FilePath: \IUI314\src\hooks\util\usePermission.ts
  * @Description:
  */

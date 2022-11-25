@@ -2,7 +2,6 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-16 12:58:33
  * @LastEditors: lingdu waong2005@126.com
- * @LastEditTime: 2022-11-04 22:10:13
  * @FilePath: \IUI314\src\views\system\auth\dept-manage.vue
  * @Description: 
 -->
@@ -18,16 +17,16 @@
       <el-form-item :label="t('dept.name')" prop="dept_name">
         <el-input
           v-model="queryParams.dept_name"
-          clearable
           :placeholder="t('dept.name')"
+          clearable
           @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item :label="t('dept.status')" prop="status">
         <el-select
           v-model="queryParams.status"
-          clearable
           :placeholder="t('dept.status')"
+          clearable
         >
           <el-option
             v-for="dict in dicts[dictKey.sysNormalDisable]"
@@ -94,8 +93,8 @@
         </template>
       </el-table-column>
       <el-table-column
-        align="center"
         :label="t('common.createTime')"
+        align="center"
         prop="created_at"
         show-overflow-tooltip
       >
@@ -105,8 +104,8 @@
       </el-table-column>
       <el-table-column
         v-if="hasPermission(ApiSysDept.add, ApiSysUser.edit, ApiSysDept.delete)"
-        align="center"
         :label="t('common.operation')"
+        align="center"
         width="220px"
       >
         <template #default="scope">
@@ -194,6 +193,7 @@ import type { dept, deptQueryParam } from '@/types/system/dept'
 import { dictKey } from '@/types/system/dict'
 
 import DeptManageDialog from './pages/dept-manage-dialog.vue'
+
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const showSearch = ref(true)
 const queryRef = ref<FormInstance>()
