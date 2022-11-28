@@ -141,7 +141,21 @@
                 {{ t('menu.path') }}
               </span>
             </template>
-            <el-input v-model="form.path" :placeholder="t('menu.pathTip2')" />
+            <el-select
+              v-model="form.path"
+              clearable
+              filterable
+              allow-create
+              :reserve-keyword="false"
+              :placeholder="t('menu.pathTip2')"
+            >
+              <el-option
+                v-for="item in constMenus"
+                :key="item.path"
+                :label="item.name + '-' + item.path"
+                :value="item.path"
+              />
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="12" v-if="form.menu_type === MenuType.C">
@@ -470,6 +484,7 @@ import IconSelect from '@/components/common/icon-select.vue'
 import SvgIcon from '@/components/common/svg-icon.vue'
 import { useDicts, useFormUtil, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
+import { constMenus } from '@/router'
 import { MenuType } from '@/types/base/router'
 import { dictKey } from '@/types/system/dict'
 import type { menu } from '@/types/system/menu'

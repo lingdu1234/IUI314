@@ -65,3 +65,5 @@ export const systemMenus: Record<string, routeMenuInfo> = {
     name: '服务监控',
   },
 }
+
+export const constMenus: Record<string, routeMenuInfo> = { ...systemMenus }
