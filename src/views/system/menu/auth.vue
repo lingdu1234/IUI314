@@ -13,7 +13,7 @@
       :inline="true"
       :model="queryParams"
       class="base-form"
-      label-width="68px"
+      label-width="80px"
     >
       <el-form-item :label="t('menu.name')" prop="menu_name">
         <el-input

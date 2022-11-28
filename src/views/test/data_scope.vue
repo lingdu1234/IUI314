@@ -14,7 +14,7 @@
       ref="queryRef"
       :inline="true"
       v-show="showSearch"
-      label-width="68px"
+      label-width="80px"
     >
       <el-form-item label="Id" prop="id">
         <el-input

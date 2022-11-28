@@ -13,7 +13,7 @@
       :inline="true"
       :model="queryParams"
       class="base-form"
-      label-width="68px"
+      label-width="80px"
     >
       <el-form-item label="字典名称" prop="dictType">
         <el-select v-model="queryParams.dict_type">

@@ -20,7 +20,7 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="68px"
+      label-width="80px"
       class="base-form"
     >
       <el-form-item label="任务ID" prop="job_id">

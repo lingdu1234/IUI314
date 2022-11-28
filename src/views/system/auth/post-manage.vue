@@ -6,7 +6,7 @@
       :inline="true"
       :model="queryParams"
       class="base-form"
-      label-width="68px"
+      label-width="80px"
     >
       <el-form-item label="岗位编码" prop="post_code">
         <el-input

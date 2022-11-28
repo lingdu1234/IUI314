@@ -62,9 +62,6 @@ watch(
         moveToTarget()
       })
     }
-  },
-  {
-    deep: true,
   }
 )
 
