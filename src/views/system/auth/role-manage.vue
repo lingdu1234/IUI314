@@ -41,11 +41,11 @@
       <el-form-item label="创建时间">
         <el-date-picker
           v-model="dateRange"
-          value-format="YYYY-MM-DD"
-          type="daterange"
+          end-placeholder="结束日期"
           range-separator="-"
           start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          type="daterange"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item>
@@ -58,7 +58,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysRole.add)"
@@ -99,38 +99,38 @@
     <!--    表格区域-->
     <el-table
       :data="roleListData"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column align="center" type="selection" width="55" />
       <el-table-column label="角色编号" prop="role_id" show-overflow-tooltip />
       <el-table-column
+        :show-overflow-tooltip="true"
         label="角色名称"
         prop="role_name"
-        :show-overflow-tooltip="true"
         width="150"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
         label="权限字符"
         prop="role_key"
-        :show-overflow-tooltip="true"
         width="150"
       />
       <el-table-column label="显示顺序" prop="list_order" width="100" />
-      <el-table-column label="状态" align="center" width="100">
+      <el-table-column align="center" label="状态" width="100">
         <template #default="scope">
           <el-switch
             v-model="scope.row.status"
+            :disabled="!hasPermission(ApiSysRole.changeStatus)"
             active-value="1"
             inactive-value="0"
-            :disabled="!hasPermission(ApiSysRole.changeStatus)"
             @change="handleStatusChange(scope.row)"
           />
         </template>
       </el-table-column>
       <el-table-column
-        label="创建时间"
         align="center"
+        label="创建时间"
         prop="created_at"
         width="180"
       >
@@ -146,30 +146,30 @@
       >
         <template #default="scope">
           <el-tooltip
-            content="修改"
-            placement="top"
-            effect="light"
             v-if="hasPermission(ApiSysRole.edit) && scope.row.role_id !== 1"
+            content="修改"
+            effect="light"
+            placement="top"
           >
-            <el-button link :icon="Edit" @click="handleUpdate(scope.row)" />
+            <el-button :icon="Edit" link @click="handleUpdate(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="删除"
-            placement="top"
-            effect="light"
             v-if="hasPermission(ApiSysRole.delete) && scope.row.role_id !== 1"
+            content="删除"
+            effect="light"
+            placement="top"
           >
-            <el-button link :icon="Delete" @click="handleDelete(scope.row)" />
+            <el-button :icon="Delete" link @click="handleDelete(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="数据权限"
-            placement="top"
-            effect="light"
             v-if="hasPermission(ApiSysRole.setDataScope)"
+            content="数据权限"
+            effect="light"
+            placement="top"
           >
             <el-button
-              link
               :icon="CircleCheck"
+              link
               @click="handleDataScope(scope.row)"
             />
           </el-tooltip>

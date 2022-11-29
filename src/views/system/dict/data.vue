@@ -65,7 +65,7 @@
       </el-form-item>
     </el-form>
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysDictData.add)"

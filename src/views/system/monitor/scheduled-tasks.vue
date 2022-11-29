@@ -5,22 +5,22 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="80px"
       class="base-form"
+      label-width="80px"
     >
       <el-form-item label="任务名称" prop="job_name">
         <el-input
           v-model="queryParams.job_name"
-          placeholder="请输入任务名称"
           clearable
+          placeholder="请输入任务名称"
           @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item label="任务组名" prop="job_group">
         <el-select
           v-model="queryParams.job_group"
-          placeholder="请选择任务组名"
           clearable
+          placeholder="请选择任务组名"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysJobGroup]"
@@ -33,8 +33,8 @@
       <el-form-item label="任务状态" prop="status">
         <el-select
           v-model="queryParams.status"
-          placeholder="请选择任务状态"
           clearable
+          placeholder="请选择任务状态"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysJobStatus]"
@@ -55,13 +55,13 @@
     </el-form>
 
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysScheduledTasks.add)"
-          type="primary"
-          plain
           :icon="Plus"
+          plain
+          type="primary"
           @click="handleAdd"
         >
           {{ t('common.add') }}
@@ -70,10 +70,10 @@
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysScheduledTasks.edit)"
-          type="success"
-          plain
-          :icon="Edit"
           :disabled="!single"
+          :icon="Edit"
+          plain
+          type="success"
           @click="handleUpdate()"
         >
           {{ t('common.edit') }}
@@ -82,10 +82,10 @@
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysScheduledTasks.delete)"
-          type="danger"
-          plain
-          :icon="Delete"
           :disabled="!selected"
+          :icon="Delete"
+          plain
+          type="danger"
           @click="handleDelete()"
         >
           {{ t('common.delete') }}
@@ -93,10 +93,10 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="info"
-          plain
-          :icon="Operation"
           v-if="hasPermission(ApiSysScheduledTasksLog.getList)"
+          :icon="Operation"
+          plain
+          type="info"
           @click="handleJobLog()"
         >
           {{ t('common.log') }}
@@ -105,8 +105,8 @@
       <el-col :span="1.5">
         <el-checkbox
           v-model="fresh_enabled"
-          border
           :label="t('common.auto') + t('common.reFresh')"
+          border
           @change="fresh_option_changed"
         />
       </el-col>
@@ -117,15 +117,15 @@
     <!-- 表格区域 -->
     <el-table
       :data="list"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column align="center" type="selection" width="55" />
       <el-table-column
-        label="任务ID"
-        width="100"
         align="center"
+        label="任务ID"
         show-overflow-tooltip
+        width="100"
       >
         <template #default="scope">
           <el-tag type="warning" @click="handleJobLog(scope.row)">
@@ -136,10 +136,10 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="任务名称"
-        align="center"
-        prop="job_name"
         :show-overflow-tooltip="true"
+        align="center"
+        label="任务名称"
+        prop="job_name"
       >
         <template #default="scope">
           <el-link type="success" @click="handleView(scope.row)">
@@ -147,7 +147,7 @@
           </el-link>
         </template>
       </el-table-column>
-      <el-table-column label="任务组名" align="center" prop="job_group">
+      <el-table-column align="center" label="任务组名" prop="job_group">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysJobGroup]"
@@ -156,21 +156,21 @@
         </template>
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="调用目标字符串"
-        align="center"
         prop="invoke_target"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="cron执行表达式"
-        align="center"
         prop="cron_expression"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="下次执行时间"
-        align="center"
         :show-overflow-tooltip="true"
+        align="center"
+        label="下次执行时间"
       >
         <template #default="scope">
           <span v-if="scope.row.status == '0'">任务未运行</span>
@@ -178,10 +178,10 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="批次数"
-        align="center"
-        width="100"
         :show-overflow-tooltip="true"
+        align="center"
+        label="批次数"
+        width="100"
       >
         <template #default="scope">
           <span v-if="scope.row.task_count == '0'">无限</span>
@@ -189,13 +189,13 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="已执行"
+        :show-overflow-tooltip="true"
         align="center"
+        label="已执行"
         prop="run_count"
         width="100"
-        :show-overflow-tooltip="true"
       />
-      <el-table-column label="状态" align="center">
+      <el-table-column align="center" label="状态">
         <template #default="scope">
           <el-switch
             v-model="scope.row.status"
@@ -205,49 +205,49 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" width="200">
+      <el-table-column align="center" label="操作" width="200">
         <template #default="scope">
           <el-tooltip
-            content="修改"
-            placement="top"
-            effect="light"
             v-if="hasPermission(ApiSysScheduledTasks.edit)"
+            content="修改"
+            effect="light"
+            placement="top"
           >
-            <el-button link :icon="Edit" @click="handleUpdate(scope.row)" />
+            <el-button :icon="Edit" link @click="handleUpdate(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="删除"
-            placement="top"
-            effect="light"
             v-if="hasPermission(ApiSysScheduledTasks.delete)"
+            content="删除"
+            effect="light"
+            placement="top"
           >
-            <el-button link :icon="Delete" @click="handleDelete(scope.row)" />
+            <el-button :icon="Delete" link @click="handleDelete(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="执行一次"
-            placement="top"
-            effect="light"
             v-if="hasPermission(ApiSysScheduledTasks.runOnce)"
+            content="执行一次"
+            effect="light"
+            placement="top"
           >
-            <el-button link :icon="CaretRight" @click="handleRun(scope.row)" />
+            <el-button :icon="CaretRight" link @click="handleRun(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="任务详细"
-            placement="top"
-            effect="light"
             v-if="hasPermission(ApiSysScheduledTasks.getById)"
+            content="任务详细"
+            effect="light"
+            placement="top"
           >
-            <el-button link :icon="View" @click="handleView(scope.row)" />
+            <el-button :icon="View" link @click="handleView(scope.row)" />
           </el-tooltip>
           <el-tooltip
-            content="调度日志"
-            placement="top"
-            effect="light"
             v-if="hasPermission(ApiSysScheduledTasksLog.getList)"
+            content="调度日志"
+            effect="light"
+            placement="top"
           >
             <el-button
-              link
               :icon="Operation"
+              link
               @click="handleJobLog(scope.row)"
             />
           </el-tooltip>
@@ -257,8 +257,8 @@
 
     <Pagination
       v-show="total > 0"
-      v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
       :total="total"
       @pagination="getList"
     />

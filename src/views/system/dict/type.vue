@@ -12,22 +12,22 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="80px"
       class="base-form"
+      label-width="80px"
     >
       <el-form-item :label="t('dict.typeName')" prop="dict_name">
         <el-input
           v-model="queryParams.dict_name"
-          clearable
           :placeholder="t('dict.nameTip')"
+          clearable
           @keyup.enter="getList"
         />
       </el-form-item>
       <el-form-item :label="t('dict.type')" prop="dict_type">
         <el-input
           v-model="queryParams.dict_type"
-          clearable
           :placeholder="t('dict.dictTypeTip')"
+          clearable
           @keyup.enter="getList"
         />
       </el-form-item>
@@ -48,8 +48,8 @@
       <el-form-item :label="t('common.createTime2')">
         <el-date-picker
           v-model="dateRange"
-          :start-placeholder="t('common.beginTime')"
           :end-placeholder="t('common.endTime')"
+          :start-placeholder="t('common.beginTime')"
           range-separator="-"
           type="daterange"
           value-format="YYYY-MM-DD"
@@ -66,38 +66,38 @@
     </el-form>
 
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
-          type="primary"
-          plain
-          :icon="Plus"
-          @click="handleAdd"
           v-if="hasPermission(ApiSysDictType.add)"
+          :icon="Plus"
+          plain
+          type="primary"
+          @click="handleAdd"
         >
           {{ t('common.add') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="success"
-          plain
-          :icon="Edit"
-          :disabled="!single"
-          @click="handleUpdate()"
           v-if="hasPermission(ApiSysDictType.edit)"
+          :disabled="!single"
+          :icon="Edit"
+          plain
+          type="success"
+          @click="handleUpdate()"
         >
           {{ t('common.edit') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          :icon="Delete"
-          :disabled="!selected"
-          @click="handleDelete()"
           v-if="hasPermission(ApiSysDictType.delete)"
+          :disabled="!selected"
+          :icon="Delete"
+          plain
+          type="danger"
+          @click="handleDelete()"
         >
           {{ t('common.delete') }}
         </el-button>
@@ -108,27 +108,27 @@
     <!-- 表格区域 -->
     <el-table
       :data="dictTypeList"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column align="center" type="selection" width="55" />
       <el-table-column
         :label="t('dict.typeId')"
         align="center"
         prop="dict_type_id"
-        width="100"
         show-overflow-tooltip
+        width="100"
       />
       <el-table-column
         :label="t('dict.typeName')"
+        :show-overflow-tooltip="true"
         align="center"
         prop="dict_name"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
         :label="t('dict.type')"
-        align="center"
         :show-overflow-tooltip="true"
+        align="center"
       >
         <template #default="scope">
           <el-link type="primary" @click="goto_data(scope.row)">
@@ -146,9 +146,9 @@
       </el-table-column>
       <el-table-column
         :label="t('common.remark')"
+        :show-overflow-tooltip="true"
         align="center"
         prop="remark"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
         :label="t('common.createTime')"
@@ -167,19 +167,19 @@
       >
         <template #default="scope">
           <el-button
-            link
-            :icon="Edit"
-            @click="handleUpdate(scope.row)"
             v-if="hasPermission(ApiSysDictType.edit)"
+            :icon="Edit"
+            link
+            @click="handleUpdate(scope.row)"
           >
             {{ t('common.edit') }}
           </el-button>
           <el-button
-            type="danger"
-            link
-            :icon="Delete"
-            @click="handleDelete(scope.row)"
             v-if="hasPermission(ApiSysDictType.delete)"
+            :icon="Delete"
+            link
+            type="danger"
+            @click="handleDelete(scope.row)"
           >
             {{ t('common.delete') }}
           </el-button>
@@ -188,8 +188,8 @@
     </el-table>
     <Pagination
       v-show="total > 0"
-      v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
       :total="total"
       @pagination="getList"
     />
@@ -198,15 +198,15 @@
       v-if="open"
       v-model="open"
       :title="title"
-      width="500px"
       append-to-body
+      width="500px"
     >
       <el-form
         ref="dictRef"
         :model="form"
         :rules="rules"
-        label-width="80px"
         class="base-form"
+        label-width="80px"
       >
         <el-form-item :label="t('dict.typeName')" prop="dict_name">
           <el-input v-model="form.dict_name" :placeholder="t('dict.nameTip')" />
@@ -231,8 +231,8 @@
         <el-form-item :label="t('common.remark')" prop="remark">
           <el-input
             v-model="form.remark"
-            type="textarea"
             :placeholder="t('common.remarkTip')"
+            type="textarea"
           />
         </el-form-item>
       </el-form>

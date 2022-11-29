@@ -10,59 +10,59 @@
       5：仅本人数据权限:显示本人数据<br />
     </span>
     <el-form
-      :model="queryParams"
+      v-show="showSearch"
       ref="queryRef"
       :inline="true"
-      v-show="showSearch"
+      :model="queryParams"
       label-width="80px"
     >
       <el-form-item label="Id" prop="id">
         <el-input
           v-model="queryParams.id"
-          placeholder="请输入id"
           clearable
+          placeholder="请输入id"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item label="dataA" prop="data_a">
         <el-input
           v-model="queryParams.data_a"
-          placeholder="请输入A"
           clearable
+          placeholder="请输入A"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item label="dataB" prop="data_b">
         <el-input
           v-model="queryParams.data_b"
-          placeholder="请输入B"
           clearable
+          placeholder="请输入B"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" :icon="Search" @click="handleQuery"
-          >搜索</el-button
-        >
+        <el-button :icon="Search" type="primary" @click="handleQuery"
+          >搜索
+        </el-button>
         <el-button :icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="mb8" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
-        <el-button type="primary" plain :icon="Plus" @click="handleAdd">
+        <el-button :icon="Plus" plain type="primary" @click="handleAdd">
           新增
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          :icon="Delete"
           :disabled="!selected"
+          :icon="Delete"
+          plain
+          type="danger"
           @click="handleDelete()"
-          >删除</el-button
-        >
+          >删除
+        </el-button>
       </el-col>
       <RightToolBar
         v-model:showSearch="showSearch"
@@ -71,23 +71,23 @@
     </el-row>
 
     <el-table :data="list" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="数据A" align="center" prop="data_a" />
-      <el-table-column label="数据B" align="center" prop="data_b" />
-      <el-table-column label="创建人" align="center" prop="created_by" />
+      <el-table-column align="center" type="selection" width="55" />
+      <el-table-column align="center" label="id" prop="id" />
+      <el-table-column align="center" label="数据A" prop="data_a" />
+      <el-table-column align="center" label="数据B" prop="data_b" />
+      <el-table-column align="center" label="创建人" prop="created_by" />
     </el-table>
 
     <Pagination
       v-show="total > 0"
-      :total="total"
-      v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
+      :total="total"
       @pagination="getList"
     />
 
     <!-- 添加或修改岗位对话框 -->
-    <el-dialog :title="title" v-model="open" width="500px" append-to-body>
+    <el-dialog v-model="open" :title="title" append-to-body width="500px">
       <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="data_a" prop="data_a">
           <el-input v-model="form.data_a" placeholder="A" />
@@ -106,7 +106,7 @@
   </div>
 </template>
 
-<script setup lang="ts" name="data-scope">
+<script lang="ts" name="data-scope" setup>
 import { Delete, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import {
   type FormInstance,
@@ -178,11 +178,13 @@ const { handleSelectionChangeFn, ids, values, selected } =
 
 const handleSelectionChange = (v: testDataScope[]) =>
   handleSelectionChangeFn(v, 'id', 'id')
+
 /** 取消按钮 */
 function cancel() {
   open.value = false
   reset()
 }
+
 /** 表单重置 */
 function reset() {
   form.value = {
@@ -191,22 +193,26 @@ function reset() {
     data_b: undefined,
   }
 }
+
 /** 搜索按钮操作 */
 function handleQuery() {
   queryParams.value.page_num = 1
   getList()
 }
+
 /** 重置按钮操作 */
 function resetQuery() {
   formReset(queryRef.value)
   handleQuery()
 }
+
 /** 新增按钮操作 */
 function handleAdd() {
   reset()
   open.value = true
   title.value = '添加'
 }
+
 const handleDelete = async (row?: testDataScope) => {
   const flag = await useDeleteFn(
     ApiDataScopeTest.delete,

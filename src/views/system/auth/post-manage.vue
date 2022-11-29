@@ -48,7 +48,7 @@
       </el-form-item>
     </el-form>
 
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysPost.add)"
@@ -89,8 +89,8 @@
     <!--    表格区域-->
     <el-table
       :data="postListData"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
       <el-table-column align="center" type="selection" width="55" />
       <el-table-column

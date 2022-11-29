@@ -35,7 +35,7 @@
     </el-form>
 
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
     </el-row>
 

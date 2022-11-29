@@ -46,7 +46,7 @@
       </el-form-item>
     </el-form>
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysDept.add)"
@@ -150,14 +150,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {
-  Delete,
-  Edit,
-  Plus,
-  Refresh,
-  Search,
-  Sort,
-} from '@element-plus/icons-vue'
+import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import {
   type FormInstance,
   ElButton,

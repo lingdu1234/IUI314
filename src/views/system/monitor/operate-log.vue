@@ -5,14 +5,14 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="80px"
       class="base-form"
+      label-width="80px"
     >
       <el-form-item label="系统模块" prop="title">
         <el-input
           v-model="queryParams.title"
-          placeholder="请输入系统模块"
           clearable
+          placeholder="请输入系统模块"
           style="width: 240px"
           @keyup.enter="getList"
         />
@@ -20,8 +20,8 @@
       <el-form-item label="操作人员" prop="oper_name">
         <el-input
           v-model="queryParams.oper_name"
-          placeholder="请输入操作人员"
           clearable
+          placeholder="请输入操作人员"
           style="width: 240px"
           @keyup.enter="getList"
         />
@@ -29,8 +29,8 @@
       <el-form-item label="操作类型" prop="operator_type">
         <el-select
           v-model="queryParams.operator_type"
-          placeholder="操作类型"
           clearable
+          placeholder="操作类型"
           style="width: 240px"
         >
           <el-option
@@ -76,26 +76,26 @@
     </el-form>
 
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          :icon="Delete"
-          :disabled="!selected"
-          @click="handleDelete()"
           v-if="hasPermission(ApiSysLoginLog.delete)"
+          :disabled="!selected"
+          :icon="Delete"
+          plain
+          type="danger"
+          @click="handleDelete()"
         >
           删除
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          :icon="Delete"
-          @click="handleClean"
           v-if="hasPermission(ApiSysLoginLog.clean)"
+          :icon="Delete"
+          plain
+          type="danger"
+          @click="handleClean"
         >
           清空
         </el-button>
@@ -107,23 +107,23 @@
     <!-- 表格区域 -->
     <el-table
       :data="list"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column align="center" type="selection" width="55" />
       <el-table-column
-        label="日志编号"
         align="center"
+        label="日志编号"
         prop="oper_id"
         show-overflow-tooltip
       />
       <el-table-column
-        label="系统模块"
         align="center"
+        label="系统模块"
         prop="title"
         show-overflow-tooltip
       />
-      <el-table-column label="操作类型" align="center" prop="operator_type">
+      <el-table-column align="center" label="操作类型" prop="operator_type">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysOperType]"
@@ -131,7 +131,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="请求方式" align="center" prop="request_method">
+      <el-table-column align="center" label="请求方式" prop="request_method">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysApiMethod]"
@@ -140,20 +140,20 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="操作人员"
-        align="center"
-        prop="oper_name"
         :show-overflow-tooltip="true"
+        align="center"
+        label="操作人员"
+        prop="oper_name"
         width="120"
       />
       <el-table-column
-        label="地址"
+        :show-overflow-tooltip="true"
         align="center"
+        label="地址"
         prop="oper_location"
         width="130"
-        :show-overflow-tooltip="true"
       />
-      <el-table-column label="操作状态" align="center" prop="status">
+      <el-table-column align="center" label="操作状态" prop="status">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysCommonStatus]"
@@ -161,10 +161,10 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="耗时(μs)" align="center" prop="duration" />
+      <el-table-column align="center" label="耗时(μs)" prop="duration" />
       <el-table-column
-        label="操作日期"
         align="center"
+        label="操作日期"
         prop="oper_time"
         width="180"
       >
@@ -173,12 +173,12 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="操作"
         align="center"
         class-name="small-padding fixed-width"
+        label="操作"
       >
         <template #default="scope">
-          <el-button link :icon="View" @click="handleView(scope.row)">
+          <el-button :icon="View" link @click="handleView(scope.row)">
             {{ t('common.detail') }}
           </el-button>
         </template>
@@ -187,8 +187,8 @@
 
     <Pagination
       v-show="total > 0"
-      v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
       :total="total"
       @pagination="getList"
     />
@@ -197,9 +197,9 @@
     <el-dialog
       v-if="open"
       v-model="open"
+      append-to-body
       title="操作日志详细"
       width="700px"
-      append-to-body
     >
       <el-form :model="form" label-width="100px">
         <el-row>
@@ -269,7 +269,7 @@
       </el-form>
       <template #footer>
         <div class="dialog-footer">
-          <el-button @click="open = false"> 关 闭 </el-button>
+          <el-button @click="open = false"> 关 闭</el-button>
         </div>
       </template>
     </el-dialog>

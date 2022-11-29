@@ -20,14 +20,14 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="80px"
       class="base-form"
+      label-width="80px"
     >
       <el-form-item label="任务ID" prop="job_id">
         <el-select
           v-model="queryParams.job_id"
-          placeholder="请任务组名"
           clearable
+          placeholder="请任务组名"
           @change="jobIdChanged"
         >
           <el-option
@@ -42,8 +42,8 @@
       <el-form-item label="执行状态" prop="status">
         <el-select
           v-model="queryParams.status"
-          placeholder="请选择执行状态"
           clearable
+          placeholder="请选择执行状态"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysCommonStatus]"
@@ -56,8 +56,8 @@
       <el-form-item label="任务属性" prop="is_once">
         <el-select
           v-model="queryParams.is_once"
-          placeholder="请选择任务属性"
           clearable
+          placeholder="请选择任务属性"
         >
           <el-option
             v-for="dict in dicts[dictKey.sysTaskIsOnce]"
@@ -70,11 +70,11 @@
       <el-form-item label="执行时间">
         <el-date-picker
           v-model="dateRange"
-          value-format="YYYY-MM-DD"
-          type="daterange"
+          end-placeholder="结束日期"
           range-separator="-"
           start-placeholder="开始日期"
-          end-placeholder="结束日期"
+          type="daterange"
+          value-format="YYYY-MM-DD"
         />
       </el-form-item>
       <el-form-item>
@@ -87,14 +87,14 @@
       </el-form-item>
     </el-form>
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysScheduledTasksLog.delete)"
-          type="danger"
-          plain
-          :icon="Delete"
           :disabled="!selected"
+          :icon="Delete"
+          plain
+          type="danger"
           @click="handleDelete()"
         >
           {{ t('common.delete') }}
@@ -103,24 +103,24 @@
       <el-col :span="1.5">
         <el-button
           v-if="hasPermission(ApiSysScheduledTasksLog.clean)"
-          type="danger"
-          plain
           :icon="Delete"
+          plain
+          type="danger"
           @click="handleClean"
         >
           {{ t('common.clean') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="warning" plain :icon="Close" @click="handleClose">
+        <el-button :icon="Close" plain type="warning" @click="handleClose">
           {{ t('common.close') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-checkbox
           v-model="fresh_enabled"
-          border
           :label="t('common.auto') + t('common.reFresh')"
+          border
           @change="fresh_option_changed"
         />
       </el-col>
@@ -128,28 +128,28 @@
     </el-row>
     <el-table
       :data="list"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column align="center" type="selection" width="55" />
       <el-table-column
-        label="日志编号"
-        width="80"
         align="center"
+        label="日志编号"
         prop="job_log_id"
         show-overflow-tooltip
+        width="80"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="任务名称"
-        align="center"
         prop="job_name"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="任务组名"
-        align="center"
-        prop="job_group"
         :show-overflow-tooltip="true"
+        align="center"
+        label="任务组名"
+        prop="job_group"
       >
         <template #default="scope">
           <DictTag
@@ -159,30 +159,30 @@
         </template>
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="批ID"
-        align="center"
         prop="lot_id"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="批内序"
-        align="center"
         prop="lot_order"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="调用目标字符串"
-        align="center"
         prop="invoke_target"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="日志信息"
-        align="center"
-        prop="job_message"
         :show-overflow-tooltip="true"
+        align="center"
+        label="日志信息"
+        prop="job_message"
       />
-      <el-table-column label="执行状态" align="center" prop="status">
+      <el-table-column align="center" label="执行状态" prop="status">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysCommonStatus]"
@@ -190,7 +190,7 @@
           />
         </template>
       </el-table-column>
-      <el-table-column label="任务属性" align="center" prop="is_once">
+      <el-table-column align="center" label="任务属性" prop="is_once">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysTaskIsOnce]"
@@ -199,8 +199,8 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="执行时间"
         align="center"
+        label="执行时间"
         prop="created_at"
         width="180"
       >
@@ -209,12 +209,12 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="操作"
         align="center"
         class-name="small-padding fixed-width"
+        label="操作"
       >
         <template #default="scope">
-          <el-button link :icon="View" @click="handleView(scope.row)">
+          <el-button :icon="View" link @click="handleView(scope.row)">
             {{ t('common.detail') }}
           </el-button>
         </template>
@@ -223,14 +223,14 @@
 
     <Pagination
       v-show="total > 0"
-      v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
       :total="total"
       @pagination="getList"
     />
   </div>
 </template>
-<script lang="ts" setup name="dict-data">
+<script lang="ts" name="dict-data" setup>
 import { Close, Delete, Refresh, Search, View } from '@element-plus/icons-vue'
 import { useIntervalFn } from '@vueuse/core'
 import {
@@ -278,6 +278,7 @@ import type {
   scheduledTasksLogList,
   scheduledTasksLogQueryParam,
 } from '@/types/system/scheduled-tasks'
+
 const dicts = useDicts(
   dictKey.sysTaskIsOnce,
   dictKey.sysCommonStatus,

@@ -5,8 +5,8 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="80px"
       class="base-form"
+      label-width="80px"
     >
       <el-form-item label="登录IP" prop="ip">
         <el-input
@@ -59,26 +59,26 @@
     </el-form>
 
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          :icon="Delete"
-          :disabled="!selected"
-          @click="handleDelete()"
           v-if="hasPermission(ApiSysLoginLog.delete)"
+          :disabled="!selected"
+          :icon="Delete"
+          plain
+          type="danger"
+          @click="handleDelete()"
         >
           {{ t('common.delete') }}
         </el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="danger"
-          plain
-          :icon="Delete"
-          @click="handleClean"
           v-if="hasPermission(ApiSysLoginLog.clean)"
+          :icon="Delete"
+          plain
+          type="danger"
+          @click="handleClean"
         >
           {{ t('common.clean') }}
         </el-button>
@@ -90,61 +90,61 @@
     <!-- 表格区域 -->
     <el-table
       :data="list"
-      @selection-change="handleSelectionChange"
       tooltip-effect="light"
+      @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="55" align="center" />
+      <el-table-column align="center" type="selection" width="55" />
       <el-table-column
-        label="访问编号"
         align="center"
+        label="访问编号"
         prop="info_id"
         show-overflow-tooltip
         width="100"
       />
       <el-table-column
-        label="用户名称"
+        :show-overflow-tooltip="true"
         align="center"
+        label="用户名称"
         prop="login_name"
         width="120"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="网络"
-        align="center"
         prop="net"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="地址"
-        align="center"
         prop="ipaddr"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="登录地点"
-        align="center"
         prop="login_location"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="操作系统"
-        align="center"
         prop="os"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
         label="浏览器"
-        align="center"
         prop="browser"
-        :show-overflow-tooltip="true"
       />
       <el-table-column
-        label="设备"
-        align="center"
-        prop="device"
         :show-overflow-tooltip="true"
+        align="center"
+        label="设备"
+        prop="device"
       />
-      <el-table-column label="登录状态" align="center" prop="status">
+      <el-table-column align="center" label="登录状态" prop="status">
         <template #default="scope">
           <DictTag
             :options="dicts[dictKey.sysCommonStatus]"
@@ -153,15 +153,15 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="描述"
         align="center"
+        label="描述"
         prop="msg"
-        width="100"
         show-overflow-tooltip
+        width="100"
       />
       <el-table-column
-        label="访问时间"
         align="center"
+        label="访问时间"
         prop="login_time"
         width="180"
       >
@@ -173,8 +173,8 @@
 
     <Pagination
       v-show="total > 0"
-      v-model:page="queryParams.page_num"
       v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
       :total="total"
       @pagination="getList"
     />

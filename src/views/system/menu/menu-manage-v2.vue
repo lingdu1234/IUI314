@@ -12,14 +12,14 @@
       ref="queryRef"
       :inline="true"
       :model="queryParams"
-      label-width="80px"
       class="base-form"
+      label-width="80px"
     >
       <el-form-item :label="t('menu.name')" prop="menu_name">
         <el-input
           v-model="queryParams.menu_name"
-          clearable
           :placeholder="t('menu.nameTip')"
+          clearable
           @keyup.enter="getList"
         />
       </el-form-item>
@@ -48,14 +48,14 @@
     </el-form>
 
     <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px" style="height: 35px">
+    <el-row :gutter="10" class="m-b-8px">
       <el-col :span="1.5">
         <el-button
-          type="primary"
-          plain
-          :icon="Plus"
-          @click="handleAdd"
           v-if="hasPermission(ApiSysMenu.add)"
+          :icon="Plus"
+          plain
+          type="primary"
+          @click="handleAdd"
         >
           {{ t('common.add') }}
         </el-button>
