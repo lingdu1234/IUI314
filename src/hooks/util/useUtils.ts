@@ -70,7 +70,7 @@ export const parseTime = (time: any, format?: string) => {
     format = 'YYYY-MM-DD HH:mm:ss'
   }
   if (time === undefined || time === '' || time === null) return ''
-  const formatted = useDateFormat(time, 'YYYY-MM-DD HH:mm:ss')
+  const formatted = useDateFormat(time, format)
   return formatted.value
 }
 

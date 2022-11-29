@@ -15,14 +15,7 @@ import {
 import { useRouterGuard } from '@/hooks'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 
-import {
-  DictDataRoute,
-  InnerLink,
-  Layout,
-  REDIRECT_ROUTE_NAME,
-  ScheduledTasksLogRoute,
-  UserProfileRoute,
-} from './constant'
+import { FixedRoutes, InnerLink, Layout, REDIRECT_ROUTE_NAME } from './constant'
 
 //  固定路由
 export const constantRoutes: AppRouteRecordRaw[] = [
@@ -76,12 +69,7 @@ export const constantRoutes: AppRouteRecordRaw[] = [
 export const router = createRouter({
   // history: createWebHistory(),
   history: createWebHashHistory(import.meta.env.BASE_URL),
-  routes: [
-    ...constantRoutes,
-    DictDataRoute,
-    ScheduledTasksLogRoute,
-    UserProfileRoute,
-  ] as Readonly<RouteRecordRaw[]>,
+  routes: [...constantRoutes, ...FixedRoutes] as Readonly<RouteRecordRaw[]>,
   scrollBehavior() {
     return { top: 0 }
   },

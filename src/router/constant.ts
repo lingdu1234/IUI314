@@ -108,3 +108,10 @@ export const UserProfileRoute: AppRouteRecordRaw = {
     },
   ],
 }
+
+// 导出所有固定路由
+export const FixedRoutes = [
+  DictDataRoute,
+  ScheduledTasksLogRoute,
+  UserProfileRoute,
+]

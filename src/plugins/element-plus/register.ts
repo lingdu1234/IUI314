@@ -31,6 +31,7 @@ import {
   ElPagination,
   ElPopover,
   ElRadio,
+  ElRadioButton,
   ElRadioGroup,
   ElRow,
   ElScrollbar,
@@ -44,6 +45,8 @@ import {
   ElTabPane,
   ElTabs,
   ElTag,
+  ElTimeline,
+  ElTimelineItem,
   ElTooltip,
   ElTree,
   ElUpload,
@@ -96,6 +99,9 @@ const components = [
   ElTree,
   ElUpload,
   ElDatePicker,
+  ElTimeline,
+  ElTimelineItem,
+  ElRadioButton,
 ]
 export default function (app: App): void {
   for (const component of components) {
