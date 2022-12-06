@@ -150,7 +150,14 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
+import {
+  Delete,
+  Edit,
+  Plus,
+  Refresh,
+  Search,
+  Sort,
+} from '@element-plus/icons-vue'
 import {
   type FormInstance,
   ElButton,

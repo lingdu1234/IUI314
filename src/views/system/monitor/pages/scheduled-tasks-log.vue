@@ -234,6 +234,7 @@
 import { Close, Delete, Refresh, Search, View } from '@element-plus/icons-vue'
 import { useIntervalFn } from '@vueuse/core'
 import {
+  type CheckboxValueType,
   type FormInstance,
   ElButton,
   ElCol,
@@ -388,8 +389,8 @@ const handleView = (row: scheduledTasksLog) => {
 const { pause, resume } = useIntervalFn(() => getList(), 1500)
 const fresh_enabled = ref(false)
 // 切换状态
-const fresh_option_changed = (v: boolean) => {
-  if (v) {
+const fresh_option_changed = (v: CheckboxValueType) => {
+  if (v as boolean) {
     resume()
   } else {
     pause()

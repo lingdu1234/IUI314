@@ -110,6 +110,7 @@
 </template>
 <script lang="ts" setup>
 import {
+  type CheckboxValueType,
   type FormInstance,
   ElButton,
   ElCol,
@@ -186,10 +187,10 @@ const submitForm = async (formRef: FormInstance | undefined) => {
   cancel()
 }
 // 展开
-const handleCheckedTreeExpand = (v: boolean) => {
+const handleCheckedTreeExpand = (v: CheckboxValueType) => {
   const list = deptTree.value!
   for (let i = 0; i < list.length; i++) {
-    deptTreeRef.value!.store.nodesMap[list[i].dept_id!].expanded = v
+    deptTreeRef.value!.store.nodesMap[list[i].dept_id!].expanded = v as boolean
   }
 }
 // 全选 全不选
