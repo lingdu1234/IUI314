@@ -30,14 +30,16 @@
         </el-col>
         <el-col :span="24">
           <el-form-item :label="t('menu.menuType')" prop="menu_type">
-            <el-radio-group v-model="form.menu_type">
+            <el-radio-group v-model="form.menu_type" :disabled="isApi">
               <el-radio label="M"> {{ t('menu.catalogs') }} </el-radio>
               <el-radio label="C"> {{ t('menu.menu') }} </el-radio>
-              <el-radio label="F"> Api/{{ t('menu.button') }} </el-radio>
+              <el-radio label="F" :disabled="true">
+                Api/{{ t('menu.button') }}
+              </el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
-        <el-col v-if="form.menu_type != 'F'" :span="24">
+        <el-col v-if="form.menu_type !== MenuType.F" :span="24">
           <el-form-item :label="t('menu.menu') + t('common.icon')" prop="icon">
             <el-popover
               v-model:visible="showChooseIcon"
@@ -506,6 +508,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  isApi: {
+    type: Boolean,
+    default: false,
+  },
 })
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const { formReset, formValidate } = useFormUtil()
@@ -516,9 +522,12 @@ const iconSelectRef = ref<InstanceType<typeof IconSelect>>()
 const menuRef = ref<FormInstance>()
 
 watch(
-  () => props.formData,
-  (v) => {
+  [() => props.formData, () => props.isApi],
+  ([v, v2]) => {
     form.value = { ...v }
+    if (v2) {
+      form.value.menu_type = MenuType.F
+    }
   },
   { deep: true }
 )

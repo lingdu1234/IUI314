@@ -17,6 +17,7 @@ export interface menuQueryParam extends pageQueryParam {
   menu_type?: MenuType
   menu_types?: string
   method?: string
+  pid?: string
   status?: string
 }
 /**

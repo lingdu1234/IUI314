@@ -8,148 +8,16 @@
 <template>
   <div>
     <!-- 表格区域 -->
-    <el-table
-      v-if="show_menu_table"
-      v-model:expanded-row-keys="expandedRowKeys"
-      :data="menuData"
-      row-key="id"
-      tooltip-effect="light"
-    >
-      <el-table-column
-        prop="menu_name"
-        :label="t('menu.name')"
-        :show-overflow-tooltip="true"
-        width="200"
-      />
-      <el-table-column
-        prop="icon"
-        :label="t('common.icon')"
-        align="center"
-        width="100"
-      >
-        <template #default="scope">
-          <el-icon>
-            <SvgIcon :name="scope.row.icon" />
-          </el-icon>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="order_sort"
-        :label="t('common.order')"
-        width="100"
-      />
-      <el-table-column
-        prop="api"
-        :label="t('common.uniqueFlag')"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column
-        prop="component"
-        :label="t('menu.comp')"
-        :show-overflow-tooltip="true"
-      />
-      <el-table-column prop="method" :label="t('menu.method')" width="80">
-        <template #default="scope">
-          <DictTag
-            :options="dicts[dictKey.sysApiMethod]"
-            :value="scope.row.method"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column prop="method" :label="t('menu.dataScope')" width="100">
-        <template #default="scope">
-          <DictTag
-            v-if="scope.row.method == 'GET'"
-            :options="dicts[dictKey.sysNormalDisable]"
-            :value="scope.row.data_scope"
-          />
-          <el-tag v-else>not support</el-tag>
-        </template>
-      </el-table-column>
-      <el-table-column prop="status" :label="t('common.status')" width="60">
-        <template #default="scope">
-          <DictTag
-            :options="dicts[dictKey.sysNormalDisable]"
-            :value="scope.row.status"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column prop="visible" :label="t('common.show')" width="60">
-        <template #default="scope">
-          <DictTag
-            :options="dicts[dictKey.sysShowHide]"
-            :value="scope.row.visible"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column
-        :label="t('common.createTime')"
-        align="center"
-        prop="created_at"
-        show-overflow-tooltip
-      >
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.created_at) }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        :label="t('common.operation')"
-        align="center"
-        width="200"
-        class-name="small-padding fixed-width"
-        v-if="hasPermission(ApiSysMenu.edit, ApiSysMenu.add, ApiSysMenu.delete)"
-      >
-        <template #default="scope">
-          <el-tooltip
-            :content="t('common.edit')"
-            placement="top"
-            effect="light"
-            v-if="hasPermission(ApiSysMenu.edit)"
-          >
-            <el-button
-              link
-              :icon="Edit"
-              style="color: chocolate"
-              @click="handleUpdate(scope.row)"
-            />
-          </el-tooltip>
-          <el-tooltip
-            :content="t('common.copy')"
-            placement="top"
-            effect="light"
-            v-if="hasPermission(ApiSysMenu.edit)"
-          >
-            <el-button
-              link
-              :icon="CopyDocument"
-              style="color: violet"
-              @click="handleAddByCopy(scope.row)"
-            />
-          </el-tooltip>
-          <el-tooltip
-            :content="t('common.add')"
-            placement="top"
-            effect="light"
-            v-if="hasPermission(ApiSysMenu.add)"
-          >
-            <el-button link :icon="FolderAdd" @click="handleAdd(scope.row)" />
-          </el-tooltip>
-          <el-tooltip
-            :content="t('common.delete')"
-            placement="top"
-            effect="light"
-            v-if="hasPermission(ApiSysMenu.delete)"
-          >
-            <el-button
-              style="color: red"
-              link
-              :icon="Delete"
-              @click="handleDelete(scope.row)"
-            />
-          </el-tooltip>
-        </template>
-      </el-table-column>
-    </el-table>
+    <MenuTableDataV2
+      ref="menuTableDataRef"
+      :menu-data="menuData"
+      :show-table="show_menu_table"
+      @get-list="getList"
+      @get-menu-select-tree="getMenuSelectTree"
+      @reset-menu-dialog="resetMenuDialog"
+      @set-form-data="set_form_data"
+      @set-menu-id="set_menu_id"
+    />
 
     <!-- 修改对话框 -->
     <MenuDialogV2
@@ -158,82 +26,58 @@
       :title="title"
       :form-data="formData"
       :menu-select-tree="menuSelectTree"
+      :is-api="isApi"
       @closeDialog="closeDialog"
       @getList="getList"
     />
-    <!-- 数据库关联对话框 -->
+    <!-- api drawer -->
+    <MenuApiDataV2
+      v-if="openMenuApiDrawer"
+      :open="openMenuApiDrawer"
+      :menu-id="menuID"
+      @get-list="getList"
+      @get-menu-select-tree="getMenuSelectTree"
+      @reset-menu-dialog="resetMenuDialog"
+      @set-form-data="set_form_data"
+      @close-api-data="closeApiData"
+      @handle-add="handleAdd"
+    />
   </div>
 </template>
-<script lang="tsx" setup name="menu-table">
-import { CopyDocument, Delete, Edit, FolderAdd } from '@element-plus/icons-vue'
-import {
-  ElButton,
-  ElIcon,
-  ElMessage,
-  ElMessageBox,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-  ElTooltip,
-} from 'element-plus'
+<script lang="ts" setup name="menu-table">
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu } from '@/api/apis'
-import DictTag from '@/components/common/dict-tag.vue'
-import SvgIcon from '@/components/common/svg-icon.vue'
-import { hasPermission, parseTime, useDelete, useDicts, useGet } from '@/hooks'
+import { useGet } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { MenuType } from '@/types/base/router'
-import { dictKey } from '@/types/system/dict'
 import type { menu, menuQueryParam } from '@/types/system/menu'
 
+import MenuApiDataV2 from './menu-api-data-v2.vue'
 import MenuDialogV2 from './menu-dialog-v2.vue'
+import MenuTableDataV2 from './menu-table-data-v2.vue'
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-// menuDialogRef
+// menuDialogRef menuTableDataRef
 const menuDialogRef = ref<InstanceType<typeof MenuDialogV2>>()
+const menuTableDataRef = ref<InstanceType<typeof MenuTableDataV2>>()
 
 const show_menu_table = ref(true)
+const openMenuApiDrawer = ref(false)
 
 // 对话框相关参数
 const open = ref(false)
 const title = ref('')
-const isFirstLoad = ref(true)
 
 // 菜单树数据
 const menuData = ref<menu[]>([])
-const menuDataAll = ref<menu[]>([])
 // 菜单编辑目录选择树
 const menuSelectTree = ref<menu[]>([])
 // 展开的key
-const expandedRowKeys = ref<string[]>([])
 
 const closeDialog = () => (open.value = false)
-const formData = ref<menu>({
-  pid: '0',
-  menu_name: '',
-  menu_type: MenuType.M,
-  order_sort: 0,
-  status: '1',
-  visible: '1',
-  log_method: '3',
-  data_cache_method: '1',
-  is_frame: '0',
-  is_cache: '1',
-  data_scope: '0',
-  remark: '',
-})
-
-// 字典数据
-const dicts = useDicts(
-  dictKey.sysNormalDisable,
-  dictKey.sysApiMethod,
-  dictKey.apiCacheMethod,
-  dictKey.apiLogMethod,
-  dictKey.sysShowHide,
-  dictKey.db
-)
+const formData = ref<menu>({})
 
 const props = defineProps({
   queryParam: {
@@ -242,48 +86,30 @@ const props = defineProps({
   },
 })
 
-const editPid = ref<string>()
-//  表格操作
-
-const resetFormData = () => {
-  formData.value = {
-    pid: '0',
-    menu_name: '',
-    menu_type: MenuType.M,
-    order_sort: 0,
-    status: '1',
-    visible: '1',
-    log_method: '3',
-    data_cache_method: '1',
-    is_frame: '0',
-    is_cache: '1',
-    data_scope: '0',
-    remark: '',
-  }
-}
+const menuID = ref<string>('0')
+const isApi = ref<boolean>(false)
 
 /**
  * 获取菜单数据数据
  */
 const getList = async () => {
+  const queryParam: menuQueryParam = props.queryParam
+  // 添加参数只查询菜单和目录，不查询api
+  queryParam.menu_types = [MenuType.C, MenuType.M].join(',')
   const { data, execute } = useGet<menu[]>(
     ApiSysMenu.getEnabledTree,
-    props.queryParam
+    queryParam
   )
   await execute()
   menuData.value = data.value!
-  // console.log(menuData.value)
-  if (isFirstLoad.value) {
-    menuDataAll.value = data.value!
-    isFirstLoad.value = false
-  }
 }
 /**
  * 获取表单供选择的菜单数
  */
 const getMenuSelectTree = async () => {
   const queryParam: menuQueryParam = {
-    menu_types: [MenuType.C, MenuType.M].join(','),
+    // 查询所有目录菜单，只有目录才能才能作为上级菜单
+    menu_type: MenuType.M,
   }
   const { data, execute } = useGet<menu[]>(
     ApiSysMenu.getEnabledTree,
@@ -298,84 +124,34 @@ const getMenuSelectTree = async () => {
     },
   ]
 }
-// 新增
-const handleAdd = (row?: menu) => {
+
+// 设置formData
+const set_form_data = (form_data: menu, _open: boolean, _title: string) => {
+  formData.value = form_data
+  open.value = _open
+  title.value = _title
+}
+
+// 重置菜单对话框
+const resetMenuDialog = () => {
   menuDialogRef.value?.resetMenuForm()
-  resetFormData()
-
-  editPid.value = row?.pid
-  // 获取菜单选择树
-  getMenuSelectTree()
-  // 设置pid
-  if (row) {
-    formData.value!.pid = row.id!
-  } else {
-    formData.value!.pid = '0'
-  }
-  // 设置 菜单名称
-  formData.value.menu_name =
-    row?.menu_type === MenuType.C ? row?.menu_name + '-' : undefined
-  // 设置菜单类型
-  let type = undefined
-  if (row?.menu_type === undefined) {
-    type = MenuType.M
-  } else if (row?.menu_type === MenuType.M) {
-    type = MenuType.C
-  } else {
-    type = MenuType.F
-  }
-  formData.value.menu_type = type
-  formData.value.id = ''
-  open.value = true
-  title.value = t('common.add') + t('menu.menu')
 }
-// 将方法开放给父组件
-defineExpose({ handleAdd, getList })
-// 通过复制新增
-const handleAddByCopy = (row: menu) => {
-  menuDialogRef.value?.resetMenuForm()
-  resetFormData()
-
-  editPid.value = row.pid!
-  // 获取菜单选择树
-  getMenuSelectTree()
-  formData.value = row
-  formData.value.id = ''
-  open.value = true
-  title.value = t('common.copy') + t('common.add') + t('menu.menu')
-}
-// 编辑
-const handleUpdate = (row: menu) => {
-  menuDialogRef.value?.resetMenuForm()
-  resetFormData()
-
-  editPid.value = row.pid!
-  // 获取菜单选择树
-  getMenuSelectTree()
-  formData.value = row
-  open.value = true
-  title.value = t('common.update') + t('menu.menu') + ' - ' + row.menu_name
-}
-// 删除
-const handleDelete = async (row: menu) => {
-  const id = row.id!
-  await ElMessageBox.confirm(
-    t('commonTip.delete') + row.menu_name + '?',
-    t('commonTip.deleteTitle'),
-    {
-      type: 'warning',
-    }
-  )
-    .then(async () => {
-      const { execute } = useDelete(ApiSysMenu.delete, { id })
-      await execute()
-      await getList()
-      ElMessage.success(t('commonTip.deleteSuccess'))
-    })
-    .catch(() => {
-      ElMessage.info(t('commonTip.deleteCancel'))
-    })
+// handleAdd
+const handleAdd = async () => {
+  menuTableDataRef.value?.handleAdd()
 }
 
+const set_menu_id = (id: string) => {
+  menuID.value = id
+  openMenuApiDrawer.value = true
+  isApi.value = true
+}
+
+const closeApiData = () => {
+  menuID.value = '0'
+  openMenuApiDrawer.value = false
+  isApi.value = false
+}
+defineExpose({ getList, handleAdd })
 await getList()
 </script>
