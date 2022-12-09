@@ -198,7 +198,7 @@ const cronExpression = ref<cronTable>({
   second: '* * * * * ?',
 })
 const valid = ref(false)
-const validType = ref('info')
+const validType = ref<'success' | 'warning' | 'info' | 'error'>('info')
 const validTip = ref(t('vueCron.validateTipInfo'))
 const next_ten = ref<string[]>([])
 

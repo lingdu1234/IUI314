@@ -5,7 +5,7 @@
       v-model:page-size="pageSize"
       :background="background"
       :layout="layout"
-      :page-sizes="pageSizes"
+      :pageSizes="pageSizes"
       :pager-count="pagerCount"
       :total="total"
       @size-change="handleSizeChange"
@@ -16,7 +16,7 @@
 
 <script lang="ts" setup name="pagination">
 import { ElPagination } from 'element-plus'
-import { computed } from 'vue'
+import { type PropType, computed } from 'vue'
 
 const props = defineProps({
   total: {
@@ -32,7 +32,7 @@ const props = defineProps({
     default: 20,
   },
   pageSizes: {
-    type: Array,
+    type: Array as PropType<number[]>,
     default() {
       return [10, 20, 30, 50]
     },

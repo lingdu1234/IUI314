@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    model-value="openDataScope"
+    :model-value="openDataScope"
     :before-close="cancel"
     :title="title"
     append-to-body

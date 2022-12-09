@@ -22,7 +22,7 @@
           :key="item.value + ''"
           :disable-transitions="true"
           :index="index"
-          :type="item.elTagType === 'primary' ? '' : item.elTagType"
+          :type="item.elTagType === 'primary' ? '' : item.elTagType!"
           :class="item.elTagClass"
         >
           {{ item.label }}
