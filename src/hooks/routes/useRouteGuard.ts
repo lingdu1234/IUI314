@@ -39,18 +39,21 @@ export const useRouterGuard = async (router: Router) => {
         const userStore = useUserStore()
 
         if (permissionStore.isReloading) {
-          await userStore.getUserInfo()
-          const aRoutes = await permissionStore.generateRoutes()
-          aRoutes.forEach((aRoute) => {
-            if (!isHttp(aRoute.path)) {
-              router.addRoute(aRoute as RouteRecordRaw)
-            }
-          })
-          router.addRoute(NotFoundRoute as RouteRecordRaw)
-          router.addRoute(NoPermissionRoute as RouteRecordRaw)
-          router.addRoute(ServerErrorRoute as RouteRecordRaw)
-          permissionStore.setIsReloading(false)
-          next({ ...to, replace: true })
+          if (!(await userStore.getUserInfo())) {
+            next(`/login?redirect=${to.fullPath}`)
+          } else {
+            const aRoutes = await permissionStore.generateRoutes()
+            aRoutes.forEach((aRoute) => {
+              if (!isHttp(aRoute.path)) {
+                router.addRoute(aRoute as RouteRecordRaw)
+              }
+            })
+            router.addRoute(NotFoundRoute as RouteRecordRaw)
+            router.addRoute(NoPermissionRoute as RouteRecordRaw)
+            router.addRoute(ServerErrorRoute as RouteRecordRaw)
+            permissionStore.setIsReloading(false)
+            next({ ...to, replace: true })
+          }
         } else {
           next()
         }

@@ -67,9 +67,9 @@ export const useUserStore = defineStore('userInfo', {
       }
     },
     // 获取用户信息
-    async getUserInfo() {
+    async getUserInfo(): Promise<boolean> {
       const user = await getFullUserInfo()
-      if (user === undefined) return
+      if (user === undefined) return false
       this.user = {
         name: user.user.user_name,
         avatar:
@@ -83,6 +83,7 @@ export const useUserStore = defineStore('userInfo', {
         uid: user.user.id,
         permissions: user.permissions,
       }
+      return true
     },
     // 获取本地用户信息
     getLocalUserInfo() {

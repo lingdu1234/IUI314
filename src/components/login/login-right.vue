@@ -123,7 +123,9 @@ const submitLogin = async (formRef: FormInstance | undefined) => {
   if (!(await formValidate(formRef))) return
   loginForm.value.uuid = captchaData.value?.uuid!
   await userStore.login(loginForm.value)
-  const redirect = router.currentRoute.value.query.redirect as string
+  const redirect = router.currentRoute.value.query.redirect
+    ? (router.currentRoute.value.query.redirect as string)
+    : '/index'
   await router.push({ path: redirect })
 }
 // 获取本地用户信息
