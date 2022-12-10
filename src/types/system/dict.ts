@@ -82,7 +82,14 @@ export interface dictData extends operateInfo {
   dict_value?: string
   dict_type?: string
   css_class?: string
-  list_class?: string
+  list_class?:
+    | ''
+    | 'success'
+    | 'warning'
+    | 'info'
+    | 'danger'
+    | 'primary'
+    | 'default'
   is_default?: string
   status?: string
   remark?: string
