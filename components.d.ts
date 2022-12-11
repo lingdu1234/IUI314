@@ -20,7 +20,6 @@ declare module '@vue/runtime-core' {
     Day: typeof import('./src/components/vue-cron/pages/day.vue')['default']
     DictTag: typeof import('./src/components/common/dict-tag.vue')['default']
     Exception: typeof import('./src/components/exception/exception.vue')['default']
-    Gauge: typeof import('./src/components/echarts/gauge.vue')['default']
     Hour: typeof import('./src/components/vue-cron/pages/hour.vue')['default']
     IconSelect: typeof import('./src/components/common/icon-select.vue')['default']
     InnerLink: typeof import('./src/components/layout/inner-link.vue')['default']
