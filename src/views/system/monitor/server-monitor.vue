@@ -2,10 +2,10 @@
   <div>
     <el-row :gutter="20">
       <el-col :span="24" :md="12">
-        <Gauge name="CPU" :percent="cpuUsage" />
+        <GaugeEchart name="CPU" :percent="cpuUsage" />
       </el-col>
       <el-col :span="24" :md="12">
-        <Gauge name="MEMORY" :percent="memoryUsage" />
+        <GaugeEchart name="MEMORY" :percent="memoryUsage" />
       </el-col>
     </el-row>
     <el-row :gutter="20">
@@ -66,7 +66,7 @@ import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysServiceMonitor } from '@/api/sysApis'
-import Gauge from '@/components/echarts/gauge.vue'
+import GaugeEchart from '@/components/echarts/gauge-echart.vue'
 import { useSSE } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
