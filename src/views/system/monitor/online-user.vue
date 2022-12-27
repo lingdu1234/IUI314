@@ -24,6 +24,16 @@
           @keyup.enter="getList"
         />
       </el-form-item>
+      <el-form-item label="登录时间">
+        <el-date-picker
+          v-model="dateRange"
+          end-placeholder="结束日期"
+          range-separator="-"
+          start-placeholder="开始日期"
+          type="daterange"
+          value-format="YYYY-MM-DD"
+        />
+      </el-form-item>
       <el-form-item>
         <el-button :icon="Search" type="primary" @click="getList">
           {{ t('common.search') }}
@@ -142,6 +152,7 @@
 <script lang="ts" setup>
 import { Delete, Refresh, Search } from '@element-plus/icons-vue'
 import {
+  type DateModelType,
   type FormInstance,
   ElButton,
   ElForm,
@@ -183,7 +194,7 @@ const queryParams = ref<onlineUserQueryParam>({
   page_num: 1,
   page_size: 10,
 })
-const dateRange = ref<string[]>([])
+const dateRange = ref<[DateModelType, DateModelType]>()
 
 const {
   list,
@@ -197,7 +208,7 @@ const {
 
 const resetQuery = () => {
   formReset(queryRef.value)
-  dateRange.value = []
+  dateRange.value = undefined
   getList()
 }
 

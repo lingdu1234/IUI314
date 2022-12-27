@@ -6,6 +6,7 @@
  * @Description:
  */
 import { useDateFormat } from '@vueuse/core'
+import type { DateModelType } from 'element-plus'
 import { ref } from 'vue'
 
 import { useSetupI18n } from '@/i18n'
@@ -76,12 +77,12 @@ export const parseTime = (time: any, format?: string) => {
 
 export const addTimeQueryParam = <T extends pageQueryParam>(
   queryParams: T,
-  time: string[]
+  time: [DateModelType, DateModelType]
 ) => {
   const res = {
     ...queryParams,
   }
-  res.begin_time = time[0]
-  res.end_time = time[1]
+  res.begin_time = time[0] as string
+  res.end_time = time[1] as string
   return res
 }

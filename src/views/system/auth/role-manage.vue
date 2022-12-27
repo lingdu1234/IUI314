@@ -212,6 +212,7 @@ import {
   Search,
 } from '@element-plus/icons-vue'
 import {
+  type DateModelType,
   type FormInstance,
   ElButton,
   ElCol,
@@ -264,7 +265,7 @@ const title = ref('')
 const roleData = ref<role>({})
 const { useTableSelectChange } = useTableUtil()
 const { formReset } = useFormUtil()
-const dateRange = ref<string[]>([])
+const dateRange = ref<[DateModelType, DateModelType]>()
 
 const queryParams = ref<roleQueryParam>({
   page_size: 10,
@@ -275,7 +276,11 @@ const {
   list: roleListData,
   getListFn: getList,
   total,
-} = useListData<roleQueryParam, role>(ApiSysRole.getList, queryParams)
+} = useListData<roleQueryParam, role>(
+  ApiSysRole.getList,
+  queryParams,
+  dateRange
+)
 
 const { handleSelectionChangeFn, ids, values, single, selected } =
   useTableSelectChange()

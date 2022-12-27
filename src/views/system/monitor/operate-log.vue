@@ -278,6 +278,7 @@
 <script lang="ts" setup>
 import { Delete, Refresh, Search, View } from '@element-plus/icons-vue'
 import {
+  type DateModelType,
   type FormInstance,
   ElButton,
   ElCol,
@@ -343,7 +344,7 @@ const queryParams = ref<operateLogQueryParam>({
   page_num: 1,
   page_size: 10,
 })
-const dateRange = ref<string[]>([])
+const dateRange = ref<[DateModelType, DateModelType]>()
 
 const {
   list,
@@ -357,7 +358,7 @@ const {
 
 const resetQuery = () => {
   formReset(queryRef.value)
-  dateRange.value = []
+  dateRange.value = undefined
   getList()
 }
 

@@ -293,6 +293,7 @@ import {
 } from '@element-plus/icons-vue'
 import { useIntervalFn } from '@vueuse/core'
 import {
+  type DateModelType,
   type FormInstance,
   ElButton,
   ElCheckbox,
@@ -378,7 +379,7 @@ const queryParams = ref<scheduledTasksQueryParam>({
   page_num: 1,
   page_size: 10,
 })
-const dateRange = ref<string[]>([])
+const dateRange = ref<[DateModelType, DateModelType]>()
 
 const title = ref('')
 // 任务详情
@@ -397,7 +398,7 @@ const {
 
 const resetQuery = () => {
   formReset(queryRef.value)
-  dateRange.value = []
+  dateRange.value = undefined
   getList()
 }
 

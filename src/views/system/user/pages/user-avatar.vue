@@ -38,7 +38,7 @@
             <el-col :span="5">
               <el-upload
                 action="#"
-                :http-request="() => {}"
+                :http-request="uploadImgX"
                 :show-file-list="false"
                 :before-upload="beforeUpload"
               >
@@ -177,6 +177,7 @@ const uploadImg = async () => {
     ElMessage.success(t('avatar.success'))
   })
 }
+const uploadImgX = (): any => {}
 </script>
 <style lang="scss" scoped>
 .user-info-head {

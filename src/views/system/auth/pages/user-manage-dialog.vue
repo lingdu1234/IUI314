@@ -108,10 +108,10 @@
             >
               <el-option
                 v-for="item in roleOptions"
-                :key="item.role_id"
-                :label="item.role_name"
-                :value="item.role_id"
-                :disabled="item.status == '0'"
+                :key="item.key"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.disabled!"
               />
             </el-select>
           </el-form-item>
@@ -121,10 +121,10 @@
             <el-select v-model="form.role_id" placeholder="请选择激活角色">
               <el-option
                 v-for="item in roleOptions"
-                :key="item.role_id"
-                :label="item.role_name"
-                :value="item.role_id"
-                :disabled="!form.role_ids!.includes(item.role_id!)"
+                :key="item.key"
+                :label="item.label"
+                :value="item.value"
+                :disabled="!form.role_ids!.includes(item.value!)"
               />
             </el-select>
           </el-form-item>
@@ -161,10 +161,10 @@
             >
               <el-option
                 v-for="item in postOptions"
-                :key="item.post_id"
-                :label="item.post_name"
-                :value="item.post_id"
-                :disabled="item.status == '0'"
+                :key="item.key"
+                :label="item.label"
+                :value="item.value"
+                :disabled="item.disabled!"
               />
             </el-select>
           </el-form-item>
@@ -247,10 +247,11 @@ import { useI18n } from 'vue-i18n'
 import { ApiSysPost, ApiSysRole, ApiSysUser, ErrorFlag } from '@/api/apis'
 import { useDicts, useFormUtil, useGet, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
+import type { ElSelectOptionInterface } from '@/types/base/elmentplus'
 import type { dept } from '@/types/system/dept'
 import { dictKey } from '@/types/system/dict'
-import type { post, postList } from '@/types/system/post'
-import type { role, roleList } from '@/types/system/role'
+import type { postList } from '@/types/system/post'
+import type { roleList } from '@/types/system/role'
 import type { user, userInfo } from '@/types/system/user'
 
 const props = defineProps({
@@ -271,8 +272,8 @@ const props = defineProps({
 const emits = defineEmits(['closeDialog'])
 const form = ref<user>({})
 const deptTree = inject<dept[]>('deptTree')
-const roleOptions = ref<role[]>([])
-const postOptions = ref<post[]>([])
+const roleOptions = ref<ElSelectOptionInterface[]>([])
+const postOptions = ref<ElSelectOptionInterface[]>([])
 const userRef = ref<FormInstance>()
 const { formValidate } = useFormUtil()
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
@@ -400,8 +401,30 @@ const optionsInit = async () => {
   )
   await Promise.all([be(), ce()])
 
-  roleOptions.value = b.value?.list!
-  postOptions.value = c.value?.list!
+  const _roleOptions: ElSelectOptionInterface[] = []
+  const _postOptions: ElSelectOptionInterface[] = []
+
+  b.value?.list!.forEach((it) => {
+    const item: ElSelectOptionInterface = {
+      key: it.role_id!,
+      label: it.role_name!,
+      value: it.role_id!,
+      disabled: it.status === '0',
+    }
+    _roleOptions.push(item)
+  })
+  c.value?.list!.forEach((it) => {
+    const item: ElSelectOptionInterface = {
+      key: it.post_id!,
+      label: it.post_name!,
+      value: it.post_id!,
+      disabled: it.status === '0',
+    }
+    _postOptions.push(item)
+  })
+
+  roleOptions.value = _roleOptions
+  postOptions.value = _postOptions
   // 清除验证
   userRef.value?.clearValidate()
 }

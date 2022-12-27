@@ -235,6 +235,7 @@ import { Close, Delete, Refresh, Search, View } from '@element-plus/icons-vue'
 import { useIntervalFn } from '@vueuse/core'
 import {
   type CheckboxValueType,
+  type DateModelType,
   type FormInstance,
   ElButton,
   ElCol,
@@ -259,6 +260,7 @@ import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { Eaction } from '@/components/layout/tab-bar/useTabBar'
 import {
+  addTimeQueryParam,
   hasPermission,
   parseTime,
   setTabBarEmitter,
@@ -294,7 +296,7 @@ const { handleSelectionChangeFn, ids, values, selected } =
 const handleSelectionChange = (v: dictData[]) =>
   handleSelectionChangeFn(v, 'job_log_id', 'job_log_id')
 
-const dateRange = ref<string[]>([])
+const dateRange = ref<[DateModelType, DateModelType]>()
 const jobMap = ref<Record<string, scheduledTasks>>({})
 
 const showSearch = ref(true)
@@ -314,6 +316,9 @@ const list = ref<scheduledTasksLog[]>([])
 const form = ref<scheduledTasksLog>({})
 
 const getList = async () => {
+  if (dateRange.value !== undefined) {
+    queryParams.value = addTimeQueryParam(queryParams.value, dateRange.value!)
+  }
   const { data, execute } = useGet<scheduledTasksLogList>(
     ApiSysScheduledTasksLog.getList,
     queryParams

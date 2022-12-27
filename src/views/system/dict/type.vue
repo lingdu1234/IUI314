@@ -252,6 +252,7 @@
 <script lang="ts" setup>
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import {
+  type DateModelType,
   type FormInstance,
   type FormRules,
   ElButton,
@@ -316,7 +317,7 @@ const queryParams = ref<dictTypeQueryParam>({
   page_num: 1,
   page_size: 10,
 })
-const dateRange = ref<string[]>([])
+const dateRange = ref<[DateModelType, DateModelType]>()
 const open = ref(false)
 const form = ref<dictType>({
   dict_name: '',
@@ -348,7 +349,7 @@ const rules = ref<FormRules>({
 
 const resetQuery = () => {
   formReset(queryRef.value)
-  dateRange.value = []
+  dateRange.value = undefined
   getList()
 }
 

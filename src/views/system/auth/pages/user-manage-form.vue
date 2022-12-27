@@ -231,6 +231,7 @@ import {
 } from '@element-plus/icons-vue'
 import md5 from 'blueimp-md5'
 import {
+  type DateModelType,
   ElButton,
   ElCol,
   ElDatePicker,
@@ -286,7 +287,7 @@ const dicts = useDicts(
 )
 
 const showSearch = ref(true)
-const dateRange = ref<string[]>([])
+const dateRange = ref<[DateModelType, DateModelType]>()
 const { useTableSelectChange } = useTableUtil()
 const { handleSelectionChangeFn, ids, values, single, selected } =
   useTableSelectChange()
@@ -310,7 +311,7 @@ const {
 
 const resetQuery = () => {
   queryParams.value.dept_id = undefined
-  dateRange.value = []
+  dateRange.value = undefined
   getList()
 }
 

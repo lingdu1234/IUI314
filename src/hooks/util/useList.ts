@@ -6,7 +6,7 @@
  * @Description:
  */
 
-import { ElMessage, ElMessageBox } from 'element-plus'
+import { type DateModelType, ElMessage, ElMessageBox } from 'element-plus'
 import { type Ref, ref } from 'vue'
 
 import type { APIS } from '@/api/apis'
@@ -29,7 +29,7 @@ export interface listType<V extends operateInfo> extends pageData {
 export const useListData = <Q extends pageQueryParam, V extends operateInfo>(
   api: APIS,
   queryParam: Ref<Q>,
-  time?: Ref<string[]>
+  time?: Ref<[DateModelType, DateModelType] | undefined>
 ) => {
   const list = ref<V[]>([]) as Ref<V[]>
   const total = ref(0)
@@ -37,8 +37,8 @@ export const useListData = <Q extends pageQueryParam, V extends operateInfo>(
    * 获取数据列表
    */
   const getListFn = async () => {
-    if (time) {
-      queryParam.value = addTimeQueryParam(queryParam.value, time?.value)
+    if (time && time?.value !== undefined) {
+      queryParam.value = addTimeQueryParam(queryParam.value, time?.value!)
     }
     const { data, execute } = useGet<listType<V>>(api, queryParam)
     await execute()
