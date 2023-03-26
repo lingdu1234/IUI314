@@ -36,8 +36,6 @@
 
 <script lang="ts" setup name="user-information">
 import {
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElForm,
   ElFormItem,
@@ -45,6 +43,8 @@ import {
   ElMessage,
   ElRadio,
   ElRadioGroup,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'

@@ -277,8 +277,6 @@ import {
   Search,
 } from '@element-plus/icons-vue'
 import {
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElCol,
   ElDialog,
@@ -295,6 +293,8 @@ import {
   ElTable,
   ElTableColumn,
   ElTag,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import { onActivated, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -323,9 +323,9 @@ import { router } from '@/router'
 import {
   type dictData,
   type dictDataQueryParam,
+  dictKey,
   type dictType,
   type dictTypeQueryParam,
-  dictKey,
 } from '@/types/system/dict'
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })

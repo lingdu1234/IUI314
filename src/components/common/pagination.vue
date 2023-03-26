@@ -16,7 +16,7 @@
 
 <script lang="ts" setup name="pagination">
 import { ElPagination } from 'element-plus'
-import { type PropType, computed } from 'vue'
+import { computed, type PropType } from 'vue'
 
 const props = defineProps({
   total: {

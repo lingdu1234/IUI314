@@ -43,7 +43,7 @@ import {
   Switch,
 } from '@element-plus/icons-vue'
 import { ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'
-import { type PropType, computed } from 'vue'
+import { computed, type PropType } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 

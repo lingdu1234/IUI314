@@ -170,7 +170,6 @@
 <script lang="ts" setup name="menu-table">
 import { CopyDocument, Delete, Edit, FolderAdd } from '@element-plus/icons-vue'
 import {
-  type TableInstance,
   ElButton,
   ElIcon,
   ElMessage,
@@ -179,8 +178,9 @@ import {
   ElTableColumn,
   ElTag,
   ElTooltip,
+  type TableInstance,
 } from 'element-plus'
-import { type PropType, nextTick, ref } from 'vue'
+import { nextTick, type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu } from '@/api/apis'

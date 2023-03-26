@@ -182,7 +182,6 @@
 <script lang="ts" setup>
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import {
-  type FormInstance,
   ElButton,
   ElCol,
   ElForm,
@@ -193,6 +192,7 @@ import {
   ElSelect,
   ElTable,
   ElTableColumn,
+  type FormInstance,
 } from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'

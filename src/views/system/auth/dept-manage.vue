@@ -159,7 +159,6 @@ import {
   Sort,
 } from '@element-plus/icons-vue'
 import {
-  type FormInstance,
   ElButton,
   ElCol,
   ElForm,
@@ -172,6 +171,7 @@ import {
   ElSelect,
   ElTable,
   ElTableColumn,
+  type FormInstance,
 } from 'element-plus'
 import { nextTick, ref } from 'vue'
 import { useI18n } from 'vue-i18n'

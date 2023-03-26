@@ -253,8 +253,6 @@
 import { Delete, Edit, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import {
   type DateModelType,
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElCol,
   ElDatePicker,
@@ -271,6 +269,8 @@ import {
   ElSelect,
   ElTable,
   ElTableColumn,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -294,9 +294,9 @@ import {
 import type { MessageSchema } from '@/i18n'
 import { DictDataRouteName, router, systemMenus } from '@/router'
 import {
+  dictKey,
   type dictType,
   type dictTypeQueryParam,
-  dictKey,
 } from '@/types/system/dict'
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })

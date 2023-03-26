@@ -74,7 +74,6 @@
 <script lang="ts" setup>
 import { Plus, Refresh, Search } from '@element-plus/icons-vue'
 import {
-  type FormInstance,
   ElButton,
   ElCol,
   ElForm,
@@ -84,6 +83,7 @@ import {
   ElRow,
   ElSelect,
   ElSkeleton,
+  type FormInstance,
 } from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'

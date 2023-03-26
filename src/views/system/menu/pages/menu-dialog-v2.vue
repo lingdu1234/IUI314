@@ -458,8 +458,6 @@
 <script lang="ts" setup name="menu-dialog">
 import { InfoFilled, Search } from '@element-plus/icons-vue'
 import {
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElCol,
   ElDialog,
@@ -477,6 +475,8 @@ import {
   ElSelect,
   ElTooltip,
   ElTreeSelect,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import { type PropType, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'

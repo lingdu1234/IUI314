@@ -82,7 +82,7 @@ import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useAnimation, useTheme } from '@/hooks'
-import { type MessageSchema, langList } from '@/i18n'
+import { langList, type MessageSchema } from '@/i18n'
 import { useAppStore, useConfigThemeStore } from '@/stores'
 
 import AppUserConfigTheme from './app-user-config-theme.vue'

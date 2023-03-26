@@ -127,8 +127,6 @@
 </template>
 <script lang="ts" setup>
 import {
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElCheckbox,
   ElCol,
@@ -143,9 +141,11 @@ import {
   ElRow,
   ElScrollbar,
   ElTree,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import type node from 'element-plus/es/components/tree/src/model/node'
-import { type PropType, nextTick, ref } from 'vue'
+import { nextTick, type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysMenu, ApiSysRole, ErrorFlag } from '@/api/apis'

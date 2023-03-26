@@ -45,13 +45,13 @@
 <script lang="ts" setup name="reset-password">
 import md5 from 'blueimp-md5'
 import {
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElForm,
   ElFormItem,
   ElInput,
   ElMessage,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'

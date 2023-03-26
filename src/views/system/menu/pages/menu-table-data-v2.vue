@@ -44,7 +44,6 @@
         :show-overflow-tooltip="true"
       />
       <el-table-column
-        v-if="!isApi"
         prop="component"
         :label="t('menu.comp')"
         :show-overflow-tooltip="true"
@@ -102,14 +101,14 @@
       >
         <template #default="scope">
           <el-tooltip
-            v-if="!isApi"
-            :content="t('common.edit')"
+            v-if="scope.row.menu_type == MenuType.C"
+            content="API"
             placement="top"
             effect="light"
           >
             <el-button
               link
-              :icon="Edit"
+              :icon="FolderAdd"
               style="color: red"
               @click="goto_api(scope.row)"
             />
@@ -141,7 +140,10 @@
             />
           </el-tooltip>
           <el-tooltip
-            v-if="!isApi && hasPermission(ApiSysMenu.add)"
+            v-if="
+              scope.row.menu_type !== MenuType.C &&
+              hasPermission(ApiSysMenu.add)
+            "
             :content="t('common.add')"
             placement="top"
             effect="light"

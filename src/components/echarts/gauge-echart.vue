@@ -6,10 +6,10 @@
   />
 </template>
 <script lang="ts" setup name="gauge-echart">
-import { type GaugeSeriesOption, GaugeChart } from 'echarts/charts'
+import { GaugeChart, type GaugeSeriesOption } from 'echarts/charts'
 import {
-  type TooltipComponentOption,
   TooltipComponent,
+  type TooltipComponentOption,
 } from 'echarts/components'
 import { type ComposeOption, use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'

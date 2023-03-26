@@ -1,5 +1,5 @@
-import { type MessageEvent, EventSourcePolyfill } from 'event-source-polyfill'
-import { type Ref, onDeactivated, onUnmounted, ref } from 'vue'
+import { EventSourcePolyfill, type MessageEvent } from 'event-source-polyfill'
+import { onDeactivated, onUnmounted, type Ref, ref } from 'vue'
 
 import { useToken } from '../app'
 

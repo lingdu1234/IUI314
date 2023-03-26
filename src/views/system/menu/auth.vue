@@ -253,7 +253,6 @@
 <script lang="ts" setup>
 import { DataBoard, Refresh, Search } from '@element-plus/icons-vue'
 import {
-  type FormInstance,
   ElButton,
   ElForm,
   ElFormItem,
@@ -265,6 +264,7 @@ import {
   ElTableColumn,
   ElTag,
   ElTooltip,
+  type FormInstance,
 } from 'element-plus'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'

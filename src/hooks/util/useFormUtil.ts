@@ -6,7 +6,7 @@
  * @Description:
  */
 
-import { type FormInstance, ElMessage } from 'element-plus'
+import { ElMessage, type FormInstance } from 'element-plus'
 
 import { useSetupI18n } from '@/i18n'
 

@@ -81,8 +81,6 @@
 </template>
 <script lang="ts" setup>
 import {
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElCol,
   ElDialog,
@@ -94,6 +92,8 @@ import {
   ElRadio,
   ElRadioGroup,
   ElRow,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'

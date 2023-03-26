@@ -111,7 +111,6 @@
 <script lang="ts" setup>
 import {
   type CheckboxValueType,
-  type FormInstance,
   ElButton,
   ElCol,
   ElDialog,
@@ -123,8 +122,9 @@ import {
   ElRow,
   ElSelect,
   ElTree,
+  type FormInstance,
 } from 'element-plus'
-import { type PropType, nextTick, ref } from 'vue'
+import { nextTick, type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { ApiSysDept, ApiSysRole, ErrorFlag } from '@/api/apis'

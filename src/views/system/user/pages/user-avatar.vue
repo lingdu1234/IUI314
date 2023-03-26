@@ -89,7 +89,6 @@ import {
   Upload,
 } from '@element-plus/icons-vue'
 import {
-  type UploadProps,
   ElButton,
   ElCol,
   ElDialog,
@@ -97,6 +96,7 @@ import {
   ElMessage,
   ElRow,
   ElUpload,
+  type UploadProps,
 } from 'element-plus'
 import { ref } from 'vue'
 import { VueCropper } from 'vue-cropper'

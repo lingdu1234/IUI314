@@ -109,8 +109,6 @@
 <script lang="ts" name="data-scope" setup>
 import { Delete, Plus, Refresh, Search } from '@element-plus/icons-vue'
 import {
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElCol,
   ElDialog,
@@ -121,6 +119,8 @@ import {
   ElRow,
   ElTable,
   ElTableColumn,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import { ref } from 'vue'
 

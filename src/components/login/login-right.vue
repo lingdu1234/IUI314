@@ -68,13 +68,13 @@
 </template>
 <script lang="ts" setup name="login-right">
 import {
-  type FormInstance,
-  type FormRules,
   ElButton,
   ElCheckbox,
   ElForm,
   ElFormItem,
   ElInput,
+  type FormInstance,
+  type FormRules,
 } from 'element-plus'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'

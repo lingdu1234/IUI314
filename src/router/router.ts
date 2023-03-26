@@ -7,9 +7,9 @@
  */
 import type { App } from 'vue'
 import {
-  type RouteRecordRaw,
   createRouter,
   createWebHashHistory,
+  type RouteRecordRaw,
 } from 'vue-router'
 
 import { useRouterGuard } from '@/hooks'

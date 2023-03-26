@@ -34,7 +34,7 @@
 
 <script lang="ts" setup name="dict-tag">
 import { ElTag } from 'element-plus'
-import { type PropType, computed } from 'vue'
+import { computed, type PropType } from 'vue'
 
 import type { dictUse } from '@/types/system/dict'
 const props = defineProps({
