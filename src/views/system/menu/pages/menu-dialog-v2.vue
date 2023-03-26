@@ -515,7 +515,7 @@ const props = defineProps({
 })
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const { formReset, formValidate } = useFormUtil()
-const emits = defineEmits(['closeDialog', 'getList'])
+const emits = defineEmits(['closeDialog', 'getList', 'get-api-list'])
 const form = ref<menu>({})
 const showChooseIcon = ref(false)
 const iconSelectRef = ref<InstanceType<typeof IconSelect>>()
@@ -605,7 +605,11 @@ const selected = (name: string) => {
 }
 const resetMenuForm = () => formReset(menuRef.value)
 const cancel = () => {
-  emits('getList')
+  if (!props.isApi) {
+    emits('getList')
+  } else {
+    emits('get-api-list')
+  }
   emits('closeDialog')
   showChooseIcon.value = false
 }

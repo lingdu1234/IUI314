@@ -29,9 +29,11 @@
       :is-api="isApi"
       @closeDialog="closeDialog"
       @getList="getList"
+      @get-api-list="getApiList"
     />
     <!-- api drawer -->
     <MenuApiDataV2
+      ref="menuApiDataRef"
       v-if="openMenuApiDrawer"
       :open="openMenuApiDrawer"
       :menu-id="menuID"
@@ -62,6 +64,7 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 // menuDialogRef menuTableDataRef
 const menuDialogRef = ref<InstanceType<typeof MenuDialogV2>>()
 const menuTableDataRef = ref<InstanceType<typeof MenuTableDataV2>>()
+const menuApiDataRef = ref<InstanceType<typeof MenuApiDataV2>>()
 
 const show_menu_table = ref(true)
 const openMenuApiDrawer = ref(false)
@@ -151,6 +154,9 @@ const closeApiData = () => {
   menuID.value = '0'
   openMenuApiDrawer.value = false
   isApi.value = false
+}
+const getApiList = () => {
+  menuApiDataRef.value?.getApiList()
 }
 defineExpose({ getList, handleAdd })
 await getList()

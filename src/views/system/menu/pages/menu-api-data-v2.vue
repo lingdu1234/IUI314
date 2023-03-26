@@ -30,6 +30,7 @@
       :show-table="show_menu_table"
       :is-api="true"
       @get-list="getList"
+      @get-api-list="getApiList"
       @get-menu-select-tree="getMenuSelectTree"
       @reset-menu-dialog="resetMenuDialog"
       @set-form-data="set_form_data"
@@ -102,4 +103,5 @@ const handleAdd = () => {
 }
 
 const handleClose = () => emits('close-api-data')
+defineExpose({ getApiList })
 </script>

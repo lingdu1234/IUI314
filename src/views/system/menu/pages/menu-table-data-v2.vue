@@ -141,8 +141,7 @@
           </el-tooltip>
           <el-tooltip
             v-if="
-              scope.row.menu_type !== MenuType.C &&
-              hasPermission(ApiSysMenu.add)
+              scope.row.menu_type == MenuType.M && hasPermission(ApiSysMenu.add)
             "
             :content="t('common.add')"
             placement="top"
@@ -192,7 +191,7 @@ import { MenuType } from '@/types/base/router'
 import { dictKey } from '@/types/system/dict'
 import type { menu } from '@/types/system/menu'
 
-defineProps({
+const props = defineProps({
   menuData: {
     type: Array as PropType<menu[]>,
     required: true,
@@ -211,6 +210,7 @@ const emits = defineEmits([
   'reset-menu-dialog',
   'get-menu-select-tree',
   'get-list',
+  'get-api-list',
   'set-form-data',
   'set-menu-id',
 ])
@@ -333,7 +333,12 @@ const handleDelete = async (row: menu) => {
       const { execute } = useDelete(ApiSysMenu.delete, { id })
       await execute()
       // 获取菜单选择树
-      emits('get-list')
+      if (!props.isApi) {
+        emits('get-list')
+      } else {
+        emits('get-api-list')
+      }
+
       ElMessage.success(t('commonTip.deleteSuccess'))
     })
     .catch(() => {
