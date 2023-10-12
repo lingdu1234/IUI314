@@ -9,7 +9,7 @@
   "compilerOptions": {
     "composite": true,
     "module": "ESNext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "nodenext",
     "types": [
       "node",
       "vite-plugin-svg-icons/client",

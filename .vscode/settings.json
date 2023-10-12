@@ -53,6 +53,7 @@
         "jsdelivr",
         "jsencrypt",
         "nocheck",
+        "nodenext",
         "nprogress",
         "oper",
         "persistedstate",
