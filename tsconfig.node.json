@@ -1,21 +1,10 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
-  "include": [
-    "vite.config.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "./vite/**/*"
-  ],
   "compilerOptions": {
     "composite": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "types": [
-      "node",
-      "vite-plugin-svg-icons/client",
-      "vite/client",
-      "unplugin-vue-define-options/macros-global",
-      "element-plus/global"
-    ]
-  }
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["vite.config.ts","./vite/**/*"]
 }

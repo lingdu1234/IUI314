@@ -1,10 +1,10 @@
-import Unocss from '@unocss/vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
 import { visualizer } from 'rollup-plugin-visualizer' //可视化显示文件大小
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import type { Plugin, PluginOption } from 'vite'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
+import Unocss from '@unocss/vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 import {
   // setupElementPlus,
@@ -21,7 +21,7 @@ export const setupVitePlugins = (mode: string): vitePlugin[] => {
     vue(),
     vueJsx(),
     Unocss(),
-    visualizer() as Plugin,
+    visualizer() as any,
     DefineOptions(),
     vueSetupExtend(),
     setupSvgIcons(),
