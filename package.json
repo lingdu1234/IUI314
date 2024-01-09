@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "build-check-prod": "run-p type-check build-prod",
-    "build": "run-p type-check build-prod",
+    "build-no-check": "run-p build-prod",
     "preview": "vite preview --port 4173",
     "build-prod": "vite build",
     "build-vercel": "vite build --mode vercel",

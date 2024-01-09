@@ -100,7 +100,7 @@ const actionSelect = async (value: Eaction) => {
       router.push({ name: itemData.name })
     }
   } else if (value === Eaction.others) {
-    const filterList = tagList.value.filter((el, idx) => {
+    const filterList = tagList.value.filter((_el, idx) => {
       return idx === 0 || idx === props.index
     })
     tabBarStore.freshTabList(filterList)

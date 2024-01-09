@@ -3,11 +3,11 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-01 19:56:42
  * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\hooks\app\useDevice.ts
+ * @FilePath: \iu314\src\hooks\app\useDevice.ts
  * @Description: 设备相关
  */
-import { useWindowSize } from '@vueuse/core'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useWindowSize } from '@vueuse/core'
 
 import { useAppStore, useUserStore } from '@/stores'
 
@@ -80,7 +80,7 @@ const getIsMobile = (screenSize: number): boolean => {
 }
 
 export const useTime = () => {
-  let timer: number | undefined // 定时器
+  let timer: number | undefined  // 定时器
   const year = ref(0) // 年份
   const month = ref(0) // 月份
   const week = ref('') // 星期几
@@ -113,7 +113,7 @@ export const useTime = () => {
 
   onMounted(() => {
     clearInterval(timer)
-    timer = setInterval(() => updateTime(), 1000)
+    timer = setInterval(() => updateTime(), 1000) as any
   })
 
   onUnmounted(() => {

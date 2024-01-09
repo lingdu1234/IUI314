@@ -3,14 +3,13 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 19:58:32
  * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\types\base\router.ts
+ * @FilePath: \iu314\src\types\base\router.ts
  * @Description:
  */
 import type { defineComponent } from 'vue'
 
 export type Component<T = any> =
   | ReturnType<typeof defineComponent>
-  | (() => Promise<typeof import('*.vue')>)
   | (() => Promise<T>)
 
 export interface AppRouteRecordRaw {

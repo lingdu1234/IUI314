@@ -532,7 +532,7 @@ watch(
   { deep: true },
 )
 
-const checkApi = (rule: any, value: any, callback: any) => {
+const checkApi = (_rule: any, value: any, callback: any) => {
   if (value === '' || value === undefined) {
     callback(new Error('菜单唯一标志不能为空'))
   } else if (form.value.menu_type !== MenuType.F && value.indexOf('/') !== -1) {
@@ -541,7 +541,7 @@ const checkApi = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
-const checkPath = (rule: any, value: any, callback: any) => {
+const checkPath = (_rule: any, value: any, callback: any) => {
   if (
     (value === '' || value === undefined) &&
     form.value.menu_type !== MenuType.F

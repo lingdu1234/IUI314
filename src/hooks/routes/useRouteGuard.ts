@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-03 21:54:48
  * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\hooks\routes\useRouteGuard.ts
+ * @FilePath: \iu314\src\hooks\routes\useRouteGuard.ts
  * @Description: 路由守卫，刷新路由丢失，搞了一天也不知道到底是怎么好的
  */
 import 'nprogress/nprogress.css'
@@ -24,7 +24,7 @@ NProgress.configure({ showSpinner: false })
 // routerGuard
 export const useRouterGuard = async (router: Router) => {
   const permissionStore = usePermissionStore()
-  router.beforeEach(async (to, from, next) => {
+  router.beforeEach(async (to, _from, next) => {
     permissionStore.setRouteIsDone(false)
     NProgress.start()
     setRouteEmitter(to) //监听路由变化

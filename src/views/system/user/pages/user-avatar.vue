@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:58:25
  * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\views\system\user\pages\user-avatar.vue
+ * @FilePath: \iu314\src\views\system\user\pages\user-avatar.vue
  * @Description: 
 -->
 <template>
@@ -114,7 +114,7 @@ const userStore = useUserStore()
 const openCropper = ref(false)
 const title = ref(t('avatar.edit'))
 
-const cropper = ref<InstanceType<typeof VueCropper>>()
+const cropper = ref<null>()
 
 const options = ref({
   img: userStore.user.avatar, // 裁剪图片的地址

@@ -290,7 +290,7 @@ const dicts = useDicts(
   dictKey.sysUserSex,
 )
 //  自定义验证规则
-const checkDeptId = (rule: any, value: any, callback: any) => {
+const checkDeptId = (_rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('激活部门不能为空'))
   } else if (!form.value.dept_ids!.includes(form.value.dept_id!)) {
@@ -299,7 +299,7 @@ const checkDeptId = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
-const checkDeptIds = (rule: any, value: any, callback: any) => {
+const checkDeptIds = (_rule: any, value: any, callback: any) => {
   if (value === '' || value.length === 0) {
     callback(new Error('用户部门不能为空'))
   } else {
@@ -309,7 +309,7 @@ const checkDeptIds = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
-const checkRoleId = (rule: any, value: any, callback: any) => {
+const checkRoleId = (_rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('激活角色不能为空'))
   } else if (!form.value.role_ids!.includes(form.value.role_id!)) {
@@ -318,7 +318,7 @@ const checkRoleId = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
-const checkRoleIds = (rule: any, value: any, callback: any) => {
+const checkRoleIds = (_rule: any, value: any, callback: any) => {
   if (value === '' || value.length === 0) {
     callback(new Error('用户角色不能为空'))
   } else {

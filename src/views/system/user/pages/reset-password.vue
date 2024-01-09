@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-20 17:37:13
  * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\views\system\user\pages\reset-password.vue
+ * @FilePath: \iu314\src\views\system\user\pages\reset-password.vue
  * @Description: 
 -->
 <template>
@@ -75,7 +75,7 @@ const user = reactive({
 
 const pwdRef = ref<FormInstance>()
 
-const equalToPassword = (rule: any, value: any, callback: any) => {
+const equalToPassword = (_rule: any, value: any, callback: any) => {
   if (user.newPassword !== value) {
     callback(new Error('两次输入的密码不一致'))
   } else {
