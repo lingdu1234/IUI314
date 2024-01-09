@@ -18,7 +18,21 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": true,
+    "paths": {		
+      "@/*": [		
+        "./src/*"		
+      ]		
+    },
+    "typeRoots": ["./node_modules/@types/", "./types", "./node_modules"],
+    "types": [		
+      "node",		
+      "vite-plugin-svg-icons/client",		
+      "vite/client",		
+      "unplugin-vue-define-options/macros-global",		
+      "element-plus/global"		
+    ]
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
   "references": [{ "path": "./tsconfig.node.json" }]
