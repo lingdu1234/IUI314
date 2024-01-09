@@ -170,7 +170,7 @@ const {
   total,
 } = useListData<testDataScopeQueryParam, testDataScope>(
   ApiDataScopeTest.getList,
-  queryParams
+  queryParams,
 )
 
 const { handleSelectionChangeFn, ids, values, selected } =
@@ -221,7 +221,7 @@ const handleDelete = async (row?: testDataScope) => {
     'id',
     values,
     'ids',
-    row
+    row,
   )
   if (flag) await getList()
 }

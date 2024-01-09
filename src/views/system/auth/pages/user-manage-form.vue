@@ -283,7 +283,7 @@ const propsUserId = ref('')
 const dicts = useDicts(
   dictKey.sysNormalDisable,
   dictKey.sysUserSex,
-  dictKey.isAdmin
+  dictKey.isAdmin,
 )
 
 const showSearch = ref(true)
@@ -306,7 +306,7 @@ const {
 } = useListData<deptQueryParam, user>(
   ApiSysUser.getList,
   queryParams,
-  dateRange
+  dateRange,
 )
 
 const resetQuery = () => {
@@ -321,7 +321,7 @@ const handleStatusChange = async (row: user) => {
   await ElMessageBox.confirm(
     `确定要  ${text}  ${row.user_name}  吗?`,
     '切换用户状态',
-    { type: 'warning' }
+    { type: 'warning' },
   )
     .then(async () => {
       const { data: dataRes, execute } = usePut(ApiSysUser.changeStatus, {
@@ -359,7 +359,7 @@ const handleDelete = async (row?: user) => {
     'user_name',
     values,
     'user_ids',
-    row
+    row,
   )
   if (flag) getList()
 }
@@ -396,7 +396,7 @@ watch(
   (v) => {
     queryParams.value.dept_id = v
     getList()
-  }
+  },
 )
 //
 </script>

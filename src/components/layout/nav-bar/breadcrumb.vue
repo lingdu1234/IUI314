@@ -46,7 +46,7 @@ function getBreadcrumb() {
   let matched = route.matched.filter((item) => item.meta && item.meta.title)
 
   levelList.value = matched.filter(
-    (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false
+    (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false,
   )
 }
 watchEffect(() => {

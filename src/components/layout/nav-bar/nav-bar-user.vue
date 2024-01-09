@@ -112,11 +112,11 @@ const get_options = async () => {
 
   const { data: roles, execute: e_roles } = useGet<roleList>(
     ApiSysRole.getList,
-    queryParams
+    queryParams,
   )
   const { data: depts, execute: e_depts } = useGet<deptList>(
     ApiSysDept.getList,
-    queryParams
+    queryParams,
   )
   await Promise.all([e_roles(), e_depts()])
   const map: Record<string, string> = {}

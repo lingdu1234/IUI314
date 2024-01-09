@@ -335,7 +335,7 @@ const {
 } = useListData<dictTypeQueryParam, dictType>(
   ApiSysDictType.getList,
   queryParams,
-  dateRange
+  dateRange,
 )
 
 const rules = ref<FormRules>({
@@ -383,7 +383,7 @@ const handleDelete = async (row?: dictType) => {
     'dict_name',
     values,
     'dict_type_ids',
-    row
+    row,
   )
   if (flag) getList()
 }

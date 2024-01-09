@@ -228,7 +228,7 @@ const dicts = useDicts(
   dictKey.apiCacheMethod,
   dictKey.apiLogMethod,
   dictKey.sysShowHide,
-  dictKey.db
+  dictKey.db,
 )
 
 const props = defineProps({
@@ -326,7 +326,7 @@ const handleDelete = async (row: menu) => {
     t('commonTip.deleteTitle'),
     {
       type: 'warning',
-    }
+    },
   )
     .then(async () => {
       const { execute } = useDelete(ApiSysMenu.delete, { id })

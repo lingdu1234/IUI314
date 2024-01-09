@@ -92,10 +92,10 @@ const memoryUsage = ref(0)
 
 const setServerData = (data: ServerMonitor) => {
   cpuUsage.value = parseFloat(
-    (data.cpu.total_use! / data.cpu.processors!).toFixed(4)
+    (data.cpu.total_use! / data.cpu.processors!).toFixed(4),
   )
   memoryUsage.value = parseFloat(
-    ((100 * data.memory.used_memory!) / data.memory.total_memory!).toFixed(4)
+    ((100 * data.memory.used_memory!) / data.memory.total_memory!).toFixed(4),
   )
 
   cpuData.value = [
@@ -144,7 +144,7 @@ const setServerData = (data: ServerMonitor) => {
       rowTwo: memoryUsage.value + '%',
       rowThree:
         ((100 * data.process.used_memory!) / data.memory.total_memory!).toFixed(
-          4
+          4,
         ) + '%',
     },
   ]
@@ -262,7 +262,7 @@ const { data } = useSSE(ApiSysServiceMonitor.getEvent)
 
 watch(
   () => data.value,
-  (v) => setServerData(JSON.parse(v!))
+  (v) => setServerData(JSON.parse(v!)),
 )
 
 // onActivated(() => {

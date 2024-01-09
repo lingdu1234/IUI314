@@ -92,7 +92,7 @@ export const useConfigTheme = () => {
         }
       }
     },
-    { deep: true }
+    { deep: true },
   )
   return {
     themes,

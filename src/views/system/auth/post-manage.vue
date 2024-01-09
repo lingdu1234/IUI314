@@ -272,7 +272,7 @@ const handleDelete = async (row?: post) => {
     'post_name',
     values,
     'post_ids',
-    row
+    row,
   )
   if (flag) await getList()
 }

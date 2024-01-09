@@ -56,7 +56,10 @@
         width="80"
         type="index"
         align="center"
-        :index="(index:number) =>1 + index + (queryParams.page_num! - 1) * queryParams.page_size!"
+        :index="
+          (index: number) =>
+            1 + index + (queryParams.page_num! - 1) * queryParams.page_size!
+        "
       />
       <el-table-column
         label="会话编号"
@@ -203,7 +206,7 @@ const {
 } = useListData<onlineUserQueryParam, onlineUser>(
   ApiSysOnlineUser.getList,
   queryParams,
-  dateRange
+  dateRange,
 )
 
 const resetQuery = () => {

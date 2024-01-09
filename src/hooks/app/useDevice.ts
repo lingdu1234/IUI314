@@ -23,7 +23,7 @@ export const useMobile = () => {
       isMobile.value = getIsMobile(v)
       appStore.setIsMobile(isMobile.value)
     },
-    { immediate: true }
+    { immediate: true },
   )
   return {
     isMobile,
@@ -99,12 +99,12 @@ export const useTime = () => {
     hour.value =
       (date.getHours() + '')?.padStart(2, '0') ||
       new Intl.NumberFormat(undefined, { minimumIntegerDigits: 2 }).format(
-        date.getHours()
+        date.getHours(),
       )
     minute.value =
       (date.getMinutes() + '')?.padStart(2, '0') ||
       new Intl.NumberFormat(undefined, { minimumIntegerDigits: 2 }).format(
-        date.getMinutes()
+        date.getMinutes(),
       )
     second.value = date.getSeconds()
   }

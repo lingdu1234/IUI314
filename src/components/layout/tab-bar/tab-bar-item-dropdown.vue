@@ -68,7 +68,7 @@ const route = useRoute()
 const { tagList } = useTabBar()
 
 const disabledReload = computed(
-  () => props.itemData.fullPath !== route.fullPath
+  () => props.itemData.fullPath !== route.fullPath,
 )
 
 const disabledCurrent = computed(() => {

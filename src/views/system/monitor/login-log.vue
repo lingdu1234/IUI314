@@ -247,7 +247,7 @@ const {
 } = useListData<loginLogQueryParam, loginLog>(
   ApiSysLoginLog.getList,
   queryParams,
-  dateRange
+  dateRange,
 )
 
 const resetQuery = () => {
@@ -265,7 +265,7 @@ const handleDelete = async (row?: loginLog) => {
     'info_id',
     values,
     'info_ids',
-    row
+    row,
   )
   if (flag) getList()
 }

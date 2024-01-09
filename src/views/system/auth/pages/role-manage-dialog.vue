@@ -242,12 +242,12 @@ const handleCheckedTreeNodeAll = (v: boolean) => {
 const getMenuTree = async () => {
   // 获取数据
   const { data: tree, execute: treeExc } = useGet<menu[]>(
-    ApiSysMenu.getEnabledTree
+    ApiSysMenu.getEnabledTree,
   )
   // 获取角色的菜单权限
   const { data: menuIds, execute: menuIdsExc } = useGet<string[]>(
     ApiSysRole.getRoleMenus,
-    { role_id: props.roleData.role_id }
+    { role_id: props.roleData.role_id },
   )
   await Promise.all([treeExc(), menuIdsExc()])
 

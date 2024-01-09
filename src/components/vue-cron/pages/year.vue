@@ -169,6 +169,6 @@ watch(
         break
     }
   },
-  { deep: true }
+  { deep: true },
 )
 </script>

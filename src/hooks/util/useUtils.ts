@@ -77,7 +77,7 @@ export const parseTime = (time: any, format?: string) => {
 
 export const addTimeQueryParam = <T extends pageQueryParam>(
   queryParams: T,
-  time: [DateModelType, DateModelType]
+  time: [DateModelType, DateModelType],
 ) => {
   const res = {
     ...queryParams,

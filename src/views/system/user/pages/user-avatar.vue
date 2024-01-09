@@ -164,7 +164,7 @@ const uploadImg = async () => {
     let formData = new FormData()
     const old_url = userStore.user.avatar.replace(
       import.meta.env.VITE_API_BASE_URL,
-      ''
+      '',
     )
     formData.append('avatarfile', v, old_url)
     const { data, execute } = usePost<string>(ApiSysUser.updateAvatar, formData)

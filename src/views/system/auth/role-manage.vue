@@ -279,7 +279,7 @@ const {
 } = useListData<roleQueryParam, role>(
   ApiSysRole.getList,
   queryParams,
-  dateRange
+  dateRange,
 )
 
 const { handleSelectionChangeFn, ids, values, single, selected } =
@@ -320,7 +320,7 @@ const handleDelete = async (row?: role) => {
     'role_name',
     values,
     'role_ids',
-    row
+    row,
   )
   if (flag) await getList()
 }
@@ -329,7 +329,7 @@ const handleStatusChange = async (row: role) => {
   await ElMessageBox.confirm(
     `确定要  ${text}  ${row.role_name}  吗?`,
     '角色状态',
-    { type: 'warning' }
+    { type: 'warning' },
   )
     .then(async () => {
       const { data, execute } = usePut(ApiSysRole.changeStatus, {

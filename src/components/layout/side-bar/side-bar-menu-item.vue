@@ -105,7 +105,7 @@ const onlyOneChild = ref<AppRouteRecordRaw>()
 
 function hasOneShowingChild(
   children: AppRouteRecordRaw[] = [],
-  parent: AppRouteRecordRaw
+  parent: AppRouteRecordRaw,
 ) {
   if (!children) {
     children = []

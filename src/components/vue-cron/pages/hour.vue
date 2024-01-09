@@ -154,7 +154,7 @@ watch(
       cycle.value.every = 23 - cycle.value.from
     }
   },
-  { deep: true }
+  { deep: true },
 )
 // 监控相关值的变化，生成表达式,并提交给父组件
 watch(
@@ -179,6 +179,6 @@ watch(
         break
     }
   },
-  { deep: true }
+  { deep: true },
 )
 </script>

@@ -28,7 +28,7 @@ export const useDictsStore = defineStore('dicts', {
           elTagType: data.list_class,
           elTagClass: data.css_class,
           status: data.status!,
-        })
+        }),
       )
       this.dicts[dict_type] = it_data
       return it_data

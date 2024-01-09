@@ -388,7 +388,7 @@ const { list: dictTypeList, getListFn: getTypeList } = useListData<
   dictType
 >(
   ApiSysDictType.getList,
-  ref<dictTypeQueryParam>({ page_size: Number.MAX_SAFE_INTEGER })
+  ref<dictTypeQueryParam>({ page_size: Number.MAX_SAFE_INTEGER }),
 )
 // 请求字典结果数据
 // const {
@@ -404,7 +404,7 @@ const {
   total,
 } = useListData<dictDataQueryParam, dictData>(
   ApiSysDictData.getList,
-  queryParams
+  queryParams,
 )
 
 const handleAdd = () => {
@@ -431,7 +431,7 @@ const handleDelete = async (row?: dictData) => {
     'dict_label',
     values,
     'dict_data_ids',
-    row
+    row,
   )
   if (flag) getList()
 }

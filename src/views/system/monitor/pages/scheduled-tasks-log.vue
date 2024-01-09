@@ -285,7 +285,7 @@ import type {
 const dicts = useDicts(
   dictKey.sysTaskIsOnce,
   dictKey.sysCommonStatus,
-  dictKey.sysJobGroup
+  dictKey.sysJobGroup,
 )
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const route = useRoute()
@@ -321,7 +321,7 @@ const getList = async () => {
   }
   const { data, execute } = useGet<scheduledTasksLogList>(
     ApiSysScheduledTasksLog.getList,
-    queryParams
+    queryParams,
   )
   await execute()
   list.value = data.value?.list!
@@ -335,7 +335,7 @@ const getAllTasks = async () => {
   }
   const { data, execute } = useGet<scheduledTasksList>(
     ApiSysScheduledTasks.getList,
-    _queryParams
+    _queryParams,
   )
   await execute()
   let _jobMap: Record<string, scheduledTasks> = {}
@@ -357,7 +357,7 @@ const handleDelete = async (row?: scheduledTasksLog) => {
     'job_log_id',
     values,
     'job_log_ids',
-    row
+    row,
   )
   if (flag) getList()
 }

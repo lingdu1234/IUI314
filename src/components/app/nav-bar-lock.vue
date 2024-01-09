@@ -30,6 +30,6 @@ watch(
       // 监控是否无活动,无活动锁屏
       appStore.setIsLocked(true)
     }
-  }
+  },
 )
 </script>

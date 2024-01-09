@@ -22,7 +22,7 @@ const useTableSelectChange = () => {
   const handleSelectionChangeFn = (
     selection: { [x: string]: any }[],
     idKey: string,
-    valueKey: string
+    valueKey: string,
   ) => {
     ids.value = selection.map((item) => item[idKey])
     values.value = selection.map((item) => item[valueKey])

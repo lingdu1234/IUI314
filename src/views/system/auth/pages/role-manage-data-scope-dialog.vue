@@ -204,7 +204,7 @@ const handleCheckedTreeExpand = (v: CheckboxValueType) => {
 const getDeptTree = async () => {
   // 获取数据
   const { data: tree, execute: treeExc } = useGet<dept[]>(
-    ApiSysDept.getDeptTree
+    ApiSysDept.getDeptTree,
   )
   await treeExc()
   deptTree.value = tree.value!
@@ -216,7 +216,7 @@ const setDeptTree = async (value: string) => {
   if (value === '2') {
     const { data, execute: menuIdsExc } = useGet<string[]>(
       ApiSysRole.getRoleDepts,
-      { role_id: props.roleData.role_id }
+      { role_id: props.roleData.role_id },
     )
     await menuIdsExc()
 

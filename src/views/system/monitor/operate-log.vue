@@ -330,7 +330,7 @@ const open = ref(false)
 const dicts = useDicts(
   dictKey.sysCommonStatus,
   dictKey.sysApiMethod,
-  dictKey.sysOperType
+  dictKey.sysOperType,
 )
 const { formReset } = useFormUtil()
 const { useTableSelectChange } = useTableUtil()
@@ -353,7 +353,7 @@ const {
 } = useListData<operateLogQueryParam, operateLog>(
   ApiSysOperateLog.getList,
   queryParams,
-  dateRange
+  dateRange,
 )
 
 const resetQuery = () => {
@@ -371,7 +371,7 @@ const handleDelete = async (row?: operateLog) => {
     'oper_id',
     values,
     'oper_ids',
-    row
+    row,
   )
   if (flag) getList()
 }

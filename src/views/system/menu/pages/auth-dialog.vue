@@ -146,7 +146,7 @@ const dicts = useDicts(
   dictKey.apiCacheMethod,
   dictKey.apiLogMethod,
   dictKey.sysShowHide,
-  dictKey.db
+  dictKey.db,
 )
 
 //  提交按钮函数
@@ -164,7 +164,7 @@ const submitForm = async () => {
   const { data: a, execute: ae } = usePost(ApiSysDbApi.edit, api_data)
   const { data: b, execute: be } = usePut(
     ApiSysMenu.updateLogCache,
-    cache_log_data
+    cache_log_data,
   )
   await Promise.all([ae(), be()])
   if (a.value === ErrorFlag || b.value === ErrorFlag) return

@@ -287,7 +287,7 @@ const deptTreeProps = {
 const dicts = useDicts(
   dictKey.sysNormalDisable,
   dictKey.isAdmin,
-  dictKey.sysUserSex
+  dictKey.sysUserSex,
 )
 //  自定义验证规则
 const checkDeptId = (rule: any, value: any, callback: any) => {
@@ -393,11 +393,11 @@ const optionsInit = async () => {
   }
   const { data: b, execute: be } = useGet<roleList>(
     ApiSysRole.getList,
-    queryParams
+    queryParams,
   )
   const { data: c, execute: ce } = useGet<postList>(
     ApiSysPost.getList,
-    queryParams
+    queryParams,
   )
   await Promise.all([be(), ce()])
 

@@ -65,7 +65,7 @@ export const usePermissionStore = defineStore('permission', {
 
 async function filterAsyncRouter(
   asyncRouterMap: AppRouteRecordRaw[],
-  type = true
+  type = true,
 ) {
   return asyncRouterMap.filter(async (route) => {
     if (type && route.children) {
@@ -139,7 +139,7 @@ async function filterChildren(childrenMap: AppRouteRecordRaw[]) {
  * @return {AppRouteRecordRaw[]}  flatRoutes
  */
 function generateFlatRoutes(
-  accessRoutes: AppRouteRecordRaw[]
+  accessRoutes: AppRouteRecordRaw[],
 ): AppRouteRecordRaw[] {
   const flatRoutes: AppRouteRecordRaw[] = []
 
@@ -166,7 +166,7 @@ function generateFlatRoutes(
 function castToFlatRoute(
   routes: AppRouteRecordRaw[],
   parentPath: string,
-  flatRoutes: AppRouteRecordRaw[] = []
+  flatRoutes: AppRouteRecordRaw[] = [],
 ): AppRouteRecordRaw[] {
   for (const item of routes) {
     if (item.children && item.children.length > 0) {

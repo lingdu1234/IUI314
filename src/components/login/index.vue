@@ -28,7 +28,7 @@ const { width } = useWindowSize()
 const { init_theme } = useTheme()
 const appStore = useAppStore()
 const color = computed(
-  () => appStore.app.theme || usePreferredColorScheme().value
+  () => appStore.app.theme || usePreferredColorScheme().value,
 )
 watch(
   () => color.value,
@@ -37,7 +37,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 init_theme(color.value! || appStore.app.theme)
 //

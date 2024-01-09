@@ -529,7 +529,7 @@ watch(
       form.value.menu_type = MenuType.F
     }
   },
-  { deep: true }
+  { deep: true },
 )
 
 const checkApi = (rule: any, value: any, callback: any) => {
@@ -574,7 +574,7 @@ const dicts = useDicts(
   dictKey.apiCacheMethod,
   dictKey.apiLogMethod,
   dictKey.sysShowHide,
-  dictKey.db
+  dictKey.db,
 )
 
 //  提交按钮函数

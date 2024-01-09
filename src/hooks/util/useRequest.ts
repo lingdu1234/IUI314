@@ -103,7 +103,7 @@ export const useRequest = createFetch({
  */
 export const getQueryUrl = (
   url: MaybeRef<string>,
-  query?: MaybeRef<unknown>
+  query?: MaybeRef<unknown>,
 ) => {
   return computed(() => {
     const _url = unref(url)
@@ -124,7 +124,7 @@ export const getQueryUrl = (
 export function useGet<T = unknown>(
   url: MaybeRef<string>,
   query?: MaybeRef<unknown>,
-  options?: UseFetchOptions
+  options?: UseFetchOptions,
 ): UseFetchReturn<T> {
   return useRequest<T>(getQueryUrl(url, query), { ...options }).json()
 }
@@ -138,7 +138,7 @@ export function useGet<T = unknown>(
 export function usePost<T = unknown>(
   url: MaybeRef<string>,
   payload?: MaybeRef<unknown>,
-  options?: UseFetchOptions
+  options?: UseFetchOptions,
 ): UseFetchReturn<T> {
   return useRequest<T>(url, { ...options })
     .post(payload)
@@ -154,7 +154,7 @@ export function usePost<T = unknown>(
 export function usePut<T = unknown>(
   url: MaybeRef<string>,
   payload?: MaybeRef<unknown>,
-  options?: UseFetchOptions
+  options?: UseFetchOptions,
 ) {
   return useRequest<T>(url, { ...options })
     .put(payload)
@@ -170,7 +170,7 @@ export function usePut<T = unknown>(
 export function useDelete<T = unknown>(
   url: MaybeRef<string>,
   payload?: MaybeRef<unknown>,
-  options?: UseFetchOptions
+  options?: UseFetchOptions,
 ): UseFetchReturn<T> {
   return useRequest<T>(url, { ...options })
     .delete(payload)
@@ -184,7 +184,7 @@ export function useDelete<T = unknown>(
  */
 export function useBlob(
   url: MaybeRef<string>,
-  options?: UseFetchOptions
+  options?: UseFetchOptions,
 ): UseFetchReturn<Blob> {
   return useRequest(url, { ...options }).blob()
 }

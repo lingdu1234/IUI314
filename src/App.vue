@@ -32,6 +32,6 @@ watch(
   () => appStore.app.lang,
   () => {
     useDynamicTitle().setDynamicTitle()
-  }
+  },
 )
 </script>

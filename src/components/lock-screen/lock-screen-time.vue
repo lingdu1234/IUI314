@@ -44,7 +44,8 @@ const online = useOnline()
   backdrop-filter: blur(10px);
   border-radius: 30px;
   padding: 15px 30px;
-  box-shadow: inset 8px 8px 12px var(--second-bg-color),
+  box-shadow:
+    inset 8px 8px 12px var(--second-bg-color),
     inset -8px -8px 12px var(--login-white);
 
   .time {

@@ -62,7 +62,7 @@ watch(
         moveToTarget()
       })
     }
-  }
+  },
 )
 
 const actionSelect = async (value: Eaction) => {

@@ -30,7 +30,7 @@ export function setRouteEmitter(to: RouteLocationNormalized) {
 export function listenerRouteChange(
   // eslint-disable-next-line no-unused-vars
   handler: (route: RouteLocationNormalized) => void,
-  immediate = true
+  immediate = true,
 ) {
   emitter.on(routerChangeKey, handler as Handler)
   if (immediate && latestRoute) {
@@ -54,7 +54,7 @@ export const setTabBarEmitter = (v: Eaction) => {
 export function listenerTabBarAction(
   // eslint-disable-next-line no-unused-vars
   handler: (v: Eaction) => void,
-  immediate = true
+  immediate = true,
 ) {
   emitter.on(tabActionMethodKey, handler as Handler)
   if (immediate && tabBarAction) {

@@ -161,7 +161,7 @@ const deptTreeProps = {
 const dicts = useDicts(
   dictKey.sysNormalDisable,
   dictKey.isAdmin,
-  dictKey.sysUserSex
+  dictKey.sysUserSex,
 )
 
 const rules = ref<FormRules>({

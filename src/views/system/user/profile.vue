@@ -153,18 +153,18 @@ const get_posts_roles = async () => {
   }
   const { data: posts, execute: e_post } = useGet<postList>(
     ApiSysPost.getList,
-    q
+    q,
   )
   const { data: roles, execute: r_post } = useGet<roleList>(
     ApiSysRole.getList,
-    q
+    q,
   )
   await Promise.all([e_post(), r_post()])
   posts.value?.list!.forEach(
-    (it) => (postOptions.value[it.post_id!] = it.post_name!)
+    (it) => (postOptions.value[it.post_id!] = it.post_name!),
   )
   roles.value?.list!.forEach(
-    (it) => (roleOptions.value[it.role_id!] = it.role_name!)
+    (it) => (roleOptions.value[it.role_id!] = it.role_name!),
   )
 }
 const getUser = async () => {

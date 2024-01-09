@@ -17,11 +17,11 @@ import type { dictByType, dictData } from '@/types/system/dict'
  * @return {dictData[]}
  */
 export const getDictDataByType = async (
-  dictType: dictByType
+  dictType: dictByType,
 ): Promise<dictData[]> => {
   const { data, execute } = useGet<dictData[]>(
     ApiSysDictData.getByType,
-    dictType
+    dictType,
   )
   await execute()
   return data.value!

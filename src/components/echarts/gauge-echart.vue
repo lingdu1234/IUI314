@@ -80,7 +80,7 @@ watch(
   () => {
     init_chart()
   },
-  { deep: true, immediate: true }
+  { deep: true, immediate: true },
 )
 </script>
 <style scoped>

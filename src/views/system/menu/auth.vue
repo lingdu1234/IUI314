@@ -127,8 +127,8 @@
                   scope.row.dbs.length > 1
                     ? scope.row.dbs[0] + ' ↑ '
                     : scope.row.dbs.length == 0
-                    ? ''
-                    : scope.row.dbs[0]
+                      ? ''
+                      : scope.row.dbs[0]
                 }}</span
               >
             </template>
@@ -152,8 +152,8 @@
                   scope.row.apis.length > 1
                     ? scope.row.apis[0] + ' ↑ '
                     : scope.row.apis.length == 0
-                    ? ''
-                    : scope.row.apis[0]
+                      ? ''
+                      : scope.row.apis[0]
                 }}</span
               >
             </template>
@@ -295,7 +295,7 @@ const dicts = useDicts(
   dictKey.sysNormalDisable,
   dictKey.sysApiMethod,
   dictKey.apiCacheMethod,
-  dictKey.apiLogMethod
+  dictKey.apiLogMethod,
 )
 const showSearch = ref(true)
 const open = ref(false)

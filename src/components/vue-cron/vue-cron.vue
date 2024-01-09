@@ -214,7 +214,7 @@ watch(
     validTip.value = t('vueCron.validateTipInfo')
     next_ten.value = []
   },
-  { deep: true }
+  { deep: true },
 )
 
 const tableData = ref<cronTable[]>([cronData.value, cronExpression.value])
@@ -263,7 +263,7 @@ const validateCron = async () => {
     ApiSysScheduledTasks.validateCronStr,
     {
       cron_str: cronExpression.value.second,
-    }
+    },
   )
   await execute()
   // @ts-ignore

@@ -108,7 +108,7 @@ const submit = async () => {
   await userStore.logOut()
   setTimeout(
     () => router.push(`/login?redirect=${router.currentRoute.value.fullPath}`),
-    1000
+    1000,
   )
 }
 /** 关闭按钮 */

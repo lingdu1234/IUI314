@@ -29,7 +29,7 @@ export interface listType<V extends operateInfo> extends pageData {
 export const useListData = <Q extends pageQueryParam, V extends operateInfo>(
   api: APIS,
   queryParam: Ref<Q>,
-  time?: Ref<[DateModelType, DateModelType] | undefined>
+  time?: Ref<[DateModelType, DateModelType] | undefined>,
 ) => {
   const list = ref<V[]>([]) as Ref<V[]>
   const total = ref(0)
@@ -62,7 +62,7 @@ export const useDeleteFn = async (
   valuesKey: string,
   values: Ref<any[]>,
   deleteKey: string,
-  row?: { [key: string]: any }
+  row?: { [key: string]: any },
 ): Promise<boolean> => {
   const { i18n } = useSetupI18n()
   const { t } = i18n.global
@@ -74,7 +74,7 @@ export const useDeleteFn = async (
     t('commonTip.deleteTitle'),
     {
       type: 'warning',
-    }
+    },
   )
     .then(async () => {
       const query = ref<{ [key: string]: any }>({})

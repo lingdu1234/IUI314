@@ -393,7 +393,7 @@ const {
 } = useListData<scheduledTasksQueryParam, scheduledTasks>(
   ApiSysScheduledTasks.getList,
   queryParams,
-  dateRange
+  dateRange,
 )
 
 const resetQuery = () => {
@@ -435,7 +435,7 @@ const handleDelete = async (row?: scheduledTasks) => {
     'job_name',
     values,
     'job_ids',
-    row
+    row,
   )
   if (flag) getList()
 }
@@ -445,7 +445,7 @@ const handleStatusChange = async (row: scheduledTasks) => {
   await ElMessageBox.confirm(
     `确定要  ${text}  ${row.job_name}  吗?`,
     '任务状态',
-    { type: 'warning' }
+    { type: 'warning' },
   )
     .then(async () => {
       const { data, execute } = usePut(ApiSysScheduledTasks.changeStatus, {
@@ -466,7 +466,7 @@ const handleRun = async (row: scheduledTasks) => {
   await ElMessageBox.confirm(
     `确定立即执行一次  ${row.job_name}  吗?`,
     '任务运行',
-    { type: 'info' }
+    { type: 'info' },
   )
     .then(async () => {
       const { data, execute } = usePut(ApiSysScheduledTasks.runOnce, {

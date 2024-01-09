@@ -101,7 +101,7 @@ const getList = async () => {
   queryParam.menu_types = [MenuType.C, MenuType.M].join(',')
   const { data, execute } = useGet<menu[]>(
     ApiSysMenu.getEnabledTree,
-    queryParam
+    queryParam,
   )
   await execute()
   menuData.value = data.value!
@@ -116,7 +116,7 @@ const getMenuSelectTree = async () => {
   }
   const { data, execute } = useGet<menu[]>(
     ApiSysMenu.getEnabledTree,
-    queryParam
+    queryParam,
   )
   await execute()
   menuSelectTree.value = [
