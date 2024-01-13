@@ -1,96 +1,127 @@
 {
-    "files.eol": "\n",
-    "indentRainbow.colorOnWhiteSpaceOnly": true,
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "file",
-    "fileheader.cursorMode": {
-        "description": "", // 函数注释生成之后，光标移动到这里
-        "param": "", // param 开启函数参数自动提取 需要将光标放在函数行或者函数上方的空白行
-        "return": "",
-    },
-    "fileheader.customMade": {
-        // Author字段是文件的创建者 可以在specialOptions中更改特殊属性
-        // 公司项目和个人项目可以配置不同的用户名与邮箱 搜索: gitconfig includeIf  比如: https://ayase.moe/2021/03/09/customized-git-config/
-        // 自动提取当前git config中的: 用户名、邮箱
-        "Author": "git config user.name && git config user.email", // 同时获取用户名与邮箱
-        // "Author": "git config user.name", // 仅获取用户名
-        // "Author": "git config user.email", // 仅获取邮箱
-        // "Author": "OBKoro1", // 写死的固定值 不从git config中获取
-        "Date": "Do not edit", // 文件创建时间(不变)
-        // LastEditors、LastEditTime、FilePath将会自动更新 如果觉得时间更新的太频繁可以使用throttleTime(默认为1分钟)配置更改更新时间。
-        "LastEditors": "git config user.name && git config user.email", // 文件最后编辑者 与Author字段一致
-        // 由于编辑文件就会变更最后编辑时间，多人协作中合并的时候会导致merge
-        // 可以将时间颗粒度改为周、或者月，这样冲突就减少很多。搜索变更时间格式: dateFormat
-        // "LastEditTime": "Do not edit", // 文件最后编辑时间
-        // 输出相对路径，类似: /文件夹名称/src/index.js
-        "FilePath": "Do not edit", // 文件在项目中的相对路径 自动更新
-        // 插件会自动将光标移动到Description选项中 方便输入 Description字段可以在specialOptions更改
-        "Description": "", // 介绍文件的作用、文件的入参、出参。
-    },
-    "editor.fontLigatures": false,
-    "editor.mouseWheelZoom": true,
-    "diffEditor.codeLens": true,
-    "cSpell.words": [
-        "autoresize",
-        "avatarfile",
-        "blueimp",
-        "brotli",
-        "cascader",
-        "constdynamic",
-        "daterange",
-        "demi",
-        "Depts",
-        "DHMS",
-        "Doption",
-        "droplist",
-        "Eaction",
-        "echart",
-        "echarts",
-        "FROMCYCLE",
-        "FROMEVERY",
-        "iife",
-        "ipaddr",
-        "jsdelivr",
-        "jsencrypt",
-        "nocheck",
-        "nodenext",
-        "nprogress",
-        "oper",
-        "persistedstate",
-        "pinia",
-        "rollup",
-        "ruoyi",
-        "rushstack",
-        "shuye",
-        "Sider",
-        "totol",
-        "unocss",
-        "unplugin",
-        "vercel",
-        "vite",
-        "vitejs",
-        "vuecropper"
-    ],
-    "i18n-ally.localesPaths": [
-        "src/i18n/lang"
-    ],
-    "i18n-ally.keystyle": "nested",
-    "i18n-ally.sortKeys": true,
-    "i18n-ally.sourceLanguage": "zh-CN",
-    "i18n-ally.displayLanguage": "zh-CN",
-    "i18n-ally.enabledFrameworks": [
-        "vue",
-        "react"
-    ],
-    "i18n-ally.extract.keyMaxLength": 100,
-    "i18n-ally.editor.preferEditor": true,
-    "i18n-ally.enabledParsers": [
-        "json"
-    ],
-    "i18n-ally.extract.autoDetect": false,
-    "i18n-ally.translate.engines": [
-        "deepl"
-    ],
-    "i18n-ally.translate.saveAsCandidates": true,
-    "json.schemaDownload.enable": true,
+  "files.eol": "\n",
+  "indentRainbow.colorOnWhiteSpaceOnly": true,
+  "editor.formatOnSaveMode": "file",
+  "fileheader.cursorMode": {
+    "description": "", // 函数注释生成之后，光标移动到这里
+    "param": "", // param 开启函数参数自动提取 需要将光标放在函数行或者函数上方的空白行
+    "return": ""
+  },
+  "fileheader.customMade": {
+    // Author字段是文件的创建者 可以在specialOptions中更改特殊属性
+    // 公司项目和个人项目可以配置不同的用户名与邮箱 搜索: gitconfig includeIf  比如: https://ayase.moe/2021/03/09/customized-git-config/
+    // 自动提取当前git config中的: 用户名、邮箱
+    "Author": "git config user.name && git config user.email", // 同时获取用户名与邮箱
+    // "Author": "git config user.name", // 仅获取用户名
+    // "Author": "git config user.email", // 仅获取邮箱
+    // "Author": "OBKoro1", // 写死的固定值 不从git config中获取
+    "Date": "Do not edit", // 文件创建时间(不变)
+    // LastEditors、LastEditTime、FilePath将会自动更新 如果觉得时间更新的太频繁可以使用throttleTime(默认为1分钟)配置更改更新时间。
+    "LastEditors": "git config user.name && git config user.email", // 文件最后编辑者 与Author字段一致
+    // 由于编辑文件就会变更最后编辑时间，多人协作中合并的时候会导致merge
+    // 可以将时间颗粒度改为周、或者月，这样冲突就减少很多。搜索变更时间格式: dateFormat
+    // "LastEditTime": "Do not edit", // 文件最后编辑时间
+    // 输出相对路径，类似: /文件夹名称/src/index.js
+    "FilePath": "Do not edit", // 文件在项目中的相对路径 自动更新
+    // 插件会自动将光标移动到Description选项中 方便输入 Description字段可以在specialOptions更改
+    "Description": "" // 介绍文件的作用、文件的入参、出参。
+  },
+  "editor.fontLigatures": false,
+  "editor.mouseWheelZoom": true,
+  "diffEditor.codeLens": true,
+  "cSpell.words": [
+    "antfu",
+    "autoresize",
+    "avatarfile",
+    "blueimp",
+    "brotli",
+    "cascader",
+    "constdynamic",
+    "daterange",
+    "demi",
+    "Depts",
+    "DHMS",
+    "Doption",
+    "droplist",
+    "Eaction",
+    "echart",
+    "echarts",
+    "FROMCYCLE",
+    "FROMEVERY",
+    "iife",
+    "ipaddr",
+    "jsdelivr",
+    "jsencrypt",
+    "nocheck",
+    "nodenext",
+    "nprogress",
+    "oper",
+    "persistedstate",
+    "pinia",
+    "rollup",
+    "ruoyi",
+    "rushstack",
+    "shuye",
+    "Sider",
+    "totol",
+    "unocss",
+    "unplugin",
+    "vercel",
+    "vite",
+    "vitejs",
+    "vuecropper"
+  ],
+  "i18n-ally.localesPaths": ["src/i18n/lang"],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.sourceLanguage": "zh-CN",
+  "i18n-ally.displayLanguage": "zh-CN",
+  "i18n-ally.enabledFrameworks": ["vue", "react"],
+  "i18n-ally.extract.keyMaxLength": 100,
+  "i18n-ally.editor.preferEditor": true,
+  "i18n-ally.enabledParsers": ["json"],
+  "i18n-ally.extract.autoDetect": false,
+  "i18n-ally.translate.engines": ["deepl"],
+  "i18n-ally.translate.saveAsCandidates": true,
+  "json.schemaDownload.enable": true,
+  // Enable the ESlint flat config support
+  "eslint.experimental.useFlatConfig": true,
+
+  // Disable the default formatter, use eslint instead
+  "prettier.enable": false,
+  "editor.formatOnSave": false,
+
+  // Auto fix
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "never"
+  },
+  // Silent the stylistic rules in you IDE, but still auto fix them
+  "eslint.rules.customizations": [
+    { "rule": "style/*", "severity": "off" },
+    { "rule": "format/*", "severity": "off" },
+    { "rule": "*-indent", "severity": "off" },
+    { "rule": "*-spacing", "severity": "off" },
+    { "rule": "*-spaces", "severity": "off" },
+    { "rule": "*-order", "severity": "off" },
+    { "rule": "*-dangle", "severity": "off" },
+    { "rule": "*-newline", "severity": "off" },
+    { "rule": "*quotes", "severity": "off" },
+    { "rule": "*semi", "severity": "off" }
+  ],
+
+  // Enable eslint for all supported languages
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "html",
+    "markdown",
+    "json",
+    "jsonc",
+    "yaml",
+    "toml"
+  ]
 }

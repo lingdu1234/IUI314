@@ -5,27 +5,26 @@
  * @FilePath: \IUI314\src\main.ts
  * @Description: main
  */
-import './assets/css/main.scss'
-import 'virtual:svg-icons-register'
-import 'uno.css'
+import "uno.css";
+import "virtual:svg-icons-register";
+import { createApp } from "vue";
 
-import { createApp } from 'vue'
+import { useSetupI18n } from "@/i18n";
+import { setupRoutes } from "@/router";
+import { setupStores } from "@/stores";
 
-import { useSetupI18n } from '@/i18n'
-import { setupRoutes } from '@/router'
-import { setupStores } from '@/stores'
-
-import App from './App.vue'
-import { setupElementPlus } from './plugins'
+import App from "./App.vue";
+import "./assets/css/main.scss";
+import { setupElementPlus } from "./plugins";
 
 const bootApp = async () => {
-  const app = createApp(App)
+	const app = createApp(App);
 
-  setupStores(app)
-  await setupRoutes(app)
-  useSetupI18n().setupI18n(app)
-  setupElementPlus(app)
-  app.mount('#app')
-}
+	setupStores(app);
+	await setupRoutes(app);
+	useSetupI18n().setupI18n(app);
+	setupElementPlus(app);
+	app.mount("#app");
+};
 
-bootApp()
+bootApp();

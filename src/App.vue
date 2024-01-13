@@ -2,7 +2,7 @@
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-09-30 18:41:35
  * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\App.vue
+ * @FilePath: \iu314\src\App.vue
  * @Description: 
 -->
 <template>
