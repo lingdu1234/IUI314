@@ -6,29 +6,23 @@ import Unocss from "@unocss/vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 
-import {
-	// setupElementPlus,
-	// setupAutoImport,
-	setupHtmlPlugin,
-	setupImportCDN,
-	setupSvgIcons,
-} from "./plugins";
+import { setupHtmlPlugin, setupSvgIcons } from "./plugins";
 
 type vitePlugin = PluginOption | Plugin;
 
 export const setupVitePlugins = (mode: string): vitePlugin[] => {
-	const vitePlugins: vitePlugin[] = [
-		vue(),
-		vueJsx(),
-		Unocss(),
-		visualizer() as any,
-		DefineOptions(),
-		vueSetupExtend(),
-		setupSvgIcons(),
-		setupHtmlPlugin(mode),
-		setupImportCDN(),
-		// ...setupElementPlus(),
-		// ...setupAutoImport(),
-	];
-	return vitePlugins;
+  const vitePlugins: vitePlugin[] = [
+    vue(),
+    vueJsx(),
+    Unocss(),
+    visualizer() as any,
+    DefineOptions(),
+    vueSetupExtend(),
+    setupSvgIcons(),
+    setupHtmlPlugin(mode)
+    // setupImportCDN(),
+    // ...setupElementPlus(),
+    // ...setupAutoImport(),
+  ];
+  return vitePlugins;
 };
