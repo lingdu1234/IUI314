@@ -66,78 +66,70 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup name="login-right">
-import {
-  ElButton,
-  ElCheckbox,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  type FormInstance,
-  type FormRules,
-} from 'element-plus'
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+<script lang="ts" name="login-right" setup>
+import { ElButton, ElCheckbox, ElForm, ElFormItem, ElInput, type FormInstance, type FormRules } from "element-plus";
+import { reactive, ref } from "vue";
+import { useRouter } from "vue-router";
 
-import { useCaptcha } from '@/api/system/login'
-import logo from '@/assets/logo.svg'
-import { useFormUtil } from '@/hooks'
-import { useAppStore, useUserStore } from '@/stores'
-import type { LoginFormLocal } from '@/types/base/login'
+import { useCaptcha } from "@/api/system/login";
+import logo from "@/assets/logo.svg";
+import { useFormUtil } from "@/hooks";
+import { useAppStore, useUserStore } from "@/stores";
+import type { LoginFormLocal } from "@/types/base/login";
 
-const userStore = useUserStore()
-const appStore = useAppStore()
-const router = useRouter()
-const { captchaData, getCaptcha } = useCaptcha()
-const { formValidate, formReset } = useFormUtil()
+const userStore = useUserStore();
+const appStore = useAppStore();
+const router = useRouter();
+const { captchaData, getCaptcha } = useCaptcha();
+const { formValidate, formReset } = useFormUtil();
 
-const loginFormRef = ref<FormInstance>()
+const loginFormRef = ref<FormInstance>();
 
 const loginForm = ref<LoginFormLocal>({
-  user_name: '',
-  user_password: '',
+  user_name: "",
+  user_password: "",
   rememberMe: false,
-  code: '',
-  uuid: '',
-})
+  code: "",
+  uuid: ""
+});
 
 //  验证规则
 const loginRules = reactive<FormRules>({
   user_name: [
-    { required: true, trigger: 'blur', message: '请输入您的账号' },
-    { min: 3, max: 20, message: '用户名为4-20位长度', trigger: 'blur' },
+    { required: true, trigger: "blur", message: "请输入您的账号" },
+    { min: 3, max: 20, message: "用户名为4-20位长度", trigger: "blur" }
   ],
   user_password: [
-    { required: true, message: '请输入用户密码', trigger: 'blur' },
+    { required: true, message: "请输入用户密码", trigger: "blur" }
   ],
   code: [
-    { required: true, trigger: 'blur', message: '请输入验证码' },
-    { min: 4, max: 4, message: '验证码为4位字符', trigger: 'blur' },
-  ],
-})
+    { required: true, trigger: "blur", message: "请输入验证码" },
+    { min: 1, max: 10, message: "验证码为1-10位字符", trigger: "blur" }
+  ]
+});
 
-loginForm.value.rememberMe = userStore.rememberMe
+loginForm.value.rememberMe = userStore.rememberMe;
 
 // 提交登录
 const submitLogin = async (formRef: FormInstance | undefined) => {
-  if (!(await formValidate(formRef))) return
-  loginForm.value.uuid = captchaData.value?.uuid!
-  await userStore.login(loginForm.value)
+  if (!(await formValidate(formRef))) return;
+  loginForm.value.uuid = captchaData.value?.uuid!;
+  await userStore.login(loginForm.value);
   const redirect = router.currentRoute.value.query.redirect
     ? (router.currentRoute.value.query.redirect as string)
-    : '/index'
-  await router.push({ path: redirect })
-}
+    : "/index";
+  await router.push({ path: redirect });
+};
 // 获取本地用户信息
 const getLocalUserInfo = () => {
   if (loginForm.value.rememberMe) {
-    const { user_name, user_password } = userStore.getLocalUserInfo()
-    loginForm.value.user_name = user_name
-    loginForm.value.user_password = user_password
+    const { user_name, user_password } = userStore.getLocalUserInfo();
+    loginForm.value.user_name = user_name;
+    loginForm.value.user_password = user_password;
   }
-}
+};
 
-getLocalUserInfo()
+getLocalUserInfo();
 </script>
 
 <style lang="scss" scoped>
