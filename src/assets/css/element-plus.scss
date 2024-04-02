@@ -1,0 +1,97 @@
+// 隐藏折叠模式下的箭头符号
+div.el-scrollbar__wrap.el-scrollbar__wrap--hidden-default>div>.el-menu--collapse>div>li>div>i.el-icon.el-sub-menu__icon-arrow {
+    display: none !important;
+}
+
+// 隐藏tab-bar 的滚动条
+.tab-bar-box-scroll .el-scrollbar__bar.is-horizontal {
+    height: 0 !important;
+}
+
+// 设置form-item的宽度
+.base-form {
+
+    .el-select,
+    .el-input-number {
+        width: 100%;
+    }
+
+    .el-form-item--small {
+        .el-form-item__content {
+            width: 190px !important;
+        }
+    }
+
+    .el-form-item--default {
+        .el-form-item__content {
+            width: 205px !important;
+        }
+    }
+
+    .el-form-item--large {
+        .el-form-item__content {
+            width: 220px !important;
+        }
+    }
+}
+
+// 抽屉的form表单设置
+.drawer-form {
+    .el-form-item__content {
+        display: flex !important;
+        justify-content: flex-end !important;
+    }
+
+    .el-form-item {
+        margin-bottom: 3px !important;
+    }
+}
+
+// 抽屉头部设置
+.el-drawer__header {
+    padding: 10px 10px 1px 10px !important;
+    margin: 0px !important;
+}
+
+// 抽屉主体设置
+.el-drawer__body {
+    padding: 5px 15px !important;
+}
+
+
+// 菜单的颜色对比没那么强烈
+.nest-menu .el-sub-menu>.el-sub-menu__title,
+.el-sub-menu .el-menu-item {
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.06) !important;
+    }
+}
+
+.el-dialog__body {
+    padding-top: 18px !important;
+    padding-bottom: 5px !important;
+}
+
+.el-dialog__header {
+    padding-top: 8px !important;
+    padding-bottom: 3px !important;
+}
+
+.el-input-number__increase,
+.el-input-number__decrease {
+    // 修复 数字输入框 边框显色问题 不知道啥原因,不导入任何css都这样
+    margin-top: 1px !important;
+}
+
+
+// 优化屏幕较窄时
+@media (max-width: 1000px) {
+    .pagination-container {
+        .el-pagination {
+            .el-pager {
+                display: none !important;
+            }
+        }
+    }
+}

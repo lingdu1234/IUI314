@@ -1,0 +1,8 @@
+//设置一个下拉菜单的最大高度，防止内容过多时出现滚动条
+.arco-dropdown-list-wrapper{
+    max-height: 600px !important;
+}
+//修复select组件，选择好选项后，显示的高度错误
+.arco-select-view-single .arco-select-view-input-hidden{
+    position: relative !important;
+}

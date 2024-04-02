@@ -1,0 +1,103 @@
+:root {
+    --vh: 100vh;
+    // login
+    --main-bg-color: #fff;
+    --second-bg-color: #d1d9e6;
+    --login-white: #f9f9f9;
+    --login-gray: #a0a5a8;
+    --login-black: #181818;
+    //side-bar-used
+    --side-bar-font-color: #000;
+    --side-bar-logo-bg-color: #FAFAFA;
+    --side-bar-logo-title-color: #000;
+    // header-bar
+    --header-bar-height: 40px;
+    --header-bar-bg-color: #fff;
+    --header-bar-font-color: #000;
+
+
+
+
+
+    // main
+    --main-container-bg-color: #f2f3f5;
+    --main-container-font-color: #000;
+    // tab-bar var
+    --tab-bar-bg-color: var(--header-bar-bg-color);
+    --tab-bar-item-bg-color: #e1ebe6;
+    --tab-bar-item-bg-radius: 5px;
+    --tab-bar-item-height: 22px;
+    --tab-bar-operation-width: 80px;
+    --tab-bar-item-active-color: rgb(8, 8, 244);
+    --tab-bar-item-inactive-color: var(--side-bar-logo-title-color);
+    --tab-bar-item-active-bg-color: rgb(184, 193, 199);
+    // nav-bar
+    --nav-bar-operation-width: 200px;
+}
+
+.el-scrollbar {
+    --el-scrollbar-bg-color: #991d28 !important;
+    --el-scrollbar-hover-bg-color: #991d28 !important;
+}
+
+// element-plus  begin
+.el-header {
+    --el-header-padding: 0 10px !important;
+}
+
+// 面包屑
+.el-breadcrumb {
+    .no-redirect {
+        color: #000 !important;
+    }
+}
+
+// .el-menu--popup,
+// .el-menu--popup-right-start,
+.el-menu--popup-container {
+    box-shadow: 0 0 20px var(--el-menu-bg-color);
+    border: none !important;
+}
+
+// element-plus  end
+
+//  灰色主题
+html.gray {
+    filter: grayscale(100%) brightness(0.9);
+}
+
+// 暗色主题
+html.dark {
+    // header-bar
+    --header-bar-bg-color: #000;
+    --header-bar-font-color: #fff;
+    // sidebar
+    --side-bar-bg-color: #000;
+    --side-bar-logo-bg-color: #232324;
+    --side-bar-logo-title-color: #fff;
+    // main
+    --main-container-bg-color: rgb(14, 14, 14);
+    --main-container-font-color: #fff;
+    // tab-bar-item
+    --tab-bar-item-bg-color: #1c1c1c;
+    --tab-bar-item-active-bg-color: rgb(45, 45, 45);
+
+    // login
+    --main-bg-color: #000;
+    --second-bg-color: #1f232e;
+    --login-white: #503a3a;
+    --login-black: #d1c6c6;
+
+    // 面包屑
+    .el-breadcrumb {
+        .no-redirect {
+            color: #fff !important;
+        }
+    }
+
+    // 滚动条
+    .el-scrollbar {
+        --el-scrollbar-bg-color: #A3A6AD !important;
+        --el-scrollbar-hover-bg-color: #A3A6AD !important;
+    }
+}
