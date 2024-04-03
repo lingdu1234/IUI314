@@ -1,45 +1,10 @@
-<!--
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-10 14:35:22
- * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\views\system\dict\data.vue
- * @Description:
--->
-<script lang="ts" name="dict-data" setup>
-import {
-  Close,
-  Delete,
-  Edit,
-  Plus,
-  Refresh,
-  Search,
-} from '@element-plus/icons-vue'
-import {
-  ElButton,
-  ElCol,
-  ElDialog,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElInputNumber,
-  ElMessage,
-  ElOption,
-  ElRadio,
-  ElRadioGroup,
-  ElRow,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-  ElTag,
-  type FormInstance,
-  type FormRules,
-} from 'element-plus'
-import { onActivated, onMounted, ref } from 'vue'
+<script lang="ts"  setup>
+import { computed, markRaw, onActivated, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute } from 'vue-router'
 
-import { ApiSysDictData, ApiSysDictType, ErrorFlag } from '@/api/apis'
-import DictTag from '@/components/common/dict-tag.vue'
+import { Message, type TableRowSelection } from '@arco-design/web-vue'
+import { IconClose, IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { ApiSysDictData, ErrorFlag } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
@@ -48,112 +13,113 @@ import {
   parseTime,
   setTabBarEmitter,
   useDeleteFn,
-  useDicts,
-  useFormUtil,
   useGet,
-  useListData,
   usePost,
   usePut,
   useTableUtil,
 } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
-import {
-  type dictData,
-  type dictDataQueryParam,
-  dictKey,
-  type dictType,
-  type dictTypeQueryParam,
+import type {
+  dictData,
 } from '@/types/system/dict'
+import IuQueryForm from '@/components/iui/iu-query-form.vue'
+import { useDictData } from '@/views/system/dict/useDictData'
+import IuButton from '@/components/iui/iu-button.vue'
+import IuModal from '@/components/iui/iu-modal.vue'
 
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
+defineOptions({ name: 'DictData' })
 
-const dicts = useDicts(dictKey.sysNormalDisable)
+const { t } = useI18n<{ message: MessageSchema }>()
+
+const {
+  queryFormItems,
+  queryParams,
+  editFormItems,
+  columns,
+  getTypeList,
+  isLoading,
+  dictDataList,
+  getList,
+} = useDictData()
+
 const { useTableSelectChange } = useTableUtil()
-const { handleSelectionChangeFn, ids, values, single, selected }
+const { handleSelectionChangeFnX, ids, values, single, selected }
   = useTableSelectChange()
-function handleSelectionChange(v: dictData[]) {
-  return handleSelectionChangeFn(v, 'dict_data_id', 'dict_label')
+
+function handleSelectionChange(keys: string[]) {
+  return handleSelectionChangeFnX(
+    keys,
+    dictDataList.value?.list,
+    'dict_data_id',
+    'dict_label',
+  )
 }
-const { formReset, formValidate } = useFormUtil()
-const route = useRoute()
 
 const showSearch = ref(true)
-const queryRef = ref<FormInstance | undefined>()
-const dictRef = ref<FormInstance | undefined>()
+
+const modalIcon = ref()
 const open = ref(false)
 const title = ref('')
-
-const queryParams = ref<dictDataQueryParam>({
-  page_num: 1,
-  page_size: 10,
-  dict_type: route.query.dict_type as string,
-})
-
 const form = ref<dictData>({
   status: '1',
   dict_sort: 1,
   is_default: 'N',
 })
-// 数据标签回显样式
-const listClassOptions = ref([
-  { value: 'default', label: '默认' },
-  { value: 'primary', label: '主要' },
-  { value: 'success', label: '成功' },
-  { value: 'warning', label: '警告' },
-  { value: 'info', label: '信息' },
-  { value: 'danger', label: '危险' },
-])
-const rules = ref<FormRules>({
-  dict_label: [
-    { required: true, message: '数据标签不能为空', trigger: 'blur' },
-  ],
-  dict_value: [
-    { required: true, message: '数据键值不能为空', trigger: 'blur' },
-  ],
-  dict_sort: [{ required: true, message: '数据顺序不能为空', trigger: 'blur' }],
+
+const rowSelection = ref<TableRowSelection>({
+  type: 'checkbox',
+  showCheckedAll: true,
+  onlyCurrent: false,
 })
 
-// 请求字典类型数据
-// const { list: dictTypeList, getListFn: getTypeList } = getDictTypeList(
-//   ref<dictTypeQueryParam>({
-//     page_size: Number.MAX_SAFE_INTEGER,
-//   })
-// )
-
-// 请求字典类型数据
-const { list: dictTypeList, getListFn: getTypeList } = useListData<
-  dictTypeQueryParam,
-  dictType
->(
-  ApiSysDictType.getList,
-  ref<dictTypeQueryParam>({ page_size: Number.MAX_SAFE_INTEGER }),
-)
-// 请求字典结果数据
-// const {
-//   list: dictDataList,
-//   getListFn: getList,
-//   total,
-// } = getDictDataList(queryParams)
-
-// 请求字典结果数据
-const {
-  list: dictDataList,
-  getListFn: getList,
-  total,
-} = useListData<dictDataQueryParam, dictData>(
-  ApiSysDictData.getList,
-  queryParams,
-)
+const operateButtons = ref<{ [key: string]: any }[]>([
+  {
+    label: t('common.add'),
+    icon: markRaw(IconPlus),
+    auth: computed(() => hasPermission(ApiSysDictData.add)),
+    disabled: false,
+    fn: handleAdd,
+    buttonType: 'primary',
+    buttonStatus: 'normal',
+  },
+  {
+    label: t('common.edit'),
+    icon: markRaw(IconEdit),
+    auth: computed(() => hasPermission(ApiSysDictData.edit)),
+    disabled: computed(() => !single.value),
+    fn: handleUpdate,
+    buttonType: 'primary',
+    buttonStatus: 'warning',
+  },
+  {
+    label: t('common.delete'),
+    icon: markRaw(IconDelete),
+    auth: computed(() => hasPermission(ApiSysDictData.delete)),
+    disabled: computed(() => !selected.value),
+    fn: handleDelete,
+    buttonType: 'primary',
+    buttonStatus: 'danger',
+  },
+  {
+    label: t('common.close'),
+    icon: markRaw(IconClose),
+    auth: true,
+    disabled: false,
+    fn: handleClose,
+    buttonType: 'primary',
+    buttonStatus: 'normal',
+  },
+])
 
 function handleAdd() {
-  formReset(dictRef.value)
+  modalIcon.value = markRaw(IconPlus)
   open.value = true
   form.value.dict_type = queryParams.value.dict_type
   title.value = t('common.add') + t('dict.dictData')
 }
 async function handleUpdate(row?: dictData) {
-  formReset(dictRef.value)
+  modalIcon.value = markRaw(IconEdit)
   open.value = true
   const dict_data_id = row?.dict_data_id || ids.value[0]
   const { data, execute } = useGet(ApiSysDictData.getById, { dict_data_id })
@@ -163,7 +129,7 @@ async function handleUpdate(row?: dictData) {
 }
 
 async function handleDelete(row?: dictData) {
-  const flag = await useDeleteFn(
+  await useDeleteFn(
     ApiSysDictData.delete,
     'dict_data_id',
     ids,
@@ -171,36 +137,29 @@ async function handleDelete(row?: dictData) {
     values,
     'dict_data_ids',
     row,
+    getList,
   )
-  if (flag)
-    getList()
 }
 
-async function submitForm(formRef: FormInstance | undefined) {
-  if (!(await formValidate(formRef)))
-    return
+async function submitForm() {
   if (form.value.dict_data_id !== undefined) {
     const { execute, data } = usePut(ApiSysDictData.edit, form)
     await execute()
     if (data.value === ErrorFlag)
       return
-    ElMessage.success(t('commonTip.updateSuccess'))
+    Message.success(t('commonTip.updateSuccess'))
   }
   else {
     const { execute, data } = usePost(ApiSysDictData.add, form)
     await execute()
     if (data.value === ErrorFlag)
       return
-    ElMessage.success(t('commonTip.addSuccess'))
+    Message.success(t('commonTip.addSuccess'))
   }
   open.value = false
-  getList()
+  await getList()
 }
 
-function cancel() {
-  formReset(dictRef.value)
-  open.value = false
-}
 function handleClose() {
   // 路由回退
   router.back()
@@ -218,263 +177,94 @@ onMounted(() => {
 
 <template>
   <div>
-    <ElForm
+    <IuQueryForm
       v-show="showSearch"
-      ref="queryRef"
-      :inline="true"
-      :model="queryParams"
-      class="base-form"
-      label-width="80px"
-    >
-      <ElFormItem label="字典名称" prop="dictType">
-        <ElSelect v-model="queryParams.dict_type">
-          <ElOption
-            v-for="item in dictTypeList"
-            :key="item.dict_type_id"
-            :label="item.dict_name"
-            :value="item.dict_type"
-          />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem label="字典标签" prop="dict_label">
-        <ElInput
-          v-model="queryParams.dict_label"
-          clearable
-          placeholder="请输入字典标签"
-          @keyup.enter="getList"
-        />
-      </ElFormItem>
-      <ElFormItem label="字典状态" prop="status">
-        <ElSelect
-          v-model="queryParams.status"
-          :clearable="true"
-          placeholder="字典状态"
-        >
-          <ElOption
-            v-for="dict in dicts[dictKey.sysNormalDisable]"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem>
-        <ElButton :icon="Search" type="primary" @click="getList">
-          {{ t('common.search') }}
-        </ElButton>
-        <ElButton
-          :icon="Refresh"
-          @click="
-            () => {
-              formReset(queryRef)
-              getList()
-            }
-          "
-        >
-          {{ t('common.reset') }}
-        </ElButton>
-      </ElFormItem>
-    </ElForm>
+      v-model:form-value="queryParams"
+      v-model:form-items="queryFormItems"
+      @query="getList"
+    />
     <!-- 操作区域 -->
-    <ElRow :gutter="10" class="m-b-8px">
-      <ElCol :span="1.5">
-        <ElButton
-          v-if="hasPermission(ApiSysDictData.add)"
-          :icon="Plus"
-          plain
-          type="primary"
-          @click="handleAdd"
-        >
-          {{ t('common.add') }}
-        </ElButton>
-      </ElCol>
-      <ElCol :span="1.5">
-        <ElButton
-          v-if="hasPermission(ApiSysDictData.edit)"
-          :disabled="!single"
-          :icon="Edit"
-          plain
-          type="success"
-          @click="handleUpdate()"
-        >
-          {{ t('common.edit') }}
-        </ElButton>
-      </ElCol>
-      <ElCol :span="1.5">
-        <ElButton
-          v-if="hasPermission(ApiSysDictData.delete)"
-          :disabled="!selected"
-          :icon="Delete"
-          plain
-          type="danger"
-          @click="handleDelete()"
-        >
-          {{ t('common.delete') }}
-        </ElButton>
-      </ElCol>
-      <ElCol :span="1.5">
-        <ElButton :icon="Close" plain type="warning" @click="handleClose">
-          {{ t('common.close') }}
-        </ElButton>
-      </ElCol>
+    <a-row :gutter="10" class="m-b-8px">
+      <a-col v-for="(item, index) in operateButtons" :key="index" :span="1.5">
+        <IuButton
+          :auth="item.auth"
+          :label="item.label"
+          :icon="item.icon"
+          :disabled="item.disabled"
+          :type="item.buttonType"
+          :status="item.buttonStatus"
+          :fn="item.fn"
+        />
+      </a-col>
       <RightToolBar v-model:showSearch="showSearch" @query-table="getList" />
-    </ElRow>
-    <ElTable
-      :data="dictDataList"
-      tooltip-effect="light"
+    </a-row>
+
+    <a-table
+      :columns="columns"
+      :data="dictDataList?.list"
+      :row-selection="rowSelection"
+      :loading="isLoading"
+      row-key="dict_data_id"
+      :scroll="{ minWidth: 800 }"
+      :pagination="false"
       @selection-change="handleSelectionChange"
     >
-      <ElTableColumn align="center" type="selection" width="55" />
-      <ElTableColumn
-        align="center"
-        label="字典编码"
-        prop="dict_data_id"
-        show-overflow-tooltip
-        width="100"
-      />
-      <ElTableColumn align="center" label="字典标签" prop="dict_label">
-        <template #default="scope">
-          <span
-            v-if="
-              scope.row.list_class == '' || scope.row.list_class == 'default'
-            "
-            :color="scope.row.css_class"
-          >
-            {{ scope.row.dict_label }}
-          </span>
-          <ElTag
-            v-else
-            :type="
-              scope.row.list_class == 'primary' ? '' : scope.row.list_class
-            "
-          >
-            {{ scope.row.dict_label }}
-          </ElTag>
-        </template>
-      </ElTableColumn>
-      <ElTableColumn align="center" label="字典键值" prop="dict_value" />
-      <ElTableColumn align="center" label="字典排序" prop="dict_sort" />
-      <ElTableColumn align="center" label="状态" prop="status">
-        <template #default="scope">
-          <DictTag
-            :options="dicts[dictKey.sysNormalDisable]"
-            :value="scope.row.status"
-          />
-        </template>
-      </ElTableColumn>
-      <ElTableColumn
-        :show-overflow-tooltip="true"
-        align="center"
-        label="备注"
-        prop="remark"
-      />
-      <ElTableColumn
-        align="center"
-        label="创建时间"
-        prop="created_at"
-        width="180"
-      >
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.created_at) }}</span>
-        </template>
-      </ElTableColumn>
-      <ElTableColumn
-        align="center"
-        class-name="small-padding fixed-width"
-        label="操作"
-        width="150"
-      >
-        <template #default="scope">
-          <ElButton icon="Edit" link @click="handleUpdate(scope.row)">
-            修改
-          </ElButton>
-          <ElButton icon="Delete" link @click="handleDelete(scope.row)">
-            删除
-          </ElButton>
-        </template>
-      </ElTableColumn>
-    </ElTable>
+      <template #dictLabel="{ record }">
+        <span v-if="record.css_class && record.css_class !== ''">
+          <a-tag :color="record.css_class">{{ record.dict_label }}</a-tag>
+        </span>
+        <span v-else-if="record.list_class && record.list_class !== ''">
+          <a-tag :color="record.list_class">{{ record.dict_label }}</a-tag>
+        </span>
+        <span v-else>
+          {{ record.dict_label }}
+        </span>
+      </template>
+      <template #created_at="{ record }">
+        <span>{{ parseTime(record.created_at) }}</span>
+      </template>
+      <template #operation="{ record }">
+        <a-button
+          v-if="hasPermission(ApiSysDictData.edit)"
+          type="text"
+          shape="round"
+          @click="handleUpdate(record)"
+        >
+          {{ t('common.edit') }}
+          <template #icon>
+            <IconEdit />
+          </template>
+        </a-button>
+        <a-button
+          v-if="hasPermission(ApiSysDictData.delete)"
+          type="text"
+          shape="round"
+          status="danger"
+          @click="handleDelete(record)"
+        >
+          {{ t('common.delete') }}
+          <template #icon>
+            <IconDelete />
+          </template>
+        </a-button>
+      </template>
+    </a-table>
 
     <Pagination
-      v-show="total > 0"
+      v-show="dictDataList?.total && dictDataList.total > 0"
       v-model:limit="queryParams.page_size"
       v-model:page="queryParams.page_num"
-      :total="total"
+      :total="dictDataList?.total"
       @pagination="getList"
     />
     <!-- 添加或修改参数配置对话框 -->
-    <ElDialog
-      v-if="open"
-      v-model="open"
+    <IuModal
+      v-model:visible="open"
+      v-model:form-value="form"
+      :form-items="editFormItems"
+      :icon="modalIcon"
       :title="title"
-      append-to-body
-      width="500px"
-    >
-      <ElForm
-        ref="dictRef"
-        :model="form"
-        :rules="rules"
-        class="base-form"
-        label-width="80px"
-      >
-        <ElFormItem label="字典类型">
-          <ElInput v-model="form.dict_type" :disabled="true" />
-        </ElFormItem>
-        <ElFormItem label="数据标签" prop="dict_label">
-          <ElInput v-model="form.dict_label" placeholder="请输入数据标签" />
-        </ElFormItem>
-        <ElFormItem label="数据键值" prop="dict_value">
-          <ElInput v-model="form.dict_value" placeholder="请输入数据键值" />
-        </ElFormItem>
-        <ElFormItem label="样式属性" prop="css_class">
-          <ElInput v-model="form.css_class" placeholder="请输入样式属性" />
-        </ElFormItem>
-        <ElFormItem label="显示排序" prop="dict_sort">
-          <ElInputNumber
-            v-model="form.dict_sort"
-            :min="0"
-            controls-position="right"
-          />
-        </ElFormItem>
-        <ElFormItem label="回显样式" prop="list_class">
-          <ElSelect v-model="form.list_class">
-            <ElOption
-              v-for="item in listClassOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </ElSelect>
-        </ElFormItem>
-        <ElFormItem label="状态" prop="status">
-          <ElRadioGroup v-model="form.status">
-            <ElRadio
-              v-for="dict in dicts[dictKey.sysNormalDisable]"
-              :key="dict.value"
-              :label="dict.value"
-            >
-              {{ dict.label }}
-            </ElRadio>
-          </ElRadioGroup>
-        </ElFormItem>
-        <ElFormItem label="备注" prop="remark">
-          <ElInput
-            v-model="form.remark"
-            placeholder="请输入内容"
-            type="textarea"
-          />
-        </ElFormItem>
-      </ElForm>
-      <template #footer>
-        <div class="dialog-footer">
-          <ElButton type="primary" @click="submitForm(dictRef)">
-            {{ t('common.submit') }}
-          </ElButton>
-          <ElButton @click="cancel">
-            {{ t('common.cancel') }}
-          </ElButton>
-        </div>
-      </template>
-    </ElDialog>
+      @handle-ok="submitForm"
+    />
   </div>
 </template>

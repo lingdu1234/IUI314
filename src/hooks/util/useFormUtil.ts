@@ -12,17 +12,18 @@ export function useFormUtil() {
  * @description: 重置表单
  * @param {FormInstance} formRef
  */
-function formReset(formRef: FormInstance | null) {
+function formReset(formRef: FormInstance | undefined) {
   if (!formRef)
     return
   formRef.resetFields()
+  formRef.clearValidate()
 }
 
 /**
  * @description: 验证表单
  * @param {FormInstance} formRef
  */
-async function formValidate(formRef: FormInstance | null) {
+async function formValidate(formRef: FormInstance | undefined) {
   let flag = false
   if (!formRef)
     return flag

@@ -22,7 +22,7 @@ function resetQuery() {
 
 <template>
   <a-form :model="formValue" layout="inline" class="m-b-10px">
-    <a-form-item v-for="item in formItems" :key="item.field" :field="item.field" :label="item.label">
+    <a-form-item v-for="item in formItems" :key="item.field" :field="item.field" :label="item.label" class="m-b-0">
       <a-input
         v-if="item.type === FormItemType.input"
         v-model="formValue[item.field]"
@@ -46,20 +46,22 @@ function resetQuery() {
         style="width: 200px;"
       />
     </a-form-item>
-    <a-space>
-      <a-button type="primary" @click="emit('query')">
-        <template #icon>
-          <icon-search />
-        </template>
-        {{ t('common.search') }}
-      </a-button>
-      <a-button status="success" @click="resetQuery">
-        <template #icon>
-          <icon-sync />
-        </template>
-        {{ t('common.reset') }}
-      </a-button>
-    </a-space>
+    <a-form-item>
+      <a-space>
+        <a-button type="primary" @click="emit('query')">
+          <template #icon>
+            <icon-search />
+          </template>
+          {{ t('common.search') }}
+        </a-button>
+        <a-button status="success" @click="resetQuery">
+          <template #icon>
+            <icon-sync />
+          </template>
+          {{ t('common.reset') }}
+        </a-button>
+      </a-space>
+    </a-form-item>
   </a-form>
 </template>
 

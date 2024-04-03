@@ -1,6 +1,7 @@
-import { type DateModelType, ElMessage, ElMessageBox } from 'element-plus'
+import type { DateModelType } from 'element-plus'
 import { type Ref, ref } from 'vue'
 
+import { Message, Modal } from '@arco-design/web-vue'
 import { addTimeQueryParam, useDelete, useGet } from '@/hooks'
 import type { APIS } from '@/api/apis'
 import { useSetupI18n } from '@/i18n'
@@ -46,29 +47,36 @@ export function useListData<Q extends pageQueryParam, V extends operateInfo>(api
   }
 }
 
-export async function useDeleteFn(api: APIS, idsKey: string, ids: Ref<string[]>, valuesKey: string, values: Ref<any[]>, deleteKey: string, row?: { [key: string]: any }): Promise<boolean> {
+export async function useDeleteFn(
+  api: APIS,
+  idsKey: string,
+  ids: Ref<string[]>,
+  valuesKey: string,
+  values: Ref<any[]>,
+  deleteKey: string,
+  row?: { [key: string]: any },
+  fn?: () => Promise<void>,
+) {
   const { i18n } = useSetupI18n()
   const { t } = i18n.global
-  let flag = false
   const _ids = row?.[idsKey] ? [row?.[idsKey]] : ids.value
   const names = row?.[valuesKey] ? row?.[valuesKey] : values.value
-  await ElMessageBox.confirm(
-    `${t('commonTip.delete') + names}?`,
-    t('commonTip.deleteTitle'),
-    {
-      type: 'warning',
-    },
-  )
-    .then(async () => {
+  Modal.warning({
+    title: '删除确认',
+    hideCancel: false,
+    titleAlign: 'start',
+    content: `${t('commonTip.delete') + names}?`,
+    okText: '确认',
+    cancelText: '取消',
+    draggable: true,
+    onOk: async () => {
       const query = ref<{ [key: string]: any }>({})
       query.value[deleteKey] = _ids
       const { execute } = useDelete(api, query)
       await execute()
-      ElMessage.success(t('commonTip.deleteSuccess'))
-      flag = true
-    })
-    .catch(() => {
-      ElMessage.info(t('commonTip.deleteCancel'))
-    })
-  return flag
+      Message.success(t('commonTip.deleteSuccess'))
+      fn && await fn()
+    },
+    onCancel: async () => Message.info(t('commonTip.deleteCancel')),
+  })
 }

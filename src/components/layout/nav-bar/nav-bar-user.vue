@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { Message } from '@arco-design/web-vue'
+import { Message, Modal } from '@arco-design/web-vue'
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysDept, ApiSysRole, ApiSysUser } from '@/api/sysApis'
 import { useGet, usePut } from '@/hooks'
@@ -21,8 +21,6 @@ const roleOptions = ref<role[]>([])
 const dept_id = ref('')
 const deptOptions = ref<dept[]>([])
 const deptMapOptions = ref<Record<string, string>>({})
-
-const visible = ref(false)
 
 async function get_options() {
   const queryParams = {
@@ -82,11 +80,24 @@ async function deptChanged(v: string | number | boolean) {
   }, 1000)
 }
 
+function logoutModal() {
+  Modal.info({
+    title: '提示',
+    hideCancel: false,
+    titleAlign: 'start',
+    content: '确认退出登录吗？',
+    okText: '确认',
+    cancelText: '取消',
+    draggable: true,
+    onOk: logout,
+  })
+}
+
 async function logout() {
   const currentRoute = router.currentRoute
-
+  Message.success('正在退出登录，返回登录界面！')
   await userStore.logOut()
-  router.push(`/login?redirect=${currentRoute.value.fullPath}`)
+  await router.push(`/login?redirect=${currentRoute.value.fullPath}`)
 }
 get_options()
 </script>
@@ -157,18 +168,15 @@ get_options()
           </router-link>
         </a-doption>
         <a-divider />
-        <a-doption @click="visible = true">
+        <!--            @click="visible = true" -->
+        <a-doption
+          @click="logoutModal"
+        >
           {{ t('nav.Logout') }}
         </a-doption>
       </template>
     </a-dropdown>
   </div>
-  <a-modal v-model:visible="visible" @ok="logout" @cancel="visible = false">
-    <template #title>
-      提示
-    </template>
-    <div>你确定要注销退出系统吗？</div>
-  </a-modal>
 </template>
 
 <style lang="scss" scoped>

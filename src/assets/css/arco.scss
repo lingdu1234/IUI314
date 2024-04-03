@@ -14,6 +14,18 @@ body {
     position: relative !important;
 }
 
+//调整modal-simple
+.arco-modal-simple{
+    width: 300px !important;
+    padding: 10px 15px !important;
+    background-color: rgba(222, 222, 222, 0.9);
+
+}
+.arco-modal-simple .arco-modal-footer {
+    margin-top: 16px !important;
+    text-align: right !important;
+}
+
 //调整tooltip
 .arco-tooltip{
     &-content{
@@ -36,6 +48,9 @@ html.dark {
     }
     .arco-trigger-arrow{
         background-color: rgba(55, 55, 57, 0.9) !important;
+    }
+    .arco-modal-simple{
+        background-color:rgba(35, 45, 55, 0.9);
     }
 }
 

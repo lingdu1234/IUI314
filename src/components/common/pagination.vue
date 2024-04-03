@@ -3,10 +3,10 @@ import type { PropType } from 'vue'
 
 defineOptions({ name: 'Pagination' })
 
-const props = defineProps({
+defineProps({
   total: {
     required: true,
-    type: Number,
+    default: 0,
   },
   isSimple: {
     type: Boolean,
@@ -49,7 +49,7 @@ function handleChange() {
 <style lang="scss" scoped>
 .pagination-container {
   height: 55px;
-  padding: 12px 16px 0px;
+  padding: 12px 16px 0;
   margin-bottom: 30px;
 }
 </style>

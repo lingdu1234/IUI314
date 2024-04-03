@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /*
  * @Author: lingdu waong2005@126.com
  * @Date: 2022-10-07 17:03:11
@@ -82,14 +81,7 @@ export interface dictData extends operateInfo {
   dict_value?: string
   dict_type?: string
   css_class?: string
-  list_class?:
-    | ''
-    | 'success'
-    | 'warning'
-    | 'info'
-    | 'danger'
-    | 'primary'
-    | 'default'
+  list_class?: 'red' | 'orangered' | 'orange' | 'gold' | 'lime' | 'green' | 'cyan' | 'blue' | 'arcoblue' | 'purple' | 'pinkpurple' | 'magenta' | 'gray'
   is_default?: string
   status?: string
   remark?: string
