@@ -22,9 +22,27 @@ function useTableSelectChange() {
     single.value = selection.length === 1
     selected.value = selection.length !== 0
   }
+  const handleSelectionChangeFnX = (
+    keys: string[],
+    dataList: { [x: string]: any }[] | undefined,
+    idKey: string,
+    valueKey: string,
+  ) => {
+    values.value = (keys
+      .map(key =>
+        dataList?.find(item =>
+          item[idKey] === key),
+      ))
+      .map(it =>
+        it && it[valueKey])
+    ids.value = keys
+    single.value = keys.length === 1
+    selected.value = keys.length !== 0
+  }
 
   return {
     handleSelectionChangeFn,
+    handleSelectionChangeFnX,
     ids,
     values,
     single,

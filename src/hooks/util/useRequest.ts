@@ -9,6 +9,7 @@ import { computed, unref } from 'vue'
 import { type LocationQueryRaw, stringifyQuery } from 'vue-router'
 
 import { Message } from '@arco-design/web-vue'
+import NProgress from 'nprogress'
 import { ApiSysLogin, ErrorFlag } from '@/api/apis'
 import { useToken } from '@/hooks'
 import { useSetupI18n } from '@/i18n'
@@ -24,6 +25,7 @@ export const useRequest = createFetch({
     immediate: false,
     timeout: RequestTimeout,
     beforeFetch({ options }) {
+      NProgress.start()
       //  添加token
       const { token } = useToken()
       options.headers = Object.assign(options.headers || {}, {
@@ -48,12 +50,14 @@ export const useRequest = createFetch({
         // 最后验证本地token效期,快过期时,刷新token
         useUserStore().freshToken()
       }
+      NProgress.done()
       return { data, response }
     },
     async onFetchError({ response, error }) {
       if (response?.status === 401
         || (response?.status === 500 && response.url.includes(ApiSysLogin.getUserInfo)))
         await log_out()
+      NProgress.done()
       return { error }
     },
   },

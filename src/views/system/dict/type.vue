@@ -8,21 +8,18 @@ import {
   ElForm,
   ElFormItem,
   ElInput,
-  ElLink,
   ElMessage,
   ElRadio,
   ElRadioGroup,
   ElRow,
-  ElTable,
-  ElTableColumn,
   type FormInstance,
   type FormRules,
 } from 'element-plus'
-import { computed, reactive, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import type { TableColumnData, TableRowSelection } from '@arco-design/web-vue'
 import { ApiSysDictType, ErrorFlag } from '@/api/apis'
-import DictTag from '@/components/common/dict-tag.vue'
 import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
@@ -57,12 +54,8 @@ const showSearch = ref(true)
 const dicts = useDicts(dictKey.sysNormalDisable)
 const { formValidate, formReset } = useFormUtil()
 const { useTableSelectChange } = useTableUtil()
-const { handleSelectionChangeFn, ids, values, single, selected }
+const { handleSelectionChangeFnX, ids, values, single, selected }
   = useTableSelectChange()
-
-function handleSelectionChange(v: dictType[]) {
-  return handleSelectionChangeFn(v, 'dict_type_id', 'dict_name')
-}
 
 const queryParams = ref<dictTypeQueryParam>({
   page_num: 1,
@@ -119,38 +112,48 @@ const form = ref<dictType>({
   status: '1',
 })
 const title = ref('')
-const rowSelection = reactive({
+const rowSelection = ref<TableRowSelection>({
   type: 'checkbox',
   showCheckedAll: true,
   onlyCurrent: false,
 })
 
-const columns = [
+const columns: TableColumnData[] = [
   {
     title: '字典Id',
     dataIndex: 'dict_type_id',
+    ellipsis: true,
+    tooltip: true,
+    width: 100,
+    align: 'center',
   },
   {
     title: '字典名称',
     dataIndex: 'dict_name',
+    align: 'center',
   },
   {
     title: '字典类型',
     slotName: 'dict_type',
+    align: 'center',
   },
   {
     title: '备注',
     dataIndex: 'remark',
+    align: 'center',
   },
   {
     title: '创建时间',
     slotName: 'created_at',
+    width: 180,
+    align: 'center',
   },
   {
     title: '操作',
     slotName: 'operation',
     width: 200,
     fixed: 'right',
+    align: 'center',
   },
 ]
 
@@ -164,6 +167,10 @@ const {
   queryParamsAndTime,
   { immediate: true },
 )
+
+function handleSelectionChange(keys: string[]) {
+  return handleSelectionChangeFnX(keys, dataList.value?.list, 'dict_type_id', 'dict_name')
+}
 
 const rules = ref<FormRules>({
   dict_name: [
@@ -298,9 +305,11 @@ function goto_data(row: dictType) {
       :columns="columns"
       :data="dataList?.list"
       :row-selection="rowSelection"
+      :loading="isLoading"
       row-key="dict_type_id"
       :scroll="{ minWidth: 800 }"
       :pagination="false"
+      @selection-change="handleSelectionChange"
     >
       <template #dict_type="{ record }">
         <a-link type="primary" @click="goto_data(record)">
@@ -336,88 +345,6 @@ function goto_data(row: dictType) {
         </a-button>
       </template>
     </a-table>
-
-    <!-- 表格区域 -->
-    <ElTable
-      :data="dataList?.list"
-      tooltip-effect="light"
-      @selection-change="handleSelectionChange"
-    >
-      <ElTableColumn align="center" type="selection" width="55" />
-      <ElTableColumn
-        :label="t('dict.typeId')"
-        align="center"
-        prop="dict_type_id"
-        show-overflow-tooltip
-        width="100"
-      />
-      <ElTableColumn
-        :label="t('dict.typeName')"
-        :show-overflow-tooltip="true"
-        align="center"
-        prop="dict_name"
-      />
-      <ElTableColumn
-        :label="t('dict.type')"
-        :show-overflow-tooltip="true"
-        align="center"
-      >
-        <template #default="scope">
-          <ElLink type="primary" @click="goto_data(scope.row)">
-            {{ scope.row.dict_type }}
-          </ElLink>
-        </template>
-      </ElTableColumn>
-      <ElTableColumn :label="t('common.status')" align="center" prop="status">
-        <template #default="scope">
-          <DictTag
-            :options="dicts[dictKey.sysNormalDisable]"
-            :value="scope.row.status"
-          />
-        </template>
-      </ElTableColumn>
-      <ElTableColumn
-        :label="t('common.remark')"
-        :show-overflow-tooltip="true"
-        align="center"
-        prop="remark"
-      />
-      <ElTableColumn
-        :label="t('common.createTime')"
-        align="center"
-        prop="created_at"
-        width="180"
-      >
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.created_at) }}</span>
-        </template>
-      </ElTableColumn>
-      <ElTableColumn
-        :label="t('common.operation')"
-        align="center"
-        width="160"
-      >
-        <template #default="scope">
-          <ElButton
-            v-if="hasPermission(ApiSysDictType.edit)"
-            :icon="Edit"
-            link
-            @click="handleUpdate(scope.row)"
-          >
-            {{ t('common.edit') }}
-          </ElButton>
-          <ElButton
-            v-if="hasPermission(ApiSysDictType.delete)"
-            :icon="Delete"
-            link
-            type="danger"
-            @click="handleDelete(scope.row)"
-          >
-            {{ t('common.delete') }}
-          </ElButton>
-        </template>
-      </ElTableColumn>
-    </ElTable>
     <Pagination
       v-show="dataList?.total && dataList.total > 0"
       v-model:limit="queryParams.page_size"

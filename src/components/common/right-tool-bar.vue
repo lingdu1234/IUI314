@@ -30,7 +30,7 @@ function refresh() {
               ? t('common.hidden') + t('common.search')
               : t('common.show') + t('common.search') }}
           </template>
-          <a-button shape="circle">
+          <a-button status="warning" shape="circle">
             <icon-search @click="showSearch = !showSearch" />
           </a-button>
         </a-popover>
@@ -38,7 +38,7 @@ function refresh() {
           <template #content>
             {{ t('common.reFresh') }}
           </template>
-          <a-button shape="circle">
+          <a-button status="success" shape="circle">
             <icon-sync :spin="spin" @click="refresh()" />
           </a-button>
         </a-popover>

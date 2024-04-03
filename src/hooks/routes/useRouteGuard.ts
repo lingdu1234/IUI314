@@ -1,5 +1,3 @@
-import 'nprogress/nprogress.css'
-
 import NProgress from 'nprogress'
 import type { RouteRecordRaw, Router } from 'vue-router'
 

@@ -7,6 +7,7 @@ import { useSetupI18n } from '@/i18n'
 import { setupRoutes } from '@/router'
 import { setupStores } from '@/stores'
 
+import 'nprogress/nprogress.css'
 import './assets/css/main.scss'
 import 'uno.css'
 import 'virtual:svg-icons-register'

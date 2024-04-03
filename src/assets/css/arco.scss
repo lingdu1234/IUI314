@@ -1,3 +1,10 @@
+body {
+    //覆盖border-radius
+    --border-radius-small: 4px !important;
+    --border-radius-medium: 8px !important;
+    --border-radius-large: 12px !important;
+}
+
 //设置一个下拉菜单的最大高度，防止内容过多时出现滚动条
 .arco-dropdown-list-wrapper{
     max-height: 600px !important;
@@ -6,3 +13,29 @@
 .arco-select-view-single .arco-select-view-input-hidden{
     position: relative !important;
 }
+
+//调整tooltip
+.arco-tooltip{
+    &-content{
+        border-radius: 10px !important;
+        background-color: rgba(201, 187, 187, 0.9) !important;
+        color: #000 !important;
+    }
+
+}
+.arco-trigger-arrow{
+    background-color: rgba(201, 187, 187, 0.9) !important;
+}
+html.dark {
+    //调整暗色tooltip
+    .arco-tooltip{
+        &-content{
+            background-color: rgba(55, 55, 57, 0.9) !important;
+            color: #FFF !important;
+        }
+    }
+    .arco-trigger-arrow{
+        background-color: rgba(55, 55, 57, 0.9) !important;
+    }
+}
+

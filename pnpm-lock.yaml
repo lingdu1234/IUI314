@@ -11,6 +11,9 @@ dependencies:
   '@better-scroll/mouse-wheel':
     specifier: ^2.5.1
     version: 2.5.1
+  '@better-scroll/scroll-bar':
+    specifier: ^2.5.1
+    version: 2.5.1
   '@element-plus/icons-vue':
     specifier: ^2.3.1
     version: 2.3.1(vue@3.4.21)
@@ -655,6 +658,12 @@ packages:
 
   /@better-scroll/mouse-wheel@2.5.1:
     resolution: {integrity: sha512-DGnrirRMY6zMM7xwgx09D/cA9A//3J1/uDkq8iBVEyE5p0sEr/keQpjEfFHGkBRa505BnbBwdbN6f5lugEDSPw==}
+    dependencies:
+      '@better-scroll/core': 2.5.1
+    dev: false
+
+  /@better-scroll/scroll-bar@2.5.1:
+    resolution: {integrity: sha512-i6r60pWG/ztkFK2j5Gj54I0LJb2jGh5TWJNQBoW0gUkp28B+0JvBFTwZn9tF7beZCBorKR7Hvvu4O9A1TJy94Q==}
     dependencies:
       '@better-scroll/core': 2.5.1
     dev: false

@@ -47,13 +47,13 @@ function resetQuery() {
       />
     </a-form-item>
     <a-space>
-      <a-button type="primary" shape="round" @click="emit('query')">
+      <a-button type="primary" @click="emit('query')">
         <template #icon>
           <icon-search />
         </template>
         {{ t('common.search') }}
       </a-button>
-      <a-button type="primary" shape="round" @click="resetQuery">
+      <a-button status="success" @click="resetQuery">
         <template #icon>
           <icon-sync />
         </template>
