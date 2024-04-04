@@ -4,6 +4,8 @@ import type { FormInstance } from '@arco-design/web-vue'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { useFormUtil } from '@/hooks'
 
+defineOptions({ name: 'IuModal' })
+
 defineProps({
   formItems: {
     type: Array as PropType<IuFormField[]>,
@@ -27,28 +29,37 @@ defineProps({
   },
   titleAlign: {
     type: String as PropType<'center' | 'start'>,
-    default: 'start',
+    default: 'center',
   },
 })
 const emit = defineEmits(['handleOk'])
 const visible = defineModel('visible', { required: true, default: false })
 const formValue = defineModel('formValue', { required: true, type: Object })
 const isFullscreen = ref(false)
+const formLayout = ref<'horizontal' | 'vertical' | 'inline'>('horizontal')
 const modalFormRef = ref<FormInstance>()
 const useForm = useFormUtil()
+
 function beforeClose() {
   useForm.formReset(modalFormRef.value)
 }
+
 function handleCancel() {
   useForm.formReset(modalFormRef.value)
   visible.value = false
 }
+
 async function validateForm() {
   emit('handleOk')
   beforeClose()
 }
+
 function onBeforeOk() {
   return useForm.formValidate(modalFormRef.value)
+}
+
+function toggleFullScreen() {
+  isFullscreen.value = !isFullscreen.value
 }
 </script>
 
@@ -62,17 +73,39 @@ function onBeforeOk() {
     draggable
     :fullscreen="isFullscreen"
     :on-before-ok="onBeforeOk"
+    class="iu-modal"
     @ok="validateForm"
     @cancel="handleCancel"
   >
-    <template #title>
-      <component :is="icon" />
-      <span class="m-l-10px">{{ title }}</span>
+    <template v-if="titleAlign === 'start'" #title>
+      <div>
+        <component :is="icon" />
+        <span class="m-l-10px">{{ title }}</span>
+      </div>
+      <div>
+        <span class="m-r-30px  arco-icon-hover">
+          <IconFullscreen v-if="!isFullscreen" size="15" @click="toggleFullScreen" />
+          <IconFullscreenExit v-if="isFullscreen" size="15" @click="toggleFullScreen" />
+        </span>
+      </div>
+    </template>
+    <template v-else #title>
+      <div>
+        <span class="arco-icon-hover">
+          <IconFullscreen v-if="!isFullscreen" size="15" @click="toggleFullScreen" />
+          <IconFullscreenExit v-if="isFullscreen" size="15" @click="toggleFullScreen" />
+        </span>
+      </div>
+      <div>
+        <component :is="icon" />
+        <span class="m-l-10px">{{ title }}</span>
+      </div>
+      <div />
     </template>
     <a-form
       ref="modalFormRef"
       :model="formValue"
-      layout="horizontal"
+      :layout="formLayout"
       auto-label-width
       class="m-b-10px"
     >
@@ -131,6 +164,16 @@ function onBeforeOk() {
   </a-modal>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
+.iu-modal {
+  .arco-modal-header {
+    .arco-modal-title-align-start {
+      justify-content: space-between;
+    }
 
+    .arco-modal-title-align-center {
+      justify-content: space-between;
+    }
+  }
+}
 </style>

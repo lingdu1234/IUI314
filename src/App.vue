@@ -27,7 +27,7 @@ watch(
 </script>
 
 <template>
-  <a-config-provider :locale="localeLang" :size="appStore.app.size">
+  <a-config-provider :locale="localeLang" :size="appStore.app.size || 'small'">
     <router-view />
   </a-config-provider>
 </template>

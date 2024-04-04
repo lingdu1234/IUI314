@@ -1,12 +1,15 @@
-<script lang="ts" name="nav-bar-size" setup>
+<script lang="ts" setup>
 import { ref } from 'vue'
 
+import type { Size } from '@arco-design/web-vue'
 import SvgIcon from '../common/svg-icon.vue'
 import { useAppStore } from '@/stores'
 
+defineOptions({ name: 'NavBarSize' })
+
 const appStore = useAppStore()
 
-const sizeList = ref([
+const sizeList = ref<{ key: Size, value: string }[]>([
   { key: 'mini', value: '迷你' },
   { key: 'small', value: '较小' },
   { key: 'medium', value: '正常' },

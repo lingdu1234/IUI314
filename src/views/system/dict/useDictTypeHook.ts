@@ -21,16 +21,23 @@ export function useDictTypeHook() {
       title: '字典名称',
       dataIndex: 'dict_name',
       align: 'center',
+      width: 100,
     },
     {
       title: '字典类型',
       slotName: 'dict_type',
       align: 'center',
+      width: 150,
+      ellipsis: true,
+      tooltip: true,
     },
     {
       title: '备注',
       dataIndex: 'remark',
       align: 'center',
+      width: 100,
+      ellipsis: true,
+      tooltip: true,
     },
     {
       title: '创建时间',

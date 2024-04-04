@@ -1,13 +1,7 @@
-/*
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-01 14:50:08
- * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\stores\modules\app.ts
- * @Description: appStore
- */
 import { useFullscreen } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
+import type { Size } from '@arco-design/web-vue'
 import { useDynamicTitle } from '@/hooks'
 
 interface AppStore {
@@ -21,7 +15,7 @@ interface AppStore {
     title: string
     animation: string
     titleI18n?: string
-    size: any
+    size: Size
     dynamicTitle: boolean
     isDark: boolean | undefined
     theme: string
@@ -104,7 +98,7 @@ export const useAppStore = defineStore('app', {
     setDynamicTitle(dynamicTitle: boolean) {
       this.app.dynamicTitle = dynamicTitle
     },
-    setAppSize(size: string) {
+    setAppSize(size: Size) {
       this.app.size = size
     },
     setAppSettingDrawer(v: boolean) {
