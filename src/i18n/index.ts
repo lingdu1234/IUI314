@@ -8,10 +8,9 @@
 import type { App } from 'vue'
 import { createI18n } from 'vue-i18n'
 
-import { useAppStore } from '@/stores'
-
 import enUS from './lang/en-US.json'
 import zhCN from './lang/zh-CN.json'
+import { useAppStore } from '@/stores'
 
 export type MessageSchema = typeof enUS | typeof zhCN
 
@@ -35,10 +34,9 @@ export const langList: langInfo[] = [
     v: 'English',
   },
 ]
-
-export const useSetupI18n = () => {
+export function useSetupI18n() {
   const appStore = useAppStore()
-  const i18n = createI18n<MessageSchema>({
+  const i18n: any = createI18n<MessageSchema>({
     legacy: false,
     globalInjection: true,
     locale: appStore.app.lang || 'zhCN',

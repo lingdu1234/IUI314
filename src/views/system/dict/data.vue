@@ -28,7 +28,7 @@ import IuQueryForm from '@/components/iui/iu-query-form.vue'
 import { useDictData } from '@/views/system/dict/useDictData'
 import IuButton from '@/components/iui/iu-button.vue'
 import IuModal from '@/components/iui/iu-modal.vue'
-import DictTag from '@/components/common/dict-tag.vue'
+import DictTag from '@/components/common/dict-tag.vue'          
 
 defineOptions({ name: 'DictData' })
 

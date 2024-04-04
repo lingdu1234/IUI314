@@ -1,3 +1,8 @@
+import NProgress from 'nprogress'
+import { computed, unref } from 'vue'
+import { type LocationQueryRaw, stringifyQuery } from 'vue-router'
+
+import { Message } from '@arco-design/web-vue'
 import {
   type MaybeRef,
   type UseFetchOptions,
@@ -5,16 +10,15 @@ import {
   createFetch,
   isObject,
 } from '@vueuse/core'
-import { computed, unref } from 'vue'
-import { type LocationQueryRaw, stringifyQuery } from 'vue-router'
 
-import { Message } from '@arco-design/web-vue'
-import NProgress from 'nprogress'
+
 import { ApiSysLogin, ErrorFlag } from '@/api/apis'
 import { useToken } from '@/hooks'
 import { useSetupI18n } from '@/i18n'
 import { router } from '@/router'
 import { useUserStore } from '@/stores'
+
+
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 const RequestTimeout = 1000 * 60 * 10

@@ -1,11 +1,8 @@
 <script lang="ts" setup>
 import md5 from 'blueimp-md5'
-import {
-  ElMessage,
-} from 'element-plus'
 import { reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { FieldRule, FormInstance } from '@arco-design/web-vue'
+import { type FieldRule, type FormInstance, Message } from '@arco-design/web-vue'
 import { ApiSysUser, ErrorFlag } from '@/api/apis'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import { setTabBarEmitter, useFormUtil, usePut } from '@/hooks'
@@ -57,7 +54,7 @@ async function submit() {
   await execute()
   if (data.value === ErrorFlag)
     return
-  ElMessage.success('修改成功,请重新登录,秒钟后将自动退出并转入登录界面')
+  Message.success('修改成功,请重新登录,秒钟后将自动退出并转入登录界面')
   await userStore.logOut()
   setTimeout(
     () => router.push(`/login?redirect=${router.currentRoute.value.fullPath}`),

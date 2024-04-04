@@ -49,11 +49,12 @@ async function getUser() {
   await get_posts_roles()
   const { data, execute } = useGet<userInfo>(ApiSysUser.getProfile)
   await execute()
-  userInfos.value = data.value?.user_info!
+  userInfos.value = data.value?.user_info as userInformation
   roleGroup.value = data.value?.role_ids!.map(it => roleOptions.value[it])
-  postGroup.value = data.value
-    ?.post_ids!.map(it => postOptions.value[it])
-    .join(',')!
+  postGroup.value = (data.value
+  && data.value.post_ids!.map(it => postOptions.value[it])
+    .join(',')
+  ) as string
 }
 getUser()
 </script>

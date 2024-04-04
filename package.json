@@ -23,7 +23,7 @@
     "event-source-polyfill": "^1.0.31",
     "jsencrypt": "^3.3.2",
     "mitt": "^3.0.1",
-    "nprogress": "^0.2.0",
+    "nprogress": "0.2.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.4.21",

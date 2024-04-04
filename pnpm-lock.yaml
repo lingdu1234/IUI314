@@ -39,7 +39,7 @@ dependencies:
     specifier: ^3.0.1
     version: 3.0.1
   nprogress:
-    specifier: ^0.2.0
+    specifier: 0.2.0
     version: 0.2.0
   pinia:
     specifier: ^2.1.7

@@ -1,110 +1,15 @@
-<!--
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-20 17:58:25
- * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \iu314\src\views\system\user\pages\user-avatar.vue
- * @Description: 
--->
-<template>
-  <div>
-    <div class="user-info-head" @click="openCropper = true">
-      <img
-        :src="options.img"
-        :title="t('avatar.title')"
-        class="b-rd-50% w-120px h-120px"
-      />
-    </div>
-    <el-dialog
-      v-model="openCropper"
-      :title="title"
-      append-to-body
-      class="min-w-440px max-w-800px"
-    >
-      <el-row>
-        <el-col :span="24" :md="12" class="w-420px h-440px">
-          <el-row class="w-400px h-400px">
-            <vue-cropper
-              ref="cropper"
-              :img="options.img"
-              :info="true"
-              :auto-crop="options.autoCrop"
-              :auto-crop-width="options.autoCropWidth"
-              :auto-crop-height="options.autoCropHeight"
-              :fixed-box="options.fixedBox"
-              @realTime="realTime"
-            />
-          </el-row>
-          <el-row class="m-t-10px w-400px h-80px">
-            <el-col :span="5">
-              <el-upload
-                action="#"
-                :http-request="uploadImgX"
-                :show-file-list="false"
-                :before-upload="beforeUpload"
-              >
-                <el-button size="small">
-                  {{ t('common.select') }}
-                  <el-icon class="el-icon--right">
-                    <Upload />
-                  </el-icon>
-                </el-button>
-              </el-upload>
-            </el-col>
-            <el-col :span="5">
-              <el-button type="primary" @click="uploadImg" size="small">
-                {{ t('common.submit') }}
-              </el-button>
-            </el-col>
-            <el-col :span="14">
-              <el-button :icon="Plus" @click="changeScale(1)" size="small" />
-              <el-button :icon="Minus" @click="changeScale(-1)" size="small" />
-              <el-button :icon="RefreshLeft" @click="rotateLeft" size="small" />
-              <el-button
-                :icon="RefreshRight"
-                @click="rotateRight"
-                size="small"
-              />
-            </el-col>
-          </el-row>
-        </el-col>
-        <el-col :span="24" :md="12" class="w-400px h-400px">
-          <el-row class="w-400px h-400px">
-            <div class="translate-50% w-200px h-200px b-rd-50% overflow-hidden">
-              <img :src="options.previews.url" :style="options.previews.img" />
-            </div>
-          </el-row>
-        </el-col>
-      </el-row>
-    </el-dialog>
-  </div>
-</template>
 <script lang="ts" setup name="user-avatar">
 import 'vue-cropper/dist/index.css'
 
-import {
-  Minus,
-  Plus,
-  RefreshLeft,
-  RefreshRight,
-  Upload,
-} from '@element-plus/icons-vue'
-import {
-  ElButton,
-  ElCol,
-  ElDialog,
-  ElIcon,
-  ElMessage,
-  ElRow,
-  ElUpload,
-  type UploadProps,
-} from 'element-plus'
-import { ref } from 'vue'
+import { onActivated, onMounted, ref, watch } from 'vue'
 import { VueCropper } from 'vue-cropper'
 import { useI18n } from 'vue-i18n'
 
+import { Message } from '@arco-design/web-vue'
+import type { IconRotateLeft, IconUpload } from '@arco-design/web-vue/es/icon'
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
-import { usePost } from '@/hooks'
+import { usePost, useSetVh } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { useUserStore } from '@/stores'
 
@@ -114,7 +19,7 @@ const userStore = useUserStore()
 const openCropper = ref(false)
 const title = ref(t('avatar.edit'))
 
-const cropper = ref<null>()
+const cropper = ref <InstanceType<typeof VueCropper>>()
 
 const options = ref({
   img: userStore.user.avatar, // 裁剪图片的地址
@@ -123,45 +28,60 @@ const options = ref({
   autoCropHeight: 200, // 默认生成截图框高度
   fixedBox: true, // 固定截图框大小 不允许改变
   previews: {
-    h: 0,
-    w: 0,
     url: '',
     img: {},
-  }, //预览数据
+  }, // 预览数据
 })
+
+const width = ref()
+
+function getVw() {
+  const vW = window.innerWidth
+  width.value = `${vW >= 992 ? 840 : 460}px`
+}
+
+window.addEventListener('resize', () => getVw())
+
+onMounted(() => getVw())
+onActivated(() => getVw())
+
+openCropper.value = false
 function realTime(data: any) {
   options.value.previews = data
 }
-const changeScale = (value: number) => {
-  // @ts-ignore
+function changeScale(value: number) {
   cropper.value?.changeScale(value)
 }
-const rotateLeft = () => {
-  // @ts-ignore
+function rotateLeft() {
   cropper.value?.rotateLeft()
 }
-const rotateRight = () => {
-  // @ts-ignore
+function rotateRight() {
   cropper.value?.rotateRight()
 }
 
+function reFresh() {
+  cropper.value?.refresh()
+}
+
 /** 上传预处理 */
-const beforeUpload: UploadProps['beforeUpload'] = (file) => {
-  if (file.type.indexOf('image/') == -1) {
-    ElMessage.error(t('avatar.errorTip'))
-  } else {
+function beforeUpload(file: File) {
+  if (!file.type.includes('image/')) {
+    Message.error(t('avatar.errorTip'))
+    return false
+  }
+  else {
     const reader = new FileReader()
     reader.readAsDataURL(file)
     reader.onload = () => {
       options.value.img = reader.result as string
     }
+    return true
   }
 }
 /** 上传图片 */
-const uploadImg = async () => {
-  // @ts-ignore
-  cropper.value?.getCropBlob(async (v) => {
-    let formData = new FormData()
+async function uploadImg() {
+  cropper.value?.getCropBlob(async (v: Blob) => {
+    const formData = new FormData()
     const old_url = userStore.user.avatar.replace(
       import.meta.env.VITE_API_BASE_URL,
       '',
@@ -169,16 +89,115 @@ const uploadImg = async () => {
     formData.append('avatarfile', v, old_url)
     const { data, execute } = usePost<string>(ApiSysUser.updateAvatar, formData)
     await execute()
-    if (data.value === ErrorFlag) return
+    if (data.value === ErrorFlag)
+      return
 
     openCropper.value = false
     options.value.img = import.meta.env.VITE_API_BASE_URL + data.value!
     userStore.user.avatar = options.value.img
-    ElMessage.success(t('avatar.success'))
+    Message.success(t('avatar.success'))
   })
 }
-const uploadImgX = (): any => {}
 </script>
+
+<template>
+  <div>
+    <div class="user-info-head" @click="openCropper = true">
+      <img
+        :src="options.img"
+        :title="t('avatar.title')"
+        class="b-rd-50% w-120px h-120px"
+      >
+    </div>
+    <a-modal
+      v-model:visible="openCropper"
+      :title="title"
+      :footer="false"
+      :draggable="true"
+      :width="width"
+      @before-open="reFresh"
+    >
+      <a-grid
+        :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }" :col-gap="10" :row-gap="10"
+      >
+        <a-grid-item class="w-420px h-480px">
+          <a-col class="w-400px h-400px">
+            <a-row class="w-400px h-400px">
+              <VueCropper
+                ref="cropper"
+                :img="options.img"
+                :info="true"
+                :auto-crop="options.autoCrop"
+                :auto-crop-width="options.autoCropWidth"
+                :auto-crop-height="options.autoCropHeight"
+                :fixed-box="options.fixedBox"
+                @real-time="realTime"
+              />
+            </a-row>
+            <a-row class="w-400px h-70px m-t-10px">
+              <a-space>
+                <a-upload
+                  :auto-upload="false"
+                  :show-file-list="false"
+                  @before-upload="beforeUpload"
+                >
+                  <template #upload-button>
+                    <a-button type="dashed" status="success" size="mini">
+                      {{ t('common.select') }}
+                      <template #icon>
+                        <IconUpload />
+                      </template>
+                    </a-button>
+                  </template>
+                </a-upload>
+                <a-button type="primary" status="success" size="mini" @click="uploadImg">
+                  {{ t('common.submit') }}
+                  <template #icon>
+                    <IconCheck />
+                  </template>
+                </a-button>
+
+                <a-button type="dashed" status="success" shape="circle" size="small" class="m-l-20px" @click="changeScale(1)">
+                  <template #icon>
+                    <IconPlus />
+                  </template>
+                </a-button>
+                <a-button type="dashed" status="success" shape="circle" size="small" @click="changeScale(-1)">
+                  <template #icon>
+                    <IconMinus />
+                  </template>
+                </a-button>
+                <a-button type="dashed" status="warning" shape="circle" size="small" @click="rotateLeft">
+                  <template #icon>
+                    <IconRotateLeft />
+                  </template>
+                </a-button>
+                <a-button type="dashed" status="warning" shape="circle" size="small" @click="rotateRight">
+                  <template #icon>
+                    <IconRotateRight />
+                  </template>
+                </a-button>
+                <a-button type="dashed" status="success" shape="circle" size="small" @click="reFresh">
+                  <template #icon>
+                    <IconRefresh />
+                  </template>
+                </a-button>
+              </a-space>
+            </a-row>
+          </a-col>
+        </a-grid-item>
+        <a-grid-item class="w-400px h-400px">
+          <a-row class="w-400px h-400px">
+            <div class="translate-50% w-200px h-200px b-rd-50% overflow-hidden">
+              <img :src="options.previews.url" :style="options.previews.img">
+            </div>
+          </a-row>
+        </a-grid-item>
+      </a-grid>
+    </a-modal>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .user-info-head {
   position: relative;
