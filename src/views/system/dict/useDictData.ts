@@ -44,7 +44,7 @@ export function useDictData() {
       dataIndex: 'dict_data_id',
       ellipsis: true,
       tooltip: true,
-      width: 150,
+      width: 200,
       align: 'center',
     },
     {
@@ -64,7 +64,7 @@ export function useDictData() {
     },
     {
       title: '状态',
-      dataIndex: 'status',
+      slotName: 'status',
       align: 'center',
     },
     {
@@ -231,6 +231,7 @@ export function useDictData() {
     },
   ])
   return {
+    dicts,
     queryFormItems,
     editFormItems,
     queryParams,

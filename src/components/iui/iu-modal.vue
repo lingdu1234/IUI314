@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType, computed, ref, watch } from 'vue'
+import { type PropType, computed, ref } from 'vue'
 import type { FormInstance } from '@arco-design/web-vue'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { useFormUtil } from '@/hooks'
@@ -40,10 +40,7 @@ const formLayout = ref<'horizontal' | 'vertical' | 'inline'>('horizontal')
 const modalFormRef = ref<FormInstance>()
 const useForm = useFormUtil()
 
-const contentHeight = computed(() => 'calc(var(--vh) * 100) - 150')
-watch(() => contentHeight.value, (v) => {
-  console.log(v)
-})
+const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
 
 function beforeClose() {
   useForm.formReset(modalFormRef.value)

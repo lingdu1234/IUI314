@@ -14,7 +14,7 @@ export function useDictTypeHook() {
       dataIndex: 'dict_type_id',
       ellipsis: true,
       tooltip: true,
-      width: 100,
+      width: 200,
       align: 'center',
     },
     {

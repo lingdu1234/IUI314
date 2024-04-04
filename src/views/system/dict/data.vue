@@ -20,19 +20,22 @@ import {
 } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
-import type {
-  dictData,
+import {
+  type dictData,
+  dictKey,
 } from '@/types/system/dict'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
 import { useDictData } from '@/views/system/dict/useDictData'
 import IuButton from '@/components/iui/iu-button.vue'
 import IuModal from '@/components/iui/iu-modal.vue'
+import DictTag from '@/components/common/dict-tag.vue'
 
 defineOptions({ name: 'DictData' })
 
 const { t } = useI18n<{ message: MessageSchema }>()
 
 const {
+  dicts,
   queryFormItems,
   queryParams,
   editFormItems,
@@ -47,7 +50,7 @@ const { useTableSelectChange } = useTableUtil()
 const { handleSelectionChangeFnX, ids, values, single, selected }
   = useTableSelectChange()
 
-function handleSelectionChange(keys: string[]) {
+function handleSelectionChange(keys: (string | number) []) {
   return handleSelectionChangeFnX(
     keys,
     dictDataList.value?.list,
@@ -219,6 +222,12 @@ onMounted(() => {
         <span v-else>
           {{ record.dict_label }}
         </span>
+      </template>
+      <template #status="{ record }">
+        <DictTag
+          :options="dicts[dictKey.sysNormalDisable]"
+          :value="record.status"
+        />
       </template>
       <template #created_at="{ record }">
         <span>{{ parseTime(record.created_at) }}</span>

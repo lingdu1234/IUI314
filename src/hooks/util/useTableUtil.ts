@@ -23,7 +23,7 @@ function useTableSelectChange() {
     selected.value = selection.length !== 0
   }
   const handleSelectionChangeFnX = (
-    keys: string[],
+    keys: (string | number)[],
     dataList: { [x: string]: any }[] | undefined,
     idKey: string,
     valueKey: string,
@@ -35,7 +35,7 @@ function useTableSelectChange() {
       ))
       .map(it =>
         it && it[valueKey])
-    ids.value = keys
+    ids.value = keys as string[]
     single.value = keys.length === 1
     selected.value = keys.length !== 0
   }

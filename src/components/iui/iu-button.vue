@@ -55,7 +55,6 @@ defineProps({
     :type="type"
     :status="status"
     :shape="shape"
-    :size="size"
     :loading="loading"
     @click="fn"
   >
