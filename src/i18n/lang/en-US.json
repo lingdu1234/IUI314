@@ -224,6 +224,7 @@
   "theme": {
     "changeTip": "Theme change to:",
     "classic": "classic",
+    "system": "system",
     "dark": "dark",
     "gray": "gray",
     "light": "light",

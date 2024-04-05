@@ -2,6 +2,7 @@ import { useFullscreen } from '@vueuse/core'
 import { defineStore } from 'pinia'
 
 import type { Size } from '@arco-design/web-vue'
+import type { theme_list } from '@/hooks'
 import { useDynamicTitle } from '@/hooks'
 
 interface AppStore {
@@ -17,8 +18,8 @@ interface AppStore {
     titleI18n?: string
     size: Size
     dynamicTitle: boolean
-    isDark: boolean | undefined
-    theme: string
+    isDark: boolean | 'auto' | undefined
+    theme: (typeof theme_list)[number]
     lang: string
     navBar: boolean
     tabBar: boolean
@@ -46,7 +47,7 @@ export const useAppStore = defineStore('app', {
       size: 'small',
       dynamicTitle: true,
       isDark: undefined,
-      theme: '',
+      theme: 'system',
       lang: 'zh-CN',
       navBar: true,
       tabBar: true,

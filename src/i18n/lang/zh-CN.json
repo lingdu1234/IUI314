@@ -224,6 +224,7 @@
   "theme": {
     "changeTip": "主题切换为:",
     "classic": "经典",
+    "system": "系统",
     "dark": "黑暗",
     "gray": "灰色",
     "light": "亮色",

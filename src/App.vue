@@ -15,7 +15,12 @@ const localeLang = computed(() => (appStore.app.lang === 'zh-CN' ? zhCn : enUS))
 useSetVh()
 // 设置主题
 
-useTheme().init_theme()
+// useTheme().init_theme()
+
+watch(() => useTheme().colorScheme.value, () => {
+  if (appStore.app.theme === 'system')
+    useTheme().init_theme()
+}, { immediate: true })
 
 // 设置语言
 watch(

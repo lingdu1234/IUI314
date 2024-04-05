@@ -17,7 +17,7 @@ import {
   usePut,
   useTableUtil,
 } from '@/hooks'
-import { DictDataRouteName, router, systemMenus } from '@/router'
+import { systemMenus } from '@/router'
 import { dictKey, type dictType } from '@/types/system/dict'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
 import IuButton from '@/components/iui/iu-button.vue'
@@ -72,28 +72,19 @@ const {
 
 const operateButtons = ref<{ [key: string]: any }[]>([
   {
-    label: t('common.add'),
-    icon: markRaw(IconPlus),
-    auth: computed(() => hasPermission(ApiSysDictType.add)),
-    disabled: false,
-    fn: handleAdd,
-    buttonType: 'primary',
-    buttonStatus: 'normal',
-  },
-  {
-    label: t('common.edit'),
-    icon: markRaw(IconEdit),
-    auth: computed(() => hasPermission(ApiSysDictType.edit)),
+    label: t('common.delete'),
+    icon: markRaw(IconDelete),
+    auth: computed(() => hasPermission(ApiSysLoginLog.delete)),
     disabled: computed(() => !single.value),
-    fn: handleUpdate,
+    fn: handleDelete,
     buttonType: 'primary',
     buttonStatus: 'warning',
   },
   {
-    label: t('common.delete'),
+    label: t('common.clean'),
     icon: markRaw(IconDelete),
-    auth: computed(() => hasPermission(ApiSysDictType.delete)),
-    disabled: computed(() => !selected.value),
+    auth: computed(() => hasPermission(ApiSysLoginLog.clean)),
+    disabled: false,
     fn: handleDelete,
     buttonType: 'primary',
     buttonStatus: 'danger',
@@ -107,7 +98,7 @@ const rowSelection = ref<TableRowSelection>({
 })
 
 function handleSelectionChange(keys: string[]) {
-  return handleSelectionChangeFnX(keys, dataList.value?.list, 'dict_type_id', 'dict_name')
+  return handleSelectionChangeFnX(keys, dataList.value?.list, 'info_id', 'info_id')
 }
 
 function handleAdd() {
@@ -149,22 +140,15 @@ async function submitForm() {
 // 删除数据
 async function handleDelete(row?: dictType) {
   await useDeleteFn(
-    ApiSysDictType.delete,
-    'dict_type_id',
+    ApiSysLoginLog.delete,
+    'info_id',
     ids,
-    'dict_name',
+    'info_id',
     values,
-    'dict_type_ids',
+    'info_id',
     row,
     getList,
   )
-}
-
-function goto_data(row: dictType) {
-  router.push({
-    name: DictDataRouteName,
-    query: { dict: row.dict_type_id, dict_type: row.dict_type },
-  })
 }
 </script>
 
@@ -197,7 +181,7 @@ function goto_data(row: dictType) {
       :data="dataList?.list"
       :row-selection="rowSelection"
       :loading="isLoading"
-      row-key="dict_type_id"
+      row-key="info_id"
       :scroll="{ minWidth: 800 }"
       :pagination="false"
       @selection-change="handleSelectionChange"
