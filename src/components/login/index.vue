@@ -18,14 +18,14 @@ useTheme().init_theme()
   <div class="login-container flex justify-center items-center w-100% h-100%">
     <div v-for="item of 50" :key="item" class="snowflake" />
     <div>
-      <a-row :gutter="width >= 992 ? 30 : 0">
-        <a-col v-if="width >= 992" :span="24" :md="12">
+      <a-grid :col-gap="30" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">
+        <a-grid-item v-if="width >= 992">
           <LoginLeft />
-        </a-col>
-        <a-col :span="24" :md="12">
+        </a-grid-item>
+        <a-grid-item>
           <LoginRight />
-        </a-col>
-      </a-row>
+        </a-grid-item>
+      </a-grid>
     </div>
   </div>
 </template>

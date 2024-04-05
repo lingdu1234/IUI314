@@ -38,6 +38,22 @@ body {
 .arco-trigger-arrow{
     background-color: rgba(201, 187, 187, 0.9) !important;
 }
+
+//调整特定的modal,使用iu-modal包裹，用于添加scroller
+.iu-modal {
+    .arco-modal-header {
+        .arco-modal-title-align-start {
+            justify-content: space-between !important;
+        }
+
+        .arco-modal-title-align-center {
+            justify-content: space-between !important;
+        }
+    }
+    .arco-modal-body{
+        padding: 0 !important;
+    }
+}
 html.dark {
     //调整暗色tooltip
     .arco-tooltip{

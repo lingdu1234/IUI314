@@ -1,16 +1,28 @@
+<script setup>
+import { useOnline } from '@vueuse/core'
+
+import SvgIcon from '../common/svg-icon.vue'
+import { useTime } from '@/hooks'
+
+defineOptions({ name: 'LockScreenTime' })
+
+const { month, day, hour, minute, second, week } = useTime()
+const online = useOnline()
+</script>
+
 <template>
-  <el-row class="local-time">
-    <el-col :span="24" :md="8" :gutter="10">
+  <a-row class="local-time">
+    <a-col :span="24" :md="8" :gutter="10">
       <div class="date flex justify-center items-center">
         {{ month }}月{{ day }}号，星期{{ week }}
       </div>
-    </el-col>
-    <el-col :span="24" :md="8">
+    </a-col>
+    <a-col :span="24" :md="8">
       <div class="time flex justify-center items-center">
         {{ hour }}:{{ minute }}:{{ second }}
       </div>
-    </el-col>
-    <el-col :span="24" :md="8">
+    </a-col>
+    <a-col :span="24" :md="8">
       <div class="flex justify-center items-center">
         <div>
           <SvgIcon
@@ -19,28 +31,16 @@
           />
         </div>
       </div>
-    </el-col>
-  </el-row>
+    </a-col>
+  </a-row>
 </template>
-
-<script setup name="lock-screen-time">
-import { useOnline } from '@vueuse/core'
-import { ElCol, ElRow } from 'element-plus'
-
-import { useTime } from '@/hooks'
-
-import SvgIcon from '../common/svg-icon.vue'
-const { month, day, hour, minute, second, week } = useTime()
-const online = useOnline()
-</script>
 
 <style lang="scss" scoped>
 .local-time {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px;
-  font-family: helvetica;
+  margin: 0 20px;
   backdrop-filter: blur(10px);
   border-radius: 30px;
   padding: 15px 30px;

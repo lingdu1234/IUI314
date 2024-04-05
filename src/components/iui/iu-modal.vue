@@ -104,83 +104,68 @@ function toggleFullScreen() {
       </div>
       <div />
     </template>
-    <a-scrollbar :style="`max-height:${contentHeight};overflow: auto;`" class="m-20px">
-      <a-form
-        ref="modalFormRef"
-        :model="formValue"
-        :layout="formLayout"
-        auto-label-width
-        class="m-b-10px"
-      >
-        <a-form-item
-          v-for="item in formItems"
-          :key="item.field"
-          :field="item.field"
-          :label="item.label"
-          :rules="item.rule"
-          :validate-trigger="item.validateTrigger"
+    <a-scrollbar :style="`max-height:${contentHeight};overflow: auto;`" class="flex justify-center m-20px">
+      <div>
+        <a-form
+          ref="modalFormRef"
+          :model="formValue"
+          :layout="formLayout"
+          auto-label-width
+          class="m-b-10px"
         >
-          <a-input
-            v-if="item.type === FormItemType.input"
-            v-model="formValue[item.field]"
-            :placeholder="item.placeholder"
-            :disabled="item.disabled"
-            style="width: 300px"
-          />
-          <a-select
-            v-if="item.type === FormItemType.select && item.selectOption"
-            v-model="formValue[item.field]"
-            :options="item.selectOption.dataOption"
-            :field-names="item.selectOption.dataOptionKey"
-            :placeholder="item.placeholder"
-            :allow-clear="item.selectOption.allowClear"
-            :multiple="item.selectOption.multiple"
-            :allow-search="item.selectOption.allowSearch"
-            style="width: 300px;position: relative"
-          />
-          <a-date-picker
-            v-if="item.type === FormItemType.datePicker"
-            v-model="formValue[item.field]"
-            style="width: 300px;"
-          />
-          <a-textarea
-            v-if="item.type === FormItemType.textarea"
-            v-model="formValue[item.field]"
-            allow-clear
-            style="width: 300px;"
-          />
-          <a-radio-group
-            v-if="item.type === FormItemType.radio && item.selectOption"
-            v-model="formValue[item.field]"
-            style="width: 300px;"
-            :options="item.selectOption.dataOption"
-            :disabled="item.disabled"
-          />
-          <a-input-number
-            v-if="item.type === FormItemType.inputNumber"
-            v-model="formValue[item.field]"
-            :mode="item.inputNumberMode"
-            style="width: 300px;"
-          />
-        </a-form-item>
-      </a-form>
+          <a-form-item
+            v-for="item in formItems"
+            :key="item.field"
+            :field="item.field"
+            :label="item.label"
+            :rules="item.rule"
+            :validate-trigger="item.validateTrigger"
+          >
+            <a-input
+              v-if="item.type === FormItemType.input"
+              v-model="formValue[item.field]"
+              :placeholder="item.placeholder"
+              :disabled="item.disabled"
+              style="width: 300px"
+            />
+            <a-select
+              v-if="item.type === FormItemType.select && item.selectOption"
+              v-model="formValue[item.field]"
+              :options="item.selectOption.dataOption"
+              :field-names="item.selectOption.dataOptionKey"
+              :placeholder="item.placeholder"
+              :allow-clear="item.selectOption.allowClear"
+              :multiple="item.selectOption.multiple"
+              :allow-search="item.selectOption.allowSearch"
+              style="width: 300px;position: relative"
+            />
+            <a-date-picker
+              v-if="item.type === FormItemType.datePicker"
+              v-model="formValue[item.field]"
+              style="width: 300px;"
+            />
+            <a-textarea
+              v-if="item.type === FormItemType.textarea"
+              v-model="formValue[item.field]"
+              allow-clear
+              style="width: 300px;"
+            />
+            <a-radio-group
+              v-if="item.type === FormItemType.radio && item.selectOption"
+              v-model="formValue[item.field]"
+              style="width: 300px;"
+              :options="item.selectOption.dataOption"
+              :disabled="item.disabled"
+            />
+            <a-input-number
+              v-if="item.type === FormItemType.inputNumber"
+              v-model="formValue[item.field]"
+              :mode="item.inputNumberMode"
+              style="width: 300px;"
+            />
+          </a-form-item>
+        </a-form>
+      </div>
     </a-scrollbar>
   </a-modal>
 </template>
-
-<style lang="scss">
-.iu-modal {
-  .arco-modal-header {
-    .arco-modal-title-align-start {
-      justify-content: space-between;
-    }
-
-    .arco-modal-title-align-center {
-      justify-content: space-between;
-    }
-  }
-  .arco-modal-body{
-    padding: 0 !important;
-  }
-}
-</style>

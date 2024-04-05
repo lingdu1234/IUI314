@@ -1,7 +1,7 @@
 <script lang="ts" setup name="user-avatar">
 import 'vue-cropper/dist/index.css'
 
-import { onActivated, onMounted, ref, watch } from 'vue'
+import { computed, onActivated, onMounted, ref } from 'vue'
 import { VueCropper } from 'vue-cropper'
 import { useI18n } from 'vue-i18n'
 
@@ -9,7 +9,7 @@ import { Message } from '@arco-design/web-vue'
 import type { IconRotateLeft, IconUpload } from '@arco-design/web-vue/es/icon'
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
-import { usePost, useSetVh } from '@/hooks'
+import { usePost } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { useUserStore } from '@/stores'
 
@@ -98,6 +98,7 @@ async function uploadImg() {
     Message.success(t('avatar.success'))
   })
 }
+const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
 </script>
 
 <template>
@@ -115,85 +116,88 @@ async function uploadImg() {
       :footer="false"
       :draggable="true"
       :width="width"
+      class="iu-modal"
       @before-open="reFresh"
     >
-      <a-grid
-        :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }" :col-gap="10" :row-gap="10"
-      >
-        <a-grid-item class="w-420px h-480px">
-          <a-col class="w-400px h-400px">
-            <a-row class="w-400px h-400px">
-              <VueCropper
-                ref="cropper"
-                :img="options.img"
-                :info="true"
-                :auto-crop="options.autoCrop"
-                :auto-crop-width="options.autoCropWidth"
-                :auto-crop-height="options.autoCropHeight"
-                :fixed-box="options.fixedBox"
-                @real-time="realTime"
-              />
-            </a-row>
-            <a-row class="w-400px h-70px m-t-10px">
-              <a-space>
-                <a-upload
-                  :auto-upload="false"
-                  :show-file-list="false"
-                  @before-upload="beforeUpload"
-                >
-                  <template #upload-button>
-                    <a-button type="dashed" status="success" size="mini">
-                      {{ t('common.select') }}
-                      <template #icon>
-                        <IconUpload />
-                      </template>
-                    </a-button>
-                  </template>
-                </a-upload>
-                <a-button type="primary" status="success" size="mini" @click="uploadImg">
-                  {{ t('common.submit') }}
-                  <template #icon>
-                    <IconCheck />
-                  </template>
-                </a-button>
+      <a-scrollbar :style="`max-height:${contentHeight};overflow: auto;`" class="flex justify-center m-5px">
+        <a-grid
+          :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }" :col-gap="10" :row-gap="10"
+        >
+          <a-grid-item class="w-420px h-480px">
+            <a-col class="w-400px h-400px">
+              <a-row class="w-400px h-400px">
+                <VueCropper
+                  ref="cropper"
+                  :img="options.img"
+                  :info="true"
+                  :auto-crop="options.autoCrop"
+                  :auto-crop-width="options.autoCropWidth"
+                  :auto-crop-height="options.autoCropHeight"
+                  :fixed-box="options.fixedBox"
+                  @real-time="realTime"
+                />
+              </a-row>
+              <a-row class="w-400px h-30px m-t-10px" align="center" justify="center">
+                <a-space>
+                  <a-upload
+                    :auto-upload="false"
+                    :show-file-list="false"
+                    @before-upload="beforeUpload"
+                  >
+                    <template #upload-button>
+                      <a-button type="dashed" status="success" size="mini">
+                        {{ t('common.select') }}
+                        <template #icon>
+                          <IconUpload />
+                        </template>
+                      </a-button>
+                    </template>
+                  </a-upload>
+                  <a-button type="primary" status="success" size="mini" @click="uploadImg">
+                    {{ t('common.submit') }}
+                    <template #icon>
+                      <IconCheck />
+                    </template>
+                  </a-button>
 
-                <a-button type="dashed" status="success" shape="circle" size="small" class="m-l-20px" @click="changeScale(1)">
-                  <template #icon>
-                    <IconPlus />
-                  </template>
-                </a-button>
-                <a-button type="dashed" status="success" shape="circle" size="small" @click="changeScale(-1)">
-                  <template #icon>
-                    <IconMinus />
-                  </template>
-                </a-button>
-                <a-button type="dashed" status="warning" shape="circle" size="small" @click="rotateLeft">
-                  <template #icon>
-                    <IconRotateLeft />
-                  </template>
-                </a-button>
-                <a-button type="dashed" status="warning" shape="circle" size="small" @click="rotateRight">
-                  <template #icon>
-                    <IconRotateRight />
-                  </template>
-                </a-button>
-                <a-button type="dashed" status="success" shape="circle" size="small" @click="reFresh">
-                  <template #icon>
-                    <IconRefresh />
-                  </template>
-                </a-button>
-              </a-space>
+                  <a-button type="dashed" status="success" shape="circle" size="small" class="m-l-20px" @click="changeScale(1)">
+                    <template #icon>
+                      <IconPlus />
+                    </template>
+                  </a-button>
+                  <a-button type="dashed" status="success" shape="circle" size="small" @click="changeScale(-1)">
+                    <template #icon>
+                      <IconMinus />
+                    </template>
+                  </a-button>
+                  <a-button type="dashed" status="warning" shape="circle" size="small" @click="rotateLeft">
+                    <template #icon>
+                      <IconRotateLeft />
+                    </template>
+                  </a-button>
+                  <a-button type="dashed" status="warning" shape="circle" size="small" @click="rotateRight">
+                    <template #icon>
+                      <IconRotateRight />
+                    </template>
+                  </a-button>
+                  <a-button type="dashed" status="success" shape="circle" size="small" @click="reFresh">
+                    <template #icon>
+                      <IconRefresh />
+                    </template>
+                  </a-button>
+                </a-space>
+              </a-row>
+            </a-col>
+          </a-grid-item>
+          <a-grid-item class="w-400px h-400px">
+            <a-row class="w-400px h-400px">
+              <div class="translate-50% w-200px h-200px b-rd-50% overflow-hidden">
+                <img :src="options.previews.url" :style="options.previews.img">
+              </div>
             </a-row>
-          </a-col>
-        </a-grid-item>
-        <a-grid-item class="w-400px h-400px">
-          <a-row class="w-400px h-400px">
-            <div class="translate-50% w-200px h-200px b-rd-50% overflow-hidden">
-              <img :src="options.previews.url" :style="options.previews.img">
-            </div>
-          </a-row>
-        </a-grid-item>
-      </a-grid>
+          </a-grid-item>
+        </a-grid>
+      </a-scrollbar>
     </a-modal>
   </div>
 </template>

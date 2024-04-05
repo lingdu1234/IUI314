@@ -1,48 +1,13 @@
-<template>
-  <div class="login-container w-100% flex flex-col justify-between">
-    <div>
-      <!-- 解锁区域 -->
-      <div class="flex items-center justify-center lockLogoContainer">
-        <div
-          class="flex items-center justify-center m-t-10px cursor-pointer"
-          @click="unLockScreen"
-        >
-          <div
-            class="logo_circle flex items-center justify-center lockLogoContainer2"
-          >
-            <img :src="logo" alt="logo" class="lockLogo" />
-          </div>
-        </div>
-      </div>
-
-      <!-- 充电区域 -->
-      <div class="flex flex-col items-center justify-center">
-        <div class="g-container">
-          <div class="g-number">{{ level * 100 }} %</div>
-          <div class="g-contrast">
-            <div class="g-circle"></div>
-            <ul class="g-bubbles">
-              <li v-for="i in 15" :key="i" />
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 时间区域 -->
-    <LockScreenTime />
-  </div>
-</template>
-
-<script lang="ts" setup name="app-lock-screen">
+<script lang="ts" setup>
 import { useBattery } from '@vueuse/core'
 import { computed } from 'vue'
 
+import LockScreenTime from './lock-screen-time.vue'
 import logo from '@/assets/logo.svg'
-import { useTheme } from '@/hooks'
-import { useSetVh } from '@/hooks'
+import { useSetVh, useTheme } from '@/hooks'
 import { useAppStore } from '@/stores'
 
-import LockScreenTime from './lock-screen-time.vue'
+defineOptions({ name: 'AppLockScreen' })
 
 const appStore = useAppStore()
 useTheme()
@@ -51,28 +16,68 @@ const { vHeight } = useSetVh()
 
 const scale = computed(() => {
   let v = vHeight.value / 400
-  if (v > 1) {
+  if (v > 1)
     v = 1
-  }
+
   return `scale(${v})`
 })
 
-const unLockScreen = () => {
+function unLockScreen() {
   appStore.setIsLocked(false)
 }
 </script>
+
+<template>
+  <a-scrollbar style="height: 100vh;overflow: auto;">
+    <div class="w-100% flex flex-col justify-between" style="height: 100vh">
+      <div>
+        <!-- 解锁区域 -->
+        <div class="flex items-center justify-center lockLogoContainer">
+          <div
+            class="flex items-center justify-center m-t-10px cursor-pointer"
+            @click="unLockScreen"
+          >
+            <div
+              class="logo_circle flex items-center justify-center lockLogoContainer2"
+            >
+              <img :src="logo" alt="logo" class="lockLogo">
+            </div>
+          </div>
+        </div>
+
+        <!-- 充电区域 -->
+        <div class="flex flex-col items-center justify-center">
+          <div class="g-container">
+            <div class="g-number">
+              {{ level * 100 }} %
+            </div>
+            <div class="g-contrast">
+              <div class="g-circle" />
+              <ul class="g-bubbles">
+                <li v-for="i in 15" :key="i" />
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 时间区域 -->
+      <LockScreenTime />
+    </div>
+  </a-scrollbar>
+</template>
+
 <style lang="scss" scoped>
 .lockLogoContainer {
-  height: 300px;
+  height: 260px;
   transform: v-bind(scale);
 }
 .lockLogoContainer2 {
-  height: 280px;
-  width: 280px;
+  height: 250px;
+  width: 250px;
 }
 .lockLogo {
-  height: 196px;
-  width: 196px;
+  height: 165px;
+  width: 165px;
 }
 .g-number {
   position: absolute;

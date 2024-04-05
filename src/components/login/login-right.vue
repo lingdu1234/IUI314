@@ -16,7 +16,7 @@ const userStore = useUserStore()
 const router = useRouter()
 const { formValidate, formReset } = useFormUtil()
 
-const loginFormRef = ref<FormInstance | null>(null)
+const loginFormRef = ref<FormInstance>()
 
 const loginForm = ref<LoginFormLocal>({
   user_name: '',
@@ -49,8 +49,7 @@ const loginRules = ref<{ [key: string]: FieldRule[] }>({
 loginForm.value.rememberMe = userStore.rememberMe
 
 // 提交登录
-async function submitLogin(formRef: FormInstance | null) {
-  // todo
+async function submitLogin(formRef: FormInstance | undefined) {
   if (!(await formValidate(formRef)))
     return
   loginForm.value.uuid = captchaData.value!.uuid
@@ -152,7 +151,7 @@ getLocalUserInfo()
             :src="captchaData?.img"
             alt="code"
             class="h-40px w-130px b-rd-6px m-l-5px"
-            @click="getCaptcha"
+            @click="() => getCaptcha()"
           >
         </a-form-item>
         <a-checkbox v-model="loginForm.rememberMe" class="w-350px">

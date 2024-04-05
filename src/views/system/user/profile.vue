@@ -74,6 +74,7 @@ getUser()
               <UserAvatar />
             </div>
             <a-form
+              :model="userInfos"
               class="drawer-form"
               label-align="left"
               auto-label-width
