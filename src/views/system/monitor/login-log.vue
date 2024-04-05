@@ -1,292 +1,256 @@
-<template>
-  <div>
-    <el-form
-      v-show="showSearch"
-      ref="queryRef"
-      :inline="true"
-      :model="queryParams"
-      class="base-form"
-      label-width="80px"
-    >
-      <el-form-item label="登录IP" prop="ip">
-        <el-input
-          v-model="queryParams.ip"
-          clearable
-          placeholder="请输入登录IP"
-          @keyup.enter="getList"
-        />
-      </el-form-item>
-      <el-form-item label="登录名称" prop="user_name">
-        <el-input
-          v-model="queryParams.user_name"
-          clearable
-          placeholder="请输入登录名称"
-          @keyup.enter="getList"
-        />
-      </el-form-item>
-      <el-form-item label="字典状态" prop="status">
-        <el-select
-          v-model="queryParams.status"
-          :clearable="true"
-          placeholder="字典状态"
-        >
-          <el-option
-            v-for="dict in dicts[dictKey.sysNormalDisable]"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="创建时间">
-        <el-date-picker
-          v-model="dateRange"
-          end-placeholder="结束日期"
-          range-separator="-"
-          start-placeholder="开始日期"
-          type="daterange"
-          value-format="YYYY-MM-DD"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button :icon="Search" type="primary" @click="getList">
-          {{ t('common.search') }}
-        </el-button>
-        <el-button :icon="Refresh" @click="resetQuery">
-          {{ t('common.reset') }}
-        </el-button>
-      </el-form-item>
-    </el-form>
-
-    <!-- 操作区域 -->
-    <el-row :gutter="10" class="m-b-8px">
-      <el-col :span="1.5">
-        <el-button
-          v-if="hasPermission(ApiSysLoginLog.delete)"
-          :disabled="!selected"
-          :icon="Delete"
-          plain
-          type="danger"
-          @click="handleDelete()"
-        >
-          {{ t('common.delete') }}
-        </el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          v-if="hasPermission(ApiSysLoginLog.clean)"
-          :icon="Delete"
-          plain
-          type="danger"
-          @click="handleClean"
-        >
-          {{ t('common.clean') }}
-        </el-button>
-      </el-col>
-
-      <RightToolBar v-model:showSearch="showSearch" @queryTable="getList" />
-    </el-row>
-
-    <!-- 表格区域 -->
-    <el-table
-      :data="list"
-      tooltip-effect="light"
-      @selection-change="handleSelectionChange"
-    >
-      <el-table-column align="center" type="selection" width="55" />
-      <el-table-column
-        align="center"
-        label="访问编号"
-        prop="info_id"
-        show-overflow-tooltip
-        width="100"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        align="center"
-        label="用户名称"
-        prop="login_name"
-        width="120"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        align="center"
-        label="网络"
-        prop="net"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        align="center"
-        label="地址"
-        prop="ipaddr"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        align="center"
-        label="登录地点"
-        prop="login_location"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        align="center"
-        label="操作系统"
-        prop="os"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        align="center"
-        label="浏览器"
-        prop="browser"
-      />
-      <el-table-column
-        :show-overflow-tooltip="true"
-        align="center"
-        label="设备"
-        prop="device"
-      />
-      <el-table-column align="center" label="登录状态" prop="status">
-        <template #default="scope">
-          <DictTag
-            :options="dicts[dictKey.sysCommonStatus]"
-            :value="scope.row.status"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="描述"
-        prop="msg"
-        show-overflow-tooltip
-        width="100"
-      />
-      <el-table-column
-        align="center"
-        label="访问时间"
-        prop="login_time"
-        width="180"
-      >
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.login_time) }}</span>
-        </template>
-      </el-table-column>
-    </el-table>
-
-    <Pagination
-      v-show="total > 0"
-      v-model:limit="queryParams.page_size"
-      v-model:page="queryParams.page_num"
-      :total="total"
-      @pagination="getList"
-    />
-  </div>
-</template>
 <script lang="ts" setup>
-import { Delete, Refresh, Search } from '@element-plus/icons-vue'
-import {
-  type DateModelType,
-  ElButton,
-  ElCol,
-  ElDatePicker,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElRow,
-  ElSelect,
-  ElTable,
-  ElTableColumn,
-  type FormInstance,
-} from 'element-plus'
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { computed, markRaw, ref } from 'vue'
 
-import { ApiSysLoginLog } from '@/api/apis'
-import DictTag from '@/components/common/dict-tag.vue'
+import { Message, type TableRowSelection } from '@arco-design/web-vue'
+import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { useI18n } from 'vue-i18n'
+import { ApiSysDictType, ApiSysLoginLog, ErrorFlag } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
+  type listType,
   parseTime,
-  useDelete,
   useDeleteFn,
-  useDicts,
-  useFormUtil,
-  useListData,
+  useGet,
+  usePost,
+  usePut,
   useTableUtil,
 } from '@/hooks'
+import { DictDataRouteName, router, systemMenus } from '@/router'
+import { dictKey, type dictType } from '@/types/system/dict'
+import IuQueryForm from '@/components/iui/iu-query-form.vue'
+import IuButton from '@/components/iui/iu-button.vue'
+import IuModal from '@/components/iui/iu-modal.vue'
 import type { MessageSchema } from '@/i18n'
-import { systemMenus } from '@/router'
-import { dictKey } from '@/types/system/dict'
 import type { loginLog, loginLogQueryParam } from '@/types/system/login-log'
-
-const queryRef = ref<FormInstance>()
-const showSearch = ref(true)
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-//  字典数据
-const dicts = useDicts(dictKey.sysCommonStatus)
-const { formReset } = useFormUtil()
-const { useTableSelectChange } = useTableUtil()
-const { handleSelectionChangeFn, ids, values, selected } =
-  useTableSelectChange()
-
-const handleSelectionChange = (v: loginLog[]) =>
-  handleSelectionChangeFn(v, 'info_id', 'info_id')
-
-const queryParams = ref<loginLogQueryParam>({
-  page_num: 1,
-  page_size: 10,
-})
-const dateRange = ref<[DateModelType, DateModelType]>()
-
-const {
-  list,
-  getListFn: getList,
-  total,
-} = useListData<loginLogQueryParam, loginLog>(
-  ApiSysLoginLog.getList,
-  queryParams,
-  dateRange,
-)
-
-const resetQuery = () => {
-  formReset(queryRef.value)
-  dateRange.value = undefined
-  getList()
-}
-
-// 删除数据
-const handleDelete = async (row?: loginLog) => {
-  const flag = await useDeleteFn(
-    ApiSysLoginLog.delete,
-    'info_id',
-    ids,
-    'info_id',
-    values,
-    'info_ids',
-    row,
-  )
-  if (flag) getList()
-}
-
-const handleClean = async () => {
-  await ElMessageBox.confirm('是否确认清空所有登录日志数据项?', '清空确认', {
-    type: 'warning',
-  })
-    .then(async () => {
-      const { execute } = useDelete(ApiSysLoginLog.clean)
-      await execute()
-      ElMessage.success('清空登录日志成功')
-    })
-    .catch(() => {
-      ElMessage.info('取消情况操作')
-    })
-  getList()
-}
+import { useLoginLog } from '@/views/system/monitor/hooks/useLoginLog'
+import DictTag from '@/components/common/dict-tag.vue'
 
 // 导出名称
 defineOptions({
   name: systemMenus.loginLog.path,
 })
+
+const showSearch = ref(true)
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
+const { useTableSelectChange } = useTableUtil()
+const { handleSelectionChangeFnX, ids, values, single, selected }
+    = useTableSelectChange()
+
+const {
+  dicts,
+  queryFormItems,
+  editFormItems,
+  columns,
+} = useLoginLog()
+const queryParams = ref<loginLogQueryParam>({
+  page_num: 1,
+  page_size: 10,
+})
+
+//
+const modalIcon = ref()
+const open = ref(false)
+const title = ref('')
+const form = ref<dictType>({
+  dict_name: '',
+  dict_type: '',
+  dict_type_id: undefined,
+  remark: '',
+  status: '1',
+})
+const {
+  isFetching: isLoading,
+  data: dataList,
+  execute: getList,
+} = useGet<listType<loginLog>>(
+  ApiSysLoginLog.getList,
+  queryParams,
+  { immediate: true },
+)
+
+const operateButtons = ref<{ [key: string]: any }[]>([
+  {
+    label: t('common.add'),
+    icon: markRaw(IconPlus),
+    auth: computed(() => hasPermission(ApiSysDictType.add)),
+    disabled: false,
+    fn: handleAdd,
+    buttonType: 'primary',
+    buttonStatus: 'normal',
+  },
+  {
+    label: t('common.edit'),
+    icon: markRaw(IconEdit),
+    auth: computed(() => hasPermission(ApiSysDictType.edit)),
+    disabled: computed(() => !single.value),
+    fn: handleUpdate,
+    buttonType: 'primary',
+    buttonStatus: 'warning',
+  },
+  {
+    label: t('common.delete'),
+    icon: markRaw(IconDelete),
+    auth: computed(() => hasPermission(ApiSysDictType.delete)),
+    disabled: computed(() => !selected.value),
+    fn: handleDelete,
+    buttonType: 'primary',
+    buttonStatus: 'danger',
+  },
+])
+
+const rowSelection = ref<TableRowSelection>({
+  type: 'checkbox',
+  showCheckedAll: true,
+  onlyCurrent: false,
+})
+
+function handleSelectionChange(keys: string[]) {
+  return handleSelectionChangeFnX(keys, dataList.value?.list, 'dict_type_id', 'dict_name')
+}
+
+function handleAdd() {
+  modalIcon.value = markRaw(IconPlus)
+  open.value = true
+  form.value.dict_type_id = undefined
+  title.value = t('common.add') + t('dict.type')
+}
+async function handleUpdate(row?: dictType) {
+  modalIcon.value = markRaw(IconEdit)
+  open.value = true
+  const dict_type_id = row?.dict_type_id || ids.value[0]
+  const { data, execute } = useGet(ApiSysDictType.getById, { dict_type_id })
+  await execute()
+  form.value = data.value as dictType
+  title.value = t('common.update') + t('dict.type')
+}
+
+async function submitForm() {
+  if (form.value.dict_type_id !== undefined) {
+    const { execute, data } = usePut(ApiSysDictType.edit, form)
+
+    await execute()
+    if (data.value === ErrorFlag)
+      return
+    Message.success(t('commonTip.updateSuccess'))
+  }
+  else {
+    const { execute, data } = usePost(ApiSysDictType.add, form)
+    await execute()
+    if (data.value === ErrorFlag)
+      return
+    Message.success(t('commonTip.addSuccess'))
+  }
+  open.value = false
+  await getList()
+}
+
+// 删除数据
+async function handleDelete(row?: dictType) {
+  await useDeleteFn(
+    ApiSysDictType.delete,
+    'dict_type_id',
+    ids,
+    'dict_name',
+    values,
+    'dict_type_ids',
+    row,
+    getList,
+  )
+}
+
+function goto_data(row: dictType) {
+  router.push({
+    name: DictDataRouteName,
+    query: { dict: row.dict_type_id, dict_type: row.dict_type },
+  })
+}
 </script>
+
+<template>
+  <div>
+    <IuQueryForm
+      v-show="showSearch"
+      v-model:form-value="queryParams"
+      v-model:form-items="queryFormItems"
+      @query="getList"
+    />
+    <!-- 操作区域 -->
+    <a-row :gutter="10" class="m-b-8px">
+      <a-col v-for="(item, index) in operateButtons" :key="index" :span="1.5">
+        <IuButton
+          :auth="item.auth"
+          :label="item.label"
+          :icon="item.icon"
+          :disabled="item.disabled"
+          :type="item.buttonType"
+          :status="item.buttonStatus"
+          :fn="item.fn"
+        />
+      </a-col>
+      <RightToolBar v-model:showSearch="showSearch" @query-table="getList" />
+    </a-row>
+
+    <a-table
+      :columns="columns"
+      :data="dataList?.list"
+      :row-selection="rowSelection"
+      :loading="isLoading"
+      row-key="dict_type_id"
+      :scroll="{ minWidth: 800 }"
+      :pagination="false"
+      @selection-change="handleSelectionChange"
+    >
+      <template #status="{ record }">
+        <DictTag
+          :options="dicts[dictKey.sysCommonStatus]"
+          :value="record.status"
+        />
+      </template>
+      <template #loginTime="{ record }">
+        <span>{{ parseTime(record.login_time) }}</span>
+      </template>
+      <template #operation="{ record }">
+        <a-button
+          v-if="hasPermission(ApiSysDictType.edit)"
+          type="text"
+          shape="round"
+          @click="handleUpdate(record)"
+        >
+          {{ t('common.edit') }}
+          <template #icon>
+            <IconEdit />
+          </template>
+        </a-button>
+        <a-button
+          v-if="hasPermission(ApiSysDictType.delete)"
+          type="text"
+          shape="round"
+          status="danger"
+          @click="handleDelete(record)"
+        >
+          {{ t('common.delete') }}
+          <template #icon>
+            <IconDelete />
+          </template>
+        </a-button>
+      </template>
+    </a-table>
+    <Pagination
+      v-show="dataList?.total && dataList.total > 0"
+      v-model:limit="queryParams.page_size"
+      v-model:page="queryParams.page_num"
+      :total="dataList?.total"
+      @pagination="getList"
+    />
+    <IuModal
+      v-model:visible="open"
+      v-model:form-value="form"
+      :form-items="editFormItems"
+      :icon="modalIcon"
+      :title="title"
+      @handle-ok="submitForm"
+    />
+  </div>
+</template>

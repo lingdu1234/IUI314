@@ -1,5 +1,6 @@
+import type { FieldRule, SelectOptionData, SelectOptionGroup } from '@arco-design/web-vue'
 import type { Ref } from 'vue'
-import type { FieldRule } from '@arco-design/web-vue'
+import type { RadioOption } from '@arco-design/web-vue/es/radio/interface'
 
 export interface IuQueryFormField {
   field: string
@@ -28,7 +29,8 @@ export enum FormItemType {
   timeRangePicker = 'timeRangePicker',
 }
 
-type dataOptionType = (string | number | boolean | Record<string, any>)[]
+export type dataOptionType = (string | number | boolean | SelectOptionData | SelectOptionGroup | RadioOption)[] | undefined
+export type dataOptionTypeRadio = (string | number | RadioOption)[] | undefined
 export interface SelectOption {
   dataOption: dataOptionType | Ref<dataOptionType>
   dataOptionKey: {

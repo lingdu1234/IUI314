@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type PropType, computed, ref } from 'vue'
 import type { FormInstance } from '@arco-design/web-vue'
-import { FormItemType, type IuFormField } from '@/types/base/iu-form'
+import { FormItemType, type IuFormField, type dataOptionType, type dataOptionTypeRadio } from '@/types/base/iu-form'
 import { useFormUtil } from '@/hooks'
 
 defineOptions({ name: 'IuModal' })
@@ -131,7 +131,7 @@ function toggleFullScreen() {
             <a-select
               v-if="item.type === FormItemType.select && item.selectOption"
               v-model="formValue[item.field]"
-              :options="item.selectOption.dataOption"
+              :options="item.selectOption.dataOption as dataOptionType"
               :field-names="item.selectOption.dataOptionKey"
               :placeholder="item.placeholder"
               :allow-clear="item.selectOption.allowClear"
@@ -154,7 +154,7 @@ function toggleFullScreen() {
               v-if="item.type === FormItemType.radio && item.selectOption"
               v-model="formValue[item.field]"
               style="width: 300px;"
-              :options="item.selectOption.dataOption"
+              :options="item.selectOption.dataOption as dataOptionTypeRadio"
               :disabled="item.disabled"
             />
             <a-input-number

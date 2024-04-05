@@ -3,6 +3,16 @@ body {
     --border-radius-small: 4px !important;
     --border-radius-medium: 8px !important;
     --border-radius-large: 12px !important;
+  // 覆盖button
+    .arco-btn-size-small{
+        padding: 0 8px !important;
+    }
+    .arco-btn-size-medium{
+        padding: 0 10px !important;
+    }
+    .arco-btn-size-large{
+        padding: 0 13px !important;
+    }
 }
 
 //设置一个下拉菜单的最大高度，防止内容过多时出现滚动条
@@ -52,6 +62,12 @@ body {
     }
     .arco-modal-body{
         padding: 0 !important;
+    }
+}
+//调整iu-query-form的label宽度
+.iu-query-form{
+    .arco-form-item-label-col {
+        width: 80px;
     }
 }
 html.dark {

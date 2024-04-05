@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
+import { FormItemType, type IuQueryFormField, type dataOptionType } from '@/types/base/iu-form'
 import type { MessageSchema } from '@/i18n'
 
 defineOptions({ name: 'IuQueryForm' })
@@ -21,7 +21,7 @@ function resetQuery() {
 </script>
 
 <template>
-  <a-form :model="formValue" layout="inline" class="m-b-10px">
+  <a-form :model="formValue" layout="inline" class="m-b-10px iu-query-form">
     <a-form-item v-for="item in formItems" :key="item.field" :field="item.field" :label="item.label" class="m-b-0">
       <a-input
         v-if="item.type === FormItemType.input"
@@ -32,7 +32,7 @@ function resetQuery() {
       <a-select
         v-if="item.type === FormItemType.select && item.selectOption"
         v-model="formValue[item.field]"
-        :options="item.selectOption.dataOption"
+        :options="item.selectOption.dataOption as dataOptionType"
         :field-names="item.selectOption.dataOptionKey"
         :placeholder="item.placeholder"
         :allow-clear="item.selectOption.allowClear"
