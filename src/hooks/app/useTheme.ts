@@ -1,10 +1,3 @@
-/*
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-01 21:31:05
- * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\hooks\app\useTheme.ts
- * @Description: theme
- */
 import { useColorMode, usePreferredDark } from '@vueuse/core'
 
 import { useAppStore } from '@/stores'
@@ -22,10 +15,14 @@ export function useTheme() {
 
   const set_dark = () => {
     document.body.setAttribute('arco-theme', 'dark')
+    const meta = document.querySelector('meta[name="theme-color"]')
+    meta?.setAttribute('content', '#232323')
     mode.value = 'dark'
   }
   const set_light = () => {
     document.body.removeAttribute('arco-theme')
+    const meta = document.querySelector('meta[name="theme-color"]')
+    meta?.setAttribute('content', '#FAFAFA')
     mode.value = 'light'
   }
   const get_is_dark = () => {

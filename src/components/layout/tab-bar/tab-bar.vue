@@ -27,6 +27,8 @@ let bs: BScroll
 onMounted(() => {
   nextTick(() => {
     bs = new BScroll(tabScrollRef.value, {
+      click: true,
+      tap: 'tap',
       scrollX: true,
       mouseWheel: true,
       disableMouse: false,

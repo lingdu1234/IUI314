@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { Message, Modal } from '@arco-design/web-vue'
+import ChangeCom from './changeCom.vue'
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysDept, ApiSysRole, ApiSysUser } from '@/api/sysApis'
 import { useGet, usePut } from '@/hooks'
@@ -93,6 +94,51 @@ function logoutModal() {
   })
 }
 
+function roleChangeCom() {
+  return h(ChangeCom, {
+    id: role_id.value,
+    keyKey: 'role_id',
+    valueKey: 'role_id',
+    labelKey: 'role_name',
+    options: roleOptions.value,
+    onOptionChange: roleChanged,
+  })
+}
+
+function deptChangeCom() {
+  return h(ChangeCom, {
+    id: dept_id.value,
+    keyKey: 'dept_id',
+    valueKey: 'dept_id',
+    labelKey: 'dept_name',
+    options: deptOptions.value,
+    mapOptions: deptMapOptions.value,
+    onOptionChange: deptChanged,
+  })
+}
+
+function roleChangeModal() {
+  Modal.info({
+    title: '角色切换',
+    hideCancel: false,
+    titleAlign: 'start',
+    content: roleChangeCom,
+    footer: false,
+    draggable: true,
+  })
+}
+
+function deptChangeModal() {
+  Modal.info({
+    title: '部门切换',
+    hideCancel: false,
+    titleAlign: 'start',
+    content: deptChangeCom,
+    footer: false,
+    draggable: true,
+  })
+}
+
 async function logout() {
   const currentRoute = router.currentRoute
   Message.success('正在退出登录，返回登录界面！')
@@ -115,49 +161,25 @@ get_options()
       <template #content>
         <a-doption>
           <a-popover position="lt">
-            <span class="m-l--20px">
+            <span class="m-l--20px" @click="roleChangeModal">
               <span class="m-l-20px">
                 {{ t('nav.changeRole') }}
               </span>
             </span>
             <template #content>
-              <a-radio-group v-model="role_id" direction="vertical" @change="roleChanged">
-                <a-radio
-                  v-for="item in roleOptions"
-                  :key="item.role_id"
-                  :value="item.role_id"
-                >
-                  {{ item.role_name }}
-                </a-radio>
-              </a-radio-group>
+              <roleChangeCom />
             </template>
           </a-popover>
         </a-doption>
         <a-doption>
           <a-popover position="lt">
-            <span class="m-l--20px">
+            <span class="m-l--20px" @click="deptChangeModal">
               <span class="m-l-20px">
                 {{ t('nav.changeDept') }}
               </span>
             </span>
             <template #content>
-              <a-radio-group v-model="dept_id" direction="vertical" @change="deptChanged">
-                <a-radio
-                  v-for="item in deptOptions"
-                  :key="item.dept_id"
-                  :value="item.dept_id"
-                >
-                  <span class="m-l-20px">
-                    {{ item.dept_name }}
-                  </span>
-                  {{
-                    (item.parent_id !== '0'
-                      ? `${deptMapOptions[item.parent_id!]}-`
-                      : '')
-                      + item.dept_name
-                  }}
-                </a-radio>
-              </a-radio-group>
+              <deptChangeCom />
             </template>
           </a-popover>
         </a-doption>
@@ -168,7 +190,6 @@ get_options()
           </router-link>
         </a-doption>
         <a-divider />
-        <!--            @click="visible = true" -->
         <a-doption
           @click="logoutModal"
         >

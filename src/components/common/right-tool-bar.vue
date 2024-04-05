@@ -23,23 +23,23 @@ function refresh() {
 <template>
   <div class="top-right-btn">
     <a-row>
-      <a-space size="large">
+      <a-space size="mini">
         <a-popover position="top">
           <template #content>
             {{ showSearch
               ? t('common.hidden') + t('common.search')
               : t('common.show') + t('common.search') }}
           </template>
-          <a-button status="warning" shape="circle">
-            <icon-search @click="showSearch = !showSearch" />
+          <a-button status="warning" shape="circle" @click="showSearch = !showSearch">
+            <icon-search />
           </a-button>
         </a-popover>
         <a-popover position="top">
           <template #content>
             {{ t('common.reFresh') }}
           </template>
-          <a-button status="success" shape="circle">
-            <icon-sync :spin="spin" @click="refresh()" />
+          <a-button status="success" shape="circle" @click="refresh">
+            <icon-sync :spin="spin" />
           </a-button>
         </a-popover>
       </a-space>
@@ -50,6 +50,6 @@ function refresh() {
 <style lang="scss" scoped>
 .top-right-btn {
   margin-left: auto;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 </style>

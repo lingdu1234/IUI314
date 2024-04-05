@@ -1,4 +1,4 @@
-<script lang="ts" setup name="user-avatar">
+<script lang="ts" setup>
 import 'vue-cropper/dist/index.css'
 
 import { computed, onActivated, onMounted, ref } from 'vue'
@@ -12,6 +12,8 @@ import { ApiSysUser } from '@/api/sysApis'
 import { usePost } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { useUserStore } from '@/stores'
+
+defineOptions({ name: 'UserAvatar' })
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 

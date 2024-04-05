@@ -11,7 +11,7 @@ body,
   margin: 0;
   background-color: var(--main-bg-color);
   // min-width: 500px;
-  // overflow-y: hidden; // 可禁用移动端下拉刷新
+  // overflow: hidden; // 可禁用移动端下拉刷新
 }
 
 ::-webkit-scrollbar,
@@ -21,9 +21,9 @@ body,
   border-radius: 5px;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #fbefb5;
-}
+//::-webkit-scrollbar-thumb {
+//  background: #fbefb5;
+//}
 
 ::-webkit-scrollbar,
 ::-webkit-scrollbar-corner,

@@ -50,26 +50,31 @@ export function useDictData() {
     {
       title: '字典标签',
       slotName: 'dictLabel',
+      width: 200,
       align: 'center',
     },
     {
       title: '字典键值',
       dataIndex: 'dict_value',
+      width: 100,
       align: 'center',
     },
     {
       title: '字典排序',
       dataIndex: 'dict_sort',
+      width: 100,
       align: 'center',
     },
     {
       title: '状态',
       slotName: 'status',
+      width: 100,
       align: 'center',
     },
     {
       title: '备注',
       dataIndex: 'remark',
+      width: 100,
       align: 'center',
     },
     {
