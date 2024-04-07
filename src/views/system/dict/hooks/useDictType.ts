@@ -141,6 +141,8 @@ export function useDictType() {
       label: '备注',
       type: FormItemType.textarea,
       placeholder: '请输入字典备注',
+      fullScreenCol: 2,
+      fullScreenIsOnlyOne: true,
     },
   ])
 

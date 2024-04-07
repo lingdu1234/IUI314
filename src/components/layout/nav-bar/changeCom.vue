@@ -32,7 +32,7 @@ const id = defineModel('id', { required: true })
 </script>
 
 <template>
-  <a-radio-group v-model="id" direction="vertical" @change="emit('optionChange', id)">
+  <a-radio-group model-value="id" direction="vertical" @change="emit('optionChange', id)">
     <a-radio
       v-for="item in options"
       :key="item && item[keyKey]"

@@ -8,6 +8,11 @@ export interface IuQueryFormField {
   type: FormItemType
   selectOption?: SelectOption
   placeholder?: string
+  defaultCol?: number
+  fullScreenCol?: number
+  defaultItemWidth?: number
+  fullScreenIsOnlyOne?: boolean
+  defaultIsOnlyOne?: boolean
 }
 export interface IuFormField extends IuQueryFormField {
   rule?: FieldRule[]

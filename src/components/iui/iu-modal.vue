@@ -39,19 +39,48 @@ const props = defineProps({
     type: Number,
     default: 300,
   },
+  defaultCol: {
+    type: Number,
+    default: 1,
+  },
+  fullScreenCol: {
+    type: Number,
+    default: 2,
+  },
 })
 const emit = defineEmits(['handleOk'])
 const visible = defineModel('visible', { required: true, default: false })
 const formValue = defineModel('formValue', { required: true, type: Object })
 const isFullscreen = ref(false)
-const formLayout = ref<'horizontal' | 'vertical' | 'inline'>('horizontal')
+const formLayout = ref<'horizontal' | 'vertical' | 'inline'>('inline')
 const modalFormRef = ref<FormInstance>()
 const useForm = useFormUtil()
 
 const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
-const itemStyle = computed(() => ({
-  width: `${props.itemWidth}px`,
-}))
+
+function getItemStyle(item: IuFormField) {
+  switch (isFullscreen.value) {
+    case true:
+      return item.fullScreenIsOnlyOne
+        ? {
+            width: '100%',
+          }
+        : {
+            width: `${props.itemWidth}px`,
+          }
+    case false: {
+      const width = item.defaultItemWidth || props.itemWidth
+      return {
+        width: `${width}px`,
+      }
+    }
+    default:
+      return {
+        width: `${props.itemWidth}px`,
+      }
+  }
+}
+
 const labelColStyle = computed(() => (
   { width: `${props.labelWidth}px` }
 ))
@@ -127,67 +156,73 @@ function toggleFullScreen() {
           auto-label-width
           class="m-b-10px"
         >
-          <a-form-item
-            v-for="item in formItems"
-            :key="item.field"
-            :field="item.field"
-            :label="item.label"
-            :rules="item.rule"
-            :label-col-style="labelColStyle"
-            :validate-trigger="item.validateTrigger"
-          >
-            <span
-              v-if="item.type === FormItemType.text"
-              class="break-words"
-              :style="itemStyle"
+          <a-grid :cols="isFullscreen ? fullScreenCol : defaultCol">
+            <a-grid-item
+              v-for="item in formItems"
+              :key="item.field"
+              :span="isFullscreen ? item.fullScreenCol : item.defaultCol"
             >
-              {{ formValue[item.field] }}
-            </span>
-            <a-input
-              v-if="item.type === FormItemType.input"
-              v-model="formValue[item.field]"
-              :placeholder="item.placeholder"
-              :disabled="item.disabled"
-              :style="itemStyle"
-            />
-            <a-select
-              v-if="item.type === FormItemType.select && item.selectOption"
-              v-model="formValue[item.field]"
-              :options="item.selectOption.dataOption as any"
-              :field-names="item.selectOption.dataOptionKey"
-              :placeholder="item.placeholder"
-              :allow-clear="item.selectOption.allowClear"
-              :multiple="item.selectOption.multiple"
-              :allow-search="item.selectOption.allowSearch"
-              :style="itemStyle"
-              style="position: relative"
-            />
-            <a-date-picker
-              v-if="item.type === FormItemType.datePicker"
-              v-model="formValue[item.field]"
-              :style="itemStyle"
-            />
-            <a-textarea
-              v-if="item.type === FormItemType.textarea"
-              v-model="formValue[item.field]"
-              allow-clear
-              :auto-size="item.textAreaAutoSize"
-              :style="itemStyle"
-            />
-            <a-radio-group
-              v-if="item.type === FormItemType.radio && item.selectOption"
-              v-model="formValue[item.field]"
-              :style="itemStyle"
-              :options="item.selectOption.dataOption as dataOptionTypeRadio"
-              :disabled="item.disabled"
-            />
-            <a-input-number
-              v-if="item.type === FormItemType.inputNumber"
-              v-model="formValue[item.field]"
-              :mode="item.inputNumberMode"
-              :style="itemStyle"
-            />
-          </a-form-item>
+              <a-form-item
+                :field="item.field"
+                :label="item.label"
+                :rules="item.rule"
+                :label-col-style="labelColStyle"
+                :validate-trigger="item.validateTrigger"
+              >
+                <span
+                  v-if="item.type === FormItemType.text"
+                  class="break-words"
+                  :style="getItemStyle(item)"
+                >
+                  {{ formValue[item.field] }}
+                </span>
+                <a-input
+                  v-if="item.type === FormItemType.input"
+                  v-model="formValue[item.field]"
+                  :placeholder="item.placeholder"
+                  :disabled="item.disabled"
+                  :style="getItemStyle(item)"
+                />
+                <a-select
+                  v-if="item.type === FormItemType.select && item.selectOption"
+                  v-model="formValue[item.field]"
+                  :options="item.selectOption.dataOption as any"
+                  :field-names="item.selectOption.dataOptionKey"
+                  :placeholder="item.placeholder"
+                  :allow-clear="item.selectOption.allowClear"
+                  :multiple="item.selectOption.multiple"
+                  :allow-search="item.selectOption.allowSearch"
+                  :style="getItemStyle(item)"
+                  style="position: relative"
+                />
+                <a-date-picker
+                  v-if="item.type === FormItemType.datePicker"
+                  v-model="formValue[item.field]"
+                  :style="getItemStyle(item)"
+                />
+                <a-textarea
+                  v-if="item.type === FormItemType.textarea"
+                  v-model="formValue[item.field]"
+                  allow-clear
+                  :auto-size="item.textAreaAutoSize"
+                  :style="getItemStyle(item)"
+                />
+                <a-radio-group
+                  v-if="item.type === FormItemType.radio && item.selectOption"
+                  v-model="formValue[item.field]"
+                  :style="getItemStyle(item)"
+                  :options="item.selectOption.dataOption as dataOptionTypeRadio"
+                  :disabled="item.disabled"
+                />
+                <a-input-number
+                  v-if="item.type === FormItemType.inputNumber"
+                  v-model="formValue[item.field]"
+                  :mode="item.inputNumberMode"
+                  :style="getItemStyle(item)"
+                />
+              </a-form-item>
+            </a-grid-item>
+          </a-grid>
         </a-form>
       </div>
     </a-scrollbar>

@@ -1,177 +1,118 @@
 <script lang="ts" setup>
-import {
-  Delete,
-  Edit,
-  Key,
-  Plus,
-  Refresh,
-  Search,
-} from '@element-plus/icons-vue'
-import md5 from 'blueimp-md5'
-import {
-  type DateModelType,
-  ElButton,
-  ElCol,
-  ElDatePicker,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElMessage,
-  ElMessageBox,
-  ElOption,
-  ElRow,
-  ElSelect,
-  ElSwitch,
-  ElTable,
-  ElTableColumn,
-  ElTooltip,
-} from 'element-plus'
-import { ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { markRaw, ref, watch } from 'vue'
 
-import UserManageDialog from './user-manage-dialog.vue'
-import { ApiSysUser, ErrorFlag } from '@/api/apis'
+import { Message, type TableRowSelection } from '@arco-design/web-vue'
+import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { useI18n } from 'vue-i18n'
+import { ApiSysDictType, ApiSysUser, ErrorFlag } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
-  parseTime,
-  useDeleteFn,
-  useDicts,
-  useListData,
+  useGet,
+  usePost,
   usePut,
-  useTableUtil,
 } from '@/hooks'
+import { DictDataRouteName, router } from '@/router'
+import type { dictType } from '@/types/system/dict'
+import IuQueryForm from '@/components/iui/iu-query-form.vue'
+import IuButton from '@/components/iui/iu-button.vue'
+import IuModal from '@/components/iui/iu-modal.vue'
 import type { MessageSchema } from '@/i18n'
-import type { deptQueryParam } from '@/types/system/dept'
-import { dictKey } from '@/types/system/dict'
-import type { resetUserPwd, userInformation, userQueryParam } from '@/types/system/userInformation'
+import { useUserForm } from '@/views/system/auth/hooks/useUserForm'
 
+// 导出名称
+defineOptions({
+  name: 'UserManageForm',
+})
 const props = defineProps({
   deptId: {
     type: String,
   },
 })
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-const open = ref(false)
-const title = ref('')
-const propsUserId = ref('')
-
-const dicts = useDicts(
-  dictKey.sysNormalDisable,
-  dictKey.sysUserSex,
-  dictKey.isAdmin,
-)
-
 const showSearch = ref(true)
-const dateRange = ref<[DateModelType, DateModelType]>()
-const { useTableSelectChange } = useTableUtil()
-const { handleSelectionChangeFn, ids, values, single, selected }
-  = useTableSelectChange()
-function handleSelectionChange(v: userInformation[]) {
-  return handleSelectionChangeFn(v, 'id', 'user_name')
-}
-
-const queryParams = ref<userQueryParam>({
-  page_num: 1,
-  page_size: 10,
-})
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const {
-  list: userList,
-  getListFn: getList,
-  total,
-} = useListData<deptQueryParam, userInformation>(
-  ApiSysUser.getList,
   queryParams,
-  dateRange,
-)
+  isLoading,
+  dataList,
+  getList,
+  queryFormItems,
+  editFormItems,
+  columns,
+  operateButtons,
+  handleSelectionChangeFnX,
+  handleDelete,
+  handleResetPwd,
+} = useUserForm()
 
-function resetQuery() {
-  queryParams.value.dept_id = undefined
-  dateRange.value = undefined
-  getList()
+//
+const modalIcon = ref()
+const open = ref(false)
+const title = ref('')
+const form = ref<dictType>({
+  dict_name: '',
+  dict_type: '',
+  dict_type_id: undefined,
+  remark: '',
+  status: '1',
+})
+
+const rowSelection = ref<TableRowSelection>({
+  type: 'checkbox',
+  showCheckedAll: true,
+  onlyCurrent: false,
+})
+
+function handleSelectionChange(keys: (string | number)[]) {
+  return handleSelectionChangeFnX(keys, dataList.value?.list, 'id', 'user_name')
 }
 
-// 状态切换
-async function handleStatusChange(row: userInformation) {
-  const text = row.user_status === '1' ? '启用' : '停用'
-  await ElMessageBox.confirm(
-    `确定要  ${text}  ${row.user_name}  吗?`,
-    '切换用户状态',
-    { type: 'warning' },
-  )
-    .then(async () => {
-      const { data: dataRes, execute } = usePut(ApiSysUser.changeStatus, {
-        user_id: row.id,
-        status: row.user_status,
-      })
-      await execute()
-      if (dataRes.value === ErrorFlag)
-        return
-      ElMessage.success(`你成功 ${text} 用户 ${row.user_name}`)
-      getList()
-    })
-    .catch(() => {
-      ElMessage.info('你取消了操作')
-      row.user_status = row.user_status === '0' ? '1' : '0'
-    })
-}
-// 新增
 function handleAdd() {
-  propsUserId.value = ''
-  title.value = '新增用户'
+  modalIcon.value = markRaw(IconPlus)
   open.value = true
+  form.value.dict_type_id = undefined
+  title.value = t('common.add') + t('dict.type')
 }
-// 更新
-async function handleUpdate(row?: userInformation) {
-  propsUserId.value = row?.id || ids.value[0]
-  title.value = '修改用户'
+async function handleUpdate(row?: dictType) {
+  modalIcon.value = markRaw(IconEdit)
   open.value = true
-}
-// 删除
-async function handleDelete(row?: userInformation) {
-  const flag = await useDeleteFn(
-    ApiSysUser.delete,
-    'id',
-    ids,
-    'user_name',
-    values,
-    'user_ids',
-    row,
-  )
-  if (flag)
-    getList()
+  const dict_type_id = row?.dict_type_id || ids.value[0]
+  const { data, execute } = useGet(ApiSysDictType.getById, { dict_type_id })
+  await execute()
+  form.value = data.value as dictType
+  title.value = t('common.update') + t('dict.type')
 }
 
-function handleResetPwd(row: userInformation) {
-  ElMessageBox.prompt(`请输入 ${row.user_name} 的新密码`, '重置密码', {
-    confirmButtonText: '确认',
-    cancelButtonText: '取消',
-    inputPattern: /^.{5,32}$/,
-    inputErrorMessage: '用户密码长度必须介于 5 和 32 之间',
-  })
-    .then(async ({ value }) => {
-      const data: resetUserPwd = {
-        user_id: row.id!,
-        new_passwd: md5(value),
-      }
-      const { data: dataRes, execute } = usePut(ApiSysUser.resetPwd, data)
-      await execute()
-      if (dataRes.value === ErrorFlag)
-        return
-      ElMessage.success(`用户 ${row.user_name} 的密码成功重置为 ${value}`)
-    })
-    .catch(() => {
-      ElMessage.info('你取消了操作')
-    })
-}
+async function submitForm() {
+  if (form.value.dict_type_id !== undefined) {
+    const { execute, data } = usePut(ApiSysDictType.edit, form)
 
-function closeDialog() {
+    await execute()
+    if (data.value === ErrorFlag)
+      return
+    Message.success(t('commonTip.updateSuccess'))
+  }
+  else {
+    const { execute, data } = usePost(ApiSysDictType.add, form)
+    await execute()
+    if (data.value === ErrorFlag)
+      return
+    Message.success(t('commonTip.addSuccess'))
+  }
   open.value = false
-  getList()
+  await getList()
 }
-// 监控props
+
+// 删除数据
+
+function goto_data(row: dictType) {
+  router.push({
+    name: DictDataRouteName,
+    query: { dict: row.dict_type_id, dict_type: row.dict_type },
+  })
+}
 watch(
   () => props.deptId,
   (v) => {
@@ -179,221 +120,91 @@ watch(
     getList()
   },
 )
-//
 </script>
 
 <template>
   <div>
-    <ElForm
+    <IuQueryForm
       v-show="showSearch"
-      ref="queryRef"
-      :inline="true"
-      :model="queryParams"
-      class="base-form"
-      label-width="80px"
-    >
-      <ElFormItem :label="t('user.name')" prop="user_name">
-        <ElInput
-          v-model="queryParams.user_name"
-          :placeholder="t('user.nameTip')"
-          clearable
-          @keyup.enter="getList"
-        />
-      </ElFormItem>
-      <ElFormItem :label="t('common.phoneNum')" prop="phone_num">
-        <ElInput
-          v-model="queryParams.phone_num"
-          :placeholder="t('common.phoneNum')"
-          clearable
-          @keyup.enter="getList"
-        />
-      </ElFormItem>
-      <ElFormItem :label="t('common.status')" prop="user_status">
-        <ElSelect
-          v-model="queryParams.user_status"
-          :placeholder="t('common.status')"
-          clearable
-        >
-          <ElOption
-            v-for="dict in dicts[dictKey.sysNormalDisable]"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem :label="t('common.createTime2')">
-        <ElDatePicker
-          v-model="dateRange"
-          :end-placeholder="t('common.endTime')"
-          :start-placeholder="t('common.beginTime')"
-          range-separator="-"
-          type="daterange"
-          value-format="YYYY-MM-DD"
-        />
-      </ElFormItem>
-      <ElFormItem>
-        <ElButton :icon="Search" type="primary" @click="getList">
-          {{ t('common.search') }}
-        </ElButton>
-        <ElButton :icon="Refresh" @click="resetQuery">
-          {{ t('common.reset') }}
-        </ElButton>
-      </ElFormItem>
-    </ElForm>
+      v-model:form-value="queryParams"
+      v-model:form-items="queryFormItems"
+      @query="getList"
+    />
     <!-- 操作区域 -->
-    <ElRow :gutter="10" class="m-b-8px">
-      <ElCol :span="1.5">
-        <ElButton
-          v-if="hasPermission(ApiSysUser.add)"
-          :icon="Plus"
-          plain
-          type="primary"
-          @click="handleAdd"
-        >
-          {{ t('common.add') }}
-        </ElButton>
-      </ElCol>
-      <ElCol :span="1.5">
-        <ElButton
-          v-if="hasPermission(ApiSysUser.edit)"
-          :disabled="!single"
-          :icon="Edit"
-          plain
-          type="success"
-          @click="handleUpdate()"
-        >
-          {{ t('common.edit') }}
-        </ElButton>
-      </ElCol>
-      <ElCol :span="1.5">
-        <ElButton
-          v-if="hasPermission(ApiSysUser.delete)"
-          :disabled="!selected"
-          :icon="Delete"
-          plain
-          type="danger"
-          @click="handleDelete()"
-        >
-          {{ t('common.delete') }}
-        </ElButton>
-      </ElCol>
+    <a-row :gutter="10" class="m-b-8px">
+      <a-col v-for="(item, index) in operateButtons" :key="index" :span="1.5">
+        <IuButton
+          :auth="item.auth"
+          :label="item.label"
+          :icon="item.icon"
+          :disabled="item.disabled"
+          :type="item.buttonType"
+          :status="item.buttonStatus"
+          :fn="item.fn"
+        />
+      </a-col>
       <RightToolBar v-model:showSearch="showSearch" @query-table="getList" />
-    </ElRow>
-    <!-- 表格区域 -->
-    <ElTable
-      :data="userList"
-      tooltip-effect="light"
+    </a-row>
+
+    <a-table
+      :columns="columns"
+      :data="dataList?.list"
+      :row-selection="rowSelection"
+      :loading="isLoading"
+      row-key="id"
+      :scroll="{ minWidth: 800 }"
+      :pagination="false"
       @selection-change="handleSelectionChange"
     >
-      <ElTableColumn align="center" type="selection" width="50" />
-      <ElTableColumn
-        key="id"
-        align="center"
-        label="ID"
-        prop="id"
-        show-overflow-tooltip
-        width="100"
-      />
-      <ElTableColumn
-        key="user_name"
-        :label="t('profile.name')"
-        :show-overflow-tooltip="true"
-        align="center"
-        prop="user_name"
-      />
-      <ElTableColumn
-        key="user_nickname"
-        :label="t('profile.nickName')"
-        :show-overflow-tooltip="true"
-        align="center"
-        prop="user_nickname"
-      />
-      <ElTableColumn
-        key="dept_id"
-        :label="t('user.dept')"
-        :show-overflow-tooltip="true"
-        align="center"
-        prop="dept.dept_name"
-      />
-      <ElTableColumn
-        key="phone_num"
-        align="center"
-        label="手机号码"
-        prop="phone_num"
-        width="120"
-      />
-      <ElTableColumn
-        key="user_status"
-        :label="t('common.status')"
-        align="center"
-      >
-        <template #default="scope">
-          <ElSwitch
-            v-model="scope.row.user_status"
-            active-value="1"
-            inactive-value="0"
-            @change="handleStatusChange(scope.row)"
-          />
-        </template>
-      </ElTableColumn>
-      <ElTableColumn
-        :label="t('common.createTime')"
-        align="center"
-        prop="created_at"
-        width="170"
-      >
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.created_at) }}</span>
-        </template>
-      </ElTableColumn>
-      <ElTableColumn
-        :label="t('common.operation')"
-        align="center"
-        width="150"
-      >
-        <template #default="scope">
-          <ElTooltip
-            v-if="scope.row.userId !== 1"
-            :content="t('common.edit')"
-            effect="light"
-            placement="top"
-          >
-            <ElButton :icon="Edit" link @click="handleUpdate(scope.row)" />
-          </ElTooltip>
-          <ElTooltip
-            v-if="scope.row.userId !== 1"
-            :content="t('common.delete')"
-            effect="light"
-            placement="top"
-          >
-            <ElButton :icon="Delete" link @click="handleDelete(scope.row)" />
-          </ElTooltip>
-          <ElTooltip
-            v-if="scope.row.userId !== 1"
-            :content="t('user.restPwd')"
-            effect="light"
-            placement="top"
-          >
-            <ElButton :icon="Key" link @click="handleResetPwd(scope.row)" />
-          </ElTooltip>
-        </template>
-      </ElTableColumn>
-    </ElTable>
+      <template #operation="{ record }">
+        <a-button
+          v-if="hasPermission(ApiSysUser.edit)"
+          type="text"
+          shape="round"
+          @click="handleUpdate(record)"
+        >
+          <template #icon>
+            <IconEdit />
+          </template>
+        </a-button>
+        <a-button
+          v-if="hasPermission(ApiSysUser.delete)"
+          type="text"
+          shape="round"
+          status="danger"
+          @click="handleDelete(record)"
+        >
+          <template #icon>
+            <IconDelete />
+          </template>
+        </a-button>
+        <a-button
+          v-if="hasPermission(ApiSysUser.resetPwd)"
+          type="text"
+          shape="round"
+          status="danger"
+          @click="handleResetPwd(record)"
+        >
+          <template #icon>
+            <IconTool />
+          </template>
+        </a-button>
+      </template>
+    </a-table>
     <Pagination
-      v-show="total > 0"
+      v-show="dataList?.total && dataList.total > 0"
       v-model:limit="queryParams.page_size"
       v-model:page="queryParams.page_num"
-      :total="total"
+      :total="dataList?.total"
       @pagination="getList"
     />
-    <!-- 用户新增，编辑对话框 -->
-    <UserManageDialog
-      v-if="open"
-      :open="open"
+    <IuModal
+      v-model:visible="open"
+      v-model:form-value="form"
+      :form-items="editFormItems"
+      :icon="modalIcon"
       :title="title"
-      :user-id="propsUserId"
-      @close-dialog="closeDialog"
+      @handle-ok="submitForm"
     />
   </div>
 </template>
