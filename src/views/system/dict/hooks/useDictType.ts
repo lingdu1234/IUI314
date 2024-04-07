@@ -3,9 +3,9 @@ import { computed, ref } from 'vue'
 import type { IuFormField, IuQueryFormField } from '@/types/base/iu-form'
 import { FormItemType } from '@/types/base/iu-form'
 import { dictKey } from '@/types/system/dict'
-import { useDicts } from '@/hooks'
+import { parseTime, useDicts } from '@/hooks'
 
-export function useDictTypeHook() {
+export function useDictType() {
   const dicts = useDicts(dictKey.sysNormalDisable)
   // 表格列属性
   const columns: TableColumnData[] = [
@@ -41,9 +41,9 @@ export function useDictTypeHook() {
     },
     {
       title: '创建时间',
-      slotName: 'created_at',
       width: 180,
       align: 'center',
+      render: ({ record }) => parseTime(record.created_at),
     },
     {
       title: '操作',
@@ -104,7 +104,7 @@ export function useDictTypeHook() {
       placeholder: '请输入字典名称',
       rule: [
         { required: true, message: '字典名称不能为空' },
-        { type: 'string', minLength: 2, maxLength: 10, message: '字典名称2~10个字符' },
+        { type: 'string', minLength: 2, maxLength: 20, message: '字典名称2~20个字符' },
       ],
       validateTrigger: 'blur',
     },
@@ -115,7 +115,7 @@ export function useDictTypeHook() {
       placeholder: '请输入字典类型',
       rule: [
         { required: true, message: '字典类型不能为空' },
-        { type: 'string', minLength: 2, maxLength: 10, message: '字典类型2~10个字符' },
+        { type: 'string', minLength: 2, maxLength: 20, message: '字典类型2~20个字符' },
       ],
       validateTrigger: 'blur',
     },

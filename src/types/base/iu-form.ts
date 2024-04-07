@@ -14,15 +14,18 @@ export interface IuFormField extends IuQueryFormField {
   validateTrigger?: 'change' | 'input' | 'focus' | 'blur'
   disabled?: boolean
   inputNumberMode?: 'embed' | 'button'
+  textAreaAutoSize?: boolean
 }
 
 export enum FormItemType {
+  text = 'text',
   input = 'input',
   textarea = 'textarea',
   inputNumber = 'inputNumber',
   radio = 'radio',
   checkbox = 'checkbox',
   select = 'select',
+  colorPicker = 'colorPicker',
   timePicker = 'timePicker',
   datePicker = 'datePicker',
   dateRangePicker = 'dateRangePicker',

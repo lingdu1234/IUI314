@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ElCol, ElRow } from 'element-plus'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -10,13 +9,6 @@ import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { MonitorTable, ServerMonitor } from '@/types/system/server-monitor'
 import { useSSE } from '@/hooks'
-
-// onActivated(() => {
-//   resume()
-// })
-// onDeactivated(() => {
-//   pause()
-// })
 
 // 导出名称
 defineOptions({
@@ -216,24 +208,24 @@ watch(
 
 <template>
   <div>
-    <ElRow :gutter="20">
-      <ElCol :span="24" :md="12">
+    <a-grid :col-gap="20" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">
+      <a-grid-item>
         <GaugeEchart name="CPU" :percent="cpuUsage" />
-      </ElCol>
-      <ElCol :span="24" :md="12">
+      </a-grid-item>
+      <a-grid-item>
         <GaugeEchart name="MEMORY" :percent="memoryUsage" />
-      </ElCol>
-    </ElRow>
-    <ElRow :gutter="20">
-      <ElCol :span="24" :md="12">
+      </a-grid-item>
+    </a-grid>
+    <a-grid :col-gap="20" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">
+      <a-grid-item>
         <MonitorTableVue
           title="CPU"
           :table-data="cpuData"
           :row-one-label="t('monitor.attribute')"
           :row-two-label="t('monitor.system')"
         />
-      </ElCol>
-      <ElCol :span="24" :md="12">
+      </a-grid-item>
+      <a-grid-item>
         <MonitorTableVue
           :title="t('monitor.memory')"
           :table-data="memoryData"
@@ -241,28 +233,28 @@ watch(
           :row-two-label="t('monitor.memory')"
           :row-three-label="t('monitor.thisSystem')"
         />
-      </ElCol>
-    </ElRow>
-    <ElRow :gutter="20">
-      <ElCol :span="24" :md="12">
+      </a-grid-item>
+    </a-grid>
+    <a-grid :col-gap="20" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">
+      <a-grid-item>
         <MonitorTableVue
           :title="t('monitor.serverInfo')"
           :table-data="serverData"
           :row-one-label="t('monitor.attribute')"
           :row-two-label="t('monitor.system')"
         />
-      </ElCol>
-      <ElCol :span="24" :md="12">
+      </a-grid-item>
+      <a-grid-item>
         <MonitorTableVue
           :title="t('monitor.serverInfo')"
           :table-data="programData"
           :row-one-label="t('monitor.attribute')"
           :row-two-label="t('monitor.system')"
         />
-      </ElCol>
-    </ElRow>
-    <ElRow :gutter="20">
-      <ElCol :span="24">
+      </a-grid-item>
+    </a-grid>
+    <a-grid :col-gap="20" :cols="1">
+      <a-grid-item>
         <MonitorTableVue
           title="net work"
           :table-data="netData"
@@ -272,7 +264,7 @@ watch(
           row-four-label="transmitted"
           row-five-label="total transmitted"
         />
-      </ElCol>
-    </ElRow>
+      </a-grid-item>
+    </a-grid>
   </div>
 </template>

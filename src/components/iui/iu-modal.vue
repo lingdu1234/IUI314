@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { type PropType, computed, ref } from 'vue'
 import type { FormInstance } from '@arco-design/web-vue'
-import { FormItemType, type IuFormField, type dataOptionType, type dataOptionTypeRadio } from '@/types/base/iu-form'
+import { FormItemType, type IuFormField, type dataOptionTypeRadio } from '@/types/base/iu-form'
 import { useFormUtil } from '@/hooks'
 
 defineOptions({ name: 'IuModal' })
 
-defineProps({
+const props = defineProps({
   formItems: {
     type: Array as PropType<IuFormField[]>,
     required: true,
@@ -31,6 +31,10 @@ defineProps({
     type: String as PropType<'center' | 'start'>,
     default: 'center',
   },
+  itemWidth: {
+    type: Number,
+    default: 300,
+  },
 })
 const emit = defineEmits(['handleOk'])
 const visible = defineModel('visible', { required: true, default: false })
@@ -41,6 +45,9 @@ const modalFormRef = ref<FormInstance>()
 const useForm = useFormUtil()
 
 const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
+const itemStyle = computed(() => ({
+  width: `${props.itemWidth}px`,
+}))
 
 function beforeClose() {
   useForm.formReset(modalFormRef.value)
@@ -121,39 +128,48 @@ function toggleFullScreen() {
             :rules="item.rule"
             :validate-trigger="item.validateTrigger"
           >
+            <span
+              v-if="item.type === FormItemType.text"
+              class="break-words"
+              :style="itemStyle"
+            >
+              {{ formValue[item.field] }}
+            </span>
             <a-input
               v-if="item.type === FormItemType.input"
               v-model="formValue[item.field]"
               :placeholder="item.placeholder"
               :disabled="item.disabled"
-              style="width: 300px"
+              :style="itemStyle"
             />
             <a-select
               v-if="item.type === FormItemType.select && item.selectOption"
               v-model="formValue[item.field]"
-              :options="item.selectOption.dataOption as dataOptionType"
+              :options="item.selectOption.dataOption as any"
               :field-names="item.selectOption.dataOptionKey"
               :placeholder="item.placeholder"
               :allow-clear="item.selectOption.allowClear"
               :multiple="item.selectOption.multiple"
               :allow-search="item.selectOption.allowSearch"
-              style="width: 300px;position: relative"
+              :style="itemStyle"
+              style="position: relative"
             />
             <a-date-picker
               v-if="item.type === FormItemType.datePicker"
               v-model="formValue[item.field]"
-              style="width: 300px;"
+              :style="itemStyle"
             />
             <a-textarea
               v-if="item.type === FormItemType.textarea"
               v-model="formValue[item.field]"
               allow-clear
-              style="width: 300px;"
+              :auto-size="item.textAreaAutoSize"
+              :style="itemStyle"
             />
             <a-radio-group
               v-if="item.type === FormItemType.radio && item.selectOption"
               v-model="formValue[item.field]"
-              style="width: 300px;"
+              :style="itemStyle"
               :options="item.selectOption.dataOption as dataOptionTypeRadio"
               :disabled="item.disabled"
             />
@@ -161,7 +177,7 @@ function toggleFullScreen() {
               v-if="item.type === FormItemType.inputNumber"
               v-model="formValue[item.field]"
               :mode="item.inputNumberMode"
-              style="width: 300px;"
+              :style="itemStyle"
             />
           </a-form-item>
         </a-form>

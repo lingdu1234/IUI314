@@ -10,7 +10,6 @@ import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,
-  parseTime,
   setTabBarEmitter,
   useDeleteFn,
   useGet,
@@ -20,15 +19,13 @@ import {
 } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
-import {
-  type dictData,
-  dictKey,
+import type {
+  dictData,
 } from '@/types/system/dict'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
-import { useDictData } from '@/views/system/dict/useDictData'
+import { useDictData } from '@/views/system/dict/hooks/useDictData'
 import IuButton from '@/components/iui/iu-button.vue'
 import IuModal from '@/components/iui/iu-modal.vue'
-import DictTag from '@/components/common/dict-tag.vue'
 
 defineOptions({ name: 'DictData' })
 
@@ -223,15 +220,6 @@ onMounted(() => {
           {{ record.dict_label }}
         </span>
       </template>
-      <template #status="{ record }">
-        <DictTag
-          :options="dicts[dictKey.sysNormalDisable]"
-          :value="record.status"
-        />
-      </template>
-      <template #created_at="{ record }">
-        <span>{{ parseTime(record.created_at) }}</span>
-      </template>
       <template #operation="{ record }">
         <a-button
           v-if="hasPermission(ApiSysDictData.edit)"
@@ -260,7 +248,7 @@ onMounted(() => {
     </a-table>
 
     <Pagination
-      v-show="dictDataList?.total && dictDataList.total > 0"
+      v-show="dictDataList?.total && dictDataList?.total > 0"
       v-model:limit="queryParams.page_size"
       v-model:page="queryParams.page_num"
       :total="dictDataList?.total"

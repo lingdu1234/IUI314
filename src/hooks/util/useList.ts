@@ -65,7 +65,7 @@ export async function useDeleteFn(
     title: '删除确认',
     hideCancel: false,
     titleAlign: 'start',
-    content: `${t('commonTip.delete') + names}?`,
+    content: `${t('commonTip.delete') + names}`,
     okText: '确认',
     cancelText: '取消',
     draggable: true,

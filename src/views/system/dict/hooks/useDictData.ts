@@ -1,13 +1,14 @@
 import type { TableColumnData } from '@arco-design/web-vue'
-import { computed, ref } from 'vue'
+import { computed, h, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import type { IuFormField, IuQueryFormField } from '@/types/base/iu-form'
 import { FormItemType } from '@/types/base/iu-form'
 import type { dictData, dictDataQueryParam, dictType } from '@/types/system/dict'
 import { dictKey } from '@/types/system/dict'
 import type { listType } from '@/hooks'
-import { useDicts, useGet } from '@/hooks'
+import { parseTime, useDicts, useGet } from '@/hooks'
 import { ApiSysDictData, ApiSysDictType } from '@/api/sysApis'
+import DictTag from '@/components/common/dict-tag.vue'
 
 export function useDictData() {
   const dicts = useDicts(dictKey.sysNormalDisable)
@@ -67,9 +68,12 @@ export function useDictData() {
     },
     {
       title: '状态',
-      slotName: 'status',
       width: 100,
       align: 'center',
+      render: ({ record }) => h(DictTag, {
+        options: dicts.value[dictKey.sysNormalDisable],
+        value: record.status,
+      }),
     },
     {
       title: '备注',
@@ -79,9 +83,9 @@ export function useDictData() {
     },
     {
       title: '创建时间',
-      slotName: 'created_at',
       width: 180,
       align: 'center',
+      render: ({ record }) => parseTime(record.created_at),
     },
     {
       title: '操作',
@@ -165,7 +169,7 @@ export function useDictData() {
       placeholder: '请输入数据标签',
       rule: [
         { required: true, message: '数据标签不能为空' },
-        { type: 'string', minLength: 1, maxLength: 10, message: '数据标签1~10个字符' },
+        { type: 'string', minLength: 1, maxLength: 20, message: '数据标签1~20个字符' },
       ],
       validateTrigger: 'blur',
     },
@@ -176,7 +180,7 @@ export function useDictData() {
       placeholder: '请输入字典键值',
       rule: [
         { required: true, message: '字典键值不能为空' },
-        { type: 'string', minLength: 1, maxLength: 10, message: '字典键值1~10个字符' },
+        { type: 'string', minLength: 1, maxLength: 20, message: '字典键值1~20个字符' },
       ],
       validateTrigger: 'blur',
     },

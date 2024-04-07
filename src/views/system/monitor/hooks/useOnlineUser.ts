@@ -1,28 +1,35 @@
 import type { TableColumnData } from '@arco-design/web-vue'
-import { computed, h, ref } from 'vue'
+import { ref } from 'vue'
 import type { IuQueryFormField } from '@/types/base/iu-form'
 import { FormItemType } from '@/types/base/iu-form'
 import { dictKey } from '@/types/system/dict'
 import { parseTime, useDicts } from '@/hooks'
-import DictTag from '@/components/common/dict-tag.vue'
 
-export function useLoginLog() {
+export function useOnlineUser() {
   const dicts = useDicts(dictKey.sysCommonStatus)
   // 表格列属性
   const columns: TableColumnData[] = [
     {
-      title: '访问编号',
-      dataIndex: 'info_id',
-      ellipsis: true,
-      tooltip: true,
-      width: 100,
+      title: '#',
+      width: 30,
       align: 'center',
+      render: ({ rowIndex }) => rowIndex + 1,
     },
     {
-      title: '用户名称',
-      dataIndex: 'login_name',
+      title: '会话编号',
+      dataIndex: 'id',
       align: 'center',
       width: 100,
+      ellipsis: true,
+      tooltip: true,
+    },
+    {
+      title: '所属部门',
+      dataIndex: 'dept_name',
+      align: 'center',
+      width: 100,
+      ellipsis: true,
+      tooltip: true,
     },
     {
       title: '网络',
@@ -33,7 +40,7 @@ export function useLoginLog() {
       tooltip: true,
     },
     {
-      title: '地址',
+      title: 'IP',
       dataIndex: 'ipaddr',
       align: 'center',
       width: 120,
@@ -71,16 +78,7 @@ export function useLoginLog() {
       align: 'center',
     },
     {
-      title: '登录状态',
-      width: 100,
-      align: 'center',
-      render: ({ record }) => h(DictTag, {
-        options: dicts.value[dictKey.sysCommonStatus],
-        value: record.status,
-      }),
-    },
-    {
-      title: '访问时间',
+      title: '登录时间',
       width: 180,
       align: 'center',
       render: ({ record }) => parseTime(record.login_time),
@@ -96,7 +94,7 @@ export function useLoginLog() {
 
   const queryFormItems = ref<IuQueryFormField[]>([
     {
-      field: 'ip',
+      field: 'ipaddr',
       label: '登录 IP',
       type: FormItemType.input,
       placeholder: '请输入登录IP',
@@ -106,21 +104,6 @@ export function useLoginLog() {
       label: '登录名称',
       type: FormItemType.input,
       placeholder: '请输入登录名称',
-    },
-    {
-      field: 'status',
-      label: '登录状态',
-      type: FormItemType.select,
-      placeholder: '请输入登录状态',
-      selectOption: {
-        dataOption: computed(() => dicts.value[dictKey.sysCommonStatus]),
-        dataOptionKey: {
-          label: 'label',
-          value: 'value',
-        },
-        allowClear: true,
-        allowSearch: true,
-      },
     },
     {
       field: 'begin_time',

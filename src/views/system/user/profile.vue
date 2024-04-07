@@ -61,9 +61,9 @@ getUser()
 
 <template>
   <div>
-    <a-row :gutter="20">
-      <a-col :span="24" :md="12" class="m-b-20px">
-        <a-card class="box-card">
+    <a-grid :col-gap="20" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">
+      <a-grid-item class="m-b-20px">
+        <a-card>
           <template #header>
             <div>
               <span>{{ t('profile.personalInformation') }}</span>
@@ -131,8 +131,8 @@ getUser()
             </a-form>
           </div>
         </a-card>
-      </a-col>
-      <a-col :span="24" :md="12" class="m-b-20px">
+      </a-grid-item>
+      <a-grid-item class="m-b-20px">
         <a-card>
           <template #header>
             <div>
@@ -148,7 +148,7 @@ getUser()
             </a-tab-pane>
           </a-tabs>
         </a-card>
-      </a-col>
-    </a-row>
+      </a-grid-item>
+    </a-grid>
   </div>
 </template>

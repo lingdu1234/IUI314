@@ -10,7 +10,6 @@ import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
   type listType,
-  parseTime,
   useDeleteFn,
   useGet,
   usePost,
@@ -22,7 +21,7 @@ import type { dictType, dictTypeQueryParam } from '@/types/system/dict'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
 import IuButton from '@/components/iui/iu-button.vue'
 import IuModal from '@/components/iui/iu-modal.vue'
-import { useDictTypeHook } from '@/views/system/dict/useDictTypeHook'
+import { useDictType } from '@/views/system/dict/hooks/useDictType'
 import type { MessageSchema } from '@/i18n'
 
 // 导出名称
@@ -41,7 +40,7 @@ const {
   editFormItems,
   columns,
 
-} = useDictTypeHook()
+} = useDictType()
 const queryParams = ref<dictTypeQueryParam>({
   page_num: 1,
   page_size: 10,
@@ -204,9 +203,6 @@ function goto_data(row: dictType) {
         <a-link type="primary" @click="goto_data(record)">
           {{ record.dict_type }}
         </a-link>
-      </template>
-      <template #created_at="{ record }">
-        <span>{{ parseTime(record.created_at) }}</span>
       </template>
       <template #operation="{ record }">
         <a-button

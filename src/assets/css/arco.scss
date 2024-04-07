@@ -13,64 +13,69 @@ body {
     .arco-btn-size-large{
         padding: 0 13px !important;
     }
-}
+    //设置一个下拉菜单的最大高度，防止内容过多时出现滚动条
+    .arco-dropdown-list-wrapper{
+        max-height: 600px !important;
+    }
+    //修复select组件，选择好选项后，显示的高度错误
+    .arco-select-view-single .arco-select-view-input-hidden{
+        position: relative !important;
+    }
 
-//设置一个下拉菜单的最大高度，防止内容过多时出现滚动条
-.arco-dropdown-list-wrapper{
-    max-height: 600px !important;
-}
-//修复select组件，选择好选项后，显示的高度错误
-.arco-select-view-single .arco-select-view-input-hidden{
-    position: relative !important;
-}
+    //调整modal-simple
+    .arco-modal-simple{
+        width: 300px !important;
+        padding: 10px 15px !important;
+        background-color: rgba(222, 222, 222, 0.9);
 
-//调整modal-simple
-.arco-modal-simple{
-    width: 300px !important;
-    padding: 10px 15px !important;
-    background-color: rgba(222, 222, 222, 0.9);
+    }
+    .arco-modal-simple .arco-modal-footer {
+        margin-top: 16px !important;
+        text-align: right !important;
+    }
 
-}
-.arco-modal-simple .arco-modal-footer {
-    margin-top: 16px !important;
-    text-align: right !important;
-}
+    //调整tooltip
+    .arco-tooltip{
+        &-content{
+            border-radius: 10px !important;
+            background-color: rgba(201, 187, 187, 0.9) !important;
+            color: #000 !important;
+        }
 
-//调整tooltip
-.arco-tooltip{
-    &-content{
-        border-radius: 10px !important;
+    }
+    .arco-trigger-arrow{
         background-color: rgba(201, 187, 187, 0.9) !important;
-        color: #000 !important;
     }
 
-}
-.arco-trigger-arrow{
-    background-color: rgba(201, 187, 187, 0.9) !important;
-}
+    //调整特定的modal,使用iu-modal包裹，用于添加scroller
+    .iu-modal {
+        .arco-modal-header {
+            .arco-modal-title-align-start {
+                justify-content: space-between !important;
+            }
 
-//调整特定的modal,使用iu-modal包裹，用于添加scroller
-.iu-modal {
-    .arco-modal-header {
-        .arco-modal-title-align-start {
-            justify-content: space-between !important;
+            .arco-modal-title-align-center {
+                justify-content: space-between !important;
+            }
         }
-
-        .arco-modal-title-align-center {
-            justify-content: space-between !important;
+        .arco-modal-body{
+            padding: 0 !important;
         }
     }
-    .arco-modal-body{
-        padding: 0 !important;
+    //调整iu-query-form的label宽度
+    .iu-query-form{
+        .arco-form-item-label-col {
+            width: 80px;
+        }
     }
 }
-//调整iu-query-form的label宽度
-.iu-query-form{
-    .arco-form-item-label-col {
-        width: 80px;
-    }
-}
-html.dark {
+
+
+body[arco-theme='dark'] {
+    --color-fill-1: rgba(51, 51, 53, 0.95) !important;
+    --color-fill-2: rgba(51, 51, 53, 0.97) !important;
+    --color-fill-3: rgba(51, 51, 53, 0.98) !important;
+    --color-fill-4: rgba(51, 51, 53, 0.99) !important;
     //调整暗色tooltip
     .arco-tooltip{
         &-content{
@@ -84,5 +89,7 @@ html.dark {
     .arco-modal-simple{
         background-color:rgba(35, 45, 55, 0.9);
     }
+
+
 }
 

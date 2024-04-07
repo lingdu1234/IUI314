@@ -1,50 +1,123 @@
-<script lang="ts"  setup>
-import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
+<script>
+import { computed, ref } from 'vue'
 
-import type { MessageSchema } from '@/i18n'
-import UnoIcon from '@/components/common/uno-icon.vue'
-import { useUnoIcons } from '@/hooks/app/useUnoIcons'
+const originTreeData = [
+  {
+    title: 'Trunk 0-0',
+    key: '0-0',
+    children: [
+      {
+        title: 'Branch 0-0-1',
+        key: '0-0-1',
+        children: [
+          {
+            title: 'Leaf 0-0-1-1',
+            key: '0-0-1-1',
+          },
+          {
+            title: 'Leaf 0-0-1-2',
+            key: '0-0-1-2',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Trunk 0-1',
+    key: '0-1',
+    children: [
+      {
+        title: 'Branch 0-1-1',
+        key: '0-1-1',
+        children: [
+          {
+            title: 'Leaf 0-1-1-0',
+            key: '0-1-1-0',
+          },
+        ],
+      },
+      {
+        title: 'Branch 0-1-2',
+        key: '0-1-2',
+        children: [
+          {
+            title: 'Leaf 0-1-2-0',
+            key: '0-1-2-0',
+          },
+        ],
+      },
+    ],
+  },
+]
 
-defineOptions({ name: 'AboutAbout' })
+export default {
+  setup() {
+    const searchKey = ref('')
+    const treeData = computed(() => {
+      if (!searchKey.value)
+        return originTreeData
+      return searchData(searchKey.value)
+    })
 
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-const { UnoIcons } = useUnoIcons()
+    function searchData(keyword) {
+      const loop = (data) => {
+        const result = []
+        data.forEach((item) => {
+          if (item.title.toLowerCase().includes(keyword.toLowerCase())) {
+            result.push({ ...item })
+          }
+          else if (item.children) {
+            const filterData = loop(item.children)
+            if (filterData.length) {
+              result.push({
+                ...item,
+                children: filterData,
+              })
+            }
+          }
+        })
+        return result
+      }
 
-const count = ref(0)
+      return loop(originTreeData)
+    }
+
+    function getMatchIndex(title) {
+      if (!searchKey.value)
+        return -1
+      return title.toLowerCase().indexOf(searchKey.value.toLowerCase())
+    }
+
+    return {
+      searchKey,
+      treeData,
+      getMatchIndex,
+    }
+  },
+}
 </script>
 
 <template>
   <div>
-    <UnoIcon name="s/404" />
-    <UnoIcon name="s/bug" :size="32" />
-    <UnoIcon name="c/edit-doc" size="16" />
-    <UnoIcon name="c/edit-doc" size="64" fill="red" />
-    <UnoIcon name="s/home-a" size="32" fill="red" />
-    <UnoIcon name="c/exception404" size="512" />
-    <div>{{ t('hello') }}</div>
-    <div>{{ count }}</div>
-    <div>{{ UnoIcons }}</div>
-    <div>
-      <a-button @click="() => count++">
-        +++
-      </a-button>
-    </div>
-    <a-space>
-      <a-button type="primary">
-        Square
-      </a-button>
-      <a-button type="primary" shape="round">
-        Round
-      </a-button>
-      <a-button type="primary">
-        <template #icon>
-          <icon-plus />
+    <a-input-search
+      v-model="searchKey"
+      style="margin-bottom: 8px; max-width: 240px"
+    />
+    <a-tree :data="treeData">
+      <template #title="nodeData">
+        <span v-show="false">
+          {{ idx = getMatchIndex(nodeData?.title) }}
+        </span>
+        <template v-if="idx < 0 ">
+          {{ nodeData?.title }}
         </template>
-      </a-button>
-      <a-button type="primary" shape="circle">
-        <icon-plus />
-      </a-button>
-    </a-space>
+        <span v-else>
+          {{ nodeData?.title?.substring(0, idx) }}
+          <span style="color: var(--color-primary-light-4);">
+            {{ nodeData?.title?.substring(idx, searchKey.length) }}
+          </span>{{ nodeData?.title?.substring(idx + searchKey.length) }}
+        </span>
+      </template>
+    </a-tree>
   </div>
 </template>
