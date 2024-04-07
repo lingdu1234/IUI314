@@ -8,7 +8,6 @@ import TagBarOperation from './tag-bar-operation.vue'
 import {
   listenerRouteChange,
   removeRouteListener,
-  removeTabBarActionListener,
 } from '@/hooks'
 import { usePermissionStore, useTabBarStore } from '@/stores'
 import TabBarItem from '@/components/layout/tab-bar/tab-bar-item.vue'
@@ -91,7 +90,6 @@ watch(
 
 onUnmounted(() => {
   removeRouteListener()
-  removeTabBarActionListener()
 })
 </script>
 

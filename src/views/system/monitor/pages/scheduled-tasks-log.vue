@@ -39,7 +39,6 @@ import {
   addTimeQueryParam,
   hasPermission,
   parseTime,
-  setTabBarEmitter,
   useDelete,
   useDeleteFn,
   useDicts,
@@ -57,6 +56,7 @@ import type {
   scheduledTasksLogList,
   scheduledTasksLogQueryParam,
 } from '@/types/system/scheduled-tasks'
+import { useTabBarStore } from '@/stores'
 
 const dicts = useDicts(
   dictKey.sysTaskIsOnce,
@@ -72,7 +72,7 @@ const { handleSelectionChangeFn, ids, values, selected }
 function handleSelectionChange(v: dictData[]) {
   return handleSelectionChangeFn(v, 'job_log_id', 'job_log_id')
 }
-
+const tabBarStore = useTabBarStore()
 const dateRange = ref<[DateModelType, DateModelType]>()
 const jobMap = ref<Record<string, scheduledTasks>>({})
 
@@ -188,8 +188,8 @@ function resetQuery() {
 function handleClose() {
   // 路由回退
   router.back()
-  // 关闭当前便签
-  setTabBarEmitter(TabAction.current)
+  // 关闭当前标签
+  tabBarStore.tabActionSelect(tabBarStore.getCurrentRouteTag(), TabAction.current)
 }
 onMounted(async () => {
   await getAllTasks()

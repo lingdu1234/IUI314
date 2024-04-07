@@ -30,6 +30,7 @@ export enum FormItemType {
   radio = 'radio',
   checkbox = 'checkbox',
   select = 'select',
+  treeSelect = 'treeSelect',
   colorPicker = 'colorPicker',
   timePicker = 'timePicker',
   datePicker = 'datePicker',
@@ -42,12 +43,22 @@ export type dataOptionTypeRadio = (string | number | RadioOption)[] | undefined
 export interface SelectOption {
   dataOption: dataOptionType | Ref<dataOptionType>
   dataOptionKey: {
-    value: string
-    label: string
+    key?: string
+    title?: string
+    value?: string
+    label?: string
+    children?: string
   }
   allowClear?: boolean
   multiple?: boolean
   maxTagCount?: number
   allowSearch?: boolean
   loading?: boolean
+}
+
+export interface SelectOptionInterface {
+  key: string
+  label: string
+  value: string
+  disabled?: boolean
 }

@@ -6,12 +6,10 @@
 import mitt, { type Handler } from 'mitt'
 import type { RouteLocationNormalized } from 'vue-router'
 
-import type { TabAction } from '@/components/layout/tab-bar/useTabBar'
-
-const emitter = mitt()
+export const emitter = mitt()
 
 const routerChangeKey = Symbol('ROUTE_CHANGE')
-const tabActionMethodKey = Symbol('TAB_ACTION_METHOD')
+const deptTreeKey = Symbol('DEPT_TREE_KEY')
 
 let latestRoute: RouteLocationNormalized
 
@@ -32,17 +30,4 @@ export function listenerRouteChange(
 
 export function removeRouteListener() {
   emitter.off(routerChangeKey)
-}
-
-// ------tab bar-------
-
-let tabBarAction: TabAction
-
-export function setTabBarEmitter(v: TabAction) {
-  emitter.emit(tabActionMethodKey, v)
-  tabBarAction = v
-}
-
-export function removeTabBarActionListener() {
-  emitter.off(tabActionMethodKey)
 }

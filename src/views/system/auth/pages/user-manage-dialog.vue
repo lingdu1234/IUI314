@@ -221,10 +221,12 @@ async function formDataInit() {
       user_id: props.userId,
     })
     await execute()
-    form.value = data.value?.user_info!
-    form.value.post_ids = data.value?.post_ids
-    form.value.role_ids = data.value?.role_ids
-    form.value.dept_ids = data.value?.dept_ids
+    if (data.value) {
+      form.value = data.value?.user_info as userInformation
+      form.value.post_ids = data.value?.post_ids
+      form.value.role_ids = data.value?.role_ids
+      form.value.dept_ids = data.value?.dept_ids
+    }
   }
 }
 formDataInit()

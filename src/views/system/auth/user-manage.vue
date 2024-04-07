@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { computed, provide, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import type { TreeInstance } from '@arco-design/web-vue'
 import { ApiSysDept } from '@/api/apis'
-import { useGet } from '@/hooks'
+import { emitter, useGet } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { dept } from '@/types/system/dept'
@@ -65,7 +65,9 @@ function handleSelect(v: Array<string | number>) {
   dept_id.value = v[0] as string
 }
 
-provide('deptTree', deptTree)
+watch(() => deptTree.value, () => {
+  emitter.emit('dept_tree', deptTree.value)
+})
 </script>
 
 <template>

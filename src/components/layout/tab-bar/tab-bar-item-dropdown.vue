@@ -1,4 +1,4 @@
-<script lang="ts" setup name="tab-bar-item-dropdown">
+<script lang="ts" setup>
 import { type PropType, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
@@ -7,6 +7,8 @@ import { TabAction } from './useTabBar'
 import type { MessageSchema } from '@/i18n'
 import type { TagProps } from '@/types/base/router'
 import { useTabBarStore } from '@/stores'
+
+defineOptions({ name: 'TabBarItemDropdown' })
 
 const props = defineProps({
   itemData: {

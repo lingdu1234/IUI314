@@ -7,10 +7,8 @@ import { IconClose, IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/
 import { ApiSysDictData, ErrorFlag } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
-import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import {
   hasPermission,
-  setTabBarEmitter,
   useDeleteFn,
   useGet,
   usePost,
@@ -26,13 +24,14 @@ import IuQueryForm from '@/components/iui/iu-query-form.vue'
 import { useDictData } from '@/views/system/dict/hooks/useDictData'
 import IuButton from '@/components/iui/iu-button.vue'
 import IuModal from '@/components/iui/iu-modal.vue'
+import { TabAction } from '@/components/layout/tab-bar/useTabBar'
+import { useTabBarStore } from '@/stores'
 
 defineOptions({ name: 'DictData' })
 
 const { t } = useI18n<{ message: MessageSchema }>()
 
 const {
-  dicts,
   queryFormItems,
   queryParams,
   editFormItems,
@@ -44,6 +43,7 @@ const {
 } = useDictData()
 
 const { useTableSelectChange } = useTableUtil()
+const tabBarStore = useTabBarStore()
 const { handleSelectionChangeFnX, ids, values, single, selected }
   = useTableSelectChange()
 
@@ -163,8 +163,8 @@ async function submitForm() {
 function handleClose() {
   // 路由回退
   router.back()
-  // 关闭当前便签
-  setTabBarEmitter(TabAction.current)
+  // 关闭当前标签
+  tabBarStore.tabActionSelect(tabBarStore.getCurrentRouteTag(), TabAction.current)
 }
 
 onActivated(() => {

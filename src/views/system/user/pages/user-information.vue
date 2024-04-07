@@ -7,10 +7,11 @@ import { Message } from '@arco-design/web-vue'
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
-import { setTabBarEmitter, useFormUtil, usePut } from '@/hooks'
+import { useFormUtil, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
 import type { userInformation } from '@/types/system/userInformation'
+import { useTabBarStore } from '@/stores'
 
 defineOptions({ name: 'UserInformation' })
 
@@ -20,6 +21,7 @@ const props = defineProps({
     required: true,
   },
 })
+const tabBarStore = useTabBarStore()
 const userIf = computed(() => props.user)
 const { formValidate } = useFormUtil()
 const userRef = ref<FormInstance>()
@@ -67,8 +69,8 @@ async function submit() {
 function handleClose() {
   // 路由回退
   router.back()
-  // 关闭当前便签
-  setTabBarEmitter(TabAction.current)
+  // 关闭当前标签
+  tabBarStore.tabActionSelect(tabBarStore.getCurrentRouteTag(), TabAction.current)
 }
 </script>
 

@@ -69,15 +69,19 @@ function getItemStyle(item: IuFormField) {
             width: `${props.itemWidth}px`,
           }
     case false: {
-      const width = item.defaultItemWidth || props.itemWidth
-      return {
-        width: `${width}px`,
+      switch (item.defaultIsOnlyOne) {
+        case true:
+          return {
+            width: '100%',
+          }
+        default: {
+          const width = item.defaultItemWidth || props.itemWidth
+          return {
+            width: `${width}px`,
+          }
+        }
       }
     }
-    default:
-      return {
-        width: `${props.itemWidth}px`,
-      }
   }
 }
 
@@ -192,8 +196,21 @@ function toggleFullScreen() {
                   :allow-clear="item.selectOption.allowClear"
                   :multiple="item.selectOption.multiple"
                   :allow-search="item.selectOption.allowSearch"
+                  :max-tag-count="item.selectOption.maxTagCount"
                   :style="getItemStyle(item)"
                   style="position: relative"
+                />
+                <a-tree-select
+                  v-if="item.type === FormItemType.treeSelect && item.selectOption"
+                  v-model="formValue[item.field]"
+                  :field-names="item.selectOption.dataOptionKey"
+                  :allow-clear="item.selectOption.allowClear"
+                  :multiple="item.selectOption.multiple"
+                  :allow-search="item.selectOption.allowSearch"
+                  :data="item.selectOption.dataOption as any"
+                  :placeholder="item.placeholder"
+                  :max-tag-count="item.selectOption.maxTagCount"
+                  :style="getItemStyle(item)"
                 />
                 <a-date-picker
                   v-if="item.type === FormItemType.datePicker"

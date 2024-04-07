@@ -1,24 +1,18 @@
 <script lang="ts" setup>
-import { markRaw, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 
-import { Message, type TableRowSelection } from '@arco-design/web-vue'
-import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
-import { useI18n } from 'vue-i18n'
-import { ApiSysDictType, ApiSysUser, ErrorFlag } from '@/api/apis'
+import type { TableRowSelection } from '@arco-design/web-vue'
+import { IconDelete, IconEdit } from '@arco-design/web-vue/es/icon'
+import { ApiSysUser } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
+  emitter,
   hasPermission,
-  useGet,
-  usePost,
-  usePut,
 } from '@/hooks'
-import { DictDataRouteName, router } from '@/router'
-import type { dictType } from '@/types/system/dict'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
 import IuButton from '@/components/iui/iu-button.vue'
 import IuModal from '@/components/iui/iu-modal.vue'
-import type { MessageSchema } from '@/i18n'
 import { useUserForm } from '@/views/system/auth/hooks/useUserForm'
 
 // 导出名称
@@ -30,34 +24,29 @@ const props = defineProps({
     type: String,
   },
 })
+onUnmounted(() => emitter.off('dept_tree'))
 const showSearch = ref(true)
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const {
+  open,
+  title,
+  form,
+  modalIcon,
   queryParams,
   isLoading,
   dataList,
   getList,
   queryFormItems,
-  editFormItems,
+  modalFormItems,
   columns,
   operateButtons,
   handleSelectionChangeFnX,
   handleDelete,
   handleResetPwd,
+  handleUpdate,
+  submitForm,
+  optionsInit,
 } = useUserForm()
-
-//
-const modalIcon = ref()
-const open = ref(false)
-const title = ref('')
-const form = ref<dictType>({
-  dict_name: '',
-  dict_type: '',
-  dict_type_id: undefined,
-  remark: '',
-  status: '1',
-})
 
 const rowSelection = ref<TableRowSelection>({
   type: 'checkbox',
@@ -69,50 +58,8 @@ function handleSelectionChange(keys: (string | number)[]) {
   return handleSelectionChangeFnX(keys, dataList.value?.list, 'id', 'user_name')
 }
 
-function handleAdd() {
-  modalIcon.value = markRaw(IconPlus)
-  open.value = true
-  form.value.dict_type_id = undefined
-  title.value = t('common.add') + t('dict.type')
-}
-async function handleUpdate(row?: dictType) {
-  modalIcon.value = markRaw(IconEdit)
-  open.value = true
-  const dict_type_id = row?.dict_type_id || ids.value[0]
-  const { data, execute } = useGet(ApiSysDictType.getById, { dict_type_id })
-  await execute()
-  form.value = data.value as dictType
-  title.value = t('common.update') + t('dict.type')
-}
+onMounted(() => optionsInit())
 
-async function submitForm() {
-  if (form.value.dict_type_id !== undefined) {
-    const { execute, data } = usePut(ApiSysDictType.edit, form)
-
-    await execute()
-    if (data.value === ErrorFlag)
-      return
-    Message.success(t('commonTip.updateSuccess'))
-  }
-  else {
-    const { execute, data } = usePost(ApiSysDictType.add, form)
-    await execute()
-    if (data.value === ErrorFlag)
-      return
-    Message.success(t('commonTip.addSuccess'))
-  }
-  open.value = false
-  await getList()
-}
-
-// 删除数据
-
-function goto_data(row: dictType) {
-  router.push({
-    name: DictDataRouteName,
-    query: { dict: row.dict_type_id, dict_type: row.dict_type },
-  })
-}
 watch(
   () => props.deptId,
   (v) => {
@@ -201,9 +148,11 @@ watch(
     <IuModal
       v-model:visible="open"
       v-model:form-value="form"
-      :form-items="editFormItems"
+      :form-items="modalFormItems"
       :icon="modalIcon"
       :title="title"
+      :item-width="250"
+      :default-col="2"
       @handle-ok="submitForm"
     />
   </div>

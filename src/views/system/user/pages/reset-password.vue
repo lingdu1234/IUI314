@@ -5,15 +5,16 @@ import { useI18n } from 'vue-i18n'
 import { type FieldRule, type FormInstance, Message } from '@arco-design/web-vue'
 import { ApiSysUser, ErrorFlag } from '@/api/apis'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
-import { setTabBarEmitter, useFormUtil, usePut } from '@/hooks'
+import { useFormUtil, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
-import { useUserStore } from '@/stores'
+import { useTabBarStore, useUserStore } from '@/stores'
 
 defineOptions({ name: 'ResetPassword' })
 
 const { formValidate } = useFormUtil()
 const userStore = useUserStore()
+const tabBarStore = useTabBarStore()
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const user = reactive({
@@ -65,8 +66,8 @@ async function submit() {
 function handleClose() {
   // 路由回退
   router.back()
-  // 关闭当前便签
-  setTabBarEmitter(TabAction.current)
+  // 关闭当前标签
+  tabBarStore.tabActionSelect(tabBarStore.getCurrentRouteTag(), TabAction.current)
 }
 </script>
 

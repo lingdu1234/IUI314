@@ -85,6 +85,9 @@ export const useTabBarStore = defineStore('tab-bar', {
     setCurrentRoute(route: RouteLocationNormalized) {
       this.currentRoute = route
     },
+    getCurrentRouteTag(): TagProps {
+      return this.tagList[this.getCurrentRouteIndex()]
+    },
     getTabIndex(tag: TagProps) {
       return this.tagList.findIndex(el => el.fullPath === tag.fullPath)
     },
