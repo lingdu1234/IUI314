@@ -1,10 +1,3 @@
-<!--
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-15 18:47:35
- * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\views\system\auth\pages\user-manage-form.vue
- * @Description:
--->
 <script lang="ts" setup>
 import {
   Delete,
@@ -55,7 +48,7 @@ import { dictKey } from '@/types/system/dict'
 import type { resetUserPwd, userInformation, userQueryParam } from '@/types/system/userInformation'
 
 const props = defineProps({
-  dept_id: {
+  deptId: {
     type: String,
   },
 })
@@ -180,7 +173,7 @@ function closeDialog() {
 }
 // 监控props
 watch(
-  () => props.dept_id,
+  () => props.deptId,
   (v) => {
     queryParams.value.dept_id = v
     getList()

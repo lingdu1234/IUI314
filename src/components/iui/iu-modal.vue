@@ -31,6 +31,10 @@ const props = defineProps({
     type: String as PropType<'center' | 'start'>,
     default: 'center',
   },
+  labelWidth: {
+    type: Number,
+    default: 80,
+  },
   itemWidth: {
     type: Number,
     default: 300,
@@ -48,6 +52,9 @@ const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
 const itemStyle = computed(() => ({
   width: `${props.itemWidth}px`,
 }))
+const labelColStyle = computed(() => (
+  { width: `${props.labelWidth}px` }
+))
 
 function beforeClose() {
   useForm.formReset(modalFormRef.value)
@@ -126,6 +133,7 @@ function toggleFullScreen() {
             :field="item.field"
             :label="item.label"
             :rules="item.rule"
+            :label-col-style="labelColStyle"
             :validate-trigger="item.validateTrigger"
           >
             <span
