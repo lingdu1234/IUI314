@@ -153,7 +153,7 @@ function handleSelectionChange(keys: (string | number)[]) {
   <a-table
     v-else
     :columns="columns"
-    :data="tableData !== null ? tableData : []"
+    :data="tableData || []"
     :row-selection="rowSelection"
     :loading="isLoading"
     row-key="id"
