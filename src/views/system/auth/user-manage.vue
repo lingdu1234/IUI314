@@ -96,7 +96,11 @@ watch(() => deptTree.value, () => {
 
       <a-grid-item :span="{ xs: 24, sm: 24, md: 24, lg: 24, xl: 20, xxl: 21 }">
         <!-- 右侧显示区域 -->
-        <UserManageForm :dept-id="dept_id" />
+        <UserManageForm
+          v-if="deptTree"
+          :dept-id="dept_id"
+          :dept-tree="deptTree"
+        />
       </a-grid-item>
     </a-grid>
   </div>
