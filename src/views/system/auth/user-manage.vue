@@ -8,7 +8,7 @@ import { emitter, useGet } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { dept } from '@/types/system/dept'
-import UserManageForm from '@/views/system/auth/pages/user-manage-form.vue'
+import UserManageForm from '@/views/system/auth/pages/user/user-manage-form.vue'
 
 // 组件名称
 defineOptions({

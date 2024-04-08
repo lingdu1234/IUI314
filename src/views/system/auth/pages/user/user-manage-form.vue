@@ -1,33 +1,28 @@
 <script lang="ts" setup>
-import { type PropType, computed, h, markRaw, ref, watch } from 'vue'
+import { type PropType, computed, markRaw, ref, watch } from 'vue'
 
-import { Message, Modal, type TableColumnData, type TableRowSelection } from '@arco-design/web-vue'
 import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
-import md5 from 'blueimp-md5'
 import { useI18n } from 'vue-i18n'
-import { ApiSysDictType, ApiSysUser, ErrorFlag } from '@/api/apis'
+import { ApiSysDictType, ApiSysUser } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   hasPermission,
   type listType,
-  parseTime,
   useDeleteFn,
   useDicts,
   useGet,
-  usePut,
   useTableUtil,
 } from '@/hooks'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
 import IuButton from '@/components/iui/iu-button.vue'
-import UserManageModal from '@/views/system/auth/pages/user-manage-modal.vue'
+import UserManageModal from '@/views/system/auth/pages/user/user-manage-modal.vue'
 import type { dept } from '@/types/system/dept'
-import type { resetUserPwd, userInformation, userQueryParam } from '@/types/system/userInformation'
+import type { userInformation, userQueryParam } from '@/types/system/userInformation'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
-import { dictKey, type dictType } from '@/types/system/dict'
-import ResetPwd from '@/views/system/auth/pages/resetPwd.vue'
-import DictTag from '@/components/common/dict-tag.vue'
+import { dictKey } from '@/types/system/dict'
 import type { MessageSchema } from '@/i18n'
+import UserManageTable from '@/views/system/auth/pages/user/user-manage-table.vue'
 
 // 导出名称
 defineOptions({
@@ -72,11 +67,8 @@ const {
   { immediate: true },
 )
 
-function handleSelectionChange(keys: (string | number)[]) {
-  return handleSelectionChangeFnX(keys, dataList.value?.list, 'id', 'user_name')
-}
 const handAdd = () => modalRef.value?.handleAdd()
-const handleUpdate = () => modalRef.value?.handleUpdate()
+const handleUpdate = (row?: userInformation) => modalRef.value?.handleUpdate(row)
 
 const operateButtons = ref<{ [key: string]: any }[]>([
   {
@@ -108,75 +100,6 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   },
 ])
 
-const rowSelection = ref<TableRowSelection>({
-  type: 'checkbox',
-  showCheckedAll: true,
-  onlyCurrent: false,
-})
-
-// 表格列属性
-const columns: TableColumnData[] = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    ellipsis: true,
-    tooltip: true,
-    width: 200,
-    align: 'center',
-  },
-  {
-    title: t('profile.name'),
-    dataIndex: 'user_name',
-    align: 'center',
-    width: 100,
-  },
-  {
-    title: t('profile.nickName'),
-    dataIndex: 'user_nickname',
-    align: 'center',
-    width: 150,
-    ellipsis: true,
-    tooltip: true,
-  },
-  {
-    title: t('user.dept'),
-    dataIndex: 'dept.dept_name',
-    align: 'center',
-    width: 100,
-    ellipsis: true,
-    tooltip: true,
-  },
-  {
-    title: '手机号码',
-    dataIndex: 'phone_num',
-    align: 'center',
-    width: 100,
-    ellipsis: true,
-    tooltip: true,
-  },
-  {
-    title: '状态',
-    width: 100,
-    align: 'center',
-    render: ({ record }) => h(DictTag, {
-      options: dicts.value[dictKey.sysNormalDisable],
-      value: record.user_status,
-    }),
-  },
-  {
-    title: '创建时间',
-    width: 180,
-    align: 'center',
-    render: ({ record }) => parseTime(record.created_at),
-  },
-  {
-    title: '操作',
-    slotName: 'operation',
-    width: 150,
-    fixed: 'right',
-    align: 'center',
-  },
-]
 const queryFormItems = ref<IuQueryFormField[]>([
   {
     field: 'user_name',
@@ -219,37 +142,7 @@ const queryFormItems = ref<IuQueryFormField[]>([
   },
 ])
 
-// 密码重置
-const resetPwd = ref({
-  password: '',
-})
-function handleResetPwd(row: userInformation) {
-  resetPwd.value.password = ''
-  Modal.warning({
-    title: '密码重置',
-    hideCancel: false,
-    titleAlign: 'start',
-    content: () => h(ResetPwd, { formValue: resetPwd.value }),
-    footer: true,
-    draggable: true,
-    onOk: async () => {
-      const data: resetUserPwd = {
-        user_id: row.id!,
-        new_passwd: md5(resetPwd.value.password),
-      }
-      const { data: dataRes, execute } = usePut(ApiSysUser.resetPwd, data)
-      await execute()
-      if (dataRes.value === ErrorFlag)
-        return
-      Message.success(`用户 ${row.user_name} 的密码成功重置为 ${resetPwd.value.password}`)
-    },
-    onCancel() {
-      Message.info(`你取消了重置用户 ${row.user_name} 的密码操作！`)
-    },
-  })
-}
-
-async function handleDelete(row?: dictType) {
+async function handleDelete(row?: userInformation) {
   await useDeleteFn(
     ApiSysDictType.delete,
     'id',
@@ -294,51 +187,14 @@ watch(
       <RightToolBar v-model:showSearch="showSearch" @query-table="getList" />
     </a-row>
 
-    <a-table
-      :columns="columns"
-      :data="dataList?.list"
-      :row-selection="rowSelection"
-      :loading="isLoading"
-      row-key="id"
-      :scroll="{ minWidth: 800 }"
-      :pagination="false"
-      @selection-change="handleSelectionChange"
-    >
-      <template #operation="{ record }">
-        <a-button
-          v-if="hasPermission(ApiSysUser.edit)"
-          type="text"
-          shape="round"
-          @click="modalRef?.handleUpdate(record)"
-        >
-          <template #icon>
-            <IconEdit />
-          </template>
-        </a-button>
-        <a-button
-          v-if="hasPermission(ApiSysUser.delete)"
-          type="text"
-          shape="round"
-          status="danger"
-          @click="handleDelete(record)"
-        >
-          <template #icon>
-            <IconDelete />
-          </template>
-        </a-button>
-        <a-button
-          v-if="hasPermission(ApiSysUser.resetPwd)"
-          type="text"
-          shape="round"
-          status="danger"
-          @click="handleResetPwd(record)"
-        >
-          <template #icon>
-            <IconTool />
-          </template>
-        </a-button>
-      </template>
-    </a-table>
+    <UserManageTable
+      :is-loading="isLoading"
+      :dicts="dicts"
+      :table-data="dataList && dataList?.list"
+      @handle-delete="handleDelete"
+      @handle-update="handleUpdate"
+      @handle-selection-change-fn="handleSelectionChangeFnX"
+    />
     <Pagination
       v-show="dataList?.total && dataList.total > 0"
       v-model:limit="queryParams.page_size"
@@ -354,15 +210,5 @@ watch(
       :dicts="dicts"
       @get-list="getList"
     />
-    <!--    <IuModal -->
-    <!--      v-model:visible="open" -->
-    <!--      v-model:form-value="form" -->
-    <!--      :form-items="modalFormItems" -->
-    <!--      :icon="modalIcon" -->
-    <!--      :title="title" -->
-    <!--      :item-width="250" -->
-    <!--      :default-col="2" -->
-    <!--      @handle-ok="submitForm" -->
-    <!--    /> -->
   </div>
 </template>
