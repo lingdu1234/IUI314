@@ -44,7 +44,7 @@ const props = defineProps({
 })
 
 const showSearch = ref(true)
-const modalRef = ref<typeof UserManageModal | null>(null)
+const modalRef = ref<InstanceType<typeof UserManageModal>>()
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const dicts = useDicts(

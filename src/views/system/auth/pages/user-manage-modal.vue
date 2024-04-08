@@ -33,6 +33,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['getList'])
+
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const modalIcon = ref()
