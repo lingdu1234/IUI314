@@ -37,7 +37,7 @@ const emits = defineEmits([
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
-const tableData = defineModel<readonly userInformation[] | null>('tableData', { required: true })
+const tableData = defineModel<userInformation[] | null>('tableData', { required: true })
 
 const rowSelection = ref<TableRowSelection>({
   type: 'checkbox',
