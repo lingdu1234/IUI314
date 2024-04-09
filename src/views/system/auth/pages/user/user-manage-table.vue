@@ -155,7 +155,6 @@ function handleSelectionChange(keys: (string | number)[]) {
     :columns="columns"
     :data="tableData || []"
     :row-selection="rowSelection"
-    :loading="isLoading"
     row-key="id"
     :scroll="{ minWidth: 800 }"
     :pagination="false"
