@@ -53,6 +53,7 @@ declare global {
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
   const useDialog: typeof import('naive-ui')['useDialog']
+  const useI18n: typeof import('vue-i18n')['useI18n']
   const useLoadingBar: typeof import('naive-ui')['useLoadingBar']
   const useMessage: typeof import('naive-ui')['useMessage']
   const useNotification: typeof import('naive-ui')['useNotification']
@@ -61,4 +62,10 @@ declare global {
   const watchEffect: typeof import('vue')['watchEffect']
   const watchPostEffect: typeof import('vue')['watchPostEffect']
   const watchSyncEffect: typeof import('vue')['watchSyncEffect']
+}
+// for type re-export
+declare global {
+  // @ts-ignore
+  export type { Component, ComponentPublicInstance, ComputedRef, ExtractDefaultPropTypes, ExtractPropTypes, ExtractPublicPropTypes, InjectionKey, PropType, Ref, VNode, WritableComputedRef } from 'vue'
+  import('vue')
 }

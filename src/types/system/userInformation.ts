@@ -24,6 +24,7 @@ export interface userInformation {
 
 export interface userQueryParam extends pageQueryParam {
   dept_id?: string
+  dept_ids?: string[]
   user_name?: string
   phone_num?: string
   user_status?: string

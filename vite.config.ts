@@ -9,9 +9,10 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { vitePluginForArco } from '@arco-plugins/vite-vue'
+import AutoImport from 'unplugin-auto-import/vite'
 
 // https://vitejs.dev/config/
-export default ({ mode, command }: ConfigEnv) =>
+export default ({ mode }: ConfigEnv) =>
   defineConfig({
     plugins: [
       vue(),
@@ -28,6 +29,10 @@ export default ({ mode, command }: ConfigEnv) =>
       }),
       vitePluginForArco({
         style: 'css',
+      }),
+      AutoImport({
+        // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
+        imports: ['vue', 'vue-i18n'],
       }),
       createHtmlPlugin({
         inject: {

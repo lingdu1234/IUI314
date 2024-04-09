@@ -24,8 +24,9 @@ defineOptions({
   name: 'UserManageForm',
 })
 const props = defineProps({
-  deptId: {
-    type: String,
+  deptIds: {
+    type: Array as PropType<string[]>,
+    required: true,
   },
   deptTree: {
     type: Array as PropType<dept[]>,
@@ -78,9 +79,9 @@ async function handleDelete(row?: userInformation) {
   )
 }
 watch(
-  () => props.deptId,
+  () => props.deptIds,
   (v) => {
-    queryParams.value.dept_id = v
+    queryParams.value.dept_ids = v
     getList()
   },
 )

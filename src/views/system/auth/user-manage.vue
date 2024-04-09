@@ -24,7 +24,7 @@ const fieldNames = {
 }
 
 const searchKey = ref<string>('')
-const dept_id = ref<string>()
+const dept_ids = ref<string[]>()
 const deptTreeRef = ref<TreeInstance>()
 
 const { data: deptTree } = useGet<dept[]>(
@@ -62,7 +62,36 @@ function searchData(keyword: string) {
 }
 
 function handleSelect(v: Array<string | number>) {
-  dept_id.value = v[0] as string
+  const dept = getTarget(v[0] as string)
+  dept_ids.value = dept && getAllIds(dept)
+}
+function getTarget(target: string) {
+  const result: dept[] = []
+  const loop = (data: dept[]) => {
+    for (const item of data) {
+      if (item.dept_id === target) {
+        result.push(item)
+        return
+      }
+      else if (item.children && item.children.length > 0) {
+        loop(item.children)
+      }
+    }
+  }
+  loop(deptTree.value?.length ? deptTree.value : [])
+  return result[0]
+}
+function getAllIds(target: dept) {
+  const ids: string[] = []
+  const loop = (data: dept[]) => {
+    data.forEach((item: dept) => {
+      item.dept_id && ids.push(item.dept_id)
+      if (item.children && item.children.length > 0)
+        loop(item.children)
+    })
+  }
+  loop([target] || [])
+  return ids
 }
 
 watch(() => deptTree.value, () => {
@@ -98,7 +127,7 @@ watch(() => deptTree.value, () => {
         <!-- 右侧显示区域 -->
         <UserManageForm
           v-if="deptTree"
-          :dept-id="dept_id"
+          :dept-ids="dept_ids"
           :dept-tree="deptTree"
         />
       </a-grid-item>
