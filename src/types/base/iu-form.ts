@@ -16,7 +16,7 @@ export interface IuQueryFormField {
 }
 export interface IuFormField extends IuQueryFormField {
   rule?: FieldRule[]
-  validateTrigger?: 'change' | 'input' | 'focus' | 'blur'
+  validateTrigger?: 'change' | 'blur' | 'focus' | 'input' | ('change' | 'blur' | 'focus' | 'input')[]
   disabled?: boolean
   inputNumberMode?: 'embed' | 'button'
   textAreaAutoSize?: boolean

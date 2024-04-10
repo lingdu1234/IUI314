@@ -102,6 +102,9 @@ async function validateForm() {
   emit('handleOk')
   beforeClose()
 }
+function validateModalField(v: string | string[]) {
+  modalFormRef.value?.validateField(v)
+}
 
 function onBeforeOk() {
   return useForm.formValidate(modalFormRef.value)
@@ -110,6 +113,8 @@ function onBeforeOk() {
 function toggleFullScreen() {
   isFullscreen.value = !isFullscreen.value
 }
+
+defineExpose({ validateModalField })
 </script>
 
 <template>

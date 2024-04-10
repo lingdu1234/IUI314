@@ -36,6 +36,8 @@ const emits = defineEmits(['getList'])
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
+const iuModalRef = ref<InstanceType<typeof IuModal>>()
+
 const modalIcon = ref()
 const open = ref(false)
 const title = ref('')
@@ -119,8 +121,13 @@ const editFormItems = ref<IuFormField[]>([
     },
     rule: [
       { required: true, message: '用户部门不能为空' },
+      {
+        validator: () => {
+          iuModalRef.value?.validateModalField('dept_id')
+        },
+      },
     ],
-    validateTrigger: 'blur',
+    validateTrigger: ['blur', 'change'],
   },
   {
     field: 'dept_id',
@@ -140,8 +147,16 @@ const editFormItems = ref<IuFormField[]>([
     },
     rule: [
       { required: true, message: '用户部门不能为空' },
+      {
+        validator: (v, cb) => {
+          if (form.value.dept_ids?.includes(v))
+            cb()
+          else
+            cb('激活部门不在用户部门内')
+        },
+      },
     ],
-    validateTrigger: 'blur',
+    validateTrigger: ['blur', 'change'],
   },
   {
     field: 'role_ids',
@@ -162,8 +177,13 @@ const editFormItems = ref<IuFormField[]>([
     },
     rule: [
       { required: true, message: '用户部门不能为空' },
+      {
+        validator: () => {
+          iuModalRef.value?.validateModalField('role_id')
+        },
+      },
     ],
-    validateTrigger: 'blur',
+    validateTrigger: ['blur', 'change'],
   },
   {
     field: 'role_id',
@@ -183,8 +203,16 @@ const editFormItems = ref<IuFormField[]>([
     },
     rule: [
       { required: true, message: '用户部门不能为空' },
+      {
+        validator: (v, cb) => {
+          if (form.value.role_ids?.includes(v))
+            cb()
+          else
+            cb('激活角色不在用户角色内')
+        },
+      },
     ],
-    validateTrigger: 'blur',
+    validateTrigger: ['blur', 'change'],
   },
   {
     field: 'phone_num',
@@ -362,6 +390,7 @@ defineExpose({ handleAdd, handleUpdate })
 
 <template>
   <IuModal
+    ref="iuModalRef"
     v-model:visible="open"
     v-model:form-value="form"
     :form-items="modalFormItems"
