@@ -7,7 +7,7 @@ import { ApiSysDictType } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
 import type { MessageSchema } from '@/i18n'
 
-defineOptions({ name: 'UserManageOperater' })
+defineOptions({ name: 'UserManageOperator' })
 
 const props = defineProps({
   single: {
@@ -20,7 +20,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits(['getList', 'handAdd', 'handleUpdate', 'handleDelete'])
+const emits = defineEmits(['handAdd', 'handleUpdate', 'handleDelete'])
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 

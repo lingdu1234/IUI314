@@ -16,7 +16,7 @@ import type { userInformation, userQueryParam } from '@/types/system/userInforma
 import { dictKey } from '@/types/system/dict'
 import UserManageTable from '@/views/system/auth/pages/user/user-manage-table.vue'
 import UserManageQuery from '@/views/system/auth/pages/user/user-mannage-query.vue'
-import UserManageOperater from '@/views/system/auth/pages/user/user-manage-operater.vue'
+import UserManageOperator from '@/views/system/auth/pages/user/user-manage-operator.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 
 // 导出名称
@@ -26,7 +26,7 @@ defineOptions({
 const props = defineProps({
   deptIds: {
     type: Array as PropType<string[]>,
-    required: true,
+    required: false,
   },
   deptTree: {
     type: Array as PropType<dept[]>,
@@ -97,7 +97,7 @@ watch(
     />
     <!-- 操作区域 -->
     <a-row :gutter="10" class="m-b-8px">
-      <UserManageOperater
+      <UserManageOperator
         :selected="selected"
         :single="single"
         @handle-delete="handleDelete"
