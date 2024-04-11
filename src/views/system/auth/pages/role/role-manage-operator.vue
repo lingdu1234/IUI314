@@ -3,11 +3,11 @@ import { computed, markRaw, ref } from 'vue'
 import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import { useI18n } from 'vue-i18n'
 import { hasPermission } from '@/hooks'
-import { ApiSysPost } from '@/api/sysApis'
+import { ApiSysRole } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
 import type { MessageSchema } from '@/i18n'
 
-defineOptions({ name: 'PostManageOperator' })
+defineOptions({ name: 'RoleManageOperator' })
 
 const props = defineProps({
   single: {
@@ -28,7 +28,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   {
     label: t('common.add'),
     icon: markRaw(IconPlus),
-    auth: computed(() => hasPermission(ApiSysPost.add)),
+    auth: computed(() => hasPermission(ApiSysRole.add)),
     disabled: false,
     fn: () => emits('handAdd'),
     buttonType: 'primary',
@@ -37,7 +37,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   {
     label: t('common.edit'),
     icon: markRaw(IconEdit),
-    auth: computed(() => hasPermission(ApiSysPost.edit)),
+    auth: computed(() => hasPermission(ApiSysRole.edit)),
     disabled: computed(() => !props.single),
     fn: () => emits('handleUpdate'),
     buttonType: 'primary',
@@ -46,7 +46,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   {
     label: t('common.delete'),
     icon: markRaw(IconDelete),
-    auth: computed(() => hasPermission(ApiSysPost.delete)),
+    auth: computed(() => hasPermission(ApiSysRole.delete)),
     disabled: computed(() => !props.selected),
     fn: () => emits('handleDelete'),
     buttonType: 'primary',

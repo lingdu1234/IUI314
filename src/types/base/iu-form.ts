@@ -4,7 +4,7 @@ import type { RadioOption } from '@arco-design/web-vue/es/radio/interface'
 
 export interface IuQueryFormField {
   field: string
-  label: string
+  label?: string
   type: FormItemType
   selectOption?: SelectOption
   placeholder?: string
@@ -20,15 +20,18 @@ export interface IuFormField extends IuQueryFormField {
   disabled?: boolean
   inputNumberMode?: 'embed' | 'button'
   textAreaAutoSize?: boolean
+  slotName?: string
 }
 
 export enum FormItemType {
+  slot = 'slot',
   text = 'text',
   input = 'input',
   textarea = 'textarea',
   inputNumber = 'inputNumber',
   radio = 'radio',
   checkbox = 'checkbox',
+  checkboxGroup = 'checkboxGroup',
   select = 'select',
   treeSelect = 'treeSelect',
   colorPicker = 'colorPicker',
@@ -48,7 +51,9 @@ export interface SelectOption {
     value?: string
     label?: string
     children?: string
+    disabled?: boolean
   }
+  defaultValue?: any
   allowClear?: boolean
   multiple?: boolean
   maxTagCount?: number

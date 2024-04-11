@@ -4,7 +4,7 @@ import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import { Message, Modal } from '@arco-design/web-vue'
 import { useI18n } from 'vue-i18n'
 import IuModal from '@/components/iui/iu-modal.vue'
-import { FormItemType, type IuFormField, type SelectOptionInterface } from '@/types/base/iu-form'
+import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
 import { useDelete, usePost, usePut } from '@/hooks'
 import { ApiSysDept } from '@/api/sysApis'
@@ -35,9 +35,6 @@ const modalIcon = ref()
 const open = ref(false)
 const title = ref('')
 const form = ref<dept>({})
-
-const roleOptions = ref<SelectOptionInterface[]>([])
-const postOptions = ref<SelectOptionInterface[]>([])
 
 const modalFormItems = ref<IuFormField[]>([
   {

@@ -3,7 +3,7 @@ import { computed, markRaw, ref } from 'vue'
 import { IconPlus } from '@arco-design/web-vue/es/icon'
 import { useI18n } from 'vue-i18n'
 import { hasPermission } from '@/hooks'
-import { ApiSysDictType } from '@/api/sysApis'
+import { ApiSysDept } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
 import type { MessageSchema } from '@/i18n'
 
@@ -17,7 +17,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   {
     label: t('common.add'),
     icon: markRaw(IconPlus),
-    auth: computed(() => hasPermission(ApiSysDictType.add)),
+    auth: computed(() => hasPermission(ApiSysDept.add)),
     disabled: false,
     fn: () => emits('handAdd'),
     buttonType: 'primary',

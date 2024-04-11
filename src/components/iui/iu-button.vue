@@ -56,7 +56,7 @@ defineProps({
     :status="status"
     :shape="shape"
     :loading="loading"
-    @click="fn"
+    @click="fn as any"
   >
     {{ label }}
     <template #icon>

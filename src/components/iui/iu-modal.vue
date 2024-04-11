@@ -196,7 +196,7 @@ defineExpose({ validateModalField })
                   v-if="item.type === FormItemType.select && item.selectOption"
                   v-model="formValue[item.field]"
                   :options="item.selectOption.dataOption as any"
-                  :field-names="item.selectOption.dataOptionKey"
+                  :field-names="item.selectOption.dataOptionKey as any"
                   :placeholder="item.placeholder"
                   :allow-clear="item.selectOption.allowClear"
                   :multiple="item.selectOption.multiple"
@@ -208,7 +208,7 @@ defineExpose({ validateModalField })
                 <a-tree-select
                   v-if="item.type === FormItemType.treeSelect && item.selectOption"
                   v-model="formValue[item.field]"
-                  :field-names="item.selectOption.dataOptionKey"
+                  :field-names="item.selectOption.dataOptionKey as any"
                   :allow-clear="item.selectOption.allowClear"
                   :multiple="item.selectOption.multiple"
                   :allow-search="item.selectOption.allowSearch"
@@ -241,6 +241,18 @@ defineExpose({ validateModalField })
                   v-model="formValue[item.field]"
                   :mode="item.inputNumberMode"
                   :style="getItemStyle(item)"
+                />
+
+                <a-checkbox-group
+                  v-if="item.type === FormItemType.checkboxGroup && item.selectOption"
+                  v-model="formValue[item.field]"
+                  :default-value="item.selectOption.defaultValue"
+                  :options="item.selectOption.dataOption as any"
+                />
+                <!--   添加一个slot 用于自定义，更加自由 -->
+                <slot
+                  v-if="item.type === FormItemType.slot && item.slotName"
+                  :name="item.slotName"
                 />
               </a-form-item>
             </a-grid-item>
