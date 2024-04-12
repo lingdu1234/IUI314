@@ -22,6 +22,7 @@ const props = defineProps({
 
 const emits = defineEmits([
   'handleUpdate',
+  'handleDataUpdate',
   'handleDelete',
   'handleSelectionChangeFn',
   'getList',
@@ -166,7 +167,7 @@ function handleSelectionChange(keys: (string | number)[]) {
         type="text"
         shape="round"
         status="warning"
-        @click="emits('handleDelete', record)"
+        @click="emits('handleDataUpdate', record)"
       >
         权限
         <template #icon>

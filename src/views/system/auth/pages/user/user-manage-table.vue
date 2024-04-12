@@ -9,7 +9,7 @@ import { dictKey, type dictUse } from '@/types/system/dict'
 import { hasPermission, parseTime, usePut } from '@/hooks'
 import { ApiSysUser } from '@/api/sysApis'
 import type { resetUserPwd, userInformation } from '@/types/system/userInformation'
-import ResetPwd from '@/views/system/auth/pages/resetPwd.vue'
+import ResetPwd from '@/views/system/auth/pages/user/resetPwd.vue'
 import { ErrorFlag } from '@/api/apis'
 
 defineOptions({ name: 'UserManageTable' })

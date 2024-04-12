@@ -15,7 +15,6 @@ export function useFormUtil() {
 function formReset(formRef: FormInstance | undefined) {
   if (!formRef)
     return
-  formRef.resetFields()
   formRef.clearValidate()
 }
 

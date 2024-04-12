@@ -16,8 +16,8 @@ export interface role extends operateInfo {
   data_scope?: string
   status?: string
   remark?: string
-  menu_ids?: string[] //用于更新菜单权限
-  dept_ids?: string[] //用于更新数据权限
+  menu_ids?: string[] // 用于更新菜单权限
+  dept_ids?: string[] // 用于更新数据权限
 }
 
 /**

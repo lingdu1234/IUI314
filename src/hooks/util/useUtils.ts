@@ -81,3 +81,20 @@ export function addTimeQueryParam<T extends pageQueryParam>(queryParams: T, time
 
   return res
 }
+
+export function filterObjectArray<T extends { [key: string]: any }>(array: T[], keys: string[], childrenKey: string) {
+  for (const item of array) {
+    for (const itemKey in item) {
+      if (![...keys, childrenKey].includes(itemKey))
+        delete item[itemKey]
+      if (item[childrenKey]) {
+        if (item[childrenKey].length === 0)
+          delete item[childrenKey]
+        else
+          filterObjectArray(item[childrenKey], keys, childrenKey)
+      }
+    }
+  }
+
+  return array
+}

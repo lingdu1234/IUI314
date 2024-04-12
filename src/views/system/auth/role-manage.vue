@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import { ApiSysPost, ApiSysRole } from '@/api/apis'
+import { ApiSysRole } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
 import {
   type listType,
@@ -21,6 +21,7 @@ import RoleManageTable from '@/views/system/auth/pages/role/role-manage-table.vu
 import RoleManageOperator from '@/views/system/auth/pages/role/role-manage-operator.vue'
 import RoleManageQuery from '@/views/system/auth/pages/role/role-mannage-query.vue'
 import RoleManageModal from '@/views/system/auth/pages/role/role-manage-modal.vue'
+import RoleManageDataModal from '@/views/system/auth/pages/role/role-manage-data-modal.vue'
 
 // 导出名称
 defineOptions({
@@ -30,6 +31,7 @@ defineOptions({
 const showSearch = ref(true)
 
 const modalRef = ref<InstanceType<typeof PostManageModal>>()
+const dataModalRef = ref<InstanceType<typeof PostManageModal>>()
 
 const dicts = useDicts(
   dictKey.sysNormalDisable,
@@ -56,9 +58,10 @@ const {
 
 const handAdd = () => modalRef.value?.handleAdd()
 const handleUpdate = (row?: userInformation) => modalRef.value?.handleUpdate(row)
+const handleDataUpdate = (row?: userInformation) => dataModalRef.value?.handleUpdate(row)
 async function handleDelete(row?: userInformation) {
   await useDeleteFn(
-    ApiSysPost.delete,
+    ApiSysRole.delete,
     'role_id',
     ids,
     'role_name',
@@ -96,6 +99,7 @@ async function handleDelete(row?: userInformation) {
       :table-data="dataList && dataList?.list"
       @handle-delete="handleDelete"
       @handle-update="handleUpdate"
+      @handle-data-update="handleDataUpdate"
       @handle-selection-change-fn="handleSelectionChangeFnX"
       @get-list="getList"
     />
@@ -108,6 +112,12 @@ async function handleDelete(row?: userInformation) {
     />
     <RoleManageModal
       ref="modalRef"
+      :ids="ids"
+      :dicts="dicts"
+      @get-list="getList"
+    />
+    <RoleManageDataModal
+      ref="dataModalRef"
       :ids="ids"
       :dicts="dicts"
       @get-list="getList"

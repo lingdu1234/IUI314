@@ -13,6 +13,7 @@ export interface IuQueryFormField {
   defaultItemWidth?: number
   fullScreenIsOnlyOne?: boolean
   defaultIsOnlyOne?: boolean
+  vShow?: boolean | Ref<boolean>
 }
 export interface IuFormField extends IuQueryFormField {
   rule?: FieldRule[]

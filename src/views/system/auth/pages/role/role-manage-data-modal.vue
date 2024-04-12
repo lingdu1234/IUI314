@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { type PropType, computed, markRaw, ref } from 'vue'
-import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { IconEdit } from '@arco-design/web-vue/es/icon'
 import type { Tree } from '@arco-design/web-vue'
 import { Message } from '@arco-design/web-vue'
 import IuModal from '@/components/iui/iu-modal.vue'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
-import { dictKey, type dictUse } from '@/types/system/dict'
-import { filterObjectArray, useGet, usePost, usePut } from '@/hooks'
-import { ApiSysMenu, ApiSysRole } from '@/api/sysApis'
+import type { dictUse } from '@/types/system/dict'
+import { filterObjectArray, useGet, usePut } from '@/hooks'
+import { ApiSysDept, ApiSysRole } from '@/api/sysApis'
 import { ErrorFlag } from '@/api/apis'
 import type { menu } from '@/types/system/menu'
 import type { role } from '@/types/system/role'
 
-defineOptions({ name: 'RoleManageDataModal' })
+defineOptions({ name: 'RoleManageModal' })
 
 const props = defineProps({
   ids: {
@@ -38,6 +38,16 @@ const open = ref(false)
 const title = ref('')
 const form = ref<role>({})
 
+const dataScopeOptions = ref([
+  { value: '1', label: '全部数据权限' },
+  { value: '2', label: '自定数据权限' },
+  { value: '3', label: '本部门数据权限' },
+  { value: '4', label: '本部门及以下数据权限' },
+  { value: '5', label: '仅本人数据权限' },
+])
+
+const vShow = computed(() => form.value.data_scope === '2')
+
 const modalFormItems = ref<IuFormField[]>([
   {
     field: 'role_name',
@@ -62,82 +72,50 @@ const modalFormItems = ref<IuFormField[]>([
     validateTrigger: ['change', 'blur'],
   },
   {
-    field: 'list_order',
-    label: '角色排序',
-    type: FormItemType.inputNumber,
-    inputNumberMode: 'button',
-    placeholder: '请输入显示排序',
-    rule: [
-      { required: true, message: '显示排序不能为空' },
-    ],
-  },
-  {
-    field: 'status',
-    label: '角色状态',
-    type: FormItemType.radio,
+    field: 'data_scope',
+    label: '激活角色',
+    type: FormItemType.select,
+    placeholder: '请选择激活角色',
     selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
+      dataOption: dataScopeOptions,
       dataOptionKey: {
-        label: 'label',
-        value: 'value',
+        title: 'label',
+        key: 'value',
       },
+      allowClear: true,
+      allowSearch: true,
+      multiple: false,
     },
-    rule: [
-      { required: true, message: '角色状态必须选择' },
-    ],
-    validateTrigger: 'blur',
   },
   {
     field: 'checkOption',
-    label: '菜单操作',
+    label: '操作选项',
     type: FormItemType.slot,
     slotName: 'checkOption',
     defaultCol: 2,
     fullScreenCol: 2,
     fullScreenIsOnlyOne: true,
     defaultIsOnlyOne: true,
+    vShow,
   },
   {
-    field: 'menuTreeSlot',
-    label: '菜单权限',
+    field: 'treeSlot',
+    label: '数据权限',
     type: FormItemType.slot,
-    slotName: 'menuTreeSlot',
-    defaultCol: 2,
-    fullScreenCol: 2,
+    slotName: 'treeSlot',
     fullScreenIsOnlyOne: true,
     defaultIsOnlyOne: true,
+    vShow,
   },
   {
     field: 'remark',
     label: '备注',
     type: FormItemType.textarea,
     placeholder: '请输入字典备注',
-    defaultCol: 2,
-    fullScreenCol: 2,
     fullScreenIsOnlyOne: true,
     defaultIsOnlyOne: true,
   },
 ])
-
-function handleAdd() {
-  modalIcon.value = markRaw(IconPlus)
-  open.value = true
-  form.value = {
-    status: '1',
-    remark: '',
-  }
-  title.value = '添加角色'
-}
-async function checkedMenu(role_id: string) {
-  // 获取角色的菜单权限
-  const { data, execute } = useGet<string[]>(
-    ApiSysRole.getRoleMenus,
-    { role_id },
-  )
-  await execute()
-  // 设置选择节点
-  form.value.menu_ids = data.value!
-}
 
 async function handleUpdate(row?: role) {
   modalIcon.value = markRaw(IconEdit)
@@ -146,44 +124,53 @@ async function handleUpdate(row?: role) {
   const { data, execute } = useGet<role>(ApiSysRole.getById, { role_id })
   await execute()
   form.value = data.value as role
-  title.value = `更新角色-${form.value.role_name}`
-  // 查询权限并勾选
+  title.value = `更新角色-${form.value.role_name}-数据权限`
   open.value = true
+  // 查询权限并勾选
   await checkedMenu(form.value.role_id as string)
 }
 
 async function submitForm() {
-  if (form.value.role_id !== undefined) {
-    const { execute, data } = usePut(ApiSysRole.edit, form)
-    await execute()
-    if (data.value === ErrorFlag)
-      return
-    Message.success(`更新 ${form.value.role_name} 成功`)
-  }
-  else {
-    const { execute, data } = usePost(ApiSysRole.add, form)
-    await execute()
-    if (data.value === ErrorFlag)
-      return
-    Message.success(`新增 ${form.value.role_name} 成功`)
-  }
+  if (form.value.data_scope !== '2')
+    form.value.dept_ids = []
+
+  const { execute, data } = usePut(ApiSysRole.setDataScope, form)
+  await execute()
+  if (data.value === ErrorFlag)
+    return
+  Message.success(`更新 ${form.value.role_name}的数据权限成功`)
   open.value = false
   emits('getList')
 }
 
 async function getMenuTree() {
   const { data, execute } = useGet<menu[]>(
-    ApiSysMenu.getEnabledTree,
+    ApiSysDept.getDeptTree,
   )
   await execute()
-  menuTree.value = filterObjectArray(data.value!, ['id', 'menu_name'], 'children')
+  menuTree.value = filterObjectArray(
+    data.value!,
+    ['dept_id', 'dept_name'],
+    'children',
+  )
 }
 
 getMenuTree()
 
+async function checkedMenu(role_id: string) {
+  // 获取角色的菜单权限
+  const { data, execute } = useGet<string[]>(
+    ApiSysRole.getRoleDepts,
+    { role_id },
+  )
+  await execute()
+  // 设置选择节点
+  form.value.dept_ids = data.value!
+}
+
 const fieldNames = {
-  key: 'id',
-  title: 'menu_name',
+  key: 'dept_id',
+  title: 'dept_name',
   children: 'children',
 }
 
@@ -195,7 +182,7 @@ function changeMenuCheckAll(v: boolean | (string | number | boolean)[]) {
   menuTreeRef.value?.checkAll(v as boolean)
 }
 
-defineExpose({ handleAdd, handleUpdate })
+defineExpose({ handleUpdate })
 </script>
 
 <template>
@@ -206,8 +193,9 @@ defineExpose({ handleAdd, handleUpdate })
     :form-items="modalFormItems"
     :icon="modalIcon"
     :title="title"
-    :item-width="200"
-    :default-col="2"
+    :item-width="250"
+    :default-col="1"
+    :full-screen-col="1"
     @handle-ok="submitForm"
   >
     <template #checkOption>
@@ -218,15 +206,12 @@ defineExpose({ handleAdd, handleUpdate })
         <a-checkbox @change="changeMenuCheckAll">
           全选/全不选
         </a-checkbox>
-        <a-checkbox v-model="checkStrictly">
-          父子联动
-        </a-checkbox>
       </a-space>
     </template>
-    <template #menuTreeSlot>
+    <template #treeSlot>
       <a-tree
         ref="menuTreeRef"
-        v-model:checked-keys="form.menu_ids"
+        v-model:checked-keys="form.dept_ids"
         :checkable="true"
         :field-names="fieldNames"
         :check-strictly="!checkStrictly"

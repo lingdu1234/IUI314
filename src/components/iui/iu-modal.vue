@@ -168,6 +168,7 @@ defineExpose({ validateModalField })
           <a-grid :cols="isFullscreen ? fullScreenCol : defaultCol">
             <a-grid-item
               v-for="item in formItems"
+              v-show="item.vShow === undefined ? true : item.vShow"
               :key="item.field"
               :span="isFullscreen ? item.fullScreenCol : item.defaultCol"
             >
@@ -250,9 +251,11 @@ defineExpose({ validateModalField })
                   :options="item.selectOption.dataOption as any"
                 />
                 <!--   添加一个slot 用于自定义，更加自由 -->
+                <!--   一些比较简单的直接配置，不好配置的使用slot -->
                 <slot
                   v-if="item.type === FormItemType.slot && item.slotName"
                   :name="item.slotName"
+                  :style="getItemStyle(item)"
                 />
               </a-form-item>
             </a-grid-item>
