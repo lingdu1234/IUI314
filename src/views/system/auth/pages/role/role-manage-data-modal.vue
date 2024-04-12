@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType, computed, markRaw, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import { IconEdit } from '@arco-design/web-vue/es/icon'
 import type { Tree } from '@arco-design/web-vue'
 import { Message } from '@arco-design/web-vue'
@@ -118,7 +118,7 @@ const modalFormItems = ref<IuFormField[]>([
 ])
 
 async function handleUpdate(row?: role) {
-  modalIcon.value = markRaw(IconEdit)
+  modalIcon.value = h(IconEdit)
 
   const role_id = (row && row.role_id) || props.ids[0]
   const { data, execute } = useGet<role>(ApiSysRole.getById, { role_id })

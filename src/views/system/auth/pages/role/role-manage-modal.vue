@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType, computed, markRaw, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import type { Tree } from '@arco-design/web-vue'
 import { Message } from '@arco-design/web-vue'
@@ -120,7 +120,7 @@ const modalFormItems = ref<IuFormField[]>([
 ])
 
 function handleAdd() {
-  modalIcon.value = markRaw(IconPlus)
+  modalIcon.value = h(IconPlus)
   open.value = true
   form.value = {
     status: '1',
@@ -140,7 +140,7 @@ async function checkedMenu(role_id: string) {
 }
 
 async function handleUpdate(row?: role) {
-  modalIcon.value = markRaw(IconEdit)
+  modalIcon.value = h(IconEdit)
 
   const role_id = (row && row.role_id) || props.ids[0]
   const { data, execute } = useGet<role>(ApiSysRole.getById, { role_id })

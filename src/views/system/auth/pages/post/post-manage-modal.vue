@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType, computed, markRaw, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import { Message } from '@arco-design/web-vue'
 import { useI18n } from 'vue-i18n'
@@ -93,7 +93,7 @@ const modalFormItems = ref<IuFormField[]>([
   },
 ])
 function handleAdd() {
-  modalIcon.value = markRaw(IconPlus)
+  modalIcon.value = h(IconPlus)
   open.value = true
   form.value = {
     status: '1',
@@ -101,7 +101,7 @@ function handleAdd() {
   title.value = '添加岗位'
 }
 async function handleUpdate(row?: post) {
-  modalIcon.value = markRaw(IconEdit)
+  modalIcon.value = h(IconEdit)
   if (row) {
     form.value = { ...row }
   }

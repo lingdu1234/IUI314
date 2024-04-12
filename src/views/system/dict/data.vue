@@ -1,5 +1,5 @@
 <script lang="ts"  setup>
-import { computed, markRaw, onActivated, onMounted, ref } from 'vue'
+import { computed, h, onActivated, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { Message, type TableRowSelection } from '@arco-design/web-vue'
@@ -76,7 +76,7 @@ const rowSelection = ref<TableRowSelection>({
 const operateButtons = ref<{ [key: string]: any }[]>([
   {
     label: t('common.add'),
-    icon: markRaw(IconPlus),
+    icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDictData.add)),
     disabled: false,
     fn: handleAdd,
@@ -85,7 +85,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   },
   {
     label: t('common.edit'),
-    icon: markRaw(IconEdit),
+    icon: h(IconEdit),
     auth: computed(() => hasPermission(ApiSysDictData.edit)),
     disabled: computed(() => !single.value),
     fn: handleUpdate,
@@ -94,7 +94,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   },
   {
     label: t('common.delete'),
-    icon: markRaw(IconDelete),
+    icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysDictData.delete)),
     disabled: computed(() => !selected.value),
     fn: handleDelete,
@@ -103,7 +103,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   },
   {
     label: t('common.close'),
-    icon: markRaw(IconClose),
+    icon: h(IconClose),
     auth: true,
     disabled: false,
     fn: handleClose,
@@ -113,13 +113,13 @@ const operateButtons = ref<{ [key: string]: any }[]>([
 ])
 
 function handleAdd() {
-  modalIcon.value = markRaw(IconPlus)
+  modalIcon.value = h(IconPlus)
   open.value = true
   form.value.dict_type = queryParams.value.dict_type
   title.value = t('common.add') + t('dict.dictData')
 }
 async function handleUpdate(row?: dictData) {
-  modalIcon.value = markRaw(IconEdit)
+  modalIcon.value = h(IconEdit)
   open.value = true
   const dict_data_id = row?.dict_data_id || ids.value[0]
   const { data, execute } = useGet(ApiSysDictData.getById, { dict_data_id })

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, markRaw, ref } from 'vue'
+import { computed, h, ref } from 'vue'
 
 import { Message, type TableRowSelection } from '@arco-design/web-vue'
 import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
@@ -70,7 +70,7 @@ const {
 const operateButtons = ref<{ [key: string]: any }[]>([
   {
     label: t('common.add'),
-    icon: markRaw(IconPlus),
+    icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDictType.add)),
     disabled: false,
     fn: handleAdd,
@@ -79,7 +79,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   },
   {
     label: t('common.edit'),
-    icon: markRaw(IconEdit),
+    icon: h(IconEdit),
     auth: computed(() => hasPermission(ApiSysDictType.edit)),
     disabled: computed(() => !single.value),
     fn: handleUpdate,
@@ -88,7 +88,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   },
   {
     label: t('common.delete'),
-    icon: markRaw(IconDelete),
+    icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysDictType.delete)),
     disabled: computed(() => !selected.value),
     fn: handleDelete,
@@ -108,13 +108,13 @@ function handleSelectionChange(keys: string[]) {
 }
 
 function handleAdd() {
-  modalIcon.value = markRaw(IconPlus)
+  modalIcon.value = h(IconPlus)
   open.value = true
   form.value.dict_type_id = undefined
   title.value = t('common.add') + t('dict.type')
 }
 async function handleUpdate(row?: dictType) {
-  modalIcon.value = markRaw(IconEdit)
+  modalIcon.value = h(IconEdit)
   open.value = true
   const dict_type_id = row?.dict_type_id || ids.value[0]
   const { data, execute } = useGet(ApiSysDictType.getById, { dict_type_id })

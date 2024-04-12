@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType, computed, markRaw, ref } from 'vue'
+import { type Component, type PropType, computed, h, ref } from 'vue'
 import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import { Message, Modal } from '@arco-design/web-vue'
 import { useI18n } from 'vue-i18n'
@@ -31,7 +31,7 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const iuModalRef = ref<InstanceType<typeof IuModal>>()
 
-const modalIcon = ref()
+const modalIcon = ref<Component>()
 const open = ref(false)
 const title = ref('')
 const form = ref<dept>({})
@@ -117,7 +117,7 @@ const modalFormItems = ref<IuFormField[]>([
 ])
 
 function handleAdd(row?: dept) {
-  modalIcon.value = markRaw(IconPlus)
+  modalIcon.value = h(IconPlus)
   open.value = true
   if (row)
     form.value.parent_id = row.dept_id
@@ -125,7 +125,7 @@ function handleAdd(row?: dept) {
   title.value = `${t('common.add')}部门`
 }
 async function handleUpdate(row?: dept) {
-  modalIcon.value = markRaw(IconEdit)
+  modalIcon.value = h(IconEdit)
   open.value = true
   form.value = { ...row } as dept
   title.value = `${t('common.update')}部门:${form.value?.dept_name}`

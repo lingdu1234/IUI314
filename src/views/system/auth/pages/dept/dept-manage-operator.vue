@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, markRaw, ref } from 'vue'
+import { computed, h, ref } from 'vue'
 import { IconPlus } from '@arco-design/web-vue/es/icon'
 import { useI18n } from 'vue-i18n'
 import { hasPermission } from '@/hooks'
@@ -16,7 +16,7 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const operateButtons = ref<{ [key: string]: any }[]>([
   {
     label: t('common.add'),
-    icon: markRaw(IconPlus),
+    icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDept.add)),
     disabled: false,
     fn: () => emits('handAdd'),

@@ -1,54 +1,25 @@
 <script setup lang="ts">
-import { type PropType, computed, ref } from 'vue'
+import { computed, ref } from 'vue'
 import type { FormInstance } from '@arco-design/web-vue'
 import { FormItemType, type IuFormField, type dataOptionTypeRadio } from '@/types/base/iu-form'
 import { useFormUtil } from '@/hooks'
+import type { iuModalPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'IuModal' })
 
-const props = defineProps({
-  formItems: {
-    type: Array as PropType<IuFormField[]>,
-    required: true,
-  },
-  icon: {
-    type: Object,
-    default: null,
-  },
-  title: {
-    type: String,
-    default: '',
-  },
-  okText: {
-    type: String,
-    default: '确定',
-  },
-  cancelText: {
-    type: String,
-    default: '取消',
-  },
-  titleAlign: {
-    type: String as PropType<'center' | 'start'>,
-    default: 'center',
-  },
-  labelWidth: {
-    type: Number,
-    default: 80,
-  },
-  itemWidth: {
-    type: Number,
-    default: 300,
-  },
-  defaultCol: {
-    type: Number,
-    default: 1,
-  },
-  fullScreenCol: {
-    type: Number,
-    default: 2,
-  },
+const props = withDefaults(defineProps<iuModalPropsType>(), {
+  title: '',
+  okText: '确定',
+  cancelText: '取消',
+  titleAlign: 'center',
+  labelWidth: 80,
+  itemWidth: 300,
+  defaultCol: 1,
+  fullScreenCol: 2,
 })
+
 const emit = defineEmits(['handleOk'])
+
 const visible = defineModel('visible', { required: true, default: false })
 const formValue = defineModel('formValue', { required: true, type: Object })
 const isFullscreen = ref(false)

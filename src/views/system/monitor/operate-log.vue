@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, markRaw, ref } from 'vue'
+import { computed, h, ref } from 'vue'
 
 import { Message, Modal, type TableRowSelection } from '@arco-design/web-vue'
 import { IconDelete } from '@arco-design/web-vue/es/icon'
@@ -64,7 +64,7 @@ const form = ref<operateLog>({})
 const operateButtons = ref<{ [key: string]: any }[]>([
   {
     label: t('common.delete'),
-    icon: markRaw(IconDelete),
+    icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysOperateLog.delete)),
     disabled: computed(() => !selected.value),
     fn: handleDelete,
@@ -73,7 +73,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
   },
   {
     label: t('common.clean'),
-    icon: markRaw(IconDelete),
+    icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysOperateLog.clean)),
     disabled: false,
     fn: handleClean,

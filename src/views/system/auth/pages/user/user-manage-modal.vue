@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType, computed, markRaw, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import { Message } from '@arco-design/web-vue'
 import { useI18n } from 'vue-i18n'
@@ -300,7 +300,7 @@ const editFormItems = ref<IuFormField[]>([
 ])
 
 function handleAdd() {
-  modalIcon.value = markRaw(IconPlus)
+  modalIcon.value = h(IconPlus)
   open.value = true
   form.value = {
     is_admin: '1',
@@ -311,7 +311,7 @@ function handleAdd() {
   title.value = `${t('common.add')}用户`
 }
 async function handleUpdate(row?: userInformation) {
-  modalIcon.value = markRaw(IconEdit)
+  modalIcon.value = h(IconEdit)
   modalFormItems.value = [...editFormItems.value]
   open.value = true
   const user_id = row?.id || props.ids[0]
