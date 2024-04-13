@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import { ApiSysDept } from '@/api/apis'
 import {
+  deleteEmptyChildren,
   useDicts,
   useGet,
 } from '@/hooks'
@@ -14,6 +15,7 @@ import DeptManageTable from '@/views/system/auth/pages/dept/dept-manage-table.vu
 import DeptManageOperator from '@/views/system/auth/pages/dept/dept-manage-operator.vue'
 import DeptManageQuery from '@/views/system/auth/pages/dept/dept-mannage-query.vue'
 import DeptManageModal from '@/views/system/auth/pages/dept/dept-manage-modal.vue'
+import type { menu } from '@/types/system/menu'
 
 // 导出名称
 defineOptions({
@@ -21,7 +23,6 @@ defineOptions({
 })
 
 const showSearch = ref(true)
-const isExpandAll = ref(true)
 
 const modalRef = ref<InstanceType<typeof DeptManageModal>>()
 
@@ -31,22 +32,21 @@ const dicts = useDicts(
 
 const queryParams = ref<deptQueryParam>({})
 
-const {
-  isFetching: isLoading,
-  data: dataList,
-  execute: getList,
-} = useGet<dept[]>(
-  ApiSysDept.getDeptTree,
-  queryParams,
-  { immediate: true },
-)
-function handleAdd(row?: dept) { modalRef.value?.handleAdd(row) }
-function handleUpdate(row?: dept) { modalRef.value?.handleUpdate(row) }
-function handleDelete(row?: dept) { modalRef.value?.handleDelete(row) }
-function changeExpandAll() {
-  isExpandAll.value = !isExpandAll.value
-  console.info(isExpandAll.value)
+const tableData = ref<dept[]>()
+
+async function getList() {
+  // 添加参数只查询菜单和目录，不查询api
+  const { data, execute } = useGet<dept[]>(
+    ApiSysDept.getDeptTree,
+    queryParams,
+  )
+  await execute()
+  tableData.value = deleteEmptyChildren(data.value as menu[], 'children')
 }
+const handleAdd = (row?: dept) => modalRef.value?.handleAdd(row)
+const handleUpdate = (row?: dept) => modalRef.value?.handleUpdate(row)
+const handleDelete = (row?: dept) => modalRef.value?.handleDelete(row)
+getList()
 </script>
 
 <template>
@@ -66,17 +66,17 @@ function changeExpandAll() {
     </a-row>
     <!-- 表格区域 -->
     <DeptManageTable
-      :is-loading="isLoading"
+      :is-loading="false"
       :dicts="dicts"
-      :table-data="dataList"
+      :table-data="tableData || []"
       @handle-delete="handleDelete"
       @handle-update="handleUpdate"
       @handle-add="handleAdd"
     />
     <DeptManageModal
-      v-if="dataList"
+      v-if="tableData"
       ref="modalRef"
-      :dept-tree="dataList"
+      :dept-tree="tableData"
       :dicts="dicts"
       @get-list="getList"
     />

@@ -1,123 +1,114 @@
 <script lang="ts" setup>
-import { Plus, Refresh, Search } from '@element-plus/icons-vue'
-import {
-  ElButton,
-  ElCol,
-  ElForm,
-  ElFormItem,
-  ElInput,
-  ElOption,
-  ElRow,
-  ElSelect,
-  ElSkeleton,
-  type FormInstance,
-} from 'element-plus'
 import { ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 
-import MenuTable from './pages/menu-table.vue'
-import { ApiSysMenu } from '@/api/apis'
-import RightToolBar from '@/components/common/right-tool-bar.vue'
-import { hasPermission, useDicts, useFormUtil } from '@/hooks'
-import type { MessageSchema } from '@/i18n'
-import { systemMenus } from '@/router'
+import { ApiSysMenu, ApiSysPost } from '@/api/apis'
+import {
+  deleteEmptyChildren,
+  useDeleteFn,
+  useDicts,
+  useGet,
+  useTableUtil,
+} from '@/hooks'
+import type { userInformation } from '@/types/system/userInformation'
 import { dictKey } from '@/types/system/dict'
-import type { menuQueryParam } from '@/types/system/menu'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
+import { systemMenus } from '@/router'
+import type PostManageModal from '@/views/system/auth/pages/post/post-manage-modal.vue'
+import MenuManageQuery from '@/views/system/menu/pages/menu-mannage-query.vue'
+import MenuManageOperator from '@/views/system/menu/pages/menu-manage-operator.vue'
+import MenuManageTable from '@/views/system/menu/pages/menu-manage-table.vue'
+import MenuManageModal from '@/views/system/menu/pages/menu-manage-modal.vue'
+import type { menu, menuQueryParam } from '@/types/system/menu'
+import { MenuType } from '@/types/base/router'
 
+// 导出名称
 defineOptions({
   name: systemMenus.menu.path,
 })
 
-const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-
-const { formReset } = useFormUtil()
 const showSearch = ref(true)
+// 菜单树数据
+const menuData = ref<menu[]>()
 
-const menuTableRef = ref<InstanceType<typeof MenuTable>>()
-const queryRef = ref<FormInstance>()
-// 字典数据
-const dicts = useDicts(dictKey.sysNormalDisable)
-// 查询参数
-const queryParams = ref<menuQueryParam>({
-  menu_name: undefined,
-  status: undefined,
-})
+const modalRef = ref<InstanceType<typeof PostManageModal>>()
 
-function resetQuery() {
-  formReset(queryRef.value)
-  getList()
+const dicts = useDicts(
+  dictKey.sysNormalDisable,
+  dictKey.sysApiMethod,
+  dictKey.apiCacheMethod,
+  dictKey.apiLogMethod,
+  dictKey.sysShowHide,
+  dictKey.db,
+)
+
+const { useTableSelectChange } = useTableUtil()
+const { handleSelectionChangeFnX, ids, values, single, selected }
+    = useTableSelectChange()
+
+const queryParams = ref<menuQueryParam>({})
+
+async function getList() {
+  // 添加参数只查询菜单和目录，不查询api
+  queryParams.value.menu_types = [MenuType.C, MenuType.M].join(',')
+  const { data, execute } = useGet<menu[]>(
+    ApiSysMenu.getEnabledTree,
+    queryParams,
+  )
+  await execute()
+  menuData.value = deleteEmptyChildren(data.value as menu[], 'children')
 }
-function getList() {
-  menuTableRef.value?.getList()
+
+const handAdd = () => modalRef.value?.handleAdd()
+const handleUpdate = (row?: userInformation) => modalRef.value?.handleUpdate(row)
+
+async function handleDelete(row?: userInformation) {
+  await useDeleteFn(
+    ApiSysPost.delete,
+    'post_id',
+    ids,
+    'post_name',
+    values,
+    'post_ids',
+    row,
+    getList,
+  )
 }
-function handleAdd() {
-  menuTableRef.value?.handleAdd()
-}
+getList()
 </script>
 
 <template>
   <div>
-    <ElForm
-      v-show="showSearch"
-      ref="queryRef"
-      :inline="true"
-      :model="queryParams"
-      class="base-form"
-      label-width="80px"
-    >
-      <ElFormItem :label="t('menu.name')" prop="menu_name">
-        <ElInput
-          v-model="queryParams.menu_name"
-          :placeholder="t('menu.nameTip')"
-          clearable
-          @keyup.enter="getList"
-        />
-      </ElFormItem>
-      <ElFormItem :label="t('menu.status')" prop="status">
-        <ElSelect
-          v-model="queryParams.status"
-          :clearable="true"
-          :placeholder="t('menu.status')"
-        >
-          <ElOption
-            v-for="dict in dicts[dictKey.sysNormalDisable]"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
-        </ElSelect>
-      </ElFormItem>
-      <ElFormItem>
-        <ElButton :icon="Search" type="primary" @click="getList">
-          {{ t('common.search') }}
-        </ElButton>
-        <ElButton :icon="Refresh" @click="resetQuery()">
-          {{ t('common.reset') }}
-        </ElButton>
-      </ElFormItem>
-    </ElForm>
-
+    <MenuManageQuery
+      v-model:query-params="queryParams"
+      v-model:show-search="showSearch"
+      :dicts="dicts"
+      @get-list="getList"
+    />
     <!-- 操作区域 -->
-    <ElRow :gutter="10" class="m-b-8px">
-      <ElCol :span="1.5">
-        <ElButton
-          v-if="hasPermission(ApiSysMenu.add)"
-          :icon="Plus"
-          plain
-          type="primary"
-          @click="handleAdd"
-        >
-          {{ t('common.add') }}
-        </ElButton>
-      </ElCol>
+    <a-row :gutter="10" class="m-b-8px">
+      <MenuManageOperator
+        :selected="selected"
+        :single="single"
+        @handle-delete="handleDelete"
+        @handle-update="handleUpdate"
+        @hand-add="handAdd"
+      />
       <RightToolBar v-model:showSearch="showSearch" @query-table="getList" />
-    </ElRow>
+    </a-row>
     <!-- 表格区域 -->
-    <Suspense>
-      <MenuTable ref="menuTableRef" :query-param="queryParams" />
-      <template #fallback>
-        <ElSkeleton :rows="6" animated />
-      </template>
-    </Suspense>
+    <MenuManageTable
+      :is-loading="false"
+      :dicts="dicts"
+      :table-data="menuData || []"
+      @handle-delete="handleDelete"
+      @handle-update="handleUpdate"
+      @handle-selection-change-fn="handleSelectionChangeFnX"
+    />
+    <MenuManageModal
+      ref="modalRef"
+      :ids="ids"
+      :dicts="dicts"
+      @get-list="getList"
+    />
   </div>
 </template>

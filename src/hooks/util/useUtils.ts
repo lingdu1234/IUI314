@@ -98,3 +98,14 @@ export function filterObjectArray<T extends { [key: string]: any }>(array: T[], 
 
   return array
 }
+
+// 删除空children
+export function deleteEmptyChildren<T extends { [key: string]: any }>(array: T[], key: string) {
+  for (const item of array) {
+    if (item[key] && item[key].length === 0)
+      delete item[key]
+    else
+      deleteEmptyChildren(item[key], key)
+  }
+  return array
+}
