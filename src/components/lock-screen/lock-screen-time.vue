@@ -1,8 +1,8 @@
 <script setup>
 import { useOnline } from '@vueuse/core'
 
-import SvgIcon from '../common/svg-icon.vue'
 import { useTime } from '@/hooks'
+import IuiIcon from '@/components/svg-icon/iui-icon.vue'
 
 defineOptions({ name: 'LockScreenTime' })
 
@@ -25,7 +25,7 @@ const online = useOnline()
     <a-col :span="24" :md="8">
       <div class="flex justify-center items-center">
         <div>
-          <SvgIcon
+          <IuiIcon
             :name="online ? 'online' : 'offline'"
             class="h-32px w-32px"
           />

@@ -4,11 +4,11 @@ import { ref, toRaw, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
-import SvgIcon from '@/components/common/svg-icon.vue'
 import type { MessageSchema } from '@/i18n'
 import { useAppStore, usePermissionStore } from '@/stores'
 import type { AppRouteRecordRaw } from '@/types/base/router'
 import BreadcrumbDropdown from '@/components/layout/nav-bar/breadcrumb-dropdown.vue'
+import IuiIcon from '@/components/svg-icon/iui-icon.vue'
 
 defineOptions({ name: 'Breadcrumb' })
 
@@ -51,7 +51,7 @@ watchEffect(() => {
     </template>
     <a-breadcrumb-item v-for="item in levelList" :key="item.path">
       <div class="no-redirect">
-        <SvgIcon :name="item.meta && item.meta.icon" />
+        <IuiIcon :name="item.meta && item.meta.icon || ''" />
 
         <span v-if="!appStore.device.isMobile" class="m-l-5px">
           <template v-if="!item.children || item.children.length === 0">
@@ -130,6 +130,6 @@ watchEffect(() => {
 <style lang="scss" scoped>
 .no-redirect {
   color: #97a8be;
-  cursor: text;
+  cursor: pointer;
 }
 </style>

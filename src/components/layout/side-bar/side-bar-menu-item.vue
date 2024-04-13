@@ -3,10 +3,11 @@ import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import AppLink from './app-link.vue'
-import SvgIcon from '@/components/common/svg-icon.vue'
 import { getNormalPath, getQueryUrl, isExternal } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import type { AppRouteRecordRaw } from '@/types/base/router'
+import IuiIcon from '@/components/svg-icon/iui-icon.vue'
+import { useIuiIcons } from '@/components/svg-icon/useIuiIcons'
 
 defineOptions({ name: 'SideBarMenuItem' })
 
@@ -22,6 +23,8 @@ const props = defineProps({
 })
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const onlyOneChild = ref<AppRouteRecordRaw>()
+
+const iuIcons = useIuiIcons()
 
 function hasOneShowingChild(
   children: AppRouteRecordRaw[] = [],
@@ -87,10 +90,11 @@ function resolvePath(routePath: string, routeQuery?: string): string {
           :key="resolvePath(onlyOneChild.path)"
         >
           <template #icon>
-            <SvgIcon
+            <IuiIcon
               :name="
                 onlyOneChild.meta?.icon
-                  || (item.meta && item.meta.icon) || ''
+                  || (item.meta && item.meta.icon)
+                  || ''
               "
             />
           </template>
@@ -112,7 +116,7 @@ function resolvePath(routePath: string, routeQuery?: string): string {
 
     <a-sub-menu v-else :key="resolvePath(item.path)">
       <template v-if="item.meta" #icon>
-        <SvgIcon :name="(item.meta && item.meta.icon) || ''" />
+        <IuiIcon :name="(item.meta && item.meta.icon) || ''" />
       </template>
       <template v-if="item.meta" #title>
         <span

@@ -51,7 +51,7 @@ export function useDictData() {
     {
       title: '字典标签',
       slotName: 'dictLabel',
-      width: 200,
+      width: 100,
       align: 'center',
     },
     {
@@ -91,7 +91,7 @@ export function useDictData() {
       title: '操作',
       slotName: 'operation',
       width: 200,
-      fixed: 'right',
+      // fixed: 'right',
       align: 'center',
     },
   ]

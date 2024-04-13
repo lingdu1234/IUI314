@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { type PropType, h, ref } from 'vue'
+import { type PropType, h } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { TableColumnData, TableRowSelection } from '@arco-design/web-vue'
+import type { TableColumnData } from '@arco-design/web-vue'
 import type { MessageSchema } from '@/i18n'
 import DictTag from '@/components/common/dict-tag.vue'
 import { dictKey, type dictUse } from '@/types/system/dict'
@@ -30,12 +30,6 @@ const emits = defineEmits([
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const tableData = defineModel<userInformation[] | null>('tableData', { required: true })
-
-const rowSelection = ref<TableRowSelection>({
-  type: 'checkbox',
-  showCheckedAll: true,
-  onlyCurrent: false,
-})
 
 // 表格列属性
 const columns: TableColumnData[] = [

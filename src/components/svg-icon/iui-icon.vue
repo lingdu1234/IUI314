@@ -8,37 +8,62 @@
 -->
 <script setup lang="ts">
 import { computed, defineOptions } from 'vue'
+import type { IuiIconProps } from '@/components/svg-icon/iui-icon-props'
 
-defineOptions({ name: 'UnoIcon' })
-const props = defineProps({
-  name: {
-    type: String,
-    required: true,
-  },
-  size: {
-    type: Number,
-    default: 16,
-  },
-  fill: {
-    type: String,
-    default: 'currentColor',
-  },
+defineOptions({ name: 'IuiIcon' })
+
+const props = withDefaults(defineProps<IuiIconProps>(), {
+  size: 16,
+  color: 'currentColor',
+  rotate: 0,
+  spin: false,
 })
+
 const iconSize = computed(() => `${props.size}px`)
-const iconName = computed(() => `url(/icons/${props.name}.svg)`)
-const fill = computed(() => props.fill)
-const isColorIcon = computed(() => props.name?.startsWith('c'))
+const iconName = computed(() => `url(/assets/icons/${props.name}.svg)`)
+const fill = computed(() => props.color)
+const isColorIcon = computed(() => props.name?.startsWith('color/'))
+const rotate = computed(() => `rotate(${props.rotate}deg)`)
+
+const styleClass = computed(() => {
+  const classList = []
+  if (props.spin)
+    classList.push('animate-spin-x')
+
+  if (isColorIcon.value)
+    classList.push('color-icon')
+  else
+    classList.push('mask-icon')
+
+  return classList.join(' ')
+})
 </script>
 
 <template>
-  <span :class="isColorIcon ? 'color-icon' : 'mask-icon'" class="display-class" />
+  <span
+    :class="styleClass"
+    class="display-class vertical-middle"
+  />
 </template>
 
 <style scoped lang="scss">
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-x {
+  animation: spin 1s linear infinite;
+}
+
 .display-class{
   display: inline-block;
   width: v-bind(iconSize);
   height: v-bind(iconSize);
+  transform: v-bind(rotate);
 }
 .mask-icon {
   /* Add background color */

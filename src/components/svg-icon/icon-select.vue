@@ -1,22 +1,24 @@
-<script lang="ts" name="icon-select" setup>
+<script lang="ts" setup>
 import { ElInput, ElScrollbar } from 'element-plus'
 import { ref } from 'vue'
 
-import { useIcons } from './icon-select'
-import SvgIcon from './svg-icon.vue'
+import { useIuiIcons } from '@/components/svg-icon/useIuiIcons'
+import UnoIcon from '@/components/common/uno-icon.vue'
+
+defineOptions({ name: 'IconSelect' })
 
 const emit = defineEmits(['selected'])
 
 const iconName = ref('')
 
-const { icons } = useIcons()
+const { IuiIcons } = useIuiIcons()
 
-const iconList = ref(icons)
+const iconList = ref(IuiIcons)
 
 function filterIcons() {
-  iconList.value = icons
+  iconList.value = IuiIcons
   if (iconName.value)
-    iconList.value = icons.filter(item => item.includes(iconName.value))
+    iconList.value = IuiIcons.filter(item => item.includes(iconName.value))
 }
 
 function selectedIcon(name: string) {
@@ -26,7 +28,7 @@ function selectedIcon(name: string) {
 
 function reset() {
   iconName.value = ''
-  iconList.value = icons
+  iconList.value = IuiIcons
 }
 
 defineExpose({
@@ -54,8 +56,8 @@ defineExpose({
         :key="index"
         @click="selectedIcon(item)"
       >
-        <SvgIcon :name="item" class="w-16px h-25px" />
-        <span class="m-l-5px">{{ item }}</span>
+        <UnoIcon :name="item" :size="14" />
+        <span class="m-l-10px vertical-middle">{{ item }}</span>
       </div>
     </ElScrollbar>
   </div>
@@ -69,8 +71,8 @@ defineExpose({
   .icon-list {
     div {
       height: 30px;
-      line-height: 30px;
-      margin-bottom: -5px;
+      //line-height: 30px;
+      //margin-bottom: -5px;
       cursor: pointer;
       width: 33%;
       float: left;
@@ -78,7 +80,7 @@ defineExpose({
 
     span {
       display: inline-block;
-      vertical-align: -0.15em;
+      //vertical-align: -0.15em;
       fill: currentColor;
       overflow: hidden;
     }

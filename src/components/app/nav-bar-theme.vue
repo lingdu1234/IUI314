@@ -1,7 +1,6 @@
 <script lang="ts"  setup>
 import { useI18n } from 'vue-i18n'
 
-import SvgIcon from '../common/svg-icon.vue'
 import { useTheme } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { useAppStore } from '@/stores'
@@ -16,7 +15,7 @@ const { set_theme, theme_list } = useTheme()
   <div>
     <a-dropdown trigger="hover">
       <div class="cursor-pointer">
-        <SvgIcon name="theme" />
+        <IconSkin />
       </div>
       <template #content>
         <a-doption

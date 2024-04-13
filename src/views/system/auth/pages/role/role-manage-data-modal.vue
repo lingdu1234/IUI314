@@ -53,27 +53,17 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'role_name',
     label: '角色名称',
     type: FormItemType.input,
-    placeholder: '请输入角色名称',
-    rule: [
-      { required: true, message: '角色名称不能为空' },
-      { type: 'string', minLength: 2, maxLength: 20, message: '角色名称2~20个字符' },
-    ],
-    validateTrigger: 'blur',
+    disabled: true,
   },
   {
     field: 'role_key',
     label: '角色标志',
     type: FormItemType.input,
-    placeholder: '请输入角色标志',
-    rule: [
-      { required: true, message: '角色标志不能为空' },
-      { type: 'string', minLength: 2, maxLength: 20, message: '角色标志2~20个字符' },
-    ],
-    validateTrigger: ['change', 'blur'],
+    disabled: true,
   },
   {
     field: 'data_scope',
-    label: '激活角色',
+    label: '数据权限',
     type: FormItemType.select,
     placeholder: '请选择激活角色',
     selectOption: {

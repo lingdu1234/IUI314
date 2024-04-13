@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 
-import ArcoVueIcon from '@arco-design/web-vue/es/icon'
 import App from './App.vue'
 import { setupElementPlus } from './plugins'
 import { useSetupI18n } from '@/i18n'
@@ -20,7 +19,6 @@ async function bootApp() {
   useSetupI18n().setupI18n(app)
   setupElementPlus(app)
   // setupAcroDesignVue(app)
-  app.use(ArcoVueIcon)
   app.mount('#app')
 }
 

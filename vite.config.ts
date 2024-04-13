@@ -65,26 +65,18 @@ export default ({ mode }: ConfigEnv) =>
       outDir: './dist',
       cssCodeSplit: true,
       rollupOptions: {
-        //   input: {
-        //     index: fileURLToPath(new URL('../index.html', import.meta.url)),
-        //   },
         output: {
-          // 入口文件名
-          // entryFileNames: 'assets/[name].js',
-          // 块文件名
-          // chunkFileNames: 'assets/[name]-[hash].js',
-          // 资源文件名 css 图片等等
-          // assetFileNames: 'assets/[name]-[hash].[ext]',
-          // manualChunks(id) {
-          //   if (id.includes('node_modules')) {
-          //     return id
-          //       .toString()
-          //       .split('node_modules/')[1]
-          //       .split('/')[0]
-          //       .toString()
-          //   }
-          // },
-        },
+          chunkFileNames: (assetInfo: { name: string }) => {
+            const name =
+                assetInfo.name.includes(".vue_vue_type_style_index_0_lang")
+                || assetInfo.name.includes(".vue_vue_type_script_setup_true_lang")
+                || assetInfo.name.includes(".vue_vue_type_script_setup_true_name")
+                || assetInfo.name.includes(".vue_vue_type_script_name")
+                    ? assetInfo.name.split(".")[0]
+                    : assetInfo.name;
+            return `assets/${name}-[hash].js`;
+          }
+        }
       },
       terserOptions: {
         compress: {

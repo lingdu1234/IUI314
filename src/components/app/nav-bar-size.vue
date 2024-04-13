@@ -2,7 +2,6 @@
 import { ref } from 'vue'
 
 import type { Size } from '@arco-design/web-vue'
-import SvgIcon from '../common/svg-icon.vue'
 import { useAppStore } from '@/stores'
 
 defineOptions({ name: 'NavBarSize' })
@@ -21,7 +20,7 @@ const sizeList = ref<{ key: Size, value: string }[]>([
   <div>
     <a-dropdown trigger="hover">
       <div class="cursor-pointer">
-        <SvgIcon name="size-change" />
+        <IconOriginalSize />
       </div>
       <template #content>
         <a-doption

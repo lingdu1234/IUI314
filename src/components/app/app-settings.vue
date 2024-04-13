@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import SvgIcon from '../common/svg-icon.vue'
 import { useAppStore } from '@/stores'
 
 defineOptions({ name: 'AppSettings' })
@@ -9,8 +8,7 @@ const appStore = useAppStore()
 <template>
   <div>
     <div class="cursor-pointer">
-      <SvgIcon
-        name="app-settings"
+      <IconSettings
         @click="appStore.setAppSettingDrawer(true)"
       />
     </div>

@@ -1,7 +1,6 @@
 <script setup lang="ts" name="nav-bar-language">
 import { useI18n } from 'vue-i18n'
 
-import SvgIcon from '../common/svg-icon.vue'
 import { langList } from '@/i18n'
 import { useAppStore } from '@/stores'
 
@@ -18,7 +17,7 @@ function setLang(v: string) {
   <div>
     <a-dropdown trigger="hover">
       <div class="cursor-pointer">
-        <SvgIcon name="language" />
+        <IconLanguage />
       </div>
       <template #content>
         <a-doption

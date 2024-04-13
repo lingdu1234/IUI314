@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import SvgIcon from '../common/svg-icon.vue'
 import { useAppStore } from '@/stores'
 
 defineOptions({ name: 'ScreenFull' })
@@ -10,9 +9,8 @@ const appStore = useAppStore()
 <template>
   <div>
     <div class="cursor-pointer" @click="appStore.toggleFullScreen">
-      <SvgIcon
-        :name="appStore.app.isFullscreen ? 'fullscreen-exit' : 'fullscreen'"
-      />
+      <IconFullscreenExit v-if="appStore.app.isFullscreen" />
+      <IconFullscreen v-else />
     </div>
   </div>
 </template>
