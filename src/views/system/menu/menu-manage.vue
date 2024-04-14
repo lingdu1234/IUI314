@@ -1,25 +1,25 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
-import { ApiSysMenu, ApiSysPost } from '@/api/apis'
+import { Message, Modal } from '@arco-design/web-vue'
+import { ApiSysMenu } from '@/api/apis'
 import {
   deleteEmptyChildren,
-  useDeleteFn,
+  filterObjectArray,
+  useDelete,
   useDicts,
   useGet,
-  useTableUtil,
 } from '@/hooks'
-import type { userInformation } from '@/types/system/userInformation'
 import { dictKey } from '@/types/system/dict'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
-import { systemMenus } from '@/router'
-import type PostManageModal from '@/views/system/auth/pages/post/post-manage-modal.vue'
-import MenuManageQuery from '@/views/system/menu/pages/menu-mannage-query.vue'
-import MenuManageOperator from '@/views/system/menu/pages/menu-manage-operator.vue'
-import MenuManageTable from '@/views/system/menu/pages/menu-manage-table.vue'
-import MenuManageModal from '@/views/system/menu/pages/menu-manage-modal.vue'
+import { ApiManageRouteName, router, systemMenus } from '@/router'
+import MenuManageQuery from '@/views/system/menu/pages/menu/menu-mannage-query.vue'
+import MenuManageOperator from '@/views/system/menu/pages/menu/menu-manage-operator.vue'
+import MenuManageTable from '@/views/system/menu/pages/menu/menu-manage-table.vue'
+import MenuManageModal from '@/views/system/menu/pages/menu/menu-manage-modal.vue'
 import type { menu, menuQueryParam } from '@/types/system/menu'
 import { MenuType } from '@/types/base/router'
+import { useMenuData } from '@/stores'
 
 // 导出名称
 defineOptions({
@@ -29,8 +29,13 @@ defineOptions({
 const showSearch = ref(true)
 // 菜单树数据
 const menuData = ref<menu[]>()
+// Api menu id
+const apiMenuId = ref<string>()
+// 目录上级菜单选择树
+const menuSelectTree = ref<menu[]>([])
 
-const modalRef = ref<InstanceType<typeof PostManageModal>>()
+const modalRef = ref<InstanceType<typeof MenuManageModal>>()
+const openApiDrawer = ref(false)
 
 const dicts = useDicts(
   dictKey.sysNormalDisable,
@@ -40,10 +45,6 @@ const dicts = useDicts(
   dictKey.sysShowHide,
   dictKey.db,
 )
-
-const { useTableSelectChange } = useTableUtil()
-const { handleSelectionChangeFnX, ids, values, single, selected }
-    = useTableSelectChange()
 
 const queryParams = ref<menuQueryParam>({})
 
@@ -56,24 +57,77 @@ async function getList() {
   )
   await execute()
   menuData.value = deleteEmptyChildren(data.value as menu[], 'children')
+  return menuData.value
 }
 
-const handAdd = () => modalRef.value?.handleAdd()
-const handleUpdate = (row?: userInformation) => modalRef.value?.handleUpdate(row)
+const handAdd = (row?: menu, pid?: string) => modalRef.value?.handleAdd(row, pid)
+const handleAddByCopy = (row: menu) => modalRef.value?.handleAddByCopy(row)
+const handleUpdate = (row: menu) => modalRef.value?.handleUpdate(row)
 
-async function handleDelete(row?: userInformation) {
-  await useDeleteFn(
-    ApiSysPost.delete,
-    'post_id',
-    ids,
-    'post_name',
-    values,
-    'post_ids',
-    row,
-    getList,
-  )
+async function getMenuSelectTree() {
+  // const queryParam: menuQueryParam = {
+  //   // 查询所有目录菜单，只有目录才能才能作为上级菜单
+  //   menu_type: MenuType.M,
+  // }
+  // const { data, execute } = useGet<menu[]>(
+  //   ApiSysMenu.getEnabledTree,
+  //   queryParam,
+  // )
+  // await execute()
+
+  const data = await getList()
+  // 深度复制，防止修改原数据
+  const _data = structuredClone(data)
+  // 对菜单警醒筛选
+  const m_data = filterObjectArray(_data, ['id', 'menu_name'], 'children')
+  menuSelectTree.value = [
+    {
+      id: '0',
+      menu_name: '主目录',
+      children: m_data,
+    },
+  ]
+  // 蒋数据保存到store
+  useMenuData().setMenuTreeSelect(menuSelectTree.value)
 }
-getList()
+
+async function handleDelete(row?: menu) {
+  if (row) {
+    const id = row.id
+    const content = `你确认要删除 '${row.menu_name}' 吗？`
+    Modal.confirm({
+      title: '菜单删除确认',
+      hideCancel: false,
+      titleAlign: 'start',
+      content,
+      okText: '确认',
+      cancelText: '取消',
+      draggable: true,
+      onOk: async () => {
+        const { execute } = useDelete(ApiSysMenu.delete, { id })
+        await execute()
+        await getList()
+        Message.success(`你成功删除了菜单: '${row.menu_name}'`)
+      },
+      onCancel: () => {
+        Message.info('你取消了删除操作')
+      },
+    })
+  }
+}
+
+function goto_api(row?: menu) {
+  router.push({
+    name: ApiManageRouteName,
+    query: { id: row ? row.id : undefined },
+    params: {
+      menu_tree: menuSelectTree.value as any,
+    },
+  })
+}
+onMounted(async () => {
+  await getMenuSelectTree()
+})
 </script>
 
 <template>
@@ -87,11 +141,8 @@ getList()
     <!-- 操作区域 -->
     <a-row :gutter="10" class="m-b-8px">
       <MenuManageOperator
-        :selected="selected"
-        :single="single"
-        @handle-delete="handleDelete"
-        @handle-update="handleUpdate"
         @hand-add="handAdd"
+        @goto-api="goto_api"
       />
       <RightToolBar v-model:showSearch="showSearch" @query-table="getList" />
     </a-row>
@@ -102,12 +153,14 @@ getList()
       :table-data="menuData || []"
       @handle-delete="handleDelete"
       @handle-update="handleUpdate"
-      @handle-selection-change-fn="handleSelectionChangeFnX"
+      @handle-add="handAdd"
+      @handle-add-by-copy="handleAddByCopy"
+      @go-to-api="goto_api"
     />
     <MenuManageModal
       ref="modalRef"
-      :ids="ids"
       :dicts="dicts"
+      :menu-tree="menuSelectTree as menu[]"
       @get-list="getList"
     />
   </div>

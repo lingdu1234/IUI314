@@ -8,7 +8,8 @@ export const ServerError = () => import('@/components/exception/500.vue')
 
 export const REDIRECT_ROUTE_NAME = 'redirect' // 重定向
 export const DEFAULT_ROUTE_NAME = 'dashboard' // 首页
-export const DictDataRouteName = 'dict_data' // 字典数据
+export const DictDataRouteName = 'DictData' // 字典数据
+export const ApiManageRouteName = 'ApiManage' // 字典数据
 export const ScheduledTasksLogRouteName = 'scheduled_tasks_log' // 定时任务日志
 export const UserProfileRouteName = 'user_profile' // 用户中心
 
@@ -61,6 +62,24 @@ export const DictDataRoute: AppRouteRecordRaw = {
     },
   ],
 }
+export const ApiManageRoute: AppRouteRecordRaw = {
+  path: '/system/menu',
+  component: Layout,
+  hidden: true,
+  children: [
+    {
+      path: 'api',
+      component: () => import('@/views/system/menu/api-manage.vue'),
+      name: ApiManageRouteName,
+      meta: {
+        title: 'Api管理',
+        activeMenu: '/system/basic/menu-manage',
+        no_cache: false,
+        icon: 'dict',
+      },
+    },
+  ],
+}
 export const ScheduledTasksLogRoute: AppRouteRecordRaw = {
   path: '/monitor',
   component: Layout,
@@ -103,6 +122,7 @@ export const UserProfileRoute: AppRouteRecordRaw = {
 // 导出所有固定路由
 export const FixedRoutes = [
   DictDataRoute,
+  ApiManageRoute,
   ScheduledTasksLogRoute,
   UserProfileRoute,
 ]

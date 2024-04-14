@@ -149,6 +149,7 @@ defineExpose({ validateModalField })
                 :rules="item.rule"
                 :label-col-style="labelColStyle"
                 :validate-trigger="item.validateTrigger"
+                :tooltip="item.tooltip"
               >
                 <span
                   v-if="item.type === FormItemType.text"
@@ -171,6 +172,7 @@ defineExpose({ validateModalField })
                   :field-names="item.selectOption.dataOptionKey as any"
                   :placeholder="item.placeholder"
                   :allow-clear="item.selectOption.allowClear"
+                  :allow-create="item.selectOption.allowCreate"
                   :multiple="item.selectOption.multiple"
                   :allow-search="item.selectOption.allowSearch"
                   :max-tag-count="item.selectOption.maxTagCount"

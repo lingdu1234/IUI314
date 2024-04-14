@@ -5,6 +5,7 @@ import type { RadioOption } from '@arco-design/web-vue/es/radio/interface'
 export interface IuQueryFormField {
   field: string
   label?: string
+  tooltip?: string
   type: FormItemType
   selectOption?: SelectOption
   placeholder?: string
@@ -52,19 +53,22 @@ export interface SelectOption {
     value?: string
     label?: string
     children?: string
-    disabled?: boolean
+    disabled?: string
   }
   defaultValue?: any
   allowClear?: boolean
   multiple?: boolean
   maxTagCount?: number
   allowSearch?: boolean
+  allowCreate?: boolean
   loading?: boolean
 }
 
 export interface SelectOptionInterface {
-  key: string
-  label: string
-  value: string
+  key?: string
+  title?: string
+  value?: string
+  label?: string
+  children?: string
   disabled?: boolean
 }

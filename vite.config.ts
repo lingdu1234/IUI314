@@ -67,16 +67,16 @@ export default ({ mode }: ConfigEnv) =>
       rollupOptions: {
         output: {
           chunkFileNames: (assetInfo: { name: string }) => {
-            const name =
-                assetInfo.name.includes(".vue_vue_type_style_index_0_lang")
-                || assetInfo.name.includes(".vue_vue_type_script_setup_true_lang")
-                || assetInfo.name.includes(".vue_vue_type_script_setup_true_name")
-                || assetInfo.name.includes(".vue_vue_type_script_name")
-                    ? assetInfo.name.split(".")[0]
-                    : assetInfo.name;
-            return `assets/${name}-[hash].js`;
-          }
-        }
+            const name
+                = assetInfo.name.includes('.vue_vue_type_style_index_0_lang')
+                || assetInfo.name.includes('.vue_vue_type_script_setup_true_lang')
+                || assetInfo.name.includes('.vue_vue_type_script_setup_true_name')
+                || assetInfo.name.includes('.vue_vue_type_script_name')
+                  ? assetInfo.name.split('.')[0]
+                  : assetInfo.name
+            return `assets/${name}-[hash].js`
+          },
+        },
       },
       terserOptions: {
         compress: {

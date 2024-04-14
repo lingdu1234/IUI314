@@ -103,7 +103,7 @@ const columns: TableColumnData[] = [
   {
     title: '操作',
     slotName: 'operation',
-    width: 120,
+    width: 150,
     // fixed: 'right',
     align: 'center',
   },

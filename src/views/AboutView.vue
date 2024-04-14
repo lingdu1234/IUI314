@@ -16,11 +16,9 @@ const count = ref(0)
 
 <template>
   <div>
-    <IuiIcon name="common/bug" :size="32" :rotate="45" />
-    <IuiIcon name="color/edit-doc" :size="16" />
-    <IuiIcon name="color/edit-doc" :size="64" fill="red" spin />
-    <IuiIcon name="common/home-a" :size="32" />
-    <IuiIcon name="color/exception404" :size="512" :rotate="30" />
+    <IuiIcon name="bug" :size="32" spin />
+
+    <IuiIcon name="exception404" :size="512" :rotate="-30" />
     <div>{{ t('hello') }}</div>
     <div>{{ count }}</div>
     <div>{{ IuiIcons }}</div>
