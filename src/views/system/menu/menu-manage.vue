@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, toRaw } from 'vue'
 
 import { Message, Modal } from '@arco-design/web-vue'
 import { ApiSysMenu } from '@/api/apis'
@@ -29,13 +29,11 @@ defineOptions({
 const showSearch = ref(true)
 // 菜单树数据
 const menuData = ref<menu[]>()
-// Api menu id
-const apiMenuId = ref<string>()
+
 // 目录上级菜单选择树
 const menuSelectTree = ref<menu[]>([])
 
 const modalRef = ref<InstanceType<typeof MenuManageModal>>()
-const openApiDrawer = ref(false)
 
 const dicts = useDicts(
   dictKey.sysNormalDisable,
@@ -43,7 +41,6 @@ const dicts = useDicts(
   dictKey.apiCacheMethod,
   dictKey.apiLogMethod,
   dictKey.sysShowHide,
-  dictKey.db,
 )
 
 const queryParams = ref<menuQueryParam>({})
@@ -76,8 +73,8 @@ async function getMenuSelectTree() {
   // await execute()
 
   const data = await getList()
-  // 深度复制，防止修改原数据
-  const _data = structuredClone(data)
+  // 深度复制，防止修改原数据,而且只能复制原始值
+  const _data = structuredClone(toRaw(data))
   // 对菜单警醒筛选
   const m_data = filterObjectArray(_data, ['id', 'menu_name'], 'children')
   menuSelectTree.value = [

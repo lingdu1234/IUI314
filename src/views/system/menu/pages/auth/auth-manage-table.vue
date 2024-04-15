@@ -5,9 +5,9 @@ import DictTag from '@/components/common/dict-tag.vue'
 import { dictKey, type dictUse } from '@/types/system/dict'
 import { hasPermission, parseTime } from '@/hooks'
 import { ApiSysMenu } from '@/api/sysApis'
-import type { menu } from '@/types/system/menu'
+import type { authMenu, menu } from '@/types/system/menu'
 
-defineOptions({ name: 'ApiManageTable' })
+defineOptions({ name: 'AuthManageTable' })
 const props = defineProps({
   isLoading: {
     type: Boolean,
@@ -21,62 +21,37 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'handleAdd',
   'handleUpdate',
-  'handleAddByCopy',
-  'handleDelete',
-  'handleSelectionChangeFn',
 ])
-const rowSelection = ref<TableRowSelection>({
-  type: 'checkbox',
-  showCheckedAll: true,
-  onlyCurrent: false,
-})
 
-const tableData = defineModel<menu[] | null>('tableData', { required: true })
+const tableData = defineModel<authMenu[] | null>('tableData', { required: true })
 
 // 表格列属性
 const columns: TableColumnData[] = [
+  {
+    title: '排序ID',
+    dataIndex: 'order_sort',
+    ellipsis: true,
+    tooltip: true,
+    width: 100,
+    align: 'left',
+  },
   {
     title: '菜单名称',
     dataIndex: 'menu_name',
     ellipsis: true,
     tooltip: true,
-    width: 200,
+    width: 150,
     align: 'left',
   },
-  // {
-  //   title: '图标',
-  //   align: 'center',
-  //   width: 100,
-  //   render: ({ record }) => h(IuiIcon, {
-  //     name: record.icon,
-  //   }),
-  // },
   {
-    title: '排序',
-    dataIndex: 'order_sort',
-    align: 'center',
-    width: 100,
-    ellipsis: true,
-    tooltip: true,
-  },
-  {
-    title: '唯一标识',
+    title: 'API',
     dataIndex: 'api',
-    align: 'center',
-    width: 120,
     ellipsis: true,
     tooltip: true,
+    width: 150,
+    align: 'left',
   },
-  // {
-  //   title: '组件路径',
-  //   dataIndex: 'component',
-  //   align: 'center',
-  //   width: 120,
-  //   ellipsis: true,
-  //   tooltip: true,
-  // },
   {
     title: '请求方法',
     align: 'center',
@@ -89,7 +64,7 @@ const columns: TableColumnData[] = [
   {
     title: '数据权限',
     align: 'center',
-    width: 100,
+    width: 120,
     render: ({ record }) => record.method === 'GET'
       ? h(DictTag, {
         options: props.dicts[dictKey.sysNormalDisable],
@@ -100,21 +75,42 @@ const columns: TableColumnData[] = [
       }, () => 'NOT SUPPORT'),
   },
   {
+    title: '数据库',
+    slotName: 'dataBase',
+    width: 160,
+    ellipsis: true,
+  },
+  {
+    title: 'APIS',
+    slotName: 'APIS',
+    width: 160,
+    ellipsis: true,
+  },
+  {
+    title: '日志',
+    width: 100,
+    align: 'center',
+    render: ({ record }) => h(DictTag, {
+      options: props.dicts[dictKey.apiLogMethod],
+      value: record.log_method,
+    }),
+  },
+  {
+    title: '缓存',
+    width: 100,
+    align: 'center',
+    render: ({ record }) => h(DictTag, {
+      options: props.dicts[dictKey.apiCacheMethod],
+      value: record.data_cache_method,
+    }),
+  },
+  {
     title: '状态',
     width: 100,
     align: 'center',
     render: ({ record }) => h(DictTag, {
       options: props.dicts[dictKey.sysNormalDisable],
       value: record.status,
-    }),
-  },
-  {
-    title: '显示',
-    width: 100,
-    align: 'center',
-    render: ({ record }) => h(DictTag, {
-      options: props.dicts[dictKey.sysShowHide],
-      value: record.visible,
     }),
   },
   {
@@ -131,10 +127,6 @@ const columns: TableColumnData[] = [
     align: 'center',
   },
 ]
-
-function handleSelectionChange(keys: (string | number)[]) {
-  return emits('handleSelectionChangeFn', keys, tableData.value, 'id', 'menu_name')
-}
 </script>
 
 <template>
@@ -147,12 +139,48 @@ function handleSelectionChange(keys: (string | number)[]) {
     v-else
     :columns="columns"
     :data="tableData || []"
-    :row-selection="rowSelection"
     row-key="id"
     :scroll="{ minWidth: 800 }"
     :pagination="false"
-    @selection-change="handleSelectionChange"
   >
+    <template #dataBase="{ record }">
+      <a-popover title="关联数据库">
+        <div v-if="record.dbs.length > 1">
+          <span style="color: red;" class="m-r-5px">↑</span>
+          <span>{{ record.dbs[0] }}</span>
+        </div>
+        <span v-if="record.dbs.length === 1">
+          {{ record.dbs[0] }}
+        </span>
+        <span v-if="record.dbs.length === 0">
+          ""
+        </span>
+        <template #content>
+          <li v-for="(it, index) in record.dbs" :key="it + index">
+            {{ it }}
+          </li>
+        </template>
+      </a-popover>
+    </template>
+    <template #APIS="{ record }">
+      <a-popover title="关联APIS">
+        <div v-if="record.apis.length > 1">
+          <span style="color: red;" class="m-r-5px">↑</span>
+          <span>{{ record.apis[0] }}</span>
+        </div>
+        <span v-if="record.apis.length === 1">
+          {{ record.apis[0] }}
+        </span>
+        <span v-if="record.apis.length === 0">
+          ""
+        </span>
+        <template #content>
+          <li v-for="(it, index) in record.apis" :key="it + index">
+            {{ it }}
+          </li>
+        </template>
+      </a-popover>
+    </template>
     <template #operation="{ record }">
       <a-space>
         <a-tooltip
@@ -165,33 +193,10 @@ function handleSelectionChange(keys: (string | number)[]) {
             status="success"
             @click="emits('handleUpdate', record)"
           >
-            <IconEdit class="cursor-pointer" />
-          </a-button>
-        </a-tooltip>
-        <a-tooltip
-          v-if="hasPermission(ApiSysMenu.edit)"
-          content="复制新增"
-        >
-          <a-button
-            type="text"
-            shape="circle"
-            status="danger"
-            @click="emits('handleAddByCopy', record, true)"
-          >
-            <IconCopy class="cursor-pointer" />
-          </a-button>
-        </a-tooltip>
-        <a-tooltip
-          v-if="hasPermission(ApiSysMenu.delete)"
-          content="删除"
-        >
-          <a-button
-            type="text"
-            shape="circle"
-            status="danger"
-            @click="emits('handleDelete', record)"
-          >
-            <IconDelete class="cursor-pointer" />
+            数据库关联
+            <template #icon>
+              <IconEdit />
+            </template>
           </a-button>
         </a-tooltip>
       </a-space>

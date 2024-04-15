@@ -9,6 +9,7 @@ import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import { useTabBarStore } from '@/stores'
+import { MenuType } from '@/types/base/router'
 
 defineOptions({ name: 'ApiManageOperator' })
 
@@ -40,7 +41,7 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysMenu.add)),
     disabled: false,
-    fn: () => emits('handAdd', null, props.pid),
+    fn: () => emits('handAdd', null, props.pid, MenuType.F),
     buttonType: 'primary',
     buttonStatus: 'normal',
   },

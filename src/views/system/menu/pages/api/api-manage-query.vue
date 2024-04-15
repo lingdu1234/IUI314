@@ -57,6 +57,21 @@ const queryFormItems = ref<IuQueryFormField[]>([
     },
   },
   {
+    field: 'method',
+    label: '请求方法',
+    type: FormItemType.select,
+    placeholder: '请选择请求方法',
+    selectOption: {
+      dataOption: computed(() => props.dicts[dictKey.sysApiMethod]),
+      dataOptionKey: {
+        label: 'label',
+        value: 'value',
+      },
+      allowClear: true,
+      allowSearch: true,
+    },
+  },
+  {
     field: 'status',
     label: '菜单状态',
     type: FormItemType.select,

@@ -128,7 +128,6 @@ const columns: TableColumnData[] = [
     align: 'center',
   },
 ]
-const goto_api = (row: menu) => emits('goToApi', row.id)
 </script>
 
 <template>
@@ -155,7 +154,7 @@ const goto_api = (row: menu) => emits('goToApi', row.id)
             type="text"
             shape="circle"
             status="warning"
-            @click="goto_api(record)"
+            @click="emits('goToApi', record)"
           >
             <IconFolderAdd class="cursor-pointer" />
           </a-button>

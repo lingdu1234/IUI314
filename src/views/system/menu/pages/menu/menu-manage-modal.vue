@@ -79,10 +79,23 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'icon',
     label: '菜单图标',
+    vShow: computed(() => form.value.menu_type !== MenuType.F),
     slotName: 'menuIconSlot',
     type: FormItemType.slot,
     rule: [
-      { required: true, message: '菜单图标必须选择' },
+      {
+        validator(value, callback) {
+          if (form.value.menu_type !== MenuType.F) {
+            if (value === undefined || value.length === 0)
+              callback('目录、菜单级别必须选择图标')
+            else
+              callback()
+          }
+          else {
+            callback()
+          }
+        },
+      },
     ],
     validateTrigger: ['change'],
   },
@@ -251,6 +264,74 @@ C:API/按钮的唯一标志，可为API,如：'system/user/add',若只是单纯�
     validateTrigger: 'blur',
   },
   {
+    field: 'method',
+    label: '请求方法',
+    type: FormItemType.select,
+    vShow: computed(() => form.value.menu_type === MenuType.F),
+    tooltip: 'API请求参数`GET`,`POST`，`PUT`,`DELETE`',
+    placeholder: '请选择请求方法',
+    selectOption: {
+      dataOption: computed(() => props.dicts[dictKey.sysApiMethod]),
+      dataOptionKey: {
+        value: 'value',
+        label: 'label',
+      },
+      allowClear: true,
+      allowSearch: true,
+      multiple: false,
+    },
+    rule: [
+      {
+        validator(value, callback) {
+          if (form.value.menu_type === MenuType.F) {
+            if (value === undefined || value.length === 0)
+              callback('请求方法不能为空')
+            else
+              callback()
+          }
+          else {
+            callback()
+          }
+        },
+      },
+    ],
+    validateTrigger: 'blur',
+  },
+  {
+    field: 'log_method',
+    label: '日志记录',
+    type: FormItemType.select,
+    vShow: computed(() => form.value.menu_type === MenuType.F),
+    tooltip: '日志记录方式',
+    placeholder: '请选择日志记录',
+    selectOption: {
+      dataOption: computed(() => props.dicts[dictKey.apiLogMethod]),
+      dataOptionKey: {
+        value: 'value',
+        label: 'label',
+      },
+      allowClear: true,
+      allowSearch: true,
+      multiple: false,
+    },
+    rule: [
+      {
+        validator(value, callback) {
+          if (form.value.menu_type === MenuType.F) {
+            if (value === undefined || value.length === 0)
+              callback('日志记录方式不能为空')
+            else
+              callback()
+          }
+          else {
+            callback()
+          }
+        },
+      },
+    ],
+    validateTrigger: 'blur',
+  },
+  {
     field: 'status',
     label: '菜单状态',
     type: FormItemType.radio,
@@ -277,7 +358,7 @@ C:API/按钮的唯一标志，可为API,如：'system/user/add',若只是单纯�
     defaultCol: 2,
   },
 ])
-function handleAdd(row?: menu, pid?: string) {
+function handleAdd(row?: menu, pid?: string, menu_type?: MenuType) {
   modalIcon.value = h(IconPlus)
   open.value = true
   form.value = {
@@ -298,6 +379,8 @@ function handleAdd(row?: menu, pid?: string) {
     form.value.pid = '0'
   if (pid)
     form.value.pid = pid
+  if (menu_type)
+    form.value.menu_type = menu_type
 
   title.value = '添加菜单'
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import ApiManageQuery from '@/views/system/menu/pages/api/api-mannage-query.vue'
+import ApiManageQuery from '@/views/system/menu/pages/api/api-manage-query.vue'
 import ApiManageOperator from '@/views/system/menu/pages/api/api-manage-operator.vue'
 import { type listType, useDeleteFn, useDicts, useGet, useTableUtil } from '@/hooks'
 import { dictKey } from '@/types/system/dict'
@@ -22,7 +22,6 @@ const dicts = useDicts(
   dictKey.apiCacheMethod,
   dictKey.apiLogMethod,
   dictKey.sysShowHide,
-  dictKey.db,
 )
 const route = useRoute()
 const showSearch = ref(true)
@@ -45,7 +44,7 @@ const {
 const { useTableSelectChange } = useTableUtil()
 const { handleSelectionChangeFnX, ids, values, selected }
     = useTableSelectChange()
-const handAdd = (row?: menu, pid?: string) => modalRef.value?.handleAdd(row, pid)
+const handAdd = (row?: menu, pid?: string, menu_type?: MenuType) => modalRef.value?.handleAdd(row, pid, menu_type)
 const handleAddByCopy = (row: menu) => modalRef.value?.handleAddByCopy(row)
 const handleUpdate = (row: menu) => modalRef.value?.handleUpdate(row)
 async function handleDelete(row?: userInformation) {
