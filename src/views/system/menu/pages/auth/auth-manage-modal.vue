@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { type PropType, computed, h, ref } from 'vue'
-import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { computed, h, ref } from 'vue'
+import { IconEdit } from '@arco-design/web-vue/es/icon'
 import { Message } from '@arco-design/web-vue'
 import IuModal from '@/components/iui/iu-modal.vue'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
-import { useGet, usePost, usePut } from '@/hooks'
-import { ApiSysDbApi, ApiSysMenu, ApiSysPost } from '@/api/sysApis'
+import { usePost, usePut } from '@/hooks'
+import { ApiSysDbApi, ApiSysMenu } from '@/api/sysApis'
 import { ErrorFlag } from '@/api/apis'
-import type { MessageSchema } from '@/i18n'
-import type { post } from '@/types/system/post'
-import type { authMenu, menu } from '@/types/system/menu'
+import type { authMenu } from '@/types/system/menu'
 
 defineOptions({ name: 'AuthManageModal' })
 const props = defineProps<propsType>()

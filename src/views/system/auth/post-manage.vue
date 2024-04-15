@@ -10,7 +10,6 @@ import {
   useGet,
   useTableUtil,
 } from '@/hooks'
-import type { userInformation } from '@/types/system/userInformation'
 import { dictKey } from '@/types/system/dict'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { systemMenus } from '@/router'
@@ -53,9 +52,9 @@ const {
 )
 
 const handAdd = () => modalRef.value?.handleAdd()
-const handleUpdate = (row?: userInformation) => modalRef.value?.handleUpdate(row)
+const handleUpdate = (row?: post) => modalRef.value?.handleUpdate(row)
 
-async function handleDelete(row?: userInformation) {
+async function handleDelete(row?: post) {
   await useDeleteFn(
     ApiSysPost.delete,
     'post_id',

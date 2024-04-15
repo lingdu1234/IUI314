@@ -1,19 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
 import AuthManageTable from './pages/auth/auth-manage-table.vue'
 import AuthManageModal from './pages/auth/auth-manage-modal.vue'
 import ApiManageQuery from '@/views/system/menu/pages/api/api-manage-query.vue'
-import { type listType, useDeleteFn, useDicts, useGet, useTableUtil } from '@/hooks'
+import { type listType, useDicts, useGet } from '@/hooks'
 import { dictKey } from '@/types/system/dict'
 import type { authMenu, menu, menuQueryParam } from '@/types/system/menu'
 import { MenuType } from '@/types/base/router'
 import { ApiSysMenu } from '@/api/sysApis'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import Pagination from '@/components/common/pagination.vue'
-import type MenuManageModal from '@/views/system/menu/pages/menu/menu-manage-modal.vue'
-import { useMenuData } from '@/stores'
-import type { userInformation } from '@/types/system/userInformation'
 import { systemMenus } from '@/router'
 
 defineOptions({

@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { type PropType, h, ref } from 'vue'
-import { type TableColumnData, type TableRowSelection, Tag } from '@arco-design/web-vue'
+import { type PropType, h } from 'vue'
+import { type TableColumnData, Tag } from '@arco-design/web-vue'
 import DictTag from '@/components/common/dict-tag.vue'
 import { dictKey, type dictUse } from '@/types/system/dict'
 import { hasPermission, parseTime } from '@/hooks'
 import { ApiSysMenu } from '@/api/sysApis'
-import type { authMenu, menu } from '@/types/system/menu'
+import type { authMenu } from '@/types/system/menu'
 
 defineOptions({ name: 'AuthManageTable' })
 const props = defineProps({
