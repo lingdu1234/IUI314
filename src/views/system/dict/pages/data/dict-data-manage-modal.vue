@@ -104,7 +104,8 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'css_class',
     label: '样式属性',
-    type: FormItemType.input,
+    type: FormItemType.slot,
+    slotName: 'cssColor',
     placeholder: '请输入样式属性',
   },
   {
@@ -195,7 +196,19 @@ defineExpose({ handleAdd, handleUpdate })
     :item-width="250"
     :default-col="1"
     @handle-ok="submitForm"
-  />
+  >
+    <template #cssColor>
+      <a-input v-model="form.css_class" allow-clear>
+        <template #prepend>
+          <a-color-picker
+            v-model="form.css_class"
+            show-preset
+            show-history
+          />
+        </template>
+      </a-input>
+    </template>
+  </IuModal>
 </template>
 
 <style scoped lang="scss">

@@ -25,15 +25,15 @@ const values = computed(() => {
 
 <template>
   <div>
-    <template v-for="(item, index) in options">
+    <template v-for="(item, index) in options" :key="index">
       <template v-if="values.includes(item.value)">
-        <span v-if="item.elTagClass && item.elTagClass !== ''" :key="index">
+        <span v-if="item.elTagClass && item.elTagClass !== ''">
           <a-tag :color="item.elTagClass">{{ item.label }}</a-tag>
         </span>
-        <span v-if="item.elTagType" :key="index">
+        <span v-else-if="item.elTagType">
           <a-tag :color="item.elTagType">{{ item.label }}</a-tag>
         </span>
-        <span v-if="(!item.elTagType && !item.elTagClass)" :key="index">
+        <span v-else>
           {{ item.label }}
         </span>
       </template>
