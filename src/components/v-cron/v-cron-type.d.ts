@@ -27,3 +27,19 @@ export interface vCronData {
 export interface vCronTableData extends vCronData {
   id: string
 }
+
+/**
+ * 秒，分，小时的cron只类型
+ */
+export interface vCronSecondValueType {
+  every: string
+  cycle: {
+    from: number
+    to: number
+  }
+  interval: {
+    begin: number
+    every: number
+  }
+  fix: string[] | number[]
+}

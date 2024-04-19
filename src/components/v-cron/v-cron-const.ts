@@ -20,6 +20,14 @@ export enum vCronItemLabel {
   year = '年',
 }
 
+// 选项分组
+export enum vCronGroup {
+  every = 'every',
+  cycle = 'cycle',
+  interval = 'interval',
+  fix = 'fix',
+}
+
 export const cronArrayX: vCronArrayType[] = [
   {
     label: vCronItemLabel.second,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { parseTime, usePost } from '@/hooks'
-import { Day, Hour, Minute, Month, Second, Week, Year } from '@/components/v-cron/pages'
+import { Day, Month, Second, Week, Year } from '@/components/v-cron/pages'
 
 import { cronArrayX, vCronItem, vCronTableColumn, vCronTableWidth } from '@/components/v-cron/v-cron-const'
 import type { vCronData, vCronPropsType, vCronTableData } from '@/components/v-cron/v-cron-type'
@@ -26,13 +26,17 @@ const cronIsValid = ref(false)
 
 const activeTab = ref<string>('second')
 const next_ten = ref<string[]>([])
+const cronData = ref<vCronData>({})
 
-watch(() => cronValue.value, () => validateCron(), { immediate: true })
+watch(() => cronValue.value, (v) => {
+  validateCron()
+  getCronData(v)
+}, { immediate: true })
 
 // 将cron表达式转换为值
-const cronData = computed<vCronData>(() => {
+function getCronData(data: string) {
   const cronDataV: vCronData = {}
-  const v: string[] = cronValue.value.split(' ')
+  const v: string[] = data.split(' ')
   cronDataV.second = v.length > 0 && v[0] !== '' ? v[0] : '*'
   cronDataV.minute = v.length > 1 && v[1] !== '' ? v[1] : '*'
   cronDataV.hour = v.length > 2 && v[2] !== '' ? v[2] : '*'
@@ -40,8 +44,8 @@ const cronData = computed<vCronData>(() => {
   cronDataV.month = v.length > 4 && v[4] !== '' ? v[4] : '*'
   cronDataV.week = v.length > 5 && v[5] !== '' ? v[5] : '?'
   cronDataV.year = v.length > 6 ? v[6] : ''
-  return cronDataV
-})
+  cronData.value = cronDataV
+}
 
 const cronTableData = computed<vCronTableData[]>(() => ([
   {
@@ -148,8 +152,16 @@ const tableWidth = computed(() => `width:${vCronTableWidth * 8 + 8}px;`)
                 v-model:data="cronData.second"
                 :type="vCronItem.second"
               />
-              <Minute v-if="activeTab === vCronItem.minute" />
-              <Hour v-if="activeTab === vCronItem.hour" />
+              <Second
+                v-if="activeTab === vCronItem.minute"
+                v-model:data="cronData.minute"
+                :type="vCronItem.minute"
+              />
+              <Second
+                v-if="activeTab === vCronItem.hour"
+                v-model:data="cronData.hour"
+                :type="vCronItem.hour"
+              />
               <Day v-if="activeTab === vCronItem.day" />
               <Month v-if="activeTab === vCronItem.month" />
               <Week v-if="activeTab === vCronItem.week" />
