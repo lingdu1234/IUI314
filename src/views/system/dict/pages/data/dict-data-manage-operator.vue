@@ -9,6 +9,7 @@ import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import { useTabBarStore } from '@/stores'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'DictDataManageOperator' })
 
@@ -34,15 +35,15 @@ function handleClose() {
   tabBarStore.tabActionSelect(tabBarStore.getCurrentRouteTag(), TabAction.current)
 }
 
-const operateButtons = ref<{ [key: string]: any }[]>([
+const operateButtons = ref<iuButtonPropsType[]>([
   {
     label: t('common.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDictData.add)),
     disabled: false,
     fn: () => emits('handleAdd'),
-    buttonType: 'primary',
-    buttonStatus: 'normal',
+    type: 'primary',
+    status: 'normal',
   },
   {
     label: t('common.edit'),
@@ -50,8 +51,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysDictData.edit)),
     disabled: computed(() => !props.single),
     fn: () => emits('handleUpdate'),
-    buttonType: 'primary',
-    buttonStatus: 'warning',
+    type: 'primary',
+    status: 'warning',
   },
   {
     label: t('common.delete'),
@@ -59,8 +60,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysDictData.delete)),
     disabled: computed(() => !props.selected),
     fn: () => emits('handleDelete'),
-    buttonType: 'primary',
-    buttonStatus: 'danger',
+    type: 'primary',
+    status: 'danger',
   },
   {
     label: t('common.close'),
@@ -68,8 +69,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: true,
     disabled: false,
     fn: handleClose,
-    buttonType: 'primary',
-    buttonStatus: 'normal',
+    type: 'primary',
+    status: 'normal',
   },
 ])
 </script>
@@ -81,8 +82,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
       :label="item.label"
       :icon="item.icon"
       :disabled="item.disabled"
-      :type="item.buttonType"
-      :status="item.buttonStatus"
+      :type="item.type"
+      :status="item.status"
       :fn="item.fn"
     />
   </a-col>

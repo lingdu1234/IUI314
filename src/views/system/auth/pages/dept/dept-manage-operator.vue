@@ -6,6 +6,7 @@ import { hasPermission } from '@/hooks'
 import { ApiSysDept } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
 import type { MessageSchema } from '@/i18n'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'DeptManageOperator' })
 
@@ -13,15 +14,15 @@ const emits = defineEmits(['handAdd'])
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
-const operateButtons = ref<{ [key: string]: any }[]>([
+const operateButtons = ref<iuButtonPropsType[]>([
   {
     label: t('common.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDept.add)),
     disabled: false,
     fn: () => emits('handAdd'),
-    buttonType: 'primary',
-    buttonStatus: 'normal',
+    type: 'primary',
+    status: 'normal',
   },
 ])
 </script>
@@ -33,8 +34,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
       :label="item.label"
       :icon="item.icon"
       :disabled="item.disabled"
-      :type="item.buttonType"
-      :status="item.buttonStatus"
+      :type="item.type"
+      :status="item.status"
       :fn="item.fn"
     />
   </a-col>

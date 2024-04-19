@@ -13,7 +13,6 @@ defineOptions({ name: 'DeptManageTable' })
 const props = defineProps({
   isLoading: {
     type: Boolean,
-    required: true,
     default: false,
   },
   dicts: {

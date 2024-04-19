@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, unref } from 'vue'
 import type { FormInstance } from '@arco-design/web-vue'
 import { FormItemType, type IuFormField, type dataOptionTypeRadio } from '@/types/base/iu-form'
 import { useFormUtil } from '@/hooks'
@@ -153,7 +153,7 @@ defineExpose({ validateModalField })
               >
                 <span
                   v-if="item.type === FormItemType.text"
-                  class="break-words"
+                  class="break-words ws-pre-wrap"
                   :style="getItemStyle(item)"
                 >
                   {{ formValue[item.field] }}
@@ -162,7 +162,7 @@ defineExpose({ validateModalField })
                   v-if="item.type === FormItemType.input"
                   v-model="formValue[item.field]"
                   :placeholder="item.placeholder"
-                  :disabled="item.disabled"
+                  :disabled="unref(item.disabled)"
                   :style="getItemStyle(item)"
                 />
                 <a-select
@@ -199,6 +199,7 @@ defineExpose({ validateModalField })
                 <a-textarea
                   v-if="item.type === FormItemType.textarea"
                   v-model="formValue[item.field]"
+                  :disabled="unref(item.disabled)"
                   allow-clear
                   :auto-size="item.textAreaAutoSize"
                   :style="getItemStyle(item)"
@@ -208,13 +209,19 @@ defineExpose({ validateModalField })
                   v-model="formValue[item.field]"
                   :style="getItemStyle(item)"
                   :options="item.selectOption.dataOption as dataOptionTypeRadio"
-                  :disabled="item.disabled"
+                  :disabled="unref(item.disabled)"
                 />
                 <a-input-number
                   v-if="item.type === FormItemType.inputNumber"
                   v-model="formValue[item.field]"
                   :mode="item.inputNumberMode"
                   :style="getItemStyle(item)"
+                  :min="item.inputNumberOptions?.min"
+                  :max="item.inputNumberOptions?.max"
+                  :step="item.inputNumberOptions?.step"
+                  :precision="item.inputNumberOptions?.precision"
+                  :default-value="item.inputNumberOptions?.defaultValue"
+                  :disabled="unref(item.disabled)"
                 />
 
                 <a-checkbox-group
@@ -222,6 +229,7 @@ defineExpose({ validateModalField })
                   v-model="formValue[item.field]"
                   :default-value="item.selectOption.defaultValue"
                   :options="item.selectOption.dataOption as any"
+                  :disabled="unref(item.disabled)"
                 />
                 <!--   添加一个slot 用于自定义，更加自由 -->
                 <!--   一些比较简单的直接配置，不好配置的使用slot -->
@@ -230,6 +238,9 @@ defineExpose({ validateModalField })
                   :name="item.slotName"
                   :style="getItemStyle(item)"
                 />
+                <template v-if="item.type === FormItemType.render && item.renderX">
+                  <component :is="item.renderX" />
+                </template>
               </a-form-item>
             </a-grid-item>
           </a-grid>

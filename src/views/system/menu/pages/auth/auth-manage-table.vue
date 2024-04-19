@@ -11,7 +11,6 @@ defineOptions({ name: 'AuthManageTable' })
 const props = defineProps({
   isLoading: {
     type: Boolean,
-    required: true,
     default: false,
   },
   dicts: {
@@ -185,7 +184,7 @@ const columns: TableColumnData[] = [
       <a-space>
         <a-tooltip
           v-if="hasPermission(ApiSysMenu.edit)"
-          content="编辑"
+          content="数据库关联等"
         >
           <a-button
             type="text"

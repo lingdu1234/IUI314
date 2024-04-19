@@ -6,6 +6,7 @@ import { hasPermission } from '@/hooks'
 import { ApiSysRole } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
 import type { MessageSchema } from '@/i18n'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'RoleManageOperator' })
 
@@ -24,15 +25,15 @@ const emits = defineEmits(['handAdd', 'handleUpdate', 'handleDelete'])
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
-const operateButtons = ref<{ [key: string]: any }[]>([
+const operateButtons = ref<iuButtonPropsType[]>([
   {
     label: t('common.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysRole.add)),
     disabled: false,
     fn: () => emits('handAdd'),
-    buttonType: 'primary',
-    buttonStatus: 'normal',
+    type: 'primary',
+    status: 'normal',
   },
   {
     label: t('common.edit'),
@@ -40,8 +41,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysRole.edit)),
     disabled: computed(() => !props.single),
     fn: () => emits('handleUpdate'),
-    buttonType: 'primary',
-    buttonStatus: 'warning',
+    type: 'primary',
+    status: 'warning',
   },
   {
     label: t('common.delete'),
@@ -49,8 +50,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysRole.delete)),
     disabled: computed(() => !props.selected),
     fn: () => emits('handleDelete'),
-    buttonType: 'primary',
-    buttonStatus: 'danger',
+    type: 'primary',
+    status: 'danger',
   },
 ])
 </script>
@@ -62,8 +63,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
       :label="item.label"
       :icon="item.icon"
       :disabled="item.disabled"
-      :type="item.buttonType"
-      :status="item.buttonStatus"
+      :type="item.type"
+      :status="item.status"
       :fn="item.fn"
     />
   </a-col>

@@ -1,48 +1,5 @@
-<template>
-  <div>
-    <el-card class="m-b-20px">
-      <template #header>
-        <div>
-          <span>{{ title }}</span>
-        </div>
-      </template>
-      <el-table :data="tableData" tooltip-effect="light">
-        <el-table-column
-          v-if="rowOneLabel"
-          prop="rowOne"
-          :label="rowOneLabel"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          v-if="rowTwoLabel"
-          prop="rowTwo"
-          :label="rowTwoLabel"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          v-if="rowThreeLabel"
-          prop="rowThree"
-          :label="rowThreeLabel"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          v-if="rowFourLabel"
-          prop="rowFour"
-          :label="rowFourLabel"
-          :show-overflow-tooltip="true"
-        />
-        <el-table-column
-          v-if="rowFiveLabel"
-          prop="rowFive"
-          :label="rowFiveLabel"
-          :show-overflow-tooltip="true"
-        />
-      </el-table>
-    </el-card>
-  </div>
-</template>
 <script lang="ts" setup name="monitor-table">
-import { ElCard, ElTable, ElTableColumn } from 'element-plus'
+import { ElTable, ElTableColumn } from 'element-plus'
 import type { PropType } from 'vue'
 
 import type { MonitorTable } from '@/types/system/server-monitor'
@@ -60,3 +17,47 @@ defineProps({
   rowFiveLabel: { type: String },
 })
 </script>
+
+<template>
+  <div>
+    <a-card class="m-b-20px">
+      <template #title>
+        <div>
+          <span>{{ title }}</span>
+        </div>
+      </template>
+      <ElTable :data="tableData" tooltip-effect="light">
+        <ElTableColumn
+          v-if="rowOneLabel"
+          prop="rowOne"
+          :label="rowOneLabel"
+          :show-overflow-tooltip="true"
+        />
+        <ElTableColumn
+          v-if="rowTwoLabel"
+          prop="rowTwo"
+          :label="rowTwoLabel"
+          :show-overflow-tooltip="true"
+        />
+        <ElTableColumn
+          v-if="rowThreeLabel"
+          prop="rowThree"
+          :label="rowThreeLabel"
+          :show-overflow-tooltip="true"
+        />
+        <ElTableColumn
+          v-if="rowFourLabel"
+          prop="rowFour"
+          :label="rowFourLabel"
+          :show-overflow-tooltip="true"
+        />
+        <ElTableColumn
+          v-if="rowFiveLabel"
+          prop="rowFive"
+          :label="rowFiveLabel"
+          :show-overflow-tooltip="true"
+        />
+      </ElTable>
+    </a-card>
+  </div>
+</template>

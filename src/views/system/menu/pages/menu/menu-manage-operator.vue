@@ -6,6 +6,7 @@ import { hasPermission } from '@/hooks'
 import { ApiSysMenu } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
 import type { MessageSchema } from '@/i18n'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'MenuManageOperator' })
 
@@ -13,15 +14,15 @@ const emits = defineEmits(['handAdd', 'gotoApi'])
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
-const operateButtons = ref<{ [key: string]: any }[]>([
+const operateButtons = ref<iuButtonPropsType[]>([
   {
     label: t('common.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysMenu.add)),
     disabled: false,
     fn: () => emits('handAdd'),
-    buttonType: 'primary',
-    buttonStatus: 'normal',
+    type: 'primary',
+    status: 'normal',
   },
   {
     label: '编辑API',
@@ -29,8 +30,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysMenu.edit)),
     disabled: false,
     fn: () => emits('gotoApi'),
-    buttonType: 'secondary',
-    buttonStatus: 'danger',
+    type: 'secondary',
+    status: 'danger',
   },
 ])
 </script>
@@ -42,8 +43,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
       :label="item.label"
       :icon="item.icon"
       :disabled="item.disabled"
-      :type="item.buttonType"
-      :status="item.buttonStatus"
+      :type="item.type"
+      :status="item.status"
       :fn="item.fn"
     />
   </a-col>

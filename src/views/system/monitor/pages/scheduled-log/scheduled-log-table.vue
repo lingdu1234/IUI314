@@ -1,14 +1,13 @@
 <script lang="ts" setup>
 import { type PropType, h, ref } from 'vue'
 import type { TableColumnData, TableRowSelection } from '@arco-design/web-vue'
-import { dictKey, type dictType, type dictUse } from '@/types/system/dict'
-import { hasPermission, parseTime } from '@/hooks'
-import { ApiSysPost } from '@/api/sysApis'
-import type { userInformation } from '@/types/system/userInformation'
 import DictTag from '@/components/common/dict-tag.vue'
-import { DictDataRouteName, router } from '@/router'
+import { dictKey, type dictUse } from '@/types/system/dict'
+import { hasPermission, parseTime } from '@/hooks'
+import { ApiSysScheduledTasksLog } from '@/api/sysApis'
+import type { scheduledTasks } from '@/types/system/scheduled-tasks'
 
-defineOptions({ name: 'DictTypeManageTable' })
+defineOptions({ name: 'ScheduledLogTable' })
 const props = defineProps({
   isLoading: {
     type: Boolean,
@@ -21,12 +20,12 @@ const props = defineProps({
 })
 
 const emits = defineEmits([
-  'handleUpdate',
   'handleDelete',
   'handleSelectionChangeFn',
+  'getList',
 ])
 
-const tableData = defineModel<userInformation[] | null>('tableData', { required: true })
+const tableData = defineModel<scheduledTasks[] | null>('tableData', { required: true })
 
 const rowSelection = ref<TableRowSelection>({
   type: 'checkbox',
@@ -37,46 +36,72 @@ const rowSelection = ref<TableRowSelection>({
 // 表格列属性
 const columns: TableColumnData[] = [
   {
-    title: '字典Id',
-    dataIndex: 'dict_type_id',
+    title: '日志编号',
+    dataIndex: 'job_log_id',
     ellipsis: true,
     tooltip: true,
-    width: 200,
-    align: 'center',
-  },
-  {
-    title: '字典名称',
-    dataIndex: 'dict_name',
-    align: 'center',
     width: 100,
+    align: 'center',
   },
   {
-    title: '字典类型',
-    slotName: 'dict_type',
+    title: '任务名称',
+    dataIndex: 'job_name',
+    align: 'center',
+    width: 150,
+  },
+  {
+    title: '任务组名',
+    width: 100,
+    align: 'center',
+    render: ({ record }) => h(DictTag, {
+      options: props.dicts[dictKey.sysJobGroup],
+      value: record.job_group,
+    }),
+  },
+  {
+    title: '批ID',
+    dataIndex: 'lot_id',
     align: 'center',
     width: 150,
     ellipsis: true,
     tooltip: true,
   },
   {
-    title: '状态',
-    width: 100,
-    align: 'center',
-    render: ({ record }) => h(DictTag, {
-      options: props.dicts[dictKey.sysNormalDisable],
-      value: record.status,
-    }),
-  },
-  {
-    title: '备注',
-    dataIndex: 'remark',
+    title: '批内序',
+    dataIndex: 'lot_order',
     align: 'center',
     width: 100,
     ellipsis: true,
     tooltip: true,
   },
   {
-    title: '创建时间',
+    title: '方法',
+    dataIndex: 'invoke_target',
+    align: 'center',
+    width: 150,
+    ellipsis: true,
+    tooltip: true,
+  },
+  {
+    title: '执行状态',
+    width: 100,
+    align: 'center',
+    render: ({ record }) => h(DictTag, {
+      options: props.dicts[dictKey.sysCommonStatus],
+      value: record.status,
+    }),
+  },
+  {
+    title: '任务属性',
+    width: 100,
+    align: 'center',
+    render: ({ record }) => h(DictTag, {
+      options: props.dicts[dictKey.sysTaskIsOnce],
+      value: record.is_once,
+    }),
+  },
+  {
+    title: '执行时间',
     width: 180,
     align: 'center',
     render: ({ record }) => parseTime(record.created_at),
@@ -84,20 +109,14 @@ const columns: TableColumnData[] = [
   {
     title: '操作',
     slotName: 'operation',
-    width: 200,
+    width: 100,
     fixed: 'right',
     align: 'center',
   },
 ]
 
 function handleSelectionChange(keys: (string | number)[]) {
-  return emits('handleSelectionChangeFn', keys, tableData.value, 'dict_type_id', 'dict_name')
-}
-function goto_data(row: dictType) {
-  router.push({
-    name: DictDataRouteName,
-    query: { dict: row.dict_type_id, dict_type: row.dict_type },
-  })
+  return emits('handleSelectionChangeFn', keys, tableData.value, 'job_log_id', 'job_log_id')
 }
 </script>
 
@@ -112,32 +131,16 @@ function goto_data(row: dictType) {
     :columns="columns"
     :data="tableData || []"
     :row-selection="rowSelection"
-    row-key="dict_type_id"
+    row-key="job_log_id"
     :scroll="{ minWidth: 800 }"
     :pagination="false"
     @selection-change="handleSelectionChange"
   >
-    <template #dict_type="{ record }">
-      <a-link type="primary" @click="goto_data(record)">
-        {{ record.dict_type }}
-      </a-link>
-    </template>
     <template #operation="{ record }">
       <a-button
-        v-if="hasPermission(ApiSysPost.edit)"
+        v-if="hasPermission(ApiSysScheduledTasksLog.delete)"
         type="text"
-        shape="round"
-        @click="emits('handleUpdate', record)"
-      >
-        编辑
-        <template #icon>
-          <IconEdit />
-        </template>
-      </a-button>
-      <a-button
-        v-if="hasPermission(ApiSysPost.delete)"
-        type="text"
-        shape="round"
+        shape="circle"
         status="danger"
         @click="emits('handleDelete', record)"
       >

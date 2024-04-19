@@ -13,7 +13,6 @@ defineOptions({ name: 'MenuManageTable' })
 const props = defineProps({
   isLoading: {
     type: Boolean,
-    required: true,
     default: false,
   },
   dicts: {

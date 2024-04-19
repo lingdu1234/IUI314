@@ -10,6 +10,7 @@ import { router } from '@/router'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import { useTabBarStore } from '@/stores'
 import { MenuType } from '@/types/base/router'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'ApiManageOperator' })
 
@@ -35,15 +36,15 @@ function handleClose() {
   tabBarStore.tabActionSelect(tabBarStore.getCurrentRouteTag(), TabAction.current)
 }
 
-const operateButtons = ref<{ [key: string]: any }[]>([
+const operateButtons = ref<iuButtonPropsType[]>([
   {
     label: t('common.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysMenu.add)),
     disabled: false,
     fn: () => emits('handAdd', null, props.pid, MenuType.F),
-    buttonType: 'primary',
-    buttonStatus: 'normal',
+    type: 'primary',
+    status: 'normal',
   },
   {
     label: t('common.delete'),
@@ -51,15 +52,15 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysMenu.delete)),
     disabled: computed(() => !props.selected),
     fn: () => emits('handleDelete'),
-    buttonType: 'primary',
-    buttonStatus: 'danger',
+    type: 'primary',
+    status: 'danger',
   },
   {
     label: '关闭',
     icon: h(IconClose),
     fn: handleClose,
-    buttonType: 'primary',
-    buttonStatus: 'normal',
+    type: 'primary',
+    status: 'normal',
   },
 ])
 </script>
@@ -71,8 +72,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
       :label="item.label"
       :icon="item.icon"
       :disabled="item.disabled"
-      :type="item.buttonType"
-      :status="item.buttonStatus"
+      :type="item.type"
+      :status="item.status"
       :fn="item.fn"
     />
   </a-col>

@@ -23,6 +23,7 @@ import type { loginLog } from '@/types/system/login-log'
 import { useOperateLog } from '@/views/system/monitor/hooks/useOperateLog'
 import type { operateLog, operateLogQueryParam } from '@/types/system/operate-log'
 import IuModal from '@/components/iui/iu-modal.vue'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 // 导出名称
 defineOptions({
@@ -61,15 +62,15 @@ const open = ref(false)
 const title = ref('')
 const form = ref<operateLog>({})
 
-const operateButtons = ref<{ [key: string]: any }[]>([
+const operateButtons = ref<iuButtonPropsType[]>([
   {
     label: t('common.delete'),
     icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysOperateLog.delete)),
     disabled: computed(() => !selected.value),
     fn: handleDelete,
-    buttonType: 'primary',
-    buttonStatus: 'warning',
+    type: 'primary',
+    status: 'warning',
   },
   {
     label: t('common.clean'),
@@ -77,8 +78,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysOperateLog.clean)),
     disabled: false,
     fn: handleClean,
-    buttonType: 'primary',
-    buttonStatus: 'danger',
+    type: 'primary',
+    status: 'danger',
   },
 ])
 
@@ -148,8 +149,8 @@ function handleView(row: operateLog) {
           :label="item.label"
           :icon="item.icon"
           :disabled="item.disabled"
-          :type="item.buttonType"
-          :status="item.buttonStatus"
+          :type="item.type"
+          :status="item.status"
           :fn="item.fn"
         />
       </a-col>
