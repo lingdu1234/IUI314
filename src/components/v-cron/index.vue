@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { parseTime, usePost } from '@/hooks'
-import { Day, Month, Second, Week, Year } from '@/components/v-cron/pages'
+import { Month, Second, Week, Year } from '@/components/v-cron/pages'
 
 import { cronArrayX, vCronItem, vCronTableColumn, vCronTableWidth } from '@/components/v-cron/v-cron-const'
 import type { vCronData, vCronPropsType, vCronTableData } from '@/components/v-cron/v-cron-type'
@@ -162,8 +162,16 @@ const tableWidth = computed(() => `width:${vCronTableWidth * 8 + 8}px;`)
                 v-model:data="cronData.hour"
                 :type="vCronItem.hour"
               />
-              <Day v-if="activeTab === vCronItem.day" />
-              <Month v-if="activeTab === vCronItem.month" />
+              <Second
+                v-if="activeTab === vCronItem.day"
+                v-model:data="cronData.day"
+                :type="vCronItem.day"
+              />
+              <Month
+                v-if="activeTab === vCronItem.month"
+                v-model:data="cronData.month"
+                :type="vCronItem.month"
+              />
               <Week v-if="activeTab === vCronItem.week" />
               <Year v-if="activeTab === vCronItem.year" />
               <a-grid-item>

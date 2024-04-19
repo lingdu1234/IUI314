@@ -33,6 +33,7 @@ export interface vCronTableData extends vCronData {
  */
 export interface vCronSecondValueType {
   every: string
+  noFix: string
   cycle: {
     from: number
     to: number

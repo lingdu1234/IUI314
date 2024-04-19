@@ -6,15 +6,16 @@ import type { vCronSecondValueType } from '@/components/v-cron/v-cron-type'
 defineOptions({ name: 'Second' })
 const props = defineProps<dataType>()
 interface dataType {
-  type: vCronItem.second | vCronItem.minute | vCronItem.hour
+  type: vCronItem
 }
 const data = defineModel<string | undefined>('data', { required: true })
-const currentGroup = ref<'every' | 'cycle' | 'interval' | 'fix'>('every')
+const currentGroup = ref<'every' | 'cycle' | 'interval' | 'fix' | 'noFix'>('every')
 const maxLimit = ref<number>(0)
 const maxNum = ref<number>(24)
 const typeString = ref<string>('秒')
 const cronValue = ref<vCronSecondValueType>({
   every: '*',
+  noFix: '?',
   cycle: {
     from: 0,
     to: 0,
@@ -30,6 +31,10 @@ watch(() => [currentGroup.value, cronValue.value], () => {
   switch (currentGroup.value) {
     case 'every':{
       data.value = '*'
+      break
+    }
+    case 'noFix':{
+      data.value = '?'
       break
     }
     case 'cycle':{
@@ -51,9 +56,13 @@ watch(() => [currentGroup.value, cronValue.value], () => {
 function getCronValue() {
   const v = data.value
   if (v) {
-    if (v === '' || v === '*') {
+    if (v === '*') {
       currentGroup.value = 'every'
       cronValue.value.every = '*'
+    }
+    else if (v === '?') {
+      currentGroup.value = 'noFix'
+      cronValue.value.noFix = '?'
     }
     else if (v.includes('-')) {
       const vv: string[] = v.split('-')
@@ -94,6 +103,18 @@ function initType() {
       typeString.value = '小时'
       break
     }
+    case vCronItem.day:{
+      maxLimit.value = 30
+      maxNum.value = 31
+      typeString.value = '天'
+      break
+    }
+    case vCronItem.month:{
+      maxLimit.value = 11
+      maxNum.value = 12
+      typeString.value = '月'
+      break
+    }
   }
 }
 onMounted(() => {
@@ -110,6 +131,9 @@ onMounted(() => {
     <a-radio-group v-model:model-value="currentGroup" direction="vertical" class="m-t-10px">
       <a-radio value="every">
         每{{ typeString }}
+      </a-radio>
+      <a-radio v-if="type === vCronItem.day || type === vCronItem.week" value="noFix">
+        不指定
       </a-radio>
       <a-radio value="cycle" class="flex justify-start m-t-10px">
         周期
@@ -149,17 +173,42 @@ onMounted(() => {
       </a-radio>
       <a-radio value="fix" class="flex justify-start m-t-10px">
         <span>固定</span>
+        <a-button
+          class="m-l-20px"
+          type="text"
+          shape="round"
+          @click="() => cronValue.fix = []"
+        >
+          重置
+        </a-button>
       </a-radio>
       <a-checkbox-group v-model="cronValue.fix" class="m-l-50px">
-        <a-grid :cols="12">
-          <a-grid-item v-for="i in maxNum" :key="i">
-            <a-checkbox :value="i - 1">
-              {{ i - 1 < 10
-                ? `0${i - 1}`
-                : i - 1 }}
-            </a-checkbox>
-          </a-grid-item>
-        </a-grid>
+        <template
+          v-if="type === vCronItem.second || type === vCronItem.minute || type === vCronItem.hour"
+        >
+          <a-grid :cols="12">
+            <a-grid-item v-for="i in maxNum" :key="i">
+              <a-checkbox :value="i - 1">
+                {{ i - 1 < 10
+                  ? `0${i - 1}`
+                  : i - 1 }}
+              </a-checkbox>
+            </a-grid-item>
+          </a-grid>
+        </template>
+        <template
+          v-if="type === vCronItem.day || type === vCronItem.month"
+        >
+          <a-grid :cols="type === vCronItem.day ? 8 : 6">
+            <a-grid-item v-for="i in maxNum" :key="i">
+              <a-checkbox :value="i">
+                {{ i < 10
+                  ? `0${i}`
+                  : i }}
+              </a-checkbox>
+            </a-grid-item>
+          </a-grid>
+        </template>
       </a-checkbox-group>
     </a-radio-group>
   </div>
