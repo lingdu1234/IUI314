@@ -14,44 +14,18 @@ body,
   // overflow: hidden; // 可禁用移动端下拉刷新
 }
 
-::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 6px;
+}
 ::-webkit-scrollbar-thumb {
-  width: 4px;
-  height: 4px;
-  border-radius: 5px;
+  background-color: rgba(201,205,212,0.75);
+  border-radius: 3px;
 }
 
-//::-webkit-scrollbar-thumb {
-//  background: #fbefb5;
-//}
-
-::-webkit-scrollbar,
-::-webkit-scrollbar-corner,
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-track-piece {
-  background: #991d28;
-}
-
-::-webkit-scrollbar-button {
-  display: none;
-}
-
-html {
-  scrollbar-color: #991d28 #fbefb5;
-  scrollbar-width: thin;
-}
-
-html,
-.scrollbar {
-  scrollbar-arrow-color: #fbefb5;
-  scrollbar-face-color: #fbefb5;
-
-  scrollbar-highlight-color: #991d28;
-  scrollbar-shadow-color: #991d28;
-  scrollbar-track-color: #991d28;
-  scrollbar-3dlight-color: #991d28;
-  scrollbar-darkshadow-color: #991d28;
-  scrollbar-base-color: #991d28;
+html.dark {
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(146, 146, 147,0.75);
+  }
 }
 
 // 密码填充背景

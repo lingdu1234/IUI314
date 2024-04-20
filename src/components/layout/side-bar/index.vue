@@ -7,7 +7,5 @@ defineOptions({ name: 'SideBar' })
 
 <template>
   <SideBarLogo />
-  <a-scrollbar class="overflow-x-hidden side-menu">
-    <SideBarMenu />
-  </a-scrollbar>
+  <SideBarMenu />
 </template>

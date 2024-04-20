@@ -31,7 +31,7 @@ const cacheList = computed(() => tabBarStore.getCacheList)
     <div>
       <router-view v-slot="{ Component, route }">
         <transition :name="appStore.app.animation" mode="out-in">
-          <keep-alive :include="cacheList">
+          <keep-alive :include="cacheList" :max="10">
             <component :is="Component" :key="route.path" class="p-l-15px p-r-15px" />
           </keep-alive>
         </transition>
