@@ -1,4 +1,4 @@
-<script lang="ts" setup name="dict-tag">
+<script lang="ts" setup>
 import { type PropType, computed } from 'vue'
 
 import type { dictUse } from '@/types/system/dict'

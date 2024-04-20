@@ -12,16 +12,6 @@ function useTableSelectChange() {
   const single = ref<boolean>(false)
   const selected = ref<boolean>(false)
   //   handler
-  const handleSelectionChangeFn = (
-    selection: { [x: string]: any }[],
-    idKey: string,
-    valueKey: string,
-  ) => {
-    ids.value = selection.map(item => item[idKey])
-    values.value = selection.map(item => item[valueKey])
-    single.value = selection.length === 1
-    selected.value = selection.length !== 0
-  }
   const handleSelectionChangeFnX = (
     keys: (string | number)[],
     dataList: { [x: string]: any }[] | undefined,
@@ -41,7 +31,6 @@ function useTableSelectChange() {
   }
 
   return {
-    handleSelectionChangeFn,
     handleSelectionChangeFnX,
     ids,
     values,

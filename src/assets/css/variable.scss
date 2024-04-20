@@ -15,10 +15,6 @@
     --header-bar-bg-color: #fff;
     --header-bar-font-color: #000;
 
-
-
-
-
     // main
     --main-container-bg-color: #f2f3f5;
     --main-container-font-color: #000;
@@ -35,36 +31,9 @@
     --nav-bar-operation-width: 200px;
 }
 
-.el-scrollbar {
-    --el-scrollbar-bg-color: #991d28 !important;
-    --el-scrollbar-hover-bg-color: #991d28 !important;
-}
 
-// element-plus  begin
-.el-header {
-    --el-header-padding: 0 10px !important;
-}
 
-// 面包屑
-.el-breadcrumb {
-    .no-redirect {
-        color: #000 !important;
-    }
-}
 
-// .el-menu--popup,
-// .el-menu--popup-right-start,
-.el-menu--popup-container {
-    box-shadow: 0 0 20px var(--el-menu-bg-color);
-    border: none !important;
-}
-
-// element-plus  end
-
-//  灰色主题
-html.gray {
-    filter: grayscale(100%) brightness(0.9);
-}
 
 // 暗色主题
 html.dark {
@@ -87,17 +56,4 @@ html.dark {
     --second-bg-color: #1f232e;
     --login-white: #503a3a;
     --login-black: #d1c6c6;
-
-    // 面包屑
-    .el-breadcrumb {
-        .no-redirect {
-            color: #fff !important;
-        }
-    }
-
-    // 滚动条
-    .el-scrollbar {
-        --el-scrollbar-bg-color: #A3A6AD !important;
-        --el-scrollbar-hover-bg-color: #A3A6AD !important;
-    }
 }

@@ -9,7 +9,6 @@ import type { RouteLocationNormalized } from 'vue-router'
 export const emitter = mitt()
 
 const routerChangeKey = Symbol('ROUTE_CHANGE')
-const deptTreeKey = Symbol('DEPT_TREE_KEY')
 
 let latestRoute: RouteLocationNormalized
 

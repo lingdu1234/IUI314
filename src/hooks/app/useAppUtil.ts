@@ -1,20 +1,17 @@
-/*
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-23 10:49:40
- * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\hooks\app\useAppUtil.ts
- * @Description:
- */
 import { onMounted, ref } from 'vue'
 
 import { useAppStore } from '@/stores'
 
 export function useAnimation() {
   const animationList = [
-    'fade',
-    'fade-transform',
-    'slide-fade',
-    'el-zoom-in-center',
+    { label: '渐显', value: 'fade' },
+    { label: '缩放', value: 'scale' },
+    { label: '滑动', value: 'slide' },
+    { label: 'zoom-fade', value: 'zoom-fade' },
+    { label: 'zoom-out', value: 'zoom-out' },
+    { label: '缩放滑动', value: 'scale-slide' },
+    { label: '渐显滑动', value: 'fade-slide' },
+    { label: '渐显缩放', value: 'fade-scale' },
   ]
   const appStore = useAppStore()
   const setAnimation = (v: string) => {

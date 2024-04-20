@@ -1,41 +1,133 @@
-/* fade */
+//fade 渐显
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.28s;
+  transition: opacity 0.3s ease-in-out;
 }
-
-.fade-enter,
-.fade-leave-active {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 
-/* fade-transform */
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: all .5s;
+//scale 缩放
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.5s ease;
+}
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
 }
 
-.fade-transform-enter {
+//slide 幻灯片滑动
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.75s ease-out;
+}
+.slide-enter-to {
+  position: absolute;
+  right: 0;
+}
+.slide-enter-from {
+  position: absolute;
+  right: -100%;
+}
+.slide-leave-to {
+  position: absolute;
+  left: -100%;
+}
+.slide-leave-from {
+  position: absolute;
+  left: 0;
+}
+//随访滑动
+.scale-slide-enter-active,
+.scale-slide-leave-active {
+  position: absolute;
+  transition: all 0.85s ease;
+}
+.scale-slide-enter-from {
+  left: -100%;
+}
+.scale-slide-enter-to {
+  left: 0;
+}
+.scale-slide-leave-from {
+  transform: scale(1);
+}
+.scale-slide-leave-to {
+  transform: scale(0.8);
+}
+
+/* fade-slide 渐显滑动 */
+.fade-slide-leave-active,
+.fade-slide-enter-active {
+  transition: all 0.3s;
+}
+.fade-slide-enter-from {
   opacity: 0;
   transform: translateX(-30px);
 }
-
-.fade-transform-leave-to {
+.fade-slide-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }
 
-/* slide-fade  */
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
+/* fade-bottom */
+.fade-bottom-enter-active,
+.fade-bottom-leave-active {
+  transition:
+          opacity 0.25s,
+          transform 0.3s;
 }
-
-.slide-fade-leave-active {
-  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateX(20px);
+.fade-bottom-enter-from {
   opacity: 0;
+  transform: translateY(-10%);
+}
+.fade-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(10%);
+}
+
+/* fade-scale  渐显缩放 */
+.fade-scale-leave-active,
+.fade-scale-enter-active {
+  transition: all 0.28s;
+}
+.fade-scale-enter-from {
+  opacity: 0;
+  transform: scale(1.2);
+}
+.fade-scale-leave-to {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* zoom-fade */
+.zoom-fade-enter-active,
+.zoom-fade-leave-active {
+  transition:
+          transform 0.4s,
+          opacity 0.5s ease-out;
+}
+.zoom-fade-enter-from {
+  opacity: 0;
+  transform: scale(0.92);
+}
+.zoom-fade-leave-to {
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+/* zoom-out */
+.zoom-out-enter-active,
+.zoom-out-leave-active {
+  transition:
+          opacity 0.3s ease-in-out,
+          transform 0.45s ease-out;
+}
+.zoom-out-enter-from,
+.zoom-out-leave-to {
+  opacity: 0;
+  transform: scale(0);
 }

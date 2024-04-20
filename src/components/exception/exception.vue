@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ElButton } from 'element-plus'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 
@@ -41,14 +40,14 @@ function back() {
     </div>
     <div>
       <router-link :to="routeHomePath" class="decoration-none">
-        <ElButton class="m-20px" type="primary" @click="back">
+        <a-button class="m-20px" type="primary" @click="back">
           {{ t('common.back') }}
-        </ElButton>
+        </a-button>
       </router-link>
       <router-link :to="routeHomePath" class="decoration-none">
-        <ElButton class="m-20px" type="primary">
+        <a-button class="m-20px" type="primary">
           {{ t('common.home') }}
-        </ElButton>
+        </a-button>
       </router-link>
     </div>
   </div>

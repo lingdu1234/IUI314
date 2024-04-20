@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { watch } from 'vue'
 
-import AppSettingsDrawer from '../app/app-settings-drawer.vue'
 import AppMain from './app-main.vue'
 import NavBar from './nav-bar/nav-bar.vue'
 import SideBar from './side-bar/index.vue'
@@ -39,7 +38,6 @@ watch(
           <AppMain />
         </a-layout-content>
       </a-layout>
-      <AppSettingsDrawer v-if="appStore.app.openSettingDrawer" />
     </a-layout>
     <AppLockScreen v-if="appStore.app.isLocked" />
   </div>

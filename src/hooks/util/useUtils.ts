@@ -1,10 +1,8 @@
 import { useDateFormat } from '@vueuse/core'
-import type { DateModelType } from 'element-plus'
 import { ref } from 'vue'
 
 import { useSetupI18n } from '@/i18n'
 import { useAppStore, useDictsStore } from '@/stores'
-import type { pageQueryParam } from '@/types/base/apis'
 import type { dictUse } from '@/types/system/dict'
 
 const opt = Object.prototype.toString
@@ -70,17 +68,17 @@ export function parseTime(time: any, format?: string) {
   return formatted.value
 }
 
-export function addTimeQueryParam<T extends pageQueryParam>(queryParams: T, time: [DateModelType, DateModelType] | undefined) {
-  const res = {
-    ...queryParams,
-  }
-  if (time) {
-    res.begin_time = time[0] as string
-    res.end_time = time[1] as string
-  }
-
-  return res
-}
+// export function addTimeQueryParam<T extends pageQueryParam>(queryParams: T, time: [any, any] | undefined) {
+//   const res = {
+//     ...queryParams,
+//   }
+//   if (time) {
+//     res.begin_time = time[0] as string
+//     res.end_time = time[1] as string
+//   }
+//
+//   return res
+// }
 
 export function filterObjectArray<T extends { [key: string]: any }>(array: T[], keys: string[], childrenKey: string) {
   for (const item of array) {

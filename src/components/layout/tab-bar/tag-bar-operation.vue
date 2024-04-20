@@ -1,10 +1,12 @@
-<script lang="ts" setup name="tab-bar-operation">
+<script lang="ts" setup>
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import TabBarItemDropdown from './tab-bar-item-dropdown.vue'
 import { TabAction } from './useTabBar'
 import { formatTag, useAppStore, useTabBarStore } from '@/stores'
+
+defineOptions({ name: 'TabBarOperation' })
 
 const route = useRoute()
 const loading = ref<boolean>(false)

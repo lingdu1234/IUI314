@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 
 import MonitorTableVue from './pages/monitor-table.vue'
 import { ApiSysServiceMonitor } from '@/api/sysApis'
-import GaugeEchart from '@/components/echarts/gauge-echart.vue'
+import GaugeEcharts from '@/components/echarts/gauge-echarts.vue'
 import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { MonitorTable, ServerMonitor } from '@/types/system/server-monitor'
@@ -160,7 +160,7 @@ function memoryFormat(size: any) {
   size = Number.parseFloat(size)
   let rank = 0
   let rankChar = 'Bytes'
-  while (size > 1024 && rankChar != 'GB') {
+  while (size > 1024 && rankChar !== 'GB') {
     size = size / 1024
     rank++
     if (rank === 1)
@@ -210,10 +210,10 @@ watch(
   <div>
     <a-grid :col-gap="20" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">
       <a-grid-item>
-        <GaugeEchart name="CPU" :percent="cpuUsage" />
+        <GaugeEcharts name="CPU" :percent="cpuUsage" />
       </a-grid-item>
       <a-grid-item>
-        <GaugeEchart name="MEMORY" :percent="memoryUsage" />
+        <GaugeEcharts name="MEMORY" :percent="memoryUsage" />
       </a-grid-item>
     </a-grid>
     <a-grid :col-gap="20" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">

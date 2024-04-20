@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ArrowRight } from '@element-plus/icons-vue'
 import { ref, toRaw, watchEffect } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
@@ -45,7 +44,7 @@ watchEffect(() => {
 </script>
 
 <template>
-  <a-breadcrumb class="m-l-10px font-900" :separator-icon="ArrowRight">
+  <a-breadcrumb class="m-l-10px font-900">
     <template #separator>
       <IconRight />
     </template>
