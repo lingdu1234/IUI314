@@ -32,8 +32,6 @@ export interface vCronTableData extends vCronData {
  * 秒，分，小时的cron只类型
  */
 export interface vCronSecondValueType {
-  every: string
-  noFix: string
   cycle: {
     from: number
     to: number
@@ -43,4 +41,10 @@ export interface vCronSecondValueType {
     every: number
   }
   fix: string[] | number[]
+  closestWorkDayOfMonth: number
+  lastWeekOfMonth: string
+  fixWeekDayOfMonth: {
+    week: number
+    day: number
+  }
 }

@@ -80,36 +80,88 @@ export const vCronTableColumn: TableColumnData[] = [
     title: vCronItemLabel.minute,
     dataIndex: vCronItem.minute,
     width: vCronTableWidth,
+    ellipsis: true,
+    tooltip: true,
     align: 'center',
   },
   {
     title: vCronItemLabel.hour,
     dataIndex: vCronItem.hour,
     width: vCronTableWidth,
+    ellipsis: true,
+    tooltip: true,
     align: 'center',
   },
   {
     title: vCronItemLabel.day,
     dataIndex: vCronItem.day,
     width: vCronTableWidth,
+    ellipsis: true,
+    tooltip: true,
     align: 'center',
   },
   {
     title: vCronItemLabel.month,
     dataIndex: vCronItem.month,
     width: vCronTableWidth,
+    ellipsis: true,
+    tooltip: true,
     align: 'center',
   },
   {
     title: vCronItemLabel.week,
     dataIndex: vCronItem.week,
     width: vCronTableWidth,
+    ellipsis: true,
+    tooltip: true,
     align: 'center',
   },
   {
     title: vCronItemLabel.year,
     dataIndex: vCronItem.year,
     width: vCronTableWidth,
+    ellipsis: true,
+    tooltip: true,
     align: 'center',
+  },
+]
+export const weekList = [
+  '星期日',
+  '星期一',
+  '星期二',
+  '星期三',
+  '星期四',
+  '星期五',
+  '星期六',
+]
+// 使用1代表周天，2-6为周一到周六，这个可能存在差异
+export const weekArray = [
+  {
+    label: '星期日',
+    value: 1,
+  },
+  {
+    label: '星期一',
+    value: 2,
+  },
+  {
+    label: '星期二',
+    value: 3,
+  },
+  {
+    label: '星期三',
+    value: 4,
+  },
+  {
+    label: '星期四',
+    value: 5,
+  },
+  {
+    label: '星期五',
+    value: 6,
+  },
+  {
+    label: '星期六',
+    value: 7,
   },
 ]

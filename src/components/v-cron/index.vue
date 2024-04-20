@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { parseTime, usePost } from '@/hooks'
-import { Month, Second, Week, Year } from '@/components/v-cron/pages'
+import { Day, Hour, Minute, Month, Second, Week, Year } from '@/components/v-cron/pages'
 
 import { cronArrayX, vCronItem, vCronTableColumn, vCronTableWidth } from '@/components/v-cron/v-cron-const'
 import type { vCronData, vCronPropsType, vCronTableData } from '@/components/v-cron/v-cron-type'
@@ -20,7 +20,7 @@ withDefaults(defineProps<vCronPropsType>(), {
 })
 
 const visible = defineModel('visible', { required: true, default: false })
-const cronValue = defineModel('cronValue', { required: true, type: String })
+const cronValue = defineModel('cronValue', { required: true, type: String, default: '* * * * * ?' })
 const isFullscreen = ref(false)
 const cronIsValid = ref(false)
 
@@ -29,21 +29,35 @@ const next_ten = ref<string[]>([])
 const cronData = ref<vCronData>({})
 
 watch(() => cronValue.value, (v) => {
-  validateCron()
   getCronData(v)
+  validateCron()
 }, { immediate: true })
 
+watch(() => cronData.value, (v) => {
+  cronValue.value = `${v.second} ${v.minute} ${v.hour} ${v.day} ${v.month} ${v.week} ${v.year}`
+}, { deep: true })
+
 // 将cron表达式转换为值
-function getCronData(data: string) {
-  const cronDataV: vCronData = {}
-  const v: string[] = data.split(' ')
-  cronDataV.second = v.length > 0 && v[0] !== '' ? v[0] : '*'
-  cronDataV.minute = v.length > 1 && v[1] !== '' ? v[1] : '*'
-  cronDataV.hour = v.length > 2 && v[2] !== '' ? v[2] : '*'
-  cronDataV.day = v.length > 3 && v[3] !== '' ? v[3] : '*'
-  cronDataV.month = v.length > 4 && v[4] !== '' ? v[4] : '*'
-  cronDataV.week = v.length > 5 && v[5] !== '' ? v[5] : '?'
-  cronDataV.year = v.length > 6 ? v[6] : ''
+function getCronData(data?: string) {
+  const cronDataV: vCronData = {
+    second: '*',
+    minute: '*',
+    hour: '*',
+    day: '*',
+    month: '*',
+    week: '?',
+    year: '',
+  }
+  if (data) {
+    const v: string[] = data.split(' ')
+    cronDataV.second = v.length > 0 && v[0] !== '' ? v[0] : '*'
+    cronDataV.minute = v.length > 1 && v[1] !== '' ? v[1] : '*'
+    cronDataV.hour = v.length > 2 && v[2] !== '' ? v[2] : '*'
+    cronDataV.day = v.length > 3 && v[3] !== '' ? v[3] : '*'
+    cronDataV.month = v.length > 4 && v[4] !== '' ? v[4] : '*'
+    cronDataV.week = v.length > 5 && v[5] !== '' ? v[5] : '?'
+    cronDataV.year = v.length > 6 ? v[6] : ''
+  }
   cronData.value = cronDataV
 }
 
@@ -95,7 +109,8 @@ async function validateCron() {
 
 function submit() {
   if (!cronIsValid.value)
-    return validateCron()
+    return
+  visible.value = false
 }
 
 const tableWidth = computed(() => `width:${vCronTableWidth * 8 + 8}px;`)
@@ -152,17 +167,17 @@ const tableWidth = computed(() => `width:${vCronTableWidth * 8 + 8}px;`)
                 v-model:data="cronData.second"
                 :type="vCronItem.second"
               />
-              <Second
+              <Minute
                 v-if="activeTab === vCronItem.minute"
                 v-model:data="cronData.minute"
                 :type="vCronItem.minute"
               />
-              <Second
+              <Hour
                 v-if="activeTab === vCronItem.hour"
                 v-model:data="cronData.hour"
                 :type="vCronItem.hour"
               />
-              <Second
+              <Day
                 v-if="activeTab === vCronItem.day"
                 v-model:data="cronData.day"
                 :type="vCronItem.day"
@@ -172,8 +187,16 @@ const tableWidth = computed(() => `width:${vCronTableWidth * 8 + 8}px;`)
                 v-model:data="cronData.month"
                 :type="vCronItem.month"
               />
-              <Week v-if="activeTab === vCronItem.week" />
-              <Year v-if="activeTab === vCronItem.year" />
+              <Week
+                v-if="activeTab === vCronItem.week"
+                v-model:data="cronData.week"
+                :type="vCronItem.week"
+              />
+              <Year
+                v-if="activeTab === vCronItem.year"
+                v-model:data="cronData.year"
+                :type="vCronItem.year"
+              />
               <a-grid-item>
                 <a-table
                   :columns="vCronTableColumn"
@@ -187,7 +210,7 @@ const tableWidth = computed(() => `width:${vCronTableWidth * 8 + 8}px;`)
               </a-grid-item>
               <a-grid-item>
                 <a-card title="next run time" :style="tableWidth" class="m-t-5px">
-                  <template v-if="next_ten.length > 0">
+                  <template v-if="next_ten && next_ten.length > 0">
                     <a-grid :cols="4">
                       <a-grid-item v-for="(item, index) in next_ten" :key="index">
                         {{ parseTime(item) }}
