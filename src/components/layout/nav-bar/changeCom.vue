@@ -28,11 +28,11 @@ defineProps({
   },
 })
 const emit = defineEmits(['optionChange'])
-const id = defineModel('id', { required: true })
+const id = defineModel<string>('id', { required: true })
 </script>
 
 <template>
-  <a-radio-group model-value="id" direction="vertical" @change="emit('optionChange', id)">
+  <a-radio-group v-model:model-value="id" direction="vertical" @change="emit('optionChange', id)">
     <a-radio
       v-for="item in options"
       :key="item && item[keyKey]"
