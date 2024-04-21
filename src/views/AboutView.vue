@@ -18,7 +18,6 @@ const count = ref(0)
   <div>
     <IuiIcon name="bug" :size="32" spin />
 
-    <IuiIcon name="exception404" :size="512" :rotate="-30" />
     <div>{{ t('hello') }}</div>
     <div>{{ count }}</div>
     <div>{{ IuiIcons }}</div>

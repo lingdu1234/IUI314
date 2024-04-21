@@ -29,7 +29,7 @@ function unLockScreen() {
 
 <template>
   <a-scrollbar style="height: 100vh;overflow: auto;">
-    <div class="w-100% flex flex-col justify-between" style="height: 100vh">
+    <div class="w-100% flex flex-col justify-between login-container" style="height: 100vh">
       <div>
         <!-- 解锁区域 -->
         <div class="flex items-center justify-center lockLogoContainer">

@@ -12,13 +12,13 @@ const appStore = useAppStore()
 tabBarStore.setCurrentRoute(useRoute())
 
 const appMainHeight = computed(() => {
-  let h = 'calc(var(--vh) * 100'
+  let v = 'calc(var(--vh) * 100'
   if (appStore.app.navBar)
-    h += ' - var(--header-bar-height)'
+    v += ' - var(--header-bar-height)'
   if (appStore.app.tabBar)
-    h += ' - var(--header-bar-height)'
-  h += ')'
-  return h
+    v += ' - var(--header-bar-height)'
+  v += ')'
+  return v
 })
 
 const scrollbarStyle = computed(() => `height: ${appMainHeight.value};overflow:auto;`)
@@ -39,5 +39,3 @@ const cacheList = computed(() => tabBarStore.getCacheList)
     </div>
   </a-scrollbar>
 </template>
-
-<style lang="scss" scoped></style>

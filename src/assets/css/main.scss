@@ -22,13 +22,21 @@ body,
   border-radius: 3px;
 }
 
+
+// 自动填充背景
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #000000;
+}
+
 html.dark {
   ::-webkit-scrollbar-thumb {
     background-color: rgba(146, 146, 147,0.75);
   }
+  //自动填充字体颜色
+  input:-webkit-autofill {
+    -webkit-text-fill-color: #ffffff;
+  }
 }
 
-// 密码填充背景
-input:-webkit-autofill {
-  transition: background-color 5000s ease-in-out 0s;
-}
+
