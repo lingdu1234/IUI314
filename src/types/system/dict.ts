@@ -30,14 +30,7 @@ export enum dictKey {
 export interface dictUse {
   label: string
   value: string
-  elTagType?:
-    | ''
-    | 'success'
-    | 'warning'
-    | 'info'
-    | 'danger'
-    | 'primary'
-    | 'default'
+  elTagType?: string
   elTagClass?: string
   status: string
 }

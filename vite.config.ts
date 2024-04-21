@@ -42,8 +42,14 @@ export default ({ mode }: ConfigEnv) =>
         },
       }),
       // cdn({
-      //   modules: ['vue', 'vue-demi', 'vue-router', 'pinia'],
-      //   apply: command,
+      //   modules: [
+      //     {
+      //       name: 'echarts',
+      //       global: 'echarts',
+      //       relativeModule: '',
+      //     },
+      //   ],
+      //   apply: 'build',
       //   resolve: cdnjs(),
       // }),
     ],
@@ -75,6 +81,12 @@ export default ({ mode }: ConfigEnv) =>
                   ? assetInfo.name.split('.')[0]
                   : assetInfo.name
             return `assets/${name}-[hash].js`
+          },
+          manualChunks: {
+            'echarts': ['echarts'],
+            'vue-i18n': ['vue-i18n'],
+            'vue-router': ['vue-router'],
+            'svg-icon': ['virtual:svg-icons-register'],
           },
         },
       },

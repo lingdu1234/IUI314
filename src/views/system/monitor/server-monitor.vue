@@ -4,11 +4,11 @@ import { useI18n } from 'vue-i18n'
 
 import MonitorTableVue from './pages/monitor-table.vue'
 import { ApiSysServiceMonitor } from '@/api/sysApis'
-import GaugeEcharts from '@/components/echarts/gauge-echarts.vue'
 import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { MonitorTable, ServerMonitor } from '@/types/system/server-monitor'
 import { useSSE } from '@/hooks'
+import GaugeEcharts from '@/components/echarts/gauge-echarts.vue'
 
 // 导出名称
 defineOptions({
@@ -24,12 +24,6 @@ const programData = ref<MonitorTable[]>([])
 const netData = ref<MonitorTable[]>([])
 const cpuUsage = ref(0)
 const memoryUsage = ref(0)
-
-// const getServerData = async () => {
-//   const { data, execute } = useGet<ServerMonitor>(ApiSysServiceMonitor.getList)
-//   await execute()
-//   setServerData(data.value!)
-// }
 
 function setServerData(data: ServerMonitor) {
   cpuUsage.value = Number.parseFloat(
@@ -198,7 +192,15 @@ function timeFormat2DHMS(sec: any) {
 
 const { data } = useSSE(ApiSysServiceMonitor.getEvent)
 
-// const { pause, resume } = useIntervalFn(() => getServerData(), 1500)
+// async function getServerData() {
+//   const { data, execute } = useGet<ServerMonitor>(ApiSysServiceMonitor.getList)
+//   await execute()
+//   setServerData(data.value!)
+// }
+// const { pause, resume } = useIntervalFn(() => getServerData(), 2000)
+// onActivated(() => resume())
+// onDeactivated(() => pause())
+// onUnmounted(() => pause())
 
 watch(
   () => data.value,
