@@ -1,8 +1,8 @@
 {
   "name": "arco-314",
+  "type": "module",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -26,7 +26,7 @@
     "vue": "^3.4.23",
     "vue-cropper": "^1.1.2",
     "vue-echarts": "^6.6.9",
-    "vue-i18n": "^9.13.0",
+    "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.2"
   },
   "devDependencies": {
@@ -49,7 +49,7 @@
     "typescript": "~5.4.5",
     "unocss": "0.59.4",
     "unplugin-auto-import": "^0.17.5",
-    "vite": "^5.2.9",
+    "vite": "^5.2.10",
     "vite-plugin-cdn2": "^1.1.0",
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-svg-icons": "^2.0.1",

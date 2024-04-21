@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-import { useRoute } from 'vue-router'
 import { Message, Modal } from '@arco-design/web-vue'
+import { useRoute } from 'vue-router'
 import { ApiSysScheduledTasksLog } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   type listType,
   useDelete,
@@ -13,14 +14,12 @@ import {
   useGet,
   useTableUtil,
 } from '@/hooks'
-import { dictKey } from '@/types/system/dict'
-import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { systemMenus } from '@/router'
+import { dictKey } from '@/types/system/dict'
 import type {
   scheduledTasks,
   scheduledTasksLogQueryParam,
 } from '@/types/system/scheduled-tasks'
-import type ScheduledTasksDetail from '@/views/system/monitor/pages/scheduled-tasks/scheduled-tasks-detail.vue'
 import { ScheduledLogOperator, ScheduledLogQuery, ScheduledLogTable } from '@/views/system/monitor/pages/scheduled-log'
 
 // 导出名称
@@ -30,7 +29,6 @@ defineOptions({
 
 const showSearch = ref(true)
 const route = useRoute()
-const detailRef = ref<InstanceType<typeof ScheduledTasksDetail>>()
 
 const dicts = useDicts(
   dictKey.sysTaskIsOnce,
