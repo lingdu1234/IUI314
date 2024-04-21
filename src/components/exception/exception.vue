@@ -4,21 +4,10 @@ import { useRoute } from 'vue-router'
 
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
-import Icon404 from '@/components/exception/Icons/icon404.vue'
-import Icon500 from '@/components/exception/Icons/icon500.vue'
-import Icon401 from '@/components/exception/Icons/icon401.vue'
-
-type ExceptionType = '401' | '403' | '404' | '500'
-
-interface Props {
-  type: ExceptionType
-}
 
 defineOptions({
   name: 'Exception',
 })
-
-defineProps<Props>()
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const route = useRoute()
@@ -33,10 +22,8 @@ function back() {
 
 <template>
   <div class="flex m-t-10vh items-center flex-col w-full h-full">
-    <div class="text-400px text-70px">
-      <Icon401 v-if="type === '401'" class="w-500px h-500px" />
-      <Icon404 v-if="type === '404'" class="w-500px h-500px" />
-      <Icon500 v-else class="w-500px h-500px" />
+    <div class="text-70px">
+      <slot name="exceptionIcon" />
     </div>
     <div>
       <router-link :to="routeHomePath" class="decoration-none">
