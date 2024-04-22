@@ -10,6 +10,7 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import { vitePluginForArco } from '@arco-plugins/vite-vue'
 import AutoImport from 'unplugin-auto-import/vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
 export default ({ mode }: ConfigEnv) =>
@@ -27,6 +28,7 @@ export default ({ mode }: ConfigEnv) =>
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]',
       }),
+      VitePWA({ registerType: 'autoUpdate' }),
       vitePluginForArco({
         style: 'css',
       }),
@@ -41,17 +43,6 @@ export default ({ mode }: ConfigEnv) =>
           },
         },
       }),
-      // cdn({
-      //   modules: [
-      //     {
-      //       name: 'echarts',
-      //       global: 'echarts',
-      //       relativeModule: '',
-      //     },
-      //   ],
-      //   apply: 'build',
-      //   resolve: cdnjs(),
-      // }),
     ],
     resolve: {
       alias: {

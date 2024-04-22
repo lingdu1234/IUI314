@@ -19,6 +19,13 @@ const count = ref(0)
     <IuiIcon name="bug" :size="32" spin />
 
     <div>{{ t('hello') }}</div>
+    <div>{{ t('hello') }}</div>
+    <div>{{ t('hello') }}</div>
+    <div>{{ t('hello') }}</div>
+    <div>{{ t('hello') }}</div>
+    <div>{{ t('hello') }}</div>
+    <div>{{ t('hello') }}</div>
+    <div>{{ t('hello') }}</div>
     <div>{{ count }}</div>
     <div>{{ IuiIcons }}</div>
     <div>

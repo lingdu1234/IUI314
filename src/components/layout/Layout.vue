@@ -6,7 +6,7 @@ import NavBar from './nav-bar/nav-bar.vue'
 import SideBar from './side-bar/index.vue'
 import TabBar from './tab-bar/tab-bar.vue'
 import { useAppStore } from '@/stores'
-import { useMobile } from '@/hooks'
+import { parseTime, useMobile } from '@/hooks'
 import AppLockScreen from '@/components/lock-screen/app-lock-screen.vue'
 
 defineOptions({ name: 'Layout' })
@@ -23,23 +23,25 @@ watch(
 
 <template>
   <div>
-    <a-layout v-if="!appStore.app.isLocked">
-      <a-layout-sider :width="appStore.sideBar.isCollapse ? 48 : 200">
-        <SideBar />
-      </a-layout-sider>
-      <a-layout>
-        <a-layout-header v-show="appStore.app.navBar" class="headerNavBar">
-          <NavBar />
-        </a-layout-header>
-        <a-layout-header class="headerNavBar">
-          <TabBar v-if="appStore.app.tabBar" />
-        </a-layout-header>
-        <a-layout-content>
-          <AppMain />
-        </a-layout-content>
+    <a-watermark :content="['iui314', parseTime(new Date())]">
+      <a-layout v-if="!appStore.app.isLocked">
+        <a-layout-sider :width="appStore.sideBar.isCollapse ? 48 : 200">
+          <SideBar />
+        </a-layout-sider>
+        <a-layout>
+          <a-layout-header v-show="appStore.app.navBar" class="headerNavBar">
+            <NavBar />
+          </a-layout-header>
+          <a-layout-header class="headerNavBar">
+            <TabBar v-if="appStore.app.tabBar" />
+          </a-layout-header>
+          <a-layout-content>
+            <AppMain />
+          </a-layout-content>
+        </a-layout>
       </a-layout>
-    </a-layout>
-    <AppLockScreen v-if="appStore.app.isLocked" />
+      <AppLockScreen v-if="appStore.app.isLocked" />
+    </a-watermark>
   </div>
 </template>
 

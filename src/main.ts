@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 
+import { registerSW } from 'virtual:pwa-register'
 import App from './App.vue'
 import { useSetupI18n } from '@/i18n'
 import { setupRoutes } from '@/router'
@@ -9,6 +10,8 @@ import 'nprogress/nprogress.css'
 import './assets/css/main.scss'
 import 'uno.css'
 import 'virtual:svg-icons-register'
+
+registerSW({ immediate: true })
 
 async function bootApp() {
   const app = createApp(App)
