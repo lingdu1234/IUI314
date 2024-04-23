@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, unref } from 'vue'
 import type { FormInstance } from '@arco-design/web-vue'
-import { FormItemType, type IuFormField, type dataOptionTypeRadio } from '@/types/base/iu-form'
-import { useFormUtil } from '@/hooks'
+import { computed, ref, unref } from 'vue'
 import type { iuModalPropsType } from '@/components/iui/iui-props'
+import { useFormUtil, useMobile, useOrientation } from '@/hooks'
+import { FormItemType, type IuFormField, type dataOptionTypeRadio } from '@/types/base/iu-form'
 
 defineOptions({ name: 'IuModal' })
 
@@ -26,6 +26,9 @@ const isFullscreen = ref(false)
 const formLayout = ref<'horizontal' | 'vertical' | 'inline'>('inline')
 const modalFormRef = ref<FormInstance>()
 const useForm = useFormUtil()
+
+const { isPortrait } = useOrientation()
+const { isMobile } = useMobile()
 
 const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
 
@@ -136,7 +139,7 @@ defineExpose({ validateModalField })
           auto-label-width
           class="m-b-10px"
         >
-          <a-grid :cols="isFullscreen ? fullScreenCol : defaultCol">
+          <a-grid :cols=" isMobile && isPortrait ? 1 : isFullscreen ? fullScreenCol : defaultCol">
             <a-grid-item
               v-for="item in formItems"
               v-show="item.vShow === undefined ? true : item.vShow"

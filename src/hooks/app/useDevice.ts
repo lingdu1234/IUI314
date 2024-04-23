@@ -1,5 +1,5 @@
+import { useScreenOrientation, useWindowSize } from '@vueuse/core'
 import { onMounted, onUnmounted, ref, watch } from 'vue'
-import { useWindowSize } from '@vueuse/core'
 
 import { useAppStore, useUserStore } from '@/stores'
 
@@ -35,6 +35,19 @@ export function useToken() {
   }
 }
 
+// 获取屏幕方向
+export function useOrientation() {
+  const { angle } = useScreenOrientation()
+  const isPortrait = ref(false)
+  watch(() => angle.value, (v: number) => {
+    isPortrait.value = v % 20 === 0
+  }, { immediate: true })
+
+  return {
+    isPortrait,
+  }
+}
+
 enum OS {
   WINDOWS,
   MACOS,
@@ -66,7 +79,6 @@ function getIsMobile(screenSize: number): boolean {
     isMobile = true
   else if ((os === OS.ANDROID || os === OS.IOS) && screenSize <= 1200)
     isMobile = true
-
   return isMobile
 }
 
