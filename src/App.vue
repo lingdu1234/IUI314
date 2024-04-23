@@ -13,14 +13,8 @@ const appStore = useAppStore()
 const localeLang = computed(() => (appStore.app.lang === 'zh-CN' ? zhCn : enUS))
 //  程序启动设置自定义Vh
 useSetVh()
-// 设置主题
-
-// useTheme().init_theme()
-
-watch(() => useTheme().colorScheme.value, () => {
-  if (appStore.app.theme === 'system')
-    useTheme().init_theme()
-}, { immediate: true })
+// 设置初始化主题
+useTheme().init_theme()
 
 // 设置语言
 watch(

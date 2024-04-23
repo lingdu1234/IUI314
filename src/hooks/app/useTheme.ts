@@ -75,7 +75,6 @@ export function useTheme() {
   }
   return {
     theme_list,
-    colorScheme,
     init_theme,
     set_theme,
     get_is_dark,

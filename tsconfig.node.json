@@ -6,7 +6,7 @@
     "cypress.config.*",
     "nightwatch.conf.*",
     "playwright.config.*",
-    "vite/**/*",
+    "__vite/**/*",
     "vite-plugin-svg-icons/client"
   ],
   "compilerOptions": {
