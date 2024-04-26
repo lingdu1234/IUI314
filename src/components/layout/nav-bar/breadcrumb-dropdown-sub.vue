@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { type PropType, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { AppRouteRecordRaw } from '@/types/base/router'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
+import type { AppRouteRecordRaw } from '@/types/base/router'
 
 defineOptions({ name: 'BreadcrumbDropdownSub' })
 const props = defineProps({

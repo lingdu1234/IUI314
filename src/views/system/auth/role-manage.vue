@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import { ApiSysRole } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   type listType,
   useDeleteFn,
@@ -10,18 +11,17 @@ import {
   useGet,
   useTableUtil,
 } from '@/hooks'
-import type { userInformation } from '@/types/system/userInformation'
-import { dictKey } from '@/types/system/dict'
-import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { systemMenus } from '@/router'
+import { dictKey } from '@/types/system/dict'
 import type { postQueryParam } from '@/types/system/post'
-import type PostManageModal from '@/views/system/auth/pages/post/post-manage-modal.vue'
 import type { role } from '@/types/system/role'
-import RoleManageTable from '@/views/system/auth/pages/role/role-manage-table.vue'
-import RoleManageOperator from '@/views/system/auth/pages/role/role-manage-operator.vue'
-import RoleManageQuery from '@/views/system/auth/pages/role/role-mannage-query.vue'
-import RoleManageModal from '@/views/system/auth/pages/role/role-manage-modal.vue'
+import type { userInformation } from '@/types/system/userInformation'
+import type PostManageModal from '@/views/system/auth/pages/post/post-manage-modal.vue'
 import RoleManageDataModal from '@/views/system/auth/pages/role/role-manage-data-modal.vue'
+import RoleManageModal from '@/views/system/auth/pages/role/role-manage-modal.vue'
+import RoleManageOperator from '@/views/system/auth/pages/role/role-manage-operator.vue'
+import RoleManageQuery from '@/views/system/auth/pages/role/role-manage-query.vue'
+import RoleManageTable from '@/views/system/auth/pages/role/role-manage-table.vue'
 
 // 导出名称
 defineOptions({

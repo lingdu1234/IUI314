@@ -2,13 +2,15 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { IconLock, IconUser } from '@arco-design/web-vue/es/icon'
 import type { FieldRule, FormInstance } from '@arco-design/web-vue'
+import { IconLock, IconUser } from '@arco-design/web-vue/es/icon'
+import { useI18n } from 'vue-i18n'
+import { ApiSysLogin } from '@/api/sysApis'
 import logo from '@/assets/logo.svg'
 import { useFormUtil, useGet, useTheme } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { useUserStore } from '@/stores'
 import type { LoginFormLocal, codeData } from '@/types/base/login'
-import { ApiSysLogin } from '@/api/sysApis'
 
 defineOptions({ name: 'LoginRight' })
 
@@ -27,6 +29,7 @@ const loginForm = ref<LoginFormLocal>({
 })
 
 const isDark = useTheme().get_is_dark()
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 // 验证码获取
 const { data: captchaData, execute: getCaptcha } = useGet<codeData>(ApiSysLogin.getCaptcha, null, { immediate: true })
@@ -34,15 +37,15 @@ const { data: captchaData, execute: getCaptcha } = useGet<codeData>(ApiSysLogin.
 //  验证规则
 const loginRules = ref<{ [key: string]: FieldRule[] }>({
   user_name: [
-    { required: true, message: '请输入您的账号' },
-    { minLength: 4, maxLength: 20, message: '用户名为4-20位长度' },
+    { required: true, message: t('sys.loginUserNameValidateTipA') },
+    { minLength: 4, maxLength: 20, message: t('sys.loginUserNameValidateTipB') },
   ],
   user_password: [
-    { required: true, message: '请输入用户密码' },
+    { required: true, message: t('sys.loginUserPasswordValidateTipA') },
   ],
   code: [
-    { required: true, message: '请输入验证码' },
-    { minLength: 1, maxLength: 10, message: '验证码为1-10位字符' },
+    { required: true, message: t('sys.loginCodeValidateTipA') },
+    { minLength: 1, maxLength: 10, message: t('sys.loginCodeValidateTipB') },
   ],
 })
 
@@ -92,7 +95,7 @@ getLocalUserInfo()
           </div>
         </div>
         <h2 class="m-t-10px m-b-10px text-center">
-          π 数据管理系统
+          π {{ t("app.APP") }}
         </h2>
         <a-form-item
           field="user_name"
@@ -101,7 +104,7 @@ getLocalUserInfo()
         >
           <a-input
             v-model="loginForm.user_name"
-            placeholder="用户名"
+            :placeholder="t('sys.userName')"
             size="large"
             type="text"
           >
@@ -118,7 +121,7 @@ getLocalUserInfo()
           <a-input
             v-model="loginForm.user_password"
             size="large"
-            placeholder="密码"
+            :placeholder="t('sys.passWord')"
             type="password"
           >
             <template #prefix>
@@ -135,7 +138,7 @@ getLocalUserInfo()
         >
           <a-input
             v-model="loginForm.code"
-            placeholder="验证码"
+            :placeholder="t('sys.validateCode')"
             size="large"
             type="text"
             @keyup.enter="submitLogin(loginFormRef)"
@@ -155,14 +158,14 @@ getLocalUserInfo()
           >
         </a-form-item>
         <a-checkbox v-model="loginForm.rememberMe" class="w-350px">
-          记住密码
+          {{ t('sys.rememberMe') }}
         </a-checkbox>
         <div class="flex justify-around m-t-30px">
           <a-button type="primary" @click="submitLogin(loginFormRef)">
-            登录
+            {{ t('sys.login') }}
           </a-button>
           <a-button type="secondary" @click="formReset(loginFormRef)">
-            重置
+            {{ t('sys.reset') }}
           </a-button>
         </div>
       </a-form>

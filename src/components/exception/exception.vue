@@ -28,12 +28,12 @@ function back() {
     <div>
       <router-link :to="routeHomePath" class="decoration-none">
         <a-button class="m-20px" type="primary" @click="back">
-          {{ t('common.back') }}
+          {{ t('sys.back') }}
         </a-button>
       </router-link>
       <router-link :to="routeHomePath" class="decoration-none">
         <a-button class="m-20px" type="primary">
-          {{ t('common.home') }}
+          {{ t('sys.home ') }}
         </a-button>
       </router-link>
     </div>

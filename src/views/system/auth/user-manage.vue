@@ -105,7 +105,7 @@ watch(() => deptTree.value, () => {
       <a-grid-item :span="{ xs: 24, sm: 24, md: 24, lg: 24, xl: 4, xxl: 3 }">
         <a-input
           v-model="searchKey"
-          :placeholder="t('dept.searchTip')"
+          placeholder="按部门名称搜索"
           class="m-b-20px"
           allow-clear
         >

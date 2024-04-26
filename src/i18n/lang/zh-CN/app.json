@@ -1,0 +1,16 @@
+{
+  "APP": "数据管理",
+  "cancel": "取消",
+  "confirm": "确认",
+  "disable": "禁用",
+  "enable": "启用",
+  "hello": "你好",
+  "info": "提示",
+  "navChangeDept": "部门切换",
+  "navChangeDeptTip": "部门切换成功,马上重载界面",
+  "navChangeRole": "角色切换",
+  "navChangeRoleTip": "角色切换成功,马上重载界面",
+  "navLogout": "退出登录",
+  "navLogoutSuccessTip": "正在退出登录，返回登录界面！",
+  "navLogoutTip": "确认退出登录吗？"
+}

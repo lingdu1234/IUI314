@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { type PropType, computed, h, ref } from 'vue'
-import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import { Message } from '@arco-design/web-vue'
+import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { type PropType, computed, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { ErrorFlag } from '@/api/apis'
+import { ApiSysPost } from '@/api/sysApis'
 import IuModal from '@/components/iui/iu-modal.vue'
+import { useGet, usePost, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
-import { useGet, usePost, usePut } from '@/hooks'
-import { ApiSysPost } from '@/api/sysApis'
-import { ErrorFlag } from '@/api/apis'
-import type { MessageSchema } from '@/i18n'
 import type { post } from '@/types/system/post'
 
 defineOptions({ name: 'PostManageModal' })
@@ -36,60 +36,70 @@ const open = ref(false)
 const title = ref('')
 const form = ref<post>({})
 
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'post_name',
-    label: '岗位名称',
+    label: t('sys.postName'),
     type: FormItemType.input,
-    placeholder: '请输入岗位名称',
+    input: {
+      allowClear: true,
+      placeholder: t('sys.postNameTip'),
+    },
     rule: [
-      { required: true, message: '岗位名称不能为空' },
-      { type: 'string', minLength: 2, maxLength: 20, message: '岗位名称2~20个字符' },
+      { required: true, message: t('sys.postNameValidateTip') },
+      { type: 'string', minLength: 2, maxLength: 20, message: t('sys.postNameValidateTip') },
     ],
     validateTrigger: 'blur',
   },
   {
     field: 'post_code',
-    label: '岗位编码',
+    label: t('sys.postCode'),
     type: FormItemType.input,
-    placeholder: '请输入岗位编码',
+    input: {
+      allowClear: true,
+      placeholder: t('sys.postCodeTip'),
+    },
     rule: [
-      { required: true, message: '岗位编码不能为空' },
-      { type: 'string', minLength: 2, maxLength: 20, message: '岗位编码2~20个字符' },
+      { required: true, message: t('sys.postCodeValidateTip') },
+      { type: 'string', minLength: 2, maxLength: 20, message: t('sys.postCodeValidateTipB') },
     ],
     validateTrigger: 'blur',
   },
   {
     field: 'post_sort',
-    label: '显示排序',
+    label: t('sys.order'),
     type: FormItemType.inputNumber,
-    inputNumberMode: 'button',
-    placeholder: '请输入显示排序',
+    inputNumber: {
+      mode: 'button',
+      placeholder: t('sys.orderTip'),
+      min: 1,
+      defaultValue: 1,
+    },
     rule: [
-      { required: true, message: '显示排序不能为空' },
+      { required: true, message: t('sys.orderValidateTip') },
     ],
   },
   {
     field: 'status',
-    label: '岗位状态',
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    label: t('sys.postStatus'),
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
     },
     rule: [
-      { required: true, message: '岗位状态必须选择' },
+      { required: true },
     ],
     validateTrigger: 'blur',
   },
   {
     field: 'remark',
-    label: '备注',
+    label: t('sys.remark'),
     type: FormItemType.textarea,
-    placeholder: '请输入字典备注',
+    textArea: {
+      allowClear: true,
+      autoSize: true,
+      placeholder: t('sys.remarkTip'),
+    },
   },
 ])
 function handleAdd() {
@@ -98,7 +108,7 @@ function handleAdd() {
   form.value = {
     status: '1',
   }
-  title.value = '添加岗位'
+  title.value = t('sys.add') + t('sys.post')
 }
 async function handleUpdate(row?: post) {
   modalIcon.value = h(IconEdit)
@@ -111,7 +121,7 @@ async function handleUpdate(row?: post) {
     await execute()
     form.value = data.value as post
   }
-  title.value = `更新岗位-${form.value.post_name}`
+  title.value = `${t('sys.update') + t('sys.post')}-${form.value.post_name}`
   open.value = true
 }
 async function submitForm() {
@@ -121,14 +131,14 @@ async function submitForm() {
     await execute()
     if (data.value === ErrorFlag)
       return
-    Message.success(t('commonTip.updateSuccess'))
+    Message.success(t('sys.tipUpdateSuccess'))
   }
   else {
     const { execute, data } = usePost(ApiSysPost.add, form)
     await execute()
     if (data.value === ErrorFlag)
       return
-    Message.success(t('commonTip.addSuccess'))
+    Message.success(t('sys.tipAddSuccess'))
   }
   open.value = false
   emits('getList')
@@ -146,7 +156,9 @@ defineExpose({ handleAdd, handleUpdate })
     :icon="modalIcon"
     :title="title"
     :item-width="250"
+    :label-width="100"
     :default-col="1"
+    :full-screen-col="1"
     @handle-ok="submitForm"
   />
 </template>

@@ -1,10 +1,12 @@
 <script lang="ts" setup>
-import { type PropType, h, ref } from 'vue'
 import type { TableColumnData, TableRowSelection } from '@arco-design/web-vue'
-import DictTag from '@/components/common/dict-tag.vue'
-import { dictKey, type dictUse } from '@/types/system/dict'
-import { hasPermission, parseTime } from '@/hooks'
+import { type PropType, computed, h, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ApiSysPost } from '@/api/sysApis'
+import DictTag from '@/components/common/dict-tag.vue'
+import { hasPermission, parseTime } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
+import { dictKey, type dictUse } from '@/types/system/dict'
 import type { userInformation } from '@/types/system/userInformation'
 
 defineOptions({ name: 'PostManageTable' })
@@ -24,7 +26,7 @@ const emits = defineEmits([
   'handleDelete',
   'handleSelectionChangeFn',
 ])
-
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const tableData = defineModel<userInformation[] | null>('tableData', { required: true })
 
 const rowSelection = ref<TableRowSelection>({
@@ -34,9 +36,9 @@ const rowSelection = ref<TableRowSelection>({
 })
 
 // 表格列属性
-const columns: TableColumnData[] = [
+const columns = computed<TableColumnData[]> (() => [
   {
-    title: '岗位编码',
+    title: t('sys.postCode'),
     dataIndex: 'post_code',
     ellipsis: true,
     tooltip: true,
@@ -44,13 +46,13 @@ const columns: TableColumnData[] = [
     align: 'center',
   },
   {
-    title: '岗位名称',
+    title: t('sys.postName'),
     dataIndex: 'post_name',
     align: 'center',
     width: 150,
   },
   {
-    title: '岗位排序',
+    title: t('sys.order'),
     dataIndex: 'post_sort',
     align: 'center',
     width: 150,
@@ -58,7 +60,7 @@ const columns: TableColumnData[] = [
     tooltip: true,
   },
   {
-    title: '状态',
+    title: t('sys.status'),
     width: 100,
     align: 'center',
     render: ({ record }) => h(DictTag, {
@@ -67,19 +69,19 @@ const columns: TableColumnData[] = [
     }),
   },
   {
-    title: '创建时间',
+    title: t('sys.createTime'),
     width: 180,
     align: 'center',
     render: ({ record }) => parseTime(record.created_at),
   },
   {
-    title: '操作',
+    title: t('sys.operate'),
     slotName: 'operation',
     width: 200,
     fixed: 'right',
     align: 'center',
   },
-]
+])
 
 function handleSelectionChange(keys: (string | number)[]) {
   return emits('handleSelectionChangeFn', keys, tableData.value, 'post_id', 'post_name')
@@ -109,7 +111,7 @@ function handleSelectionChange(keys: (string | number)[]) {
         shape="round"
         @click="emits('handleUpdate', record)"
       >
-        编辑
+        {{ t('sys.edit') }}
         <template #icon>
           <IconEdit />
         </template>
@@ -121,7 +123,7 @@ function handleSelectionChange(keys: (string | number)[]) {
         status="danger"
         @click="emits('handleDelete', record)"
       >
-        删除
+        {{ t('sys.delete') }}
         <template #icon>
           <IconDelete />
         </template>

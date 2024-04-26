@@ -1,19 +1,20 @@
 <script setup lang="ts">
-import { type PropType, computed, h, ref } from 'vue'
-import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import { Message } from '@arco-design/web-vue'
+import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import type { SelectOptionData } from '@arco-design/web-vue/es/select/interface'
+import { type PropType, computed, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import IuModal from '@/components/iui/iu-modal.vue'
-import type { userInfo, userInformation } from '@/types/system/userInformation'
-import { FormItemType, type IuFormField, type SelectOptionInterface } from '@/types/base/iu-form'
-import { dictKey, type dictUse } from '@/types/system/dict'
-import { useGet, usePost, usePut } from '@/hooks'
-import { ApiSysPost, ApiSysRole, ApiSysUser } from '@/api/sysApis'
 import { ErrorFlag } from '@/api/apis'
+import { ApiSysPost, ApiSysRole, ApiSysUser } from '@/api/sysApis'
+import IuModal from '@/components/iui/iu-modal.vue'
+import { useGet, usePost, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
+import { FormItemType, type IuFormField, type SelectOptionInterface } from '@/types/base/iu-form'
+import type { dept } from '@/types/system/dept'
+import { dictKey, type dictUse } from '@/types/system/dict'
 import type { postList } from '@/types/system/post'
 import type { roleList } from '@/types/system/role'
-import type { dept } from '@/types/system/dept'
+import type { userInfo, userInformation } from '@/types/system/userInformation'
 
 defineOptions({ name: 'UserManageModal' })
 
@@ -43,8 +44,8 @@ const open = ref(false)
 const title = ref('')
 const form = ref<userInformation>({})
 
-const roleOptions = ref<SelectOptionInterface[]>([])
-const postOptions = ref<SelectOptionInterface[]>([])
+const roleOptions = ref<SelectOptionData[]>([])
+const postOptions = ref<SelectOptionData[]>([])
 
 const modalFormItems = ref<IuFormField[]>([])
 const addFormItems = ref<IuFormField[]>([
@@ -52,7 +53,10 @@ const addFormItems = ref<IuFormField[]>([
     field: 'user_name',
     label: '用户名称',
     type: FormItemType.input,
-    placeholder: '请输入用户名称',
+    input: {
+      allowClear: true,
+      placeholder: '请输入用户名称',
+    },
     rule: [
       { required: true, message: '用户名称不能为空' },
       { type: 'string', minLength: 2, maxLength: 20, message: '用户名称2~20个字符' },
@@ -63,7 +67,11 @@ const addFormItems = ref<IuFormField[]>([
     field: 'user_password',
     label: '用户密码',
     type: FormItemType.input,
-    placeholder: '请输入用户密码',
+    input: {
+      allowClear: true,
+      type: 'password',
+      placeholder: '请输入用户密码',
+    },
     rule: [
       { required: true, message: '用户密码不能为空' },
       { type: 'string', minLength: 2, maxLength: 20, message: '用户密码2~20个字符' },
@@ -76,7 +84,10 @@ const editFormItems = ref<IuFormField[]>([
     field: 'user_nickname',
     label: '用户昵称',
     type: FormItemType.input,
-    placeholder: '请输入用户昵称',
+    input: {
+      allowClear: true,
+      placeholder: '请输入用户昵称',
+    },
     rule: [
       { required: true, message: '用户昵称不能为空' },
       { type: 'string', minLength: 2, maxLength: 20, message: '用户昵称2~20个字符' },
@@ -86,16 +97,10 @@ const editFormItems = ref<IuFormField[]>([
   {
     field: 'sex',
     label: '用户性别',
-    type: FormItemType.radio,
-    placeholder: '请输入用户性别',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysUserSex]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
-      allowClear: true,
-      allowSearch: true,
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      placeholder: '请输入用户性别',
+      options: computed(() => props.dicts[dictKey.sysUserSex]),
     },
     rule: [
       { required: true, message: '用户性别不能为空' },
@@ -106,10 +111,10 @@ const editFormItems = ref<IuFormField[]>([
     field: 'dept_ids',
     label: '用户部门',
     type: FormItemType.treeSelect,
-    placeholder: '请选择用户部门',
-    selectOption: {
-      dataOption: props.deptTree,
-      dataOptionKey: {
+    treeSelect: {
+      placeholder: '请选择用户部门',
+      data: props.deptTree,
+      fieldNames: {
         title: 'dept_name',
         key: 'dept_id',
         children: 'children',
@@ -133,10 +138,10 @@ const editFormItems = ref<IuFormField[]>([
     field: 'dept_id',
     label: '激活部门',
     type: FormItemType.treeSelect,
-    placeholder: '请选择激活部门',
-    selectOption: {
-      dataOption: props.deptTree,
-      dataOptionKey: {
+    treeSelect: {
+      placeholder: '请选择激活部门',
+      data: props.deptTree,
+      fieldNames: {
         title: 'dept_name',
         key: 'dept_id',
         children: 'children',
@@ -162,10 +167,10 @@ const editFormItems = ref<IuFormField[]>([
     field: 'role_ids',
     label: '用户角色',
     type: FormItemType.select,
-    placeholder: '请选择用户角色',
-    selectOption: {
-      dataOption: roleOptions,
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择用户角色',
+      options: roleOptions,
+      fieldNames: {
         title: 'dept_name',
         key: 'dept_id',
         children: 'children',
@@ -189,10 +194,10 @@ const editFormItems = ref<IuFormField[]>([
     field: 'role_id',
     label: '激活角色',
     type: FormItemType.select,
-    placeholder: '请选择激活角色',
-    selectOption: {
-      dataOption: roleOptions,
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择激活角色',
+      options: roleOptions,
+      fieldNames: {
         title: 'dept_name',
         key: 'dept_id',
         children: 'children',
@@ -218,13 +223,19 @@ const editFormItems = ref<IuFormField[]>([
     field: 'phone_num',
     label: '手机号码',
     type: FormItemType.input,
-    placeholder: '请输入手机号码',
+    input: {
+      allowClear: true,
+      placeholder: '请输入手机号码',
+    },
   },
   {
     field: 'email',
     label: '用户邮箱',
     type: FormItemType.input,
-    placeholder: '请输入用户邮箱',
+    input: {
+      allowClear: true,
+      placeholder: '请输入用户邮箱',
+    },
     rule: [
       { required: false, type: 'email', message: '请输入正确的邮箱地址' },
     ],
@@ -233,10 +244,10 @@ const editFormItems = ref<IuFormField[]>([
     field: 'post_ids',
     label: '用户岗位',
     type: FormItemType.select,
-    placeholder: '请选择用户岗位',
-    selectOption: {
-      dataOption: postOptions,
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择用户岗位',
+      options: postOptions,
+      fieldNames: {
         title: 'dept_name',
         key: 'dept_id',
         children: 'children',
@@ -258,13 +269,9 @@ const editFormItems = ref<IuFormField[]>([
   {
     field: 'is_admin',
     label: '后台用户',
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.isAdmin]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: computed(() => props.dicts[dictKey.isAdmin]),
     },
     rule: [
       { required: true, message: '后台用户必须选择' },
@@ -274,13 +281,9 @@ const editFormItems = ref<IuFormField[]>([
   {
     field: 'user_status',
     label: '用户状态',
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
     },
     rule: [
       { required: true, message: '用户状态必须选择' },
@@ -291,7 +294,10 @@ const editFormItems = ref<IuFormField[]>([
     field: 'remark',
     label: '备注',
     type: FormItemType.textarea,
-    placeholder: '请输入字典备注',
+    textArea: {
+      autoSize: true,
+      placeholder: '请输入字典备注',
+    },
     fullScreenCol: 2,
     defaultCol: 2,
     fullScreenIsOnlyOne: true,
@@ -308,7 +314,7 @@ function handleAdd() {
     sex: '2',
   }
   modalFormItems.value = [...addFormItems.value, ...editFormItems.value]
-  title.value = `${t('common.add')}用户`
+  title.value = `${t('sys.add')}用户`
 }
 async function handleUpdate(row?: userInformation) {
   modalIcon.value = h(IconEdit)

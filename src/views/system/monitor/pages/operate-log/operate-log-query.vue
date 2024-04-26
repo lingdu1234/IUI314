@@ -24,28 +24,37 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'title',
     label: '系统模块',
     type: FormItemType.input,
-    placeholder: '请输入系统模块',
+    input: {
+      allowClear: true,
+      placeholder: '请输入系统模块',
+    },
   },
   {
     field: 'oper_name',
     label: '操作人员',
     type: FormItemType.input,
-    placeholder: '请输入操作人员',
+    input: {
+      allowClear: true,
+      placeholder: '请输入操作人员',
+    },
   },
   {
     field: 'operator_type',
     label: '操作类型',
     type: FormItemType.input,
-    placeholder: '请输入操作类型',
+    input: {
+      allowClear: true,
+      placeholder: '请输入操作类型',
+    },
   },
   {
     field: 'status',
     label: '操作状态',
     type: FormItemType.select,
-    placeholder: '请输入登录状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysCommonStatus]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入登录状态',
+      options: computed(() => props.dicts[dictKey.sysCommonStatus]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },
@@ -57,13 +66,17 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'begin_time',
     label: '开始日期',
     type: FormItemType.datePicker,
-    placeholder: '请输入开始日期',
+    datePicker: {
+      placeholder: '请输入开始日期',
+    },
   },
   {
     field: 'end_time',
     label: '结束日期',
     type: FormItemType.datePicker,
-    placeholder: '请输入结束日期',
+    datePicker: {
+      placeholder: '请输入结束日期',
+    },
   },
 ])
 </script>

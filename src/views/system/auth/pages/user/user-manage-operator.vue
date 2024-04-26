@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, h, ref } from 'vue'
 import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { computed, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { hasPermission } from '@/hooks'
 import { ApiSysDictType } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
-import type { MessageSchema } from '@/i18n'
 import type { iuButtonPropsType } from '@/components/iui/iui-props'
+import { hasPermission } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 
 defineOptions({ name: 'UserManageOperator' })
 
@@ -27,7 +27,7 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const operateButtons = ref<iuButtonPropsType[]>([
   {
-    label: t('common.add'),
+    label: t('sys.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDictType.add)),
     disabled: false,
@@ -36,7 +36,7 @@ const operateButtons = ref<iuButtonPropsType[]>([
     status: 'normal',
   },
   {
-    label: t('common.edit'),
+    label: t('sys.edit'),
     icon: h(IconEdit),
     auth: computed(() => hasPermission(ApiSysDictType.edit)),
     disabled: computed(() => !props.single),
@@ -45,7 +45,7 @@ const operateButtons = ref<iuButtonPropsType[]>([
     status: 'warning',
   },
   {
-    label: t('common.delete'),
+    label: t('sys.delete'),
     icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysDictType.delete)),
     disabled: computed(() => !props.selected),

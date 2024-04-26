@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, h, ref } from 'vue'
 import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { computed, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { hasPermission } from '@/hooks'
 import { ApiSysMenu } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
-import type { MessageSchema } from '@/i18n'
 import type { iuButtonPropsType } from '@/components/iui/iui-props'
+import { hasPermission } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 
 defineOptions({ name: 'MenuManageOperator' })
 
@@ -16,7 +16,7 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const operateButtons = ref<iuButtonPropsType[]>([
   {
-    label: t('common.add'),
+    label: t('sys.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysMenu.add)),
     disabled: false,

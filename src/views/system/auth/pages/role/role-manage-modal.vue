@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { type PropType, computed, h, ref } from 'vue'
-import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import type { Tree } from '@arco-design/web-vue'
 import { Message } from '@arco-design/web-vue'
+import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { type PropType, computed, h, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { ErrorFlag } from '@/api/apis'
+import { ApiSysMenu, ApiSysRole } from '@/api/sysApis'
 import IuModal from '@/components/iui/iu-modal.vue'
+import { filterObjectArray, useGet, usePost, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
-import { filterObjectArray, useGet, usePost, usePut } from '@/hooks'
-import { ApiSysMenu, ApiSysRole } from '@/api/sysApis'
-import { ErrorFlag } from '@/api/apis'
 import type { menu } from '@/types/system/menu'
 import type { role } from '@/types/system/role'
 
@@ -26,7 +28,7 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['getList'])
-
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const iuModalRef = ref<InstanceType<typeof IuModal>>()
 
 const menuTree = ref()
@@ -38,52 +40,57 @@ const open = ref(false)
 const title = ref('')
 const form = ref<role>({})
 
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'role_name',
-    label: '角色名称',
+    label: t('sys.roleName'),
     type: FormItemType.input,
-    placeholder: '请输入角色名称',
+    input: {
+      allowClear: true,
+      placeholder: t('sys.roleNameTip'),
+    },
     rule: [
-      { required: true, message: '角色名称不能为空' },
-      { type: 'string', minLength: 2, maxLength: 20, message: '角色名称2~20个字符' },
+      { required: true, message: t('sys.roleNameValidateTip') },
+      { type: 'string', minLength: 2, maxLength: 20, message: t('sys.roleNameValidateTipB') },
     ],
     validateTrigger: 'blur',
   },
   {
     field: 'role_key',
-    label: '角色标志',
+    label: t('sys.roleKey'),
     type: FormItemType.input,
-    placeholder: '请输入角色标志',
+    input: {
+      allowClear: true,
+      placeholder: t('sys.roleKeyTip'),
+    },
     rule: [
-      { required: true, message: '角色标志不能为空' },
-      { type: 'string', minLength: 2, maxLength: 20, message: '角色标志2~20个字符' },
+      { required: true, message: t('sys.roleKeyValidateTip') },
+      { type: 'string', minLength: 2, maxLength: 20, message: t('sys.roleKeyValidateTipB') },
     ],
     validateTrigger: ['change', 'blur'],
   },
   {
     field: 'list_order',
-    label: '角色排序',
+    label: t('sys.order'),
     type: FormItemType.inputNumber,
-    inputNumberMode: 'button',
-    placeholder: '请输入显示排序',
+    inputNumber: {
+      mode: 'button',
+      min: 1,
+      defaultValue: 1,
+    },
     rule: [
-      { required: true, message: '显示排序不能为空' },
+      { required: true, message: t('sys.orderValidateTip') },
     ],
   },
   {
     field: 'status',
-    label: '角色状态',
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    label: t('sys.roleStatus'),
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
     },
     rule: [
-      { required: true, message: '角色状态必须选择' },
+      { required: true, message: t('sys.roleStatusValidateTip') },
     ],
     validateTrigger: 'blur',
   },
@@ -109,9 +116,12 @@ const modalFormItems = ref<IuFormField[]>([
   },
   {
     field: 'remark',
-    label: '备注',
+    label: t('sys.remark'),
     type: FormItemType.textarea,
-    placeholder: '请输入字典备注',
+    textArea: {
+      autoSize: true,
+      placeholder: t('sys.remarkTip'),
+    },
     defaultCol: 2,
     fullScreenCol: 2,
     fullScreenIsOnlyOne: true,
@@ -126,7 +136,7 @@ function handleAdd() {
     status: '1',
     remark: '',
   }
-  title.value = '添加角色'
+  title.value = t('sys.add') + t('sys.role')
 }
 async function checkedMenu(role_id: string) {
   // 获取角色的菜单权限
@@ -146,7 +156,7 @@ async function handleUpdate(row?: role) {
   const { data, execute } = useGet<role>(ApiSysRole.getById, { role_id })
   await execute()
   form.value = data.value as role
-  title.value = `更新角色-${form.value.role_name}`
+  title.value = `${t('sys.update') + t('sys.role')}-${form.value.role_name}`
   // 查询权限并勾选
   open.value = true
   await checkedMenu(form.value.role_id as string)
@@ -158,14 +168,14 @@ async function submitForm() {
     await execute()
     if (data.value === ErrorFlag)
       return
-    Message.success(`更新 ${form.value.role_name} 成功`)
+    Message.success(t('sys.tipUpdateSuccess'))
   }
   else {
     const { execute, data } = usePost(ApiSysRole.add, form)
     await execute()
     if (data.value === ErrorFlag)
       return
-    Message.success(`新增 ${form.value.role_name} 成功`)
+    Message.success(t('sys.tipAddSuccess'))
   }
   open.value = false
   emits('getList')

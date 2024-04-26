@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { type PropType, computed, ref } from 'vue'
+import { type PropType, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
-import type { userQueryParam } from '@/types/system/userInformation'
+import type { MessageSchema } from '@/i18n'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
+import type { userQueryParam } from '@/types/system/userInformation'
 
-defineOptions({ name: 'UserManageQuery' })
+defineOptions({ name: 'PostManageQuery' })
 
 const props = defineProps({
   dicts: {
@@ -15,49 +17,44 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['getList'])
-
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const queryParams = defineModel<userQueryParam>('queryParams', { required: true })
 const showSearch = defineModel<boolean>('showSearch', { required: true })
 
-const queryFormItems = ref<IuQueryFormField[]>([
+const queryFormItems = computed<IuQueryFormField[]>(() => [
   {
-    field: 'user_name',
-    label: '用户名称',
+    field: 'post_code',
+    label: t('sys.postCode'),
     type: FormItemType.input,
-    placeholder: '请输入用户名称',
+    input: {
+      placeholder: t('sys.postCodeTip'),
+      allowClear: true,
+    },
+
   },
   {
-    field: 'phone_num',
-    label: '电话号码',
+    field: 'post_name',
+    label: t('sys.postName'),
     type: FormItemType.input,
-    placeholder: '请输入电话号码',
+    input: {
+      placeholder: t('sys.postNameTip'),
+      allowClear: true,
+    },
   },
   {
-    field: 'user_status',
-    label: '用户状态',
+    field: 'status',
+    label: t('sys.postStatus'),
     type: FormItemType.select,
-    placeholder: '请输入用户状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
+    select: {
+      placeholder: t('sys.postStatusTip'),
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },
       allowClear: true,
       allowSearch: true,
     },
-  },
-  {
-    field: 'begin_time',
-    label: '开始日期',
-    type: FormItemType.datePicker,
-    placeholder: '请输入开始日期',
-  },
-  {
-    field: 'end_time',
-    label: '结束日期',
-    type: FormItemType.datePicker,
-    placeholder: '请输入结束日期',
   },
 ])
 </script>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { type PropType, computed, ref } from 'vue'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
-import type { userQueryParam } from '@/types/system/userInformation'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
+import type { userQueryParam } from '@/types/system/userInformation'
 
 defineOptions({ name: 'ScheduledTasksQuery' })
 
@@ -24,16 +24,19 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'job_name',
     label: '任务名称',
     type: FormItemType.input,
-    placeholder: '请输入任务名称',
+    input: {
+      allowClear: true,
+      placeholder: '请输入任务名称',
+    },
   },
   {
     field: 'job_group',
     label: '任务组名',
     type: FormItemType.select,
-    placeholder: '请选择任务组名',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysJobGroup]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择任务组名',
+      options: computed(() => props.dicts[dictKey.sysJobGroup]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },
@@ -45,10 +48,10 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'status',
     label: '任务状态',
     type: FormItemType.select,
-    placeholder: '请选择任务状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择任务状态',
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },

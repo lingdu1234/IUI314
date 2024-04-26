@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, h, ref } from 'vue'
 import { IconPlus } from '@arco-design/web-vue/es/icon'
+import { computed, h } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { hasPermission } from '@/hooks'
 import { ApiSysDept } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
-import type { MessageSchema } from '@/i18n'
 import type { iuButtonPropsType } from '@/components/iui/iui-props'
+import { hasPermission } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 
 defineOptions({ name: 'DeptManageOperator' })
 
@@ -14,9 +14,9 @@ const emits = defineEmits(['handAdd'])
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
-const operateButtons = ref<iuButtonPropsType[]>([
+const operateButtons = computed<iuButtonPropsType[]>(() => [
   {
-    label: t('common.add'),
+    label: t('sys.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDept.add)),
     disabled: false,
@@ -34,8 +34,8 @@ const operateButtons = ref<iuButtonPropsType[]>([
       :label="item.label"
       :icon="item.icon"
       :disabled="item.disabled"
-      :type="item.type"
-      :status="item.status"
+      :type="item.type as any"
+      :status="item.status as any"
       :fn="item.fn"
     />
   </a-col>

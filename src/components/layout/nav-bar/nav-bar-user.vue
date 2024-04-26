@@ -60,7 +60,7 @@ async function roleChanged(v: string | number | boolean) {
   await execute()
   if (data.value === ErrorFlag)
     return
-  Message.success(t('nav.changeRoleTip'))
+  Message.success(t('app.navChangeRoleTip'))
 
   setTimeout(() => {
     window.location.reload()
@@ -74,7 +74,7 @@ async function deptChanged(v: string | number | boolean) {
   await execute()
   if (data.value === ErrorFlag)
     return
-  Message.success(t('nav.changeDeptTip'))
+  Message.success(t('app.navChangeDeptTip'))
 
   setTimeout(() => {
     window.location.reload()
@@ -83,12 +83,12 @@ async function deptChanged(v: string | number | boolean) {
 
 function logoutModal() {
   Modal.info({
-    title: '提示',
+    title: t('app.info'),
     hideCancel: false,
     titleAlign: 'start',
-    content: '确认退出登录吗？',
-    okText: '确认',
-    cancelText: '取消',
+    content: t('app.navLogoutTip'),
+    okText: t('app.confirm'),
+    cancelText: t('app.cancel'),
     draggable: true,
     onOk: logout,
   })
@@ -119,7 +119,7 @@ function deptChangeCom() {
 
 function roleChangeModal() {
   Modal.info({
-    title: '角色切换',
+    title: t('app.navChangeRole'),
     hideCancel: false,
     titleAlign: 'start',
     content: roleChangeCom,
@@ -130,7 +130,7 @@ function roleChangeModal() {
 
 function deptChangeModal() {
   Modal.info({
-    title: '部门切换',
+    title: t('app.navChangeDept'),
     hideCancel: false,
     titleAlign: 'start',
     content: deptChangeCom,
@@ -141,7 +141,7 @@ function deptChangeModal() {
 
 async function logout() {
   const currentRoute = router.currentRoute
-  Message.success('正在退出登录，返回登录界面！')
+  Message.success(t('app.navLogoutSuccessTip'))
   await userStore.logOut()
   await router.push(`/login?redirect=${currentRoute.value.fullPath}`)
 }
@@ -163,7 +163,7 @@ get_options()
           <a-popover position="lt">
             <span class="m-l--20px" @click="roleChangeModal">
               <span class="m-l-20px">
-                {{ t('nav.changeRole') }}
+                {{ t('app.navChangeRole') }}
               </span>
             </span>
             <template #content>
@@ -175,7 +175,7 @@ get_options()
           <a-popover position="lt">
             <span class="m-l--20px" @click="deptChangeModal">
               <span class="m-l-20px">
-                {{ t('nav.changeDept') }}
+                {{ t('app.navChangeDept') }}
               </span>
             </span>
             <template #content>
@@ -193,7 +193,7 @@ get_options()
         <a-doption
           @click="logoutModal"
         >
-          {{ t('nav.Logout') }}
+          {{ t('app.navLogout') }}
         </a-doption>
       </template>
     </a-dropdown>

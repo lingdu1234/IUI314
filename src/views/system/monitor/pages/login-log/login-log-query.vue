@@ -24,22 +24,28 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'ip',
     label: '登录 IP',
     type: FormItemType.input,
-    placeholder: '请输入登录IP',
+    input: {
+      placeholder: '请输入登录IP',
+      allowClear: true,
+    },
   },
   {
     field: 'user_name',
     label: '登录名称',
     type: FormItemType.input,
-    placeholder: '请输入登录名称',
+    input: {
+      placeholder: '请输入登录名称',
+      allowClear: true,
+    },
   },
   {
     field: 'status',
     label: '登录状态',
     type: FormItemType.select,
-    placeholder: '请输入登录状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysCommonStatus]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入登录状态',
+      options: computed(() => props.dicts[dictKey.sysCommonStatus]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },
@@ -51,13 +57,17 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'begin_time',
     label: '开始日期',
     type: FormItemType.datePicker,
-    placeholder: '请输入开始日期',
+    datePicker: {
+      placeholder: '请输入开始日期',
+    },
   },
   {
     field: 'end_time',
     label: '结束日期',
     type: FormItemType.datePicker,
-    placeholder: '请输入结束日期',
+    datePicker: {
+      placeholder: '请输入结束日期',
+    },
   },
 ])
 </script>

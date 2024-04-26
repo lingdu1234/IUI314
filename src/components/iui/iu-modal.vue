@@ -3,16 +3,14 @@ import type { FormInstance } from '@arco-design/web-vue'
 import { computed, ref, unref } from 'vue'
 import type { iuModalPropsType } from '@/components/iui/iui-props'
 import { useFormUtil, useMobile, useOrientation } from '@/hooks'
-import { FormItemType, type IuFormField, type dataOptionTypeRadio } from '@/types/base/iu-form'
+import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 
 defineOptions({ name: 'IuModal' })
 
 const props = withDefaults(defineProps<iuModalPropsType>(), {
   title: '',
-  okText: '确定',
-  cancelText: '取消',
   titleAlign: 'center',
-  labelWidth: 80,
+  labelWidth: 100,
   itemWidth: 300,
   defaultCol: 1,
   fullScreenCol: 2,
@@ -164,75 +162,87 @@ defineExpose({ validateModalField })
                 <a-input
                   v-if="item.type === FormItemType.input"
                   v-model="formValue[item.field]"
-                  :placeholder="item.placeholder"
-                  :disabled="unref(item.disabled)"
+                  :placeholder="item?.input?.placeholder"
+                  :disabled="unref(item?.input?.disabled)"
+                  :allow-clear="item?.input?.allowClear"
+                  :readonly="item?.input?.readonly"
+                  :size="item?.input?.size"
+                  :type="item?.input?.type"
                   :style="getItemStyle(item)"
                 />
                 <a-select
-                  v-if="item.type === FormItemType.select && item.selectOption"
-                  v-model="formValue[item.field]"
-                  :options="item.selectOption.dataOption as any"
-                  :field-names="item.selectOption.dataOptionKey as any"
-                  :placeholder="item.placeholder"
-                  :allow-clear="item.selectOption.allowClear"
-                  :allow-create="item.selectOption.allowCreate"
-                  :multiple="item.selectOption.multiple"
-                  :allow-search="item.selectOption.allowSearch"
-                  :max-tag-count="item.selectOption.maxTagCount"
+                  v-if="item.type === FormItemType.select && item.select"
+                  v-model:model-value="formValue[item.field]"
+                  :options="unref(item?.select?.options)"
+                  :field-names="item?.select?.fieldNames"
+                  :placeholder="item?.select?.placeholder"
+                  :allow-clear="item?.select?.allowClear"
+                  :multiple="item?.select?.multiple"
+                  :allow-search="item?.select?.allowSearch"
+                  :allow-create="item.select.allowCreate"
+                  :max-tag-count="item.select.maxTagCount"
                   :style="getItemStyle(item)"
                   style="position: relative"
                 />
                 <a-tree-select
-                  v-if="item.type === FormItemType.treeSelect && item.selectOption"
-                  v-model="formValue[item.field]"
-                  :field-names="item.selectOption.dataOptionKey as any"
-                  :allow-clear="item.selectOption.allowClear"
-                  :multiple="item.selectOption.multiple"
-                  :allow-search="item.selectOption.allowSearch"
-                  :data="item.selectOption.dataOption as any"
-                  :placeholder="item.placeholder"
-                  :max-tag-count="item.selectOption.maxTagCount"
+                  v-if="item.type === FormItemType.treeSelect && item.treeSelect"
+                  v-model:model-value="formValue[item.field]"
+                  :data="unref(item?.treeSelect?.data)"
+                  :field-names="item?.treeSelect?.fieldNames"
+                  :placeholder="item?.treeSelect?.placeholder"
+                  :allow-clear="item?.treeSelect?.allowClear"
+                  :multiple="item?.treeSelect?.multiple"
+                  :allow-search="item?.treeSelect?.allowSearch"
+                  :allow-create="item.treeSelect.allowCreate"
+                  :max-tag-count="item.treeSelect.maxTagCount"
                   :style="getItemStyle(item)"
                 />
                 <a-date-picker
                   v-if="item.type === FormItemType.datePicker"
                   v-model="formValue[item.field]"
+                  :position="item?.datePicker?.position"
+                  :allow-clear="item?.datePicker?.allowClear"
+                  :readonly="item?.datePicker?.readonly"
                   :style="getItemStyle(item)"
                 />
                 <a-textarea
                   v-if="item.type === FormItemType.textarea"
                   v-model="formValue[item.field]"
-                  :disabled="unref(item.disabled)"
-                  allow-clear
-                  :auto-size="item.textAreaAutoSize"
+                  :disabled="unref(item?.textArea?.disabled)"
+                  :allow-clear="unref(item?.textArea?.allowClear)"
+                  :auto-size="unref(item?.textArea?.autoSize)"
                   :style="getItemStyle(item)"
                 />
                 <a-radio-group
-                  v-if="item.type === FormItemType.radio && item.selectOption"
-                  v-model="formValue[item.field]"
-                  :style="getItemStyle(item)"
-                  :options="item.selectOption.dataOption as dataOptionTypeRadio"
-                  :disabled="unref(item.disabled)"
+                  v-if="item.type === FormItemType.radioGroup && item.radioGroup"
+                  v-model:model-value="formValue[item.field]"
+                  :default-value="item.radioGroup?.defaultValue"
+                  :options="unref(item.radioGroup?.options)"
+                  :type="item.radioGroup?.type"
+                  :disabled="unref(item.radioGroup?.disabled)"
+                  :style="item.radioGroup?.type !== 'button' ? getItemStyle(item) : null"
                 />
                 <a-input-number
                   v-if="item.type === FormItemType.inputNumber"
                   v-model="formValue[item.field]"
-                  :mode="item.inputNumberMode"
+                  :mode="item.inputNumber?.mode"
+                  :min="item.inputNumber?.min"
+                  :max="item.inputNumber?.max"
+                  :step="item.inputNumber?.step"
+                  :precision="item.inputNumber?.precision"
+                  :default-value="item.inputNumber?.defaultValue"
+                  :disabled="unref(item.inputNumber?.disabled)"
                   :style="getItemStyle(item)"
-                  :min="item.inputNumberOptions?.min"
-                  :max="item.inputNumberOptions?.max"
-                  :step="item.inputNumberOptions?.step"
-                  :precision="item.inputNumberOptions?.precision"
-                  :default-value="item.inputNumberOptions?.defaultValue"
-                  :disabled="unref(item.disabled)"
                 />
 
                 <a-checkbox-group
-                  v-if="item.type === FormItemType.checkboxGroup && item.selectOption"
+                  v-if="item.type === FormItemType.checkboxGroup && item.checkboxGroup"
                   v-model="formValue[item.field]"
-                  :default-value="item.selectOption.defaultValue"
-                  :options="item.selectOption.dataOption as any"
-                  :disabled="unref(item.disabled)"
+                  :default-value="item.checkboxGroup?.defaultValue"
+                  :options="item.checkboxGroup.options"
+                  :max="item.checkboxGroup?.max"
+                  :disabled="unref(item.radioGroup?.disabled)"
+                  :style="getItemStyle(item)"
                 />
                 <!--   添加一个slot 用于自定义，更加自由 -->
                 <!--   一些比较简单的直接配置，不好配置的使用slot -->
@@ -242,7 +252,7 @@ defineExpose({ validateModalField })
                   :style="getItemStyle(item)"
                 />
                 <template v-if="item.type === FormItemType.render && item.renderX">
-                  <component :is="item.renderX" />
+                  <component :is="item.renderX" :style="getItemStyle(item)" />
                 </template>
               </a-form-item>
             </a-grid-item>

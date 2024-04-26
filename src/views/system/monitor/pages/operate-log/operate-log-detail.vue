@@ -96,8 +96,10 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'json_result',
     label: '返回结果',
     type: FormItemType.textarea,
-    disabled: true,
-    textAreaAutoSize: true,
+    textArea: {
+      disabled: true,
+      autoSize: true,
+    },
     defaultIsOnlyOne: true,
     defaultCol: 2,
     fullScreenIsOnlyOne: true,

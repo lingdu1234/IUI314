@@ -22,7 +22,7 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
     </div>
     <div v-if="!appStore.sideBar.isCollapse" class="w-136px">
       <span class="logo-title truncate m-l-1px font-800">
-        {{ t('APP') }}
+        {{ t('app.APP') }}
       </span>
     </div>
   </router-link>

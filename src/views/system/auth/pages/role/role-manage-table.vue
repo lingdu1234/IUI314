@@ -1,22 +1,21 @@
 <script lang="ts" setup>
-import { type PropType, h, ref } from 'vue'
 import { Message, Modal, Switch, type TableColumnData, type TableRowSelection } from '@arco-design/web-vue'
-import type { dictUse } from '@/types/system/dict'
-import { hasPermission, parseTime, usePut } from '@/hooks'
-import { ApiSysRole } from '@/api/sysApis'
-import type { role } from '@/types/system/role'
+import { computed, h, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ErrorFlag } from '@/api/apis'
+import { ApiSysRole } from '@/api/sysApis'
+import { hasPermission, parseTime, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
+import type { dictUse } from '@/types/system/dict'
+import type { role } from '@/types/system/role'
 
 defineOptions({ name: 'RoleManageTable' })
-const props = defineProps({
-  isLoading: {
-    type: Boolean,
-    default: false,
-  },
-  dicts: {
-    type: Object as PropType<Record<string, dictUse[]>>,
-    required: true,
-  },
+
+withDefaults(defineProps<{
+  isLoading: boolean
+  dicts: Record<string, dictUse[]>
+}>(), {
+  isLoading: false,
 })
 
 const emits = defineEmits([
@@ -26,7 +25,7 @@ const emits = defineEmits([
   'handleSelectionChangeFn',
   'getList',
 ])
-
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const tableData = defineModel<role[] | null>('tableData', { required: true })
 
 const rowSelection = ref<TableRowSelection>({
@@ -36,9 +35,9 @@ const rowSelection = ref<TableRowSelection>({
 })
 
 // 表格列属性
-const columns: TableColumnData[] = [
+const columns = computed<TableColumnData[]>(() => [
   {
-    title: '角色名称',
+    title: t('sys.roleName'),
     dataIndex: 'role_name',
     ellipsis: true,
     tooltip: true,
@@ -52,7 +51,7 @@ const columns: TableColumnData[] = [
     width: 150,
   },
   {
-    title: '显示顺序',
+    title: t('sys.order'),
     dataIndex: 'list_order',
     align: 'center',
     width: 100,
@@ -60,7 +59,7 @@ const columns: TableColumnData[] = [
     tooltip: true,
   },
   {
-    title: '状态',
+    title: t('sys.status'),
     width: 100,
     align: 'center',
     render: ({ record }) => h(Switch, {
@@ -72,31 +71,31 @@ const columns: TableColumnData[] = [
     }),
   },
   {
-    title: '创建时间',
+    title: t('sys.createTime'),
     width: 180,
     align: 'center',
     render: ({ record }) => parseTime(record.created_at),
   },
   {
-    title: '操作',
+    title: t('sys.operate'),
     slotName: 'operation',
     width: 250,
     fixed: 'right',
     align: 'center',
   },
-]
+])
 
 async function handleStatusChange(row: role) {
-  const text = row.status === '1' ? '禁用' : '启用'
+  const text = row.status === '1' ? t('app.disable') : t('app.enable')
   const status = row.status === '1' ? '0' : '1'
-  const content = `确认${text}角色:${row.role_name}吗？`
+  const content = `${`${t('sys.confirm2') + text} ${row.role_name}`}?`
   Modal.confirm({
-    title: '角色状态切换',
+    title: t('sys.roleStatusChange'),
     hideCancel: false,
     titleAlign: 'start',
     content,
-    okText: '确认',
-    cancelText: '取消',
+    // okText: '确认',
+    // cancelText: '取消',
     draggable: true,
     onOk: async () => {
       const { data, execute } = usePut(ApiSysRole.changeStatus, {
@@ -106,11 +105,11 @@ async function handleStatusChange(row: role) {
       await execute()
       if (data.value === ErrorFlag)
         return
-      Message.success(`你成功 ${text} 用户 ${row.role_name}`)
+      Message.success(`${t('sys.youSuccess')} ${text}  ${t('sys.role')} : ${row.role_name}`)
       emits('getList')
     },
     onCancel: () => {
-      Message.info('你取消了操作')
+      Message.info(t('sys.tipCancel'))
       row.status = row.status === '0' ? '1' : '0'
     },
   })
@@ -144,7 +143,7 @@ function handleSelectionChange(keys: (string | number)[]) {
         shape="round"
         @click="emits('handleUpdate', record)"
       >
-        编辑
+        {{ t('sys.edit') }}
         <template #icon>
           <IconEdit />
         </template>
@@ -156,7 +155,7 @@ function handleSelectionChange(keys: (string | number)[]) {
         status="danger"
         @click="emits('handleDelete', record)"
       >
-        删除
+        {{ t('sys.delete') }}
         <template #icon>
           <IconDelete />
         </template>
@@ -168,7 +167,7 @@ function handleSelectionChange(keys: (string | number)[]) {
         status="warning"
         @click="emits('handleDataUpdate', record)"
       >
-        权限
+        {{ t('sys.dataScope') }}
         <template #icon>
           <IconCheckCircle />
         </template>

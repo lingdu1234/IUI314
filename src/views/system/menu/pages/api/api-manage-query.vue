@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { type PropType, computed, ref } from 'vue'
+import { ApiSysMenu } from '@/api/sysApis'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
-import type { userQueryParam } from '@/types/system/userInformation'
+import { filterObjectArray, type listType, useGet } from '@/hooks'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
+import { MenuType } from '@/types/base/router'
 import { dictKey, type dictUse } from '@/types/system/dict'
 import type { menu, menuQueryParam } from '@/types/system/menu'
-import { MenuType } from '@/types/base/router'
-import { filterObjectArray, type listType, useGet } from '@/hooks'
-import { ApiSysMenu } from '@/api/sysApis'
+import type { userQueryParam } from '@/types/system/userInformation'
 
 defineOptions({ name: 'ApiManageQuery' })
 
@@ -45,10 +45,10 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'pid',
     label: '菜单名称',
     type: FormItemType.select,
-    placeholder: '请输入菜单名称',
-    selectOption: {
-      dataOption: menuSelect,
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入菜单名称',
+      options: menuSelect,
+      fieldNames: {
         label: 'menu_name',
         value: 'id',
       },
@@ -60,10 +60,10 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'method',
     label: '请求方法',
     type: FormItemType.select,
-    placeholder: '请选择请求方法',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysApiMethod]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择请求方法',
+      options: computed(() => props.dicts[dictKey.sysApiMethod]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },
@@ -75,10 +75,10 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'status',
     label: '菜单状态',
     type: FormItemType.select,
-    placeholder: '请输入菜单状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入菜单状态',
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },

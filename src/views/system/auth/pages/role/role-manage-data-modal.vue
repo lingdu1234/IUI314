@@ -53,22 +53,26 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'role_name',
     label: '角色名称',
     type: FormItemType.input,
-    disabled: true,
+    input: {
+      disabled: true,
+    },
   },
   {
     field: 'role_key',
     label: '角色标志',
     type: FormItemType.input,
-    disabled: true,
+    input: {
+      disabled: true,
+    },
   },
   {
     field: 'data_scope',
     label: '数据权限',
     type: FormItemType.select,
-    placeholder: '请选择激活角色',
-    selectOption: {
-      dataOption: dataScopeOptions,
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择激活角色',
+      options: dataScopeOptions,
+      fieldNames: {
         title: 'label',
         key: 'value',
       },
@@ -101,7 +105,9 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'remark',
     label: '备注',
     type: FormItemType.textarea,
-    placeholder: '请输入字典备注',
+    textArea: {
+      placeholder: '请输入字典备注',
+    },
     fullScreenIsOnlyOne: true,
     defaultIsOnlyOne: true,
   },

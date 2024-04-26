@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, h, ref } from 'vue'
 import { IconClose, IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { computed, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { hasPermission } from '@/hooks'
 import { ApiSysDictData } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
+import { TabAction } from '@/components/layout/tab-bar/useTabBar'
+import { hasPermission } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
-import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import { useTabBarStore } from '@/stores'
-import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'DictDataManageOperator' })
 
@@ -37,7 +37,7 @@ function handleClose() {
 
 const operateButtons = ref<iuButtonPropsType[]>([
   {
-    label: t('common.add'),
+    label: t('sys.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDictData.add)),
     disabled: false,
@@ -46,7 +46,7 @@ const operateButtons = ref<iuButtonPropsType[]>([
     status: 'normal',
   },
   {
-    label: t('common.edit'),
+    label: t('sys.edit'),
     icon: h(IconEdit),
     auth: computed(() => hasPermission(ApiSysDictData.edit)),
     disabled: computed(() => !props.single),
@@ -55,7 +55,7 @@ const operateButtons = ref<iuButtonPropsType[]>([
     status: 'warning',
   },
   {
-    label: t('common.delete'),
+    label: t('sys.delete'),
     icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysDictData.delete)),
     disabled: computed(() => !props.selected),
@@ -64,7 +64,7 @@ const operateButtons = ref<iuButtonPropsType[]>([
     status: 'danger',
   },
   {
-    label: t('common.close'),
+    label: t('sys.close'),
     icon: h(IconClose),
     auth: true,
     disabled: false,

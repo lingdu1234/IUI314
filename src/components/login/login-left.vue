@@ -18,7 +18,7 @@ defineOptions({ name: 'LoginLeft' })
           </div>
         </div>
         <h1 class="m-t-50px m-b-20px text-center">
-          Welcome Back!
+          Welcome!
         </h1>
       </div>
     </div>

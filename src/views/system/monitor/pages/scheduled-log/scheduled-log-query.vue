@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { type PropType, computed, ref } from 'vue'
+import { ApiSysScheduledTasks } from '@/api/sysApis'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
-import type { userQueryParam } from '@/types/system/userInformation'
+import { filterObjectArray, type listType, useGet } from '@/hooks'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
 import type { scheduledTasks, scheduledTasksLogQueryParam } from '@/types/system/scheduled-tasks'
-import { filterObjectArray, type listType, useGet } from '@/hooks'
-import { ApiSysScheduledTasks } from '@/api/sysApis'
+import type { userQueryParam } from '@/types/system/userInformation'
 
 defineOptions({ name: 'ScheduledLogQuery' })
 
@@ -44,10 +44,10 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'job_id',
     label: '任务名称',
     type: FormItemType.select,
-    placeholder: '请输入任务名称',
-    selectOption: {
-      dataOption: jobSelect,
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入任务名称',
+      options: jobSelect,
+      fieldNames: {
         label: 'job_name',
         value: 'job_id',
       },
@@ -59,10 +59,10 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'status',
     label: '执行状态',
     type: FormItemType.select,
-    placeholder: '请选择任务执行状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysCommonStatus]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择任务执行状态',
+      options: computed(() => props.dicts[dictKey.sysCommonStatus]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },
@@ -74,10 +74,10 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'is_once',
     label: '任务属性',
     type: FormItemType.select,
-    placeholder: '请选择任务属性',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysTaskIsOnce]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择任务属性',
+      options: computed(() => props.dicts[dictKey.sysTaskIsOnce]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },
@@ -89,13 +89,17 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'begin_time',
     label: '开始日期',
     type: FormItemType.datePicker,
-    placeholder: '请输入开始日期',
+    datePicker: {
+      placeholder: '请输入开始日期',
+    },
   },
   {
     field: 'end_time',
     label: '结束日期',
     type: FormItemType.datePicker,
-    placeholder: '请输入结束日期',
+    datePicker: {
+      placeholder: '请输入结束日期',
+    },
   },
 ])
 </script>

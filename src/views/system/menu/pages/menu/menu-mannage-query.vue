@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { type PropType, computed, ref } from 'vue'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
-import type { userQueryParam } from '@/types/system/userInformation'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
+import type { userQueryParam } from '@/types/system/userInformation'
 
 defineOptions({ name: 'MenuManageQuery' })
 
@@ -24,16 +24,19 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'menu_name',
     label: '菜单名称',
     type: FormItemType.input,
-    placeholder: '请输入菜单名称',
+    input: {
+      placeholder: '请输入菜单名称',
+      allowClear: true,
+    },
   },
   {
     field: 'status',
     label: '菜单状态',
     type: FormItemType.select,
-    placeholder: '请输入菜单状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入菜单状态',
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },

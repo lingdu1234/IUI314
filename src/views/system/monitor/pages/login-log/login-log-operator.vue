@@ -31,7 +31,7 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const operateButtons = ref<iuButtonPropsType[]>([
   {
-    label: t('common.delete'),
+    label: t('sys.delete'),
     icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysLoginLog.delete)),
     disabled: computed(() => !props.selected),
@@ -40,7 +40,7 @@ const operateButtons = ref<iuButtonPropsType[]>([
     status: 'warning',
   },
   {
-    label: t('common.clean'),
+    label: t('sys.clean'),
     icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysLoginLog.clean)),
     disabled: false,

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, h, ref } from 'vue'
 import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
-import { Message } from '@arco-design/web-vue'
+import { Message, type TreeNodeData } from '@arco-design/web-vue'
 import { useI18n } from 'vue-i18n'
+import type { RadioOption } from '@arco-design/web-vue/es/radio/interface'
 import IuModal from '@/components/iui/iu-modal.vue'
-import { FormItemType, type IuFormField, type SelectOptionInterface } from '@/types/base/iu-form'
+import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
 import { usePost, usePut } from '@/hooks'
 import { ApiSysMenu } from '@/api/sysApis'
@@ -32,7 +33,7 @@ const modalIcon = ref()
 const open = ref(false)
 const title = ref('')
 const form = ref<menu>({})
-const menuTypeOptions = ref<SelectOptionInterface[]>([
+const menuTypeOptions = ref<RadioOption[]>([
   { label: '目录', value: MenuType.M, disabled: false },
   { label: '菜单', value: MenuType.C, disabled: false },
   { label: 'API', value: MenuType.F, disabled: false },
@@ -43,10 +44,10 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'pid',
     label: '上级菜单',
     type: FormItemType.treeSelect,
-    placeholder: '请选择上级菜单',
-    selectOption: {
-      dataOption: menuSelectTree,
-      dataOptionKey: {
+    treeSelect: {
+      placeholder: '请选择上级菜单',
+      data: menuSelectTree as unknown as TreeNodeData[],
+      fieldNames: {
         title: 'menu_name',
         key: 'id',
         disabled: 'disabled',
@@ -62,14 +63,9 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'menu_type',
     label: '菜单类型',
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: menuTypeOptions,
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-        disabled: 'disabled',
-      },
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: menuTypeOptions,
     },
     rule: [
       { required: true, message: '岗位状态必须选择' },
@@ -103,7 +99,10 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'menu_name',
     label: '菜单名称',
     type: FormItemType.input,
-    placeholder: '请输入菜单名称',
+    input: {
+      allowClear: true,
+      placeholder: '请输入菜单名称',
+    },
     rule: [
       { required: true, message: '菜单名称不能为空' },
       { type: 'string', minLength: 2, maxLength: 20, message: '菜单名称2~20个字符' },
@@ -114,16 +113,22 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'i18n',
     label: 'i18n标识',
     type: FormItemType.input,
+    input: {
+      allowClear: true,
+      placeholder: 'i18n标识',
+    },
     vShow: computed(() => form.value.menu_type !== MenuType.F),
     tooltip: '国际化标志,前缀为(route.)无需输入,需在语言文件中配置',
-    placeholder: 'i18n标识',
   },
   {
     field: 'order_sort',
     label: '显示排序',
     type: FormItemType.inputNumber,
-    inputNumberMode: 'button',
-    placeholder: '请输入显示排序',
+    inputNumber: {
+      mode: 'button',
+      allowClear: true,
+      placeholder: '请输入显示排序',
+    },
     rule: [
       { required: true, message: '显示排序不能为空' },
     ],
@@ -131,20 +136,16 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'is_frame',
     label: '是否外量',
-    type: FormItemType.radio,
+    type: FormItemType.radioGroup,
     vShow: computed(() => form.value.menu_type !== MenuType.F),
-    selectOption: {
-      dataOption: [{
+    radioGroup: {
+      options: [{
         label: '是',
         value: '1',
       }, {
         label: '否',
         value: '0',
       }],
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
     },
     rule: [
       { required: true, message: '岗位状态必须选择' },
@@ -154,14 +155,10 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'visible',
     label: '是否隐藏',
-    type: FormItemType.radio,
+    type: FormItemType.radioGroup,
     vShow: computed(() => form.value.menu_type !== MenuType.F),
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysShowHide]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    radioGroup: {
+      options: computed(() => props.dicts[dictKey.sysShowHide]),
     },
     rule: [
       { required: true, message: '岗位状态必须选择' },
@@ -174,10 +171,10 @@ const modalFormItems = ref<IuFormField[]>([
     type: FormItemType.select,
     vShow: computed(() => form.value.menu_type !== MenuType.F),
     tooltip: '访问的路由地址，如：`user`，如外网地址需内链访问则以`http(s)://`开头,需要与组件名称匹配,尤其是需要keep-live的组件，否则keep-live会无效！',
-    placeholder: '请选择或者输入路由地址',
-    selectOption: {
-      dataOption: getConstMenus(),
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择或者输入路由地址',
+      options: getConstMenus(),
+      fieldNames: {
         value: 'value',
         label: 'label',
       },
@@ -207,7 +204,10 @@ const modalFormItems = ref<IuFormField[]>([
     label: '组件路径',
     type: FormItemType.input,
     vShow: computed(() => form.value.menu_type === MenuType.C),
-    placeholder: '请输入组件路径',
+    input: {
+      allowClear: true,
+      placeholder: '请输入组件路径',
+    },
     rule: [
       {
         validator(value, callback) {
@@ -229,11 +229,14 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'api',
     label: 'api',
     type: FormItemType.input,
+    input: {
+      allowClear: true,
+      placeholder: '请输入菜单名称',
+    },
     tooltip: `
 A:目录的唯一标志，建议格式M-name，如：'M-sys','M-system-menu'
 B:菜单唯一标志，同目录标志，如：'M-system-menu'
 C:API/按钮的唯一标志，可为API,如：'system/user/add',若只是单纯控制按钮显示，建议B-name，如：'B-export'`,
-    placeholder: '请输入菜单名称',
     rule: [
       { required: true, message: 'api(唯一标识符)不能为空' },
       { type: 'string', minLength: 2, maxLength: 20, message: 'api(唯一标识符)2~20个字符' },
@@ -243,20 +246,16 @@ C:API/按钮的唯一标志，可为API,如：'system/user/add',若只是单纯�
   {
     field: 'is_cache',
     label: 'keep-alive',
-    type: FormItemType.radio,
+    type: FormItemType.radioGroup,
     vShow: computed(() => form.value.menu_type === MenuType.C),
-    selectOption: {
-      dataOption: [{
+    radioGroup: {
+      options: [{
         label: 'keepAlive',
         value: '1',
       }, {
         label: 'noCache',
         value: '0',
       }],
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
     },
     rule: [
       { required: true, message: '菜单状态必须选择' },
@@ -269,10 +268,10 @@ C:API/按钮的唯一标志，可为API,如：'system/user/add',若只是单纯�
     type: FormItemType.select,
     vShow: computed(() => form.value.menu_type === MenuType.F),
     tooltip: 'API请求参数`GET`,`POST`，`PUT`,`DELETE`',
-    placeholder: '请选择请求方法',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysApiMethod]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择请求方法',
+      options: computed(() => props.dicts[dictKey.sysApiMethod]),
+      fieldNames: {
         value: 'value',
         label: 'label',
       },
@@ -303,10 +302,10 @@ C:API/按钮的唯一标志，可为API,如：'system/user/add',若只是单纯�
     type: FormItemType.select,
     vShow: computed(() => form.value.menu_type === MenuType.F),
     tooltip: '日志记录方式',
-    placeholder: '请选择日志记录',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.apiLogMethod]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请选择日志记录',
+      options: computed(() => props.dicts[dictKey.apiLogMethod]),
+      fieldNames: {
         value: 'value',
         label: 'label',
       },
@@ -334,13 +333,9 @@ C:API/按钮的唯一标志，可为API,如：'system/user/add',若只是单纯�
   {
     field: 'status',
     label: '菜单状态',
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
     },
     rule: [
       { required: true, message: '菜单状态必须选择' },
@@ -351,7 +346,10 @@ C:API/按钮的唯一标志，可为API,如：'system/user/add',若只是单纯�
     field: 'remark',
     label: '备注',
     type: FormItemType.textarea,
-    placeholder: '请输入字典备注',
+    textArea: {
+      autoSize: true,
+      placeholder: '请输入字典备注',
+    },
     defaultIsOnlyOne: true,
     fullScreenIsOnlyOne: true,
     fullScreenCol: 2,

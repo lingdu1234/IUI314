@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { type PropType, computed, h, ref } from 'vue'
-import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
 import { Message } from '@arco-design/web-vue'
+import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
+import { type PropType, computed, h, ref } from 'vue'
+import { ErrorFlag } from '@/api/apis'
+import { ApiSysDictType } from '@/api/sysApis'
 import IuModal from '@/components/iui/iu-modal.vue'
+import { useGet, usePost, usePut } from '@/hooks'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { dictKey, type dictType, type dictUse } from '@/types/system/dict'
-import { useGet, usePost, usePut } from '@/hooks'
-import { ApiSysDictType } from '@/api/sysApis'
-import { ErrorFlag } from '@/api/apis'
 
 defineOptions({ name: 'DictTypeManageModal' })
 
@@ -36,10 +36,13 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'dict_name',
     label: '字典名称',
     type: FormItemType.input,
-    placeholder: '请输入字典名称',
+    input: {
+      allowClear: true,
+      placeholder: '请输入字典名称',
+    },
     rule: [
       { required: true, message: '字典名称不能为空' },
-      { type: 'string', minLength: 2, maxLength: 20, message: '字典名称2~20个字符' },
+      { type: 'string', minLength: 2, maxLength: 50, message: '字典名称2~50个字符' },
     ],
     validateTrigger: 'blur',
   },
@@ -47,24 +50,23 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'dict_type',
     label: '字典类型',
     type: FormItemType.input,
-    placeholder: '请输入字典类型',
+    input: {
+      allowClear: true,
+      placeholder: '请输入字典类型',
+    },
     rule: [
       { required: true, message: '字典类型不能为空' },
-      { type: 'string', minLength: 2, maxLength: 20, message: '字典类型2~20个字符' },
+      { type: 'string', minLength: 2, maxLength: 50, message: '字典类型2~50个字符' },
     ],
     validateTrigger: 'blur',
   },
   {
     field: 'status',
     label: '字典状态',
-    type: FormItemType.radio,
-    placeholder: '请输入字典状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      placeholder: '请输入字典状态',
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
     },
     rule: [
       { required: true, message: '字典状态必须选择' },
@@ -75,7 +77,11 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'remark',
     label: '备注',
     type: FormItemType.textarea,
-    placeholder: '请输入字典备注',
+    textArea: {
+      allowClear: true,
+      placeholder: '请输入字典备注',
+      autoSize: true,
+    },
     fullScreenCol: 2,
     fullScreenIsOnlyOne: true,
   },

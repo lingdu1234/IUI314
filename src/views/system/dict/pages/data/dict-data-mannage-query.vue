@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { type PropType, computed, ref } from 'vue'
+import { ApiSysDictType } from '@/api/sysApis'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
+import { type listType, useGet } from '@/hooks'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 import { type dictDataQueryParam, dictKey, type dictType, type dictUse } from '@/types/system/dict'
-import { type listType, useGet } from '@/hooks'
-import { ApiSysDictType } from '@/api/sysApis'
 
 defineOptions({ name: 'DictDataManageQuery' })
 
@@ -33,10 +33,10 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'dict_type',
     label: '字典名称',
     type: FormItemType.select,
-    placeholder: '请输入字典名称',
-    selectOption: {
-      dataOption: computed(() => dictTypeList.value?.list as any[]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入字典名称',
+      options: computed(() => dictTypeList.value?.list as any[]),
+      fieldNames: {
         label: 'dict_name',
         value: 'dict_type',
       },
@@ -48,16 +48,19 @@ const queryFormItems = ref<IuQueryFormField[]>([
     field: 'dict_label',
     label: '字典标签',
     type: FormItemType.input,
-    placeholder: '请输入字典标签',
+    input: {
+      placeholder: '请输入字典标签',
+      allowClear: true,
+    },
   },
   {
     field: 'status',
     label: '字典状态',
     type: FormItemType.select,
-    placeholder: '请输入字典状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入字典状态',
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },

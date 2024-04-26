@@ -25,10 +25,10 @@ export function useDynamicTitle() {
       const title = appStore.app.titleI18n
         ? t(`route.${appStore.app.titleI18n}`)
         : appStore.app.title
-      window.document.title = `${title}-${t('APP')}`
+      window.document.title = `${title}-${t('app.APP')}`
     }
     else {
-      window.document.title = t('APP')
+      window.document.title = t('app.APP')
     }
   }
   return {

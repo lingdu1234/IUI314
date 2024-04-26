@@ -66,17 +66,23 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'dict_type',
     label: '字典类型',
     type: FormItemType.input,
-    placeholder: '请输入字典类型',
-    disabled: true,
+    input: {
+      allowClear: true,
+      placeholder: '请输入字典类型',
+      disabled: true,
+    },
   },
   {
     field: 'dict_label',
     label: '字典标签',
     type: FormItemType.input,
-    placeholder: '请输入数据标签',
+    input: {
+      allowClear: true,
+      placeholder: '请输入数据标签',
+    },
     rule: [
       { required: true, message: '数据标签不能为空' },
-      { type: 'string', minLength: 1, maxLength: 20, message: '数据标签1~20个字符' },
+      { type: 'string', minLength: 1, maxLength: 50, message: '数据标签1~50个字符' },
     ],
     validateTrigger: 'blur',
   },
@@ -84,10 +90,13 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'dict_value',
     label: '字典键值',
     type: FormItemType.input,
-    placeholder: '请输入字典键值',
+    input: {
+      allowClear: true,
+      placeholder: '请输入字典键值',
+    },
     rule: [
       { required: true, message: '字典键值不能为空' },
-      { type: 'string', minLength: 1, maxLength: 20, message: '字典键值1~20个字符' },
+      { type: 'string', minLength: 1, maxLength: 50, message: '字典键值1~50个字符' },
     ],
     validateTrigger: 'blur',
   },
@@ -95,8 +104,12 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'dict_sort',
     label: '显示排序',
     type: FormItemType.inputNumber,
-    inputNumberMode: 'button',
-    placeholder: '请输入显示排序',
+    inputNumber: {
+      mode: 'button',
+      min: 1,
+      defaultValue: 1,
+      placeholder: '请输入显示排序',
+    },
     rule: [
       { required: true, message: '显示排序不能为空' },
     ],
@@ -106,16 +119,15 @@ const modalFormItems = ref<IuFormField[]>([
     label: '样式属性',
     type: FormItemType.slot,
     slotName: 'cssColor',
-    placeholder: '请输入样式属性',
   },
   {
     field: 'list_class',
     label: '回显样式',
     type: FormItemType.select,
-    placeholder: '请输入回显样式',
-    selectOption: {
-      dataOption: listClassOptions,
-      dataOptionKey: {
+    select: {
+      placeholder: '请输入回显样式',
+      options: listClassOptions,
+      fieldNames: {
         label: 'label',
         value: 'value',
       },
@@ -126,14 +138,10 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'status',
     label: '字典状态',
-    type: FormItemType.radio,
-    placeholder: '请输入字典状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      placeholder: '请输入字典状态',
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
     },
     rule: [
       { required: true, message: '字典状态必须选择' },
@@ -144,7 +152,10 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'remark',
     label: '备注',
     type: FormItemType.textarea,
-    placeholder: '请输入字典备注',
+    textArea: {
+      autoSize: true,
+      placeholder: '请输入字典备注',
+    },
   },
 ])
 function handleAdd() {

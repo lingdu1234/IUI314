@@ -3,11 +3,10 @@ import { type PropType, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import AppLink from './app-link.vue'
+import IuiIcon from '@/components/svg-icon/iui-icon.vue'
 import { getNormalPath, getQueryUrl, isExternal } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import type { AppRouteRecordRaw } from '@/types/base/router'
-import IuiIcon from '@/components/svg-icon/iui-icon.vue'
-import { useIuiIcons } from '@/components/svg-icon/useIuiIcons'
 
 defineOptions({ name: 'SideBarMenuItem' })
 
@@ -23,8 +22,6 @@ const props = defineProps({
 })
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const onlyOneChild = ref<AppRouteRecordRaw>()
-
-const iuIcons = useIuiIcons()
 
 function hasOneShowingChild(
   children: AppRouteRecordRaw[] = [],

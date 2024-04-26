@@ -15,7 +15,7 @@ import type { dept } from '@/types/system/dept'
 import type { userInformation, userQueryParam } from '@/types/system/userInformation'
 import { dictKey } from '@/types/system/dict'
 import UserManageTable from '@/views/system/auth/pages/user/user-manage-table.vue'
-import UserManageQuery from '@/views/system/auth/pages/user/user-mannage-query.vue'
+import UserManageQuery from '@/views/system/auth/pages/user/user-manage-query.vue'
 import UserManageOperator from '@/views/system/auth/pages/user/user-manage-operator.vue'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 

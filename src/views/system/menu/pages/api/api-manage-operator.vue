@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { computed, h, ref } from 'vue'
 import { IconClose, IconDelete, IconPlus } from '@arco-design/web-vue/es/icon'
+import { computed, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { hasPermission } from '@/hooks'
 import { ApiSysMenu } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
+import { TabAction } from '@/components/layout/tab-bar/useTabBar'
+import { hasPermission } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
-import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import { useTabBarStore } from '@/stores'
 import { MenuType } from '@/types/base/router'
-import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'ApiManageOperator' })
 
@@ -38,7 +38,7 @@ function handleClose() {
 
 const operateButtons = ref<iuButtonPropsType[]>([
   {
-    label: t('common.add'),
+    label: t('sys.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysMenu.add)),
     disabled: false,
@@ -47,7 +47,7 @@ const operateButtons = ref<iuButtonPropsType[]>([
     status: 'normal',
   },
   {
-    label: t('common.delete'),
+    label: t('sys.delete'),
     icon: h(IconDelete),
     auth: computed(() => hasPermission(ApiSysMenu.delete)),
     disabled: computed(() => !props.selected),

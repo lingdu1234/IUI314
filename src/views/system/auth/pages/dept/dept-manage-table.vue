@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { type PropType, h } from 'vue'
-import { useI18n } from 'vue-i18n'
 import type { TableColumnData } from '@arco-design/web-vue'
-import type { MessageSchema } from '@/i18n'
-import DictTag from '@/components/common/dict-tag.vue'
-import { dictKey, type dictUse } from '@/types/system/dict'
-import { hasPermission, parseTime } from '@/hooks'
+import { type PropType, computed, h } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ApiSysDept } from '@/api/sysApis'
+import DictTag from '@/components/common/dict-tag.vue'
+import { hasPermission, parseTime } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
+import { dictKey, type dictUse } from '@/types/system/dict'
 import type { userInformation } from '@/types/system/userInformation'
 
 defineOptions({ name: 'DeptManageTable' })
@@ -31,14 +31,14 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const tableData = defineModel<userInformation[] | null>('tableData', { required: true })
 
 // 表格列属性
-const columns: TableColumnData[] = [
+const columns = computed<TableColumnData[]>(() => [
   {
-    title: t('dept.name'),
+    title: t('sys.deptName'),
     dataIndex: 'dept_name',
     width: 300,
   },
   {
-    title: '状态',
+    title: t('sys.status'),
     width: 100,
     align: 'center',
     render: ({ record }) => h(DictTag, {
@@ -47,24 +47,24 @@ const columns: TableColumnData[] = [
     }),
   },
   {
-    title: '显示排序',
+    title: t('sys.order'),
     dataIndex: 'order_num',
     width: 100,
   },
   {
-    title: '创建时间',
+    title: t('sys.createTime'),
     width: 180,
     align: 'center',
     render: ({ record }) => parseTime(record.created_at),
   },
   {
-    title: '操作',
+    title: t('sys.operate'),
     slotName: 'operation',
     width: 150,
     fixed: 'right',
     align: 'center',
   },
-]
+])
 </script>
 
 <template>

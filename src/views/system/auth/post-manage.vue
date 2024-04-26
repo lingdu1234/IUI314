@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import { ApiSysPost } from '@/api/apis'
 import Pagination from '@/components/common/pagination.vue'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   type listType,
   useDeleteFn,
@@ -10,14 +11,13 @@ import {
   useGet,
   useTableUtil,
 } from '@/hooks'
-import { dictKey } from '@/types/system/dict'
-import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { systemMenus } from '@/router'
+import { dictKey } from '@/types/system/dict'
 import type { post, postQueryParam } from '@/types/system/post'
-import PostManageTable from '@/views/system/auth/pages/post/post-manage-table.vue'
-import PostManageOperator from '@/views/system/auth/pages/post/post-manage-operator.vue'
-import PostManageQuery from '@/views/system/auth/pages/post/post-mannage-query.vue'
 import PostManageModal from '@/views/system/auth/pages/post/post-manage-modal.vue'
+import PostManageOperator from '@/views/system/auth/pages/post/post-manage-operator.vue'
+import PostManageQuery from '@/views/system/auth/pages/post/post-manage-query.vue'
+import PostManageTable from '@/views/system/auth/pages/post/post-manage-table.vue'
 
 // 导出名称
 defineOptions({

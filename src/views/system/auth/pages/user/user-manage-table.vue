@@ -1,16 +1,16 @@
 <script lang="ts" setup>
-import { type PropType, h, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { Message, Modal, type TableColumnData, type TableRowSelection } from '@arco-design/web-vue'
 import md5 from 'blueimp-md5'
-import type { MessageSchema } from '@/i18n'
-import DictTag from '@/components/common/dict-tag.vue'
-import { dictKey, type dictUse } from '@/types/system/dict'
-import { hasPermission, parseTime, usePut } from '@/hooks'
+import { type PropType, h, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
+import DictTag from '@/components/common/dict-tag.vue'
+import { hasPermission, parseTime, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
+import { dictKey, type dictUse } from '@/types/system/dict'
 import type { resetUserPwd, userInformation } from '@/types/system/userInformation'
 import ResetPwd from '@/views/system/auth/pages/user/resetPwd.vue'
-import { ErrorFlag } from '@/api/apis'
 
 defineOptions({ name: 'UserManageTable' })
 const props = defineProps({
@@ -55,13 +55,13 @@ const columns: TableColumnData[] = [
     align: 'center',
   },
   {
-    title: t('profile.name'),
+    title: t('sys.userName'),
     dataIndex: 'user_name',
     align: 'center',
     width: 100,
   },
   {
-    title: t('profile.nickName'),
+    title: '用户昵称',
     dataIndex: 'user_nickname',
     align: 'center',
     width: 150,
@@ -69,7 +69,7 @@ const columns: TableColumnData[] = [
     tooltip: true,
   },
   {
-    title: t('user.dept'),
+    title: t('sys.dept'),
     dataIndex: 'dept.dept_name',
     align: 'center',
     width: 100,

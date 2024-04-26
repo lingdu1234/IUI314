@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { type PropType, computed, ref } from 'vue'
+import { type PropType, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
-import type { userQueryParam } from '@/types/system/userInformation'
+import type { MessageSchema } from '@/i18n'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
+import type { userQueryParam } from '@/types/system/userInformation'
 
 defineOptions({ name: 'DeptManageQuery' })
 
@@ -15,26 +17,29 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['getList'])
-
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const queryParams = defineModel<userQueryParam>('queryParams', { required: true })
 const showSearch = defineModel<boolean>('showSearch', { required: true })
 
-const queryFormItems = ref<IuQueryFormField[]>([
+const queryFormItems = computed<IuQueryFormField[]>(() => [
   {
     field: 'dept_name',
-    label: '部门名称',
+    label: t('sys.deptName'),
     type: FormItemType.input,
-    placeholder: '请输入部门名称',
+    input: {
+      placeholder: t('sys.deptNameTip'),
+      allowClear: true,
+    },
   },
 
   {
     field: 'status',
-    label: '部门状态',
+    label: t('sys.deptStatus'),
     type: FormItemType.select,
-    placeholder: '请输入部门状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
+    select: {
+      placeholder: t('sys.deptStatusTip'),
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },

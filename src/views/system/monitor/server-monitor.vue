@@ -4,11 +4,11 @@ import { useI18n } from 'vue-i18n'
 
 import MonitorTableVue from './pages/monitor-table.vue'
 import { ApiSysServiceMonitor } from '@/api/sysApis'
+import GaugeEcharts from '@/components/echarts/gauge-echarts.vue'
+import { useSSE } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { systemMenus } from '@/router'
 import type { MonitorTable, ServerMonitor } from '@/types/system/server-monitor'
-import { useSSE } from '@/hooks'
-import GaugeEcharts from '@/components/echarts/gauge-echarts.vue'
 
 // 导出名称
 defineOptions({
@@ -35,15 +35,15 @@ function setServerData(data: ServerMonitor) {
 
   cpuData.value = [
     {
-      rowOne: t('monitor.cores'),
+      rowOne: t('sys.monitorCores'),
       rowTwo: data.cpu.cores,
     },
     {
-      rowOne: t('monitor.processors'),
+      rowOne: t('sys.monitorProcessors'),
       rowTwo: data.cpu.processors,
     },
     {
-      rowOne: t('monitor.cpuUsage'),
+      rowOne: t('sys.monitorCpuUsage'),
       rowTwo: `${cpuUsage.value}%`,
     },
     {
@@ -57,25 +57,25 @@ function setServerData(data: ServerMonitor) {
   ]
   memoryData.value = [
     {
-      rowOne: t('monitor.total'),
+      rowOne: t('sys.monitorTotal'),
       rowTwo: memoryFormat(data.memory.total_memory),
     },
     {
-      rowOne: t('monitor.used'),
+      rowOne: t('sys.monitorUsed'),
       rowTwo: memoryFormat(data.memory.used_memory),
       rowThree: memoryFormat(data.process.used_memory),
     },
     {
-      rowOne: t('monitor.swap'),
+      rowOne: t('sys.monitorSwap'),
       rowTwo: memoryFormat(data.memory.total_swap),
     },
     {
-      rowOne: t('monitor.usedSwap'),
+      rowOne: t('sys.monitorUsedSwap'),
       rowTwo: memoryFormat(data.memory.used_swap),
       rowThree: memoryFormat(data.process.used_virtual_memory),
     },
     {
-      rowOne: t('monitor.usage'),
+      rowOne: t('sys.monitorUsage'),
       rowTwo: `${memoryUsage.value}%`,
       rowThree:
         `${((100 * data.process.used_memory!) / data.memory.total_memory!).toFixed(
@@ -85,7 +85,7 @@ function setServerData(data: ServerMonitor) {
   ]
   serverData.value = [
     {
-      rowOne: t('monitor.serverName'),
+      rowOne: t('sys.monitorServerName'),
       rowTwo: data.server.host_name,
     },
     {
@@ -223,35 +223,35 @@ watch(
         <MonitorTableVue
           title="CPU"
           :table-data="cpuData"
-          :row-one-label="t('monitor.attribute')"
-          :row-two-label="t('monitor.system')"
+          :row-one-label="t('sys.monitorAttribute')"
+          :row-two-label="t('sys.monitorSystem')"
         />
       </a-grid-item>
       <a-grid-item>
         <MonitorTableVue
-          :title="t('monitor.memory')"
+          :title="t('sys.monitorMemory')"
           :table-data="memoryData"
-          :row-one-label="t('monitor.attribute')"
-          :row-two-label="t('monitor.memory')"
-          :row-three-label="t('monitor.thisSystem')"
+          :row-one-label="t('sys.monitorAttribute')"
+          :row-two-label="t('sys.monitorMemory')"
+          :row-three-label="t('sys.monitorThisSystem')"
         />
       </a-grid-item>
     </a-grid>
     <a-grid :col-gap="20" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">
       <a-grid-item>
         <MonitorTableVue
-          :title="t('monitor.serverInfo')"
+          :title="t('sys.monitorServerInfo')"
           :table-data="serverData"
-          :row-one-label="t('monitor.attribute')"
-          :row-two-label="t('monitor.system')"
+          :row-one-label="t('sys.monitorAttribute')"
+          :row-two-label="t('sys.monitorSystem')"
         />
       </a-grid-item>
       <a-grid-item>
         <MonitorTableVue
-          :title="t('monitor.serverInfo')"
+          :title="t('sys.monitorServerInfo')"
           :table-data="programData"
-          :row-one-label="t('monitor.attribute')"
-          :row-two-label="t('monitor.system')"
+          :row-one-label="t('sys.monitorAttribute')"
+          :row-two-label="t('sys.monitorSystem')"
         />
       </a-grid-item>
     </a-grid>

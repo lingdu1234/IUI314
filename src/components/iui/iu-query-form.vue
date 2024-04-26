@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { type PropType, computed } from 'vue'
+import { type PropType, computed, unref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 import type { MessageSchema } from '@/i18n'
+import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 
 defineOptions({ name: 'IuQueryForm' })
 const props = defineProps({
@@ -38,25 +38,32 @@ const labelColStyle = computed(() => (
       class="m-b-0"
     >
       <a-input
-        v-if="item.type === FormItemType.input"
+        v-if="item.type === FormItemType.input && item.input"
         v-model="formValue[item.field]"
-        :placeholder="item.placeholder"
+        :placeholder="item?.input?.placeholder"
+        :disabled="unref(item?.input?.disabled)"
+        :allow-clear="item?.input?.allowClear"
+        :readonly="item?.input?.readonly"
+        :size="item?.input?.size"
         style="width: 200px"
       />
       <a-select
-        v-if="item.type === FormItemType.select && item.selectOption"
+        v-if="item.type === FormItemType.select && item.select"
         v-model="formValue[item.field]"
-        :options="item.selectOption.dataOption as any"
-        :field-names="item.selectOption.dataOptionKey"
-        :placeholder="item.placeholder"
-        :allow-clear="item.selectOption.allowClear"
-        :multiple="item.selectOption.multiple"
-        :allow-search="item.selectOption.allowSearch"
+        :options="unref(item?.select?.options)"
+        :field-names="item?.select?.fieldNames"
+        :placeholder="item?.select?.placeholder"
+        :allow-clear="item?.select?.allowClear"
+        :multiple="item?.select?.multiple"
+        :allow-search="item?.select?.allowSearch"
         style="width: 200px;position: relative"
       />
       <a-date-picker
         v-if="item.type === FormItemType.datePicker"
         v-model="formValue[item.field]"
+        :position="item?.datePicker?.position"
+        :allow-clear="item?.datePicker?.allowClear"
+        :readonly="item?.datePicker?.readonly"
         style="width: 200px;"
       />
     </a-form-item>
@@ -66,13 +73,13 @@ const labelColStyle = computed(() => (
           <template #icon>
             <icon-search />
           </template>
-          {{ t('common.search') }}
+          {{ t('sys.search') }}
         </a-button>
         <a-button status="success" @click="resetQuery">
           <template #icon>
             <icon-sync />
           </template>
-          {{ t('common.reset') }}
+          {{ t('sys.reset') }}
         </a-button>
       </a-space>
     </a-form-item>

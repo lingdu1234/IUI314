@@ -37,13 +37,9 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'log_method',
     label: '日志记录方式',
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.apiLogMethod]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: computed(() => props.dicts[dictKey.apiLogMethod]),
     },
     defaultIsOnlyOne: true,
     defaultCol: 2,
@@ -54,13 +50,9 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'data_cache_method',
     label: '数据缓存方式',
     vShow: computed(() => form.value.method === 'GET'),
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.apiCacheMethod]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: computed(() => props.dicts[dictKey.apiCacheMethod]),
     },
     defaultIsOnlyOne: true,
     defaultCol: 2,

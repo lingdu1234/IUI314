@@ -2,20 +2,20 @@
 import { ref } from 'vue'
 
 import { ApiSysDept } from '@/api/apis'
+import RightToolBar from '@/components/common/right-tool-bar.vue'
 import {
   deleteEmptyChildren,
   useDicts,
   useGet,
 } from '@/hooks'
+import { systemMenus } from '@/router'
 import type { dept, deptQueryParam } from '@/types/system/dept'
 import { dictKey } from '@/types/system/dict'
-import RightToolBar from '@/components/common/right-tool-bar.vue'
-import { systemMenus } from '@/router'
-import DeptManageTable from '@/views/system/auth/pages/dept/dept-manage-table.vue'
-import DeptManageOperator from '@/views/system/auth/pages/dept/dept-manage-operator.vue'
-import DeptManageQuery from '@/views/system/auth/pages/dept/dept-mannage-query.vue'
-import DeptManageModal from '@/views/system/auth/pages/dept/dept-manage-modal.vue'
 import type { menu } from '@/types/system/menu'
+import DeptManageModal from '@/views/system/auth/pages/dept/dept-manage-modal.vue'
+import DeptManageOperator from '@/views/system/auth/pages/dept/dept-manage-operator.vue'
+import DeptManageQuery from '@/views/system/auth/pages/dept/dept-manage-query.vue'
+import DeptManageTable from '@/views/system/auth/pages/dept/dept-manage-table.vue'
 
 // 导出名称
 defineOptions({

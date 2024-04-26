@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { type PropType, computed, h, ref } from 'vue'
+import { InputNumber, Message } from '@arco-design/web-vue'
 import { IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
-import { Message } from '@arco-design/web-vue'
+import { type PropType, computed, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { ErrorFlag } from '@/api/apis'
+import { ApiSysScheduledTasks } from '@/api/sysApis'
 import IuModal from '@/components/iui/iu-modal.vue'
+import VCron from '@/components/v-cron/index.vue'
+import { useGet, usePost, usePut } from '@/hooks'
+import type { MessageSchema } from '@/i18n'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
-import { useGet, usePost, usePut } from '@/hooks'
-import { ApiSysScheduledTasks } from '@/api/sysApis'
-import { ErrorFlag } from '@/api/apis'
-import type { MessageSchema } from '@/i18n'
 import type { scheduledTasks } from '@/types/system/scheduled-tasks'
-import VCron from '@/components/v-cron/index.vue'
 
 defineOptions({ name: 'ScheduledTasksModal' })
 
@@ -43,7 +43,10 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'job_name',
     label: '任务名称',
     type: FormItemType.input,
-    placeholder: '请输入任务名称',
+    input: {
+      allowClear: true,
+      placeholder: '请输入任务名称',
+    },
     rule: [
       { required: true, message: '任务名称不能为空' },
       { type: 'string', minLength: 2, maxLength: 20, message: '任务名称2~20个字符' },
@@ -54,8 +57,11 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'invoke_target',
     label: '调用方法',
     type: FormItemType.input,
+    input: {
+      allowClear: true,
+      placeholder: '请输入调用方法',
+    },
     tooltip: '调用方法:如test_a,就是唯一的定义好的方法代号',
-    placeholder: '请输入调用方法',
     rule: [
       { required: true, message: '调用方法不能为空' },
       { type: 'string', minLength: 2, maxLength: 20, message: '调用方法2~20个字符' },
@@ -67,15 +73,15 @@ const modalFormItems = ref<IuFormField[]>([
     label: '运行次数',
     type: FormItemType.inputNumber,
     tooltip: '运行次数:0表示无限次',
-    inputNumberMode: 'button',
-    inputNumberOptions: {
+    inputNumber: {
       min: 0,
       max: 999999,
       step: 1,
       precision: 0,
       defaultValue: 0,
+      mode: 'button',
+      placeholder: '请输入显示排序',
     },
-    placeholder: '请输入显示排序',
     rule: [
       { required: true, message: '显示排序不能为空' },
     ],
@@ -84,38 +90,41 @@ const modalFormItems = ref<IuFormField[]>([
     field: 'job_params',
     label: '调用参数',
     type: FormItemType.input,
-    placeholder: '请输入调用参数',
+    input: {
+      allowClear: true,
+      placeholder: '请输入调用参数',
+    },
     tooltip: '调用参数,均为字符串;基础类型：字符串，布尔类型，长整型，浮点型，整型;复杂类型: json字符串 {"a":11,"b":"你好"}',
   },
   {
     field: 'task_id',
     label: '任务ID',
-    type: FormItemType.inputNumber,
+    type: FormItemType.render,
     tooltip: '任务ID,非常重要，请谨慎修改，为任务运行时的唯一标识',
-    inputNumberMode: 'button',
-    disabled: computed(() => form.value.status === '1'),
-    inputNumberOptions: {
-      min: 100,
-      max: 999999,
-      step: 1,
-      precision: 0,
-      defaultValue: 1000,
-    },
-    placeholder: '请输入显示排序',
     rule: [
       { required: true, message: '显示排序不能为空' },
     ],
+    renderX: () => h(InputNumber, {
+      defaultValue: 1000,
+      step: 1,
+      precision: 0,
+      min: 100,
+      max: 999999,
+      mode: 'button',
+      modelValue: form.value.task_id,
+      onChange(val) {
+        form.value.task_id = val
+      },
+      disabled: form.value.status === '1',
+      style: { width: '100%' },
+    }),
   },
   {
     field: 'status',
     label: '任务状态',
-    type: FormItemType.radio,
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
+    type: FormItemType.radioGroup,
+    select: {
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
     },
     rule: [
       { required: true, message: '任务状态必须选择' },
@@ -136,11 +145,9 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'misfire_policy',
     label: '执行策略',
-    type: FormItemType.radio,
-    inputNumberMode: 'button',
-    tooltip: '请选择执行策略',
-    selectOption: {
-      dataOption: [
+    type: FormItemType.radioGroup,
+    radioGroup: {
+      options: [
         {
           label: '立即执行',
           value: '1',
@@ -154,10 +161,6 @@ const modalFormItems = ref<IuFormField[]>([
           value: '3',
         },
       ],
-      dataOptionKey: {
-        label: 'label',
-        value: 'value',
-      },
     },
     rule: [
       { required: true, message: '岗位状态必须选择' },
@@ -201,14 +204,14 @@ async function submitForm() {
     await execute()
     if (data.value === ErrorFlag)
       return
-    Message.success(t('commonTip.updateSuccess'))
+    Message.success(t('sys.tipUpdateSuccess'))
   }
   else {
     const { execute, data } = usePost(ApiSysScheduledTasks.add, form)
     await execute()
     if (data.value === ErrorFlag)
       return
-    Message.success(t('commonTip.addSuccess'))
+    Message.success(t('sys.tipAddSuccess'))
   }
   open.value = false
   emits('getList')

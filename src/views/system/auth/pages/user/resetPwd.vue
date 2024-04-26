@@ -21,7 +21,7 @@ const formValue = defineModel<formValueType>('formValue', { required: true })
       ]"
       :validate-trigger="['blur']"
     >
-      <a-input v-model:modelValue="formValue.password" type="password" placeholder="请输入新密码" />
+      <a-input-password v-model:modelValue="formValue.password" type="password" placeholder="请输入新密码" />
     </a-form-item>
   </a-form>
 </template>

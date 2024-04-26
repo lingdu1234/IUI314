@@ -93,12 +93,33 @@ const modalFormItems = ref<IuFormField[]>([
   {
     field: 'status',
     label: '任务状态',
-    type: FormItemType.text,
+    type: FormItemType.render,
+    renderX: () => h(DictTag, {
+      options: props.dicts[dictKey.sysNormalDisable],
+      value: form.value.status,
+    }),
   },
   {
     field: 'misfire_policy',
     label: '执行策略',
-    type: FormItemType.text,
+    type: FormItemType.render,
+    renderX: () => h(DictTag, {
+      options: [
+        {
+          label: '立即执行',
+          value: '1',
+        },
+        {
+          label: '执行一次',
+          value: '2',
+        },
+        {
+          label: '暂不执行',
+          value: '3',
+        },
+      ] as dictUse[],
+      value: form.value.misfire_policy,
+    }),
   },
   {
     field: 'remark',

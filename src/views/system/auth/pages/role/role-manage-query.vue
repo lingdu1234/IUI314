@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { type PropType, computed, ref } from 'vue'
+import { type PropType, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import IuQueryForm from '@/components/iui/iu-query-form.vue'
-import type { userQueryParam } from '@/types/system/userInformation'
+import type { MessageSchema } from '@/i18n'
 import { FormItemType, type IuQueryFormField } from '@/types/base/iu-form'
 import { dictKey, type dictUse } from '@/types/system/dict'
+import type { userQueryParam } from '@/types/system/userInformation'
 
 defineOptions({ name: 'RoleManageQuery' })
 
@@ -15,31 +17,36 @@ const props = defineProps({
 })
 
 const emits = defineEmits(['getList'])
-
+const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 const queryParams = defineModel<userQueryParam>('queryParams', { required: true })
 const showSearch = defineModel<boolean>('showSearch', { required: true })
 
-const queryFormItems = ref<IuQueryFormField[]>([
+const queryFormItems = computed<IuQueryFormField[]>(() => [
   {
     field: 'role_name',
-    label: '角色名称',
+    label: t('sys.roleName'),
     type: FormItemType.input,
-    placeholder: '请输入角色名称',
+    input: {
+      placeholder: t('sys.roleNameTip'),
+      allowClear: true,
+    },
   },
   {
     field: 'role_key',
-    label: '权限字符',
+    label: t('sys.roleKey'),
     type: FormItemType.input,
-    placeholder: '请输入权限字符',
+    input: {
+      placeholder: t('sys.roleKeyTip'),
+    },
   },
   {
     field: 'status',
-    label: '角色状态',
+    label: t('sys.roleStatus'),
     type: FormItemType.select,
-    placeholder: '请输入角色状态',
-    selectOption: {
-      dataOption: computed(() => props.dicts[dictKey.sysNormalDisable]),
-      dataOptionKey: {
+    select: {
+      placeholder: t('sys.roleStatusTip'),
+      options: computed(() => props.dicts[dictKey.sysNormalDisable]),
+      fieldNames: {
         label: 'label',
         value: 'value',
       },

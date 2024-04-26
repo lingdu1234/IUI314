@@ -1,22 +1,17 @@
-/*
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-21 14:33:39
- * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\i18n\index.ts
- * @Description:
- */
 import type { App } from 'vue'
 import { createI18n } from 'vue-i18n'
 
-import enUS from './lang/en-US.json'
-import zhCN from './lang/zh-CN.json'
+import { en, zhCN } from './lang'
+
+// import enUS from './lang/en.json'
+// import zhCN from './lang/zh-CN.json'
 import { useAppStore } from '@/stores'
 
-export type MessageSchema = typeof enUS | typeof zhCN
+export type MessageSchema = typeof en | typeof zhCN
 
 const messages = {
   'zh-CN': { ...zhCN },
-  'en-US': { ...enUS },
+  'en-US': { ...en },
 }
 
 interface langInfo {

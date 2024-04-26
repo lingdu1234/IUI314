@@ -2,16 +2,16 @@
 import { type PropType, computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import type { FieldRule, FormInstance } from '@arco-design/web-vue/es/form'
 import { Message } from '@arco-design/web-vue'
+import type { FieldRule, FormInstance } from '@arco-design/web-vue/es/form'
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
 import { TabAction } from '@/components/layout/tab-bar/useTabBar'
 import { useFormUtil, usePut } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
 import { router } from '@/router'
-import type { userInformation } from '@/types/system/userInformation'
 import { useTabBarStore } from '@/stores'
+import type { userInformation } from '@/types/system/userInformation'
 
 defineOptions({ name: 'UserInformation' })
 
