@@ -9,3 +9,6 @@ declare module '*.vue' {
 interface ImportMetaEnv {
   readonly VITE_API_BASE_URL: string
 }
+
+// 阻止报错
+declare module 'blueimp-md5';

@@ -1,19 +1,12 @@
-/*
- * @Author: lingdu waong2005@126.com
- * @Date: 2022-10-03 16:28:26
- * @LastEditors: lingdu waong2005@126.com
- * @FilePath: \IUI314\src\stores\modules\userInfo.ts
- * @Description: userInfo
- */
 import md5 from 'blueimp-md5'
 import { defineStore } from 'pinia'
-
 import { unref } from 'vue'
+
 import { usePermissionStore } from './permission'
+import { ApiSysLogin, ApiSysUser } from '@/api/sysApis'
 import defaultAvatar from '@/assets/av.webp'
 import { useEncrypt, useGet, usePost, usePut } from '@/hooks'
 import type { FullUserInfo, LoginForm, LoginFormLocal, TokenInfo } from '@/types/base/login'
-import { ApiSysLogin, ApiSysUser } from '@/api/sysApis'
 
 export const useUserStore = defineStore('userInfo', {
   state: () => ({
@@ -76,9 +69,9 @@ export const useUserStore = defineStore('userInfo', {
         this.user = {
           name: user.user.user_name,
           avatar:
-              user.user.avatar === '' || user.user.avatar == null
-                ? defaultAvatar
-                : import.meta.env.VITE_API_BASE_URL + user.user.avatar,
+            user.user.avatar === '' || user.user.avatar == null
+              ? defaultAvatar
+              : import.meta.env.VITE_API_BASE_URL + user.user.avatar,
           roles: user.roles,
           role: user.user.role_id,
           depts: user.depts,
