@@ -1,4 +1,5 @@
 {
+  "tabRefresh": "RefreshCurrentTab",
   "add": "Add",
   "back": "Back",
   "clean": "Clean",
@@ -86,6 +87,11 @@
   "search": "Search",
   "showSearch": "Show Search",
   "status": "Status",
+  "tabCloseCurrentTab": "CloseCurrentTab",
+  "tabCloseLeftTab": "CloseLeftTabs",
+  "tabCloseOtherTab": "CloseOtherTabs",
+  "tabCloseRightTab": "CloseRightTabs",
+  "tabCoseAllTab": "CoseAllTabs",
   "tipAddSuccess": "You have successfully added",
   "tipCancel": "You cancelled the operation",
   "tipDelete": "Are you sure to delete",

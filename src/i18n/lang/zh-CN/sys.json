@@ -1,4 +1,5 @@
 {
+  "tabRefresh": "刷新当前页面",
   "add": "新增",
   "back": "返回",
   "clean": "清空",
@@ -86,6 +87,11 @@
   "search": "搜索",
   "showSearch": "显示搜索",
   "status": "状态",
+  "tabCloseCurrentTab": "关闭当前页面",
+  "tabCloseLeftTab": "管不左侧页面",
+  "tabCloseOtherTab": "关闭其他页面",
+  "tabCloseRightTab": "关闭右侧页面",
+  "tabCoseAllTab": "关闭全部页面",
   "tipAddSuccess": "你已成功添加",
   "tipCancel": "你取消了操作",
   "tipDelete": "你确认要删除",
