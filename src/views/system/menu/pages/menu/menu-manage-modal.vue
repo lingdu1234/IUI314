@@ -39,7 +39,7 @@ const menuTypeOptions = ref<RadioOption[]>([
   { label: 'API', value: MenuType.F, disabled: false },
 ])
 
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'pid',
     label: '上级菜单',

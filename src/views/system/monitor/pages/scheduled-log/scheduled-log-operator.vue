@@ -31,7 +31,7 @@ const emits = defineEmits([
 
 const tabBarStore = useTabBarStore()
 
-const operateButtons = ref<iuButtonPropsType[]>([
+const operateButtons = computed<iuButtonPropsType[]>(() => [
   {
     label: '删除',
     icon: h(IconDelete),

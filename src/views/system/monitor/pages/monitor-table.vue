@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type PropType, ref, watchEffect } from 'vue'
+import { type PropType, computed, watchEffect } from 'vue'
 
 import type { TableColumnData } from '@arco-design/web-vue'
 import type { MonitorTable } from '@/types/system/server-monitor'
@@ -18,7 +18,7 @@ const props = defineProps({
   rowFourLabel: { type: String },
   rowFiveLabel: { type: String },
 })
-const columns = ref<TableColumnData[]> ([
+const columns = computed<TableColumnData[]>(() => [
   {
     title: props.rowOneLabel,
     dataIndex: 'rowOne',

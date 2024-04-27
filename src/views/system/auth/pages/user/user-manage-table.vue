@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { Message, Modal, type TableColumnData, type TableRowSelection } from '@arco-design/web-vue'
 import md5 from 'blueimp-md5'
-import { type PropType, h, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ErrorFlag } from '@/api/apis'
 import { ApiSysUser } from '@/api/sysApis'
@@ -45,7 +45,7 @@ const rowSelection = ref<TableRowSelection>({
 })
 
 // 表格列属性
-const columns: TableColumnData[] = [
+const columns = computed<TableColumnData[]>(() => [
   {
     title: 'ID',
     dataIndex: 'id',
@@ -106,7 +106,7 @@ const columns: TableColumnData[] = [
     // fixed: 'right',
     align: 'center',
   },
-]
+])
 
 // 密码重置
 const resetPwd = ref({

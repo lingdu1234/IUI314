@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { Message, Modal, type TableColumnData } from '@arco-design/web-vue'
+import { computed } from 'vue'
 import { ApiSysOnlineUser } from '@/api/sysApis'
 import { hasPermission, parseTime, useDelete } from '@/hooks'
 import type { onlineUser } from '@/types/system/online-user'
@@ -13,7 +14,7 @@ const emits = defineEmits([
 const tableData = defineModel<onlineUser[] | null>('tableData', { required: true })
 
 // 表格列属性
-const columns: TableColumnData[] = [
+const columns = computed<TableColumnData[]>(() => [
   {
     title: '#',
     width: 30,
@@ -95,7 +96,7 @@ const columns: TableColumnData[] = [
     fixed: 'right',
     align: 'center',
   },
-]
+])
 
 function handleForceLogout(row?: onlineUser) {
   if (row) {

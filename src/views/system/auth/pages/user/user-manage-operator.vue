@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
-import { computed, h, ref } from 'vue'
+import { computed, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ApiSysDictType } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
@@ -25,7 +25,7 @@ const emits = defineEmits(['handAdd', 'handleUpdate', 'handleDelete'])
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
-const operateButtons = ref<iuButtonPropsType[]>([
+const operateButtons = computed<iuButtonPropsType[]>(() => [
   {
     label: t('sys.add'),
     icon: h(IconPlus),

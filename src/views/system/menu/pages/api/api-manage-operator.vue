@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IconClose, IconDelete, IconPlus } from '@arco-design/web-vue/es/icon'
-import { computed, h, ref } from 'vue'
+import { computed, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ApiSysMenu } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
@@ -36,7 +36,7 @@ function handleClose() {
   tabBarStore.tabActionSelect(tabBarStore.getCurrentRouteTag(), TabAction.current)
 }
 
-const operateButtons = ref<iuButtonPropsType[]>([
+const operateButtons = computed<iuButtonPropsType[]>(() => [
   {
     label: t('sys.add'),
     icon: h(IconPlus),

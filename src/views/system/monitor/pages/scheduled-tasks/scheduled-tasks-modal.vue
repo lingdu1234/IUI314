@@ -38,7 +38,7 @@ const openCron = ref(false)
 const title = ref('')
 const form = ref<scheduledTasks>({})
 
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'job_name',
     label: '任务名称',

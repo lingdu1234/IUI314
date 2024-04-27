@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type PropType, h, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import { IconPlus } from '@arco-design/web-vue/es/icon'
 import IuModal from '@/components/iui/iu-modal.vue'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
@@ -27,7 +27,7 @@ const modalIcon = ref()
 const open = ref(false)
 const title = ref('')
 const form = ref<scheduledTasks>({})
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'task_id',
     label: '任务ID',

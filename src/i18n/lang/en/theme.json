@@ -1,6 +1,6 @@
 {
-  "system": "System",
-  "light": "Light",
   "dark": "Dark",
+  "light": "Light",
+  "system": "System",
   "userConfig": "userConfig"
 }

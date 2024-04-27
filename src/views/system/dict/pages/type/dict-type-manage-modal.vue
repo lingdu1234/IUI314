@@ -31,7 +31,7 @@ const open = ref(false)
 const title = ref('')
 const form = ref<dictType>({ dict_name: '', dict_type: '', remark: '', status: '1' })
 
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'dict_name',
     label: '字典名称',

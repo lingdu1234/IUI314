@@ -48,7 +48,7 @@ const dataScopeOptions = ref([
 
 const vShow = computed(() => form.value.data_scope === '2')
 
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'role_name',
     label: '角色名称',

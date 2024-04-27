@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type PropType, h, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import { Message, Modal, Switch, type TableColumnData, type TableRowSelection } from '@arco-design/web-vue'
 import DictTag from '@/components/common/dict-tag.vue'
 import { dictKey, type dictUse } from '@/types/system/dict'
@@ -38,7 +38,7 @@ const rowSelection = ref<TableRowSelection>({
 })
 
 // 表格列属性
-const columns: TableColumnData[] = [
+const columns = computed<TableColumnData[]>(() => [
   {
     title: '任务ID',
     dataIndex: 'task_id',
@@ -135,7 +135,7 @@ const columns: TableColumnData[] = [
     fixed: 'right',
     align: 'center',
   },
-]
+])
 
 async function handleStatusChange(row: scheduledTasks) {
   const text = row.status === '1' ? '禁用' : '启用'

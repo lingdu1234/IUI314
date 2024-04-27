@@ -61,7 +61,7 @@ const listClassOptions = computed(() =>
     }
   }))
 
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'dict_type',
     label: '字典类型',

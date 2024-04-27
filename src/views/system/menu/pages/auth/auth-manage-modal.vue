@@ -23,7 +23,7 @@ const open = ref(false)
 const title = ref('')
 const form = ref<authMenu>({})
 
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'dbs',
     label: '关联数据表',

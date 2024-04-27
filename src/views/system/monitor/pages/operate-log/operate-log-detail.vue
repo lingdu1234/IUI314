@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IconEye } from '@arco-design/web-vue/es/icon'
-import { type PropType, h, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import DictTag from '@/components/common/dict-tag.vue'
 import IuModal from '@/components/iui/iu-modal.vue'
 import { FormItemType, type IuFormField } from '@/types/base/iu-form'
@@ -22,7 +22,7 @@ const modalIcon = ref()
 const open = ref(false)
 const title = ref('')
 const form = ref<operateLog>({})
-const modalFormItems = ref<IuFormField[]>([
+const modalFormItems = computed<IuFormField[]>(() => [
   {
     field: 'title',
     label: '操作模块',

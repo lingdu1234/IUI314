@@ -31,7 +31,7 @@ const emits = defineEmits([
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
-const operateButtons = ref<iuButtonPropsType[]>([
+const operateButtons = computed<iuButtonPropsType[]>(() => [
   {
     label: t('sys.add'),
     icon: h(IconPlus),

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type PropType, h, ref } from 'vue'
+import { type PropType, computed, h, ref } from 'vue'
 import type { TableColumnData, TableRowSelection } from '@arco-design/web-vue'
 import DictTag from '@/components/common/dict-tag.vue'
 import { dictKey, type dictUse } from '@/types/system/dict'
@@ -34,7 +34,7 @@ const rowSelection = ref<TableRowSelection>({
 })
 
 // 表格列属性
-const columns: TableColumnData[] = [
+const columns = computed<TableColumnData[]>(() => [
   {
     title: '日志编号',
     dataIndex: 'job_log_id',
@@ -113,7 +113,7 @@ const columns: TableColumnData[] = [
     fixed: 'right',
     align: 'center',
   },
-]
+])
 
 function handleSelectionChange(keys: (string | number)[]) {
   return emits('handleSelectionChangeFn', keys, tableData.value, 'job_log_id', 'job_log_id')
