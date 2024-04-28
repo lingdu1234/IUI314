@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { IconDelete, IconEdit, IconPlus } from '@arco-design/web-vue/es/icon'
-import { computed, h, ref } from 'vue'
+import { computed, h } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ApiSysDictType } from '@/api/sysApis'
 import IuButton from '@/components/iui/iu-button.vue'
 import { hasPermission } from '@/hooks'
 import type { MessageSchema } from '@/i18n'
+import type { iuButtonPropsType } from '@/components/iui/iui-props'
 
 defineOptions({ name: 'DictTypeManageOperator' })
 
@@ -24,15 +25,15 @@ const emits = defineEmits(['handAdd', 'handleUpdate', 'handleDelete'])
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
-const operateButtons = ref<{ [key: string]: any }[]>([
+const operateButtons = computed<iuButtonPropsType[]>(() => [
   {
     label: t('sys.add'),
     icon: h(IconPlus),
     auth: computed(() => hasPermission(ApiSysDictType.add)),
     disabled: false,
     fn: () => emits('handAdd'),
-    buttonType: 'primary',
-    buttonStatus: 'normal',
+    type: 'primary',
+    status: 'normal',
   },
   {
     label: t('sys.edit'),
@@ -40,8 +41,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysDictType.edit)),
     disabled: computed(() => !props.single),
     fn: () => emits('handleUpdate'),
-    buttonType: 'primary',
-    buttonStatus: 'warning',
+    type: 'primary',
+    status: 'warning',
   },
   {
     label: t('sys.delete'),
@@ -49,8 +50,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
     auth: computed(() => hasPermission(ApiSysDictType.delete)),
     disabled: computed(() => !props.selected),
     fn: () => emits('handleDelete'),
-    buttonType: 'primary',
-    buttonStatus: 'danger',
+    type: 'primary',
+    status: 'danger',
   },
 ])
 </script>
@@ -62,8 +63,8 @@ const operateButtons = ref<{ [key: string]: any }[]>([
       :label="item.label"
       :icon="item.icon"
       :disabled="item.disabled"
-      :type="item.buttonType"
-      :status="item.buttonStatus"
+      :type="item.type"
+      :status="item.status"
       :fn="item.fn"
     />
   </a-col>

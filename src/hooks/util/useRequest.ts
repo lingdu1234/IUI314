@@ -67,7 +67,7 @@ export const useRequest = createFetch({
 async function log_out() {
   const { i18n } = useSetupI18n()
   const { t } = i18n.global
-  Message.warning(t('commonTip.loginExpired'))
+  Message.warning(t('sys.loginExpired'))
   await useUserStore().frontEndLogout()
   setTimeout(() => {
     router.push('/login')

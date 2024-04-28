@@ -327,7 +327,7 @@ async function handleUpdate(row?: userInformation) {
   form.value.post_ids = data.value?.post_ids
   form.value.role_ids = data.value?.role_ids
   form.value.dept_ids = data.value?.dept_ids
-  title.value = `${t('common.update')}用户:${form.value?.user_name}`
+  title.value = `${t('sys.update')}用户:${form.value?.user_name}`
 }
 async function submitForm() {
   if (form.value.id !== undefined) {
@@ -336,14 +336,14 @@ async function submitForm() {
     await execute()
     if (data.value === ErrorFlag)
       return
-    Message.success(t('commonTip.updateSuccess'))
+    Message.success(t('sys.TipUpdateSuccess'))
   }
   else {
     const { execute, data } = usePost(ApiSysUser.add, form)
     await execute()
     if (data.value === ErrorFlag)
       return
-    Message.success(t('commonTip.addSuccess'))
+    Message.success(t('sys.tipAddSuccess'))
   }
   open.value = false
   emits('getList')

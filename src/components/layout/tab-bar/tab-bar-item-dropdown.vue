@@ -78,6 +78,6 @@ const disabledRight = computed(() => {
     <template #icon>
       <IconFire />
     </template>
-    <span>{{ t('sys.tabCoseAllTab') }}</span>
+    <span>{{ t('sys.tabCloseAllTab') }}</span>
   </a-doption>
 </template>

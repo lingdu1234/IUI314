@@ -148,7 +148,7 @@ const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
                   >
                     <template #upload-button>
                       <a-button type="dashed" status="success" size="mini">
-                        {{ t('common.select') }}
+                        {{ t('sys.select') }}
                         <template #icon>
                           <IconUpload />
                         </template>
@@ -156,7 +156,7 @@ const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
                     </template>
                   </a-upload>
                   <a-button type="primary" status="success" size="mini" @click="uploadImg">
-                    {{ t('common.submit') }}
+                    {{ t('sys.submit') }}
                     <template #icon>
                       <IconCheck />
                     </template>

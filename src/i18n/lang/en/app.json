@@ -6,11 +6,14 @@
   "enable": " Enable",
   "hello": "hello",
   "info": "info",
-  "navChangeDept": "ChangeDept",
-  "navChangeDeptTip": "Dept has changed,Reloading soon!",
-  "navChangeRole": "ChangeRole",
-  "navChangeRoleTip": "Role has changed,Reloading soon!",
-  "navLogout": "LogOut",
-  "navLogoutSuccessTip": "Exiting login, returning to login interface!",
-  "navLogoutTip": "Are you sure to log out?"
+  "nav": {
+    "changeDept": "ChangeDept",
+    "changeDeptTip": "Dept has changed,Reloading soon!",
+    "changeRole": "ChangeRole",
+    "changeRoleTip": "Role has changed,Reloading soon!",
+    "logout": "LogOut",
+    "logoutSuccessTip": "Exiting login, returning to login interface!",
+    "logoutTip": "Are you sure to log out?"
+  }
+
 }

@@ -79,22 +79,22 @@ function handleClose() {
     <a-form-item :label="t('profile.nickName')" field="user_nickname" validate-trigger="blur">
       <a-input v-model="userIf.user_nickname" />
     </a-form-item>
-    <a-form-item :label="t('common.phoneNum')" field="phone_num" validate-trigger="blur">
+    <a-form-item :label="t('sys.phone')" field="phone_num" validate-trigger="blur">
       <a-input v-model="userIf.phone_num" />
     </a-form-item>
-    <a-form-item :label="t('common.email')" field="user_email" validate-trigger="blur">
+    <a-form-item :label="t('sys.email')" field="user_email" validate-trigger="blur">
       <a-input v-model="userIf.user_email" />
     </a-form-item>
-    <a-form-item :label="t('common.sex')">
+    <a-form-item :label="t('sys.sex')">
       <a-radio-group v-model="userIf.sex">
         <a-radio value="0">
-          {{ t('common.sexV.male') }}
+          {{ t('sys.sexV.male') }}
         </a-radio>
         <a-radio value="1">
-          {{ t('common.sexV.female') }}
+          {{ t('sys.sexV.female') }}
         </a-radio>
         <a-radio value="2">
-          {{ t('common.sexV.unknown') }}
+          {{ t('sys.sexV.unknown') }}
         </a-radio>
       </a-radio-group>
     </a-form-item>

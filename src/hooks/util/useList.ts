@@ -28,7 +28,7 @@ export async function useDeleteFn(
     title: '删除确认',
     hideCancel: false,
     titleAlign: 'start',
-    content: `${t('commonTip.delete') + names}`,
+    content: `${t('sys.delete') + names}`,
     okText: '确认',
     cancelText: '取消',
     draggable: true,
@@ -37,9 +37,9 @@ export async function useDeleteFn(
       query.value[deleteKey] = _ids
       const { execute } = useDelete(api, query)
       await execute()
-      Message.success(t('commonTip.deleteSuccess'))
+      Message.success(t('sys.tipDeleteSuccess'))
       fn && await fn()
     },
-    onCancel: async () => Message.info(t('commonTip.deleteCancel')),
+    onCancel: async () => Message.info(t('sys.tipDeleteCancel')),
   })
 }

@@ -12,3 +12,4 @@ interface ImportMetaEnv {
 
 // 阻止报错
 declare module 'blueimp-md5';
+declare module 'nprogress';

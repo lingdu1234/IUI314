@@ -30,7 +30,7 @@ async function formValidate(formRef: FormInstance | undefined) {
   const { t } = i18n.global
   await formRef.validate((errors) => {
     if (errors)
-      Message.warning(t('commonTip.submitInvalid'))
+      Message.warning(t('sys.submitInvalid'))
     else
       flag = true
   })
