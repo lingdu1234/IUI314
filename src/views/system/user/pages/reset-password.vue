@@ -73,36 +73,36 @@ function handleClose() {
 
 <template>
   <a-form ref="pwdRef" :model="user" :rules="rules" auto-label-width>
-    <a-form-item :label="t('profile.oldPassword')" field="oldPassword" validate-trigger="blur">
+    <a-form-item :label="t('sys.user.oldPassword')" field="oldPassword" validate-trigger="blur">
       <a-input
         v-model="user.oldPassword"
-        :placeholder="t('profile.oldPassword')"
+        :placeholder="t('sys.user.oldPassword')"
         type="password"
         show-password
       />
     </a-form-item>
-    <a-form-item :label="t('profile.newPassword')" field="newPassword" validate-trigger="blur">
+    <a-form-item :label="t('sys.user.newPassword')" field="newPassword" validate-trigger="blur">
       <a-input
         v-model="user.newPassword"
-        :placeholder="t('profile.newPassword')"
+        :placeholder="t('sys.user.newPassword')"
         type="password"
         show-password
       />
     </a-form-item>
-    <a-form-item :label="t('profile.confirmPassword')" field="confirmPassword" validate-trigger="blur">
+    <a-form-item :label="t('sys.user.confirmPassword')" field="confirmPassword" validate-trigger="blur">
       <a-input
         v-model="user.confirmPassword"
-        :placeholder="t('profile.confirmPassword')"
+        :placeholder="t('sys.user.confirmPassword')"
         type="password"
         show-password
       />
     </a-form-item>
     <div class="flex justify-around m-t-30px">
       <a-button type="primary" @click="submit">
-        {{ t('common.save') }}
+        {{ t('sys.com.save') }}
       </a-button>
       <a-button status="danger" @click="handleClose">
-        {{ t('common.close') }}
+        {{ t('sys.com.close') }}
       </a-button>
     </div>
   </a-form>

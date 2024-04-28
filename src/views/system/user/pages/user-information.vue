@@ -76,7 +76,7 @@ function handleClose() {
 
 <template>
   <a-form ref="userRef" :model="userIf" :rules="rules" auto-label-width>
-    <a-form-item :label="t('profile.nickName')" field="user_nickname" validate-trigger="blur">
+    <a-form-item :label="t('sys.user.nickName')" field="user_nickname" validate-trigger="blur">
       <a-input v-model="userIf.user_nickname" />
     </a-form-item>
     <a-form-item :label="t('sys.phone')" field="phone_num" validate-trigger="blur">
@@ -100,10 +100,10 @@ function handleClose() {
     </a-form-item>
     <div class="flex justify-around m-t-30px">
       <a-button type="primary" @click="submit">
-        {{ t('common.save') }}
+        {{ t('sys.com.save') }}
       </a-button>
       <a-button type="secondary" status="danger" @click="handleClose">
-        {{ t('common.close') }}
+        {{ t('sys.com.close') }}
       </a-button>
     </div>
   </a-form>

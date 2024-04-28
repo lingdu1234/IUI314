@@ -19,7 +19,7 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 
 const userStore = useUserStore()
 const openCropper = ref(false)
-const title = ref(t('avatar.edit'))
+const title = ref(t('sys.avatar.edit'))
 
 const cropper = ref <InstanceType<typeof VueCropper>>()
 
@@ -68,7 +68,7 @@ function reFresh() {
 /** 上传预处理 */
 function beforeUpload(file: File) {
   if (!file.type.includes('image/')) {
-    Message.error(t('avatar.errorTip'))
+    Message.error(t('sys.avatar.errorTip'))
     return false
   }
   else {
@@ -97,7 +97,7 @@ async function uploadImg() {
     openCropper.value = false
     options.value.img = import.meta.env.VITE_API_BASE_URL + data.value!
     userStore.user.avatar = options.value.img
-    Message.success(t('avatar.success'))
+    Message.success(t('sys.avatar.success'))
   })
 }
 const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
@@ -108,7 +108,7 @@ const contentHeight = computed(() => 'calc(calc(var(--vh) * 100) - 200px')
     <div class="user-info-head" @click="openCropper = true">
       <img
         :src="options.img"
-        :title="t('avatar.title')"
+        :title="t('sys.avatar.title')"
         class="b-rd-50% w-120px h-120px"
       >
     </div>

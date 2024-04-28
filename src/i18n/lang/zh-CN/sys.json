@@ -1,8 +1,18 @@
 {
   "add": "新增",
+  "avatar": {
+    "edit": "头像编辑",
+    "errorTip": "头像文件格式错误",
+    "success": "头像更新成功",
+    "title": "头像"
+  },
   "back": "返回",
   "clean": "清空",
   "close": "关闭",
+  "com": {
+    "close": "关闭",
+    "save": "保存"
+  },
   "confirm2": "你确认",
   "createTime": "创建时间",
   "dataScope": "数据权限",
@@ -95,16 +105,25 @@
   "roleStatusValidateTip": "角色状态必须选择",
   "search": "搜索",
   "select": "选择",
+  "sex": "性别",
+  "sexV": {
+    "female": "女",
+    "male": "男",
+    "unknown": "未知"
+  },
   "showSearch": "显示搜索",
   "status": "状态",
+  "submit": "提交",
   "submitInvalid": "提交验证失败",
   "success": "成功",
-  "tabCloseCurrentTab": "关闭当前页面",
-  "tabCloseLeftTab": "管不左侧页面",
-  "tabCloseOtherTab": "关闭其他页面",
-  "tabCloseRightTab": "关闭右侧页面",
-  "tabCloseAllTab": "关闭全部页面",
-  "tabRefresh": "刷新当前页面",
+  "tab": {
+    "closeAll": "关闭全部页面",
+    "closeCurrent": "关闭当前页面",
+    "closeLeft": "关闭左侧页面",
+    "closeOthers": "关闭其他页面",
+    "closeRight": "关闭右侧页面",
+    "refresh": "刷新当前页面"
+  },
   "tipAddSuccess": "你已成功添加",
   "tipCancel": "你取消了操作",
   "tipDelete": "你确认要删除",
@@ -112,6 +131,18 @@
   "tipDeleteSuccess": "你已成功删除",
   "tipUpdateSuccess": "你已成功更新",
   "update": "更新",
+  "user": {
+    "basicInfo": "基础信息",
+    "confirmPassword": "确认密码",
+    "email": "电子邮箱",
+    "information": "用户信息",
+    "name": "用户名称",
+    "newPassword": "新密码",
+    "nickName": "用户昵称",
+    "oldPassword": "旧密码",
+    "phone": "联系电话",
+    "updatePwd": "更新密码"
+  },
   "userName": "用户名",
   "validateCode": "验证码",
   "youSuccess": "你成功"

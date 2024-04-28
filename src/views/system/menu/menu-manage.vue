@@ -13,7 +13,7 @@ import {
 import { dictKey } from '@/types/system/dict'
 import RightToolBar from '@/components/common/right-tool-bar.vue'
 import { ApiManageRouteName, router, systemMenus } from '@/router'
-import MenuManageQuery from '@/views/system/menu/pages/menu/menu-mannage-query.vue'
+import MenuManageQuery from '@/views/system/menu/pages/menu/menu-manage-query.vue'
 import MenuManageOperator from '@/views/system/menu/pages/menu/menu-manage-operator.vue'
 import MenuManageTable from '@/views/system/menu/pages/menu/menu-manage-table.vue'
 import MenuManageModal from '@/views/system/menu/pages/menu/menu-manage-modal.vue'

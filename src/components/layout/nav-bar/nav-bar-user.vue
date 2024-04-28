@@ -145,6 +145,10 @@ async function logout() {
   await userStore.logOut()
   await router.push(`/login?redirect=${currentRoute.value.fullPath}`)
 }
+
+function go_to_profile() {
+  router.push('/user/profile')
+}
 get_options()
 </script>
 
@@ -185,9 +189,9 @@ get_options()
         </a-doption>
         <a-divider />
         <a-doption>
-          <router-link to="/user/profile" class="decoration-none">
+          <span @click="go_to_profile">
             {{ t('route.userCenter') }}
-          </router-link>
+          </span>
         </a-doption>
         <a-divider />
         <a-doption

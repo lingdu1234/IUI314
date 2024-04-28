@@ -48,36 +48,36 @@ const disabledRight = computed(() => {
     <template #icon>
       <IconRefresh />
     </template>
-    <span>{{ t('sys.tabRefresh') }}</span>
+    <span>{{ t('sys.tab.refresh') }}</span>
   </a-doption>
   <a-doption :disabled="disabledCurrent" @click="tabBarStore.tabActionSelect(props.itemData, TabAction.current)">
     <template #icon>
       <IconClose />
     </template>
-    <span>{{ t('sys.tabCloseCurrentTab') }}</span>
+    <span>{{ t('sys.tab.closeCurrent') }}</span>
   </a-doption>
   <a-doption :disabled="disabledLeft" @click="tabBarStore.tabActionSelect(props.itemData, TabAction.left)">
     <template #icon>
       <IconArrowLeft />
     </template>
-    <span>{{ t('sys.tabCloseLeftTab') }}</span>
+    <span>{{ t('sys.tab.closeLeft') }}</span>
   </a-doption>
   <a-doption :disabled="disabledRight" @click="tabBarStore.tabActionSelect(props.itemData, TabAction.right)">
     <template #icon>
       <IconArrowRight />
     </template>
-    <span>{{ t('sys.tabCloseRightTab') }}</span>
+    <span>{{ t('sys.tab.closeRight') }}</span>
   </a-doption>
   <a-doption :disabled="disabledCurrent" @click="tabBarStore.tabActionSelect(props.itemData, TabAction.others)">
     <template #icon>
       <IconSwap />
     </template>
-    <span>{{ t('sys.tabCloseOtherTab') }}</span>
+    <span>{{ t('sys.tab.closeOthers') }}</span>
   </a-doption>
   <a-doption @click="tabBarStore.tabActionSelect(props.itemData, TabAction.all)">
     <template #icon>
       <IconFire />
     </template>
-    <span>{{ t('sys.tabCloseAllTab') }}</span>
+    <span>{{ t('sys.tab.closeAll') }}</span>
   </a-doption>
 </template>

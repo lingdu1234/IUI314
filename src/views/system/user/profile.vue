@@ -64,9 +64,9 @@ getUser()
     <a-grid :col-gap="20" :cols="{ xs: 1, sm: 1, md: 1, lg: 2, xl: 2, xxl: 2 }">
       <a-grid-item class="m-b-20px">
         <a-card>
-          <template #header>
+          <template #title>
             <div>
-              <span>{{ t('profile.personalInformation') }}</span>
+              <span>{{ t('sys.user.information') }}</span>
             </div>
           </template>
           <div>
@@ -82,35 +82,35 @@ getUser()
               <a-form-item>
                 <template #label>
                   <IconUser />
-                  <span class="m-l-3px">{{ t('profile.name') }}</span>
+                  <span class="m-l-3px">{{ t('sys.user.name') }}</span>
                 </template>
                 {{ userInfos.user_name }}
               </a-form-item>
               <a-form-item>
                 <template #label>
                   <IconPhone />
-                  <span class="m-l-3px">{{ t('common.phoneNum') }}</span>
+                  <span class="m-l-3px">{{ t('sys.user.phone') }}</span>
                 </template>
                 {{ userInfos.phone_num }}
               </a-form-item>
               <a-form-item>
                 <template #label>
                   <IconEmail />
-                  <span class="m-l-3px">{{ t('common.email') }}</span>
+                  <span class="m-l-3px">{{ t('sys.user.email') }}</span>
                 </template>
                 {{ userInfos.user_email }}
               </a-form-item>
               <a-form-item>
                 <template #label>
                   <IconOriginalSize />
-                  <span class="m-l-3px">{{ t('profile.dept') }}</span>
+                  <span class="m-l-3px">{{ t('sys.dept') }}</span>
                 </template>
                 {{ userInfos.dept?.dept_name }} / {{ postGroup }}
               </a-form-item>
               <a-form-item>
                 <template #label>
                   <IconRobot />
-                  <span class="m-l-3px">{{ t('profile.role') }}</span>
+                  <span class="m-l-3px">{{ t('sys.role') }}</span>
                 </template>
                 <a-tag
                   v-for="v in roleGroup"
@@ -124,7 +124,7 @@ getUser()
               <a-form-item>
                 <template #label>
                   <IconCalendar />
-                  <span class="m-l-3px">{{ t('common.createTime') }}</span>
+                  <span class="m-l-3px">{{ t('sys.createTime') }}</span>
                 </template>
                 {{ parseTime(userInfos.created_at) }}
               </a-form-item>
@@ -134,16 +134,16 @@ getUser()
       </a-grid-item>
       <a-grid-item class="m-b-20px">
         <a-card>
-          <template #header>
+          <template #title>
             <div>
-              <span>{{ t('profile.basicInfo') }}</span>
+              <span>{{ t('sys.user.basicInfo') }}</span>
             </div>
           </template>
           <a-tabs :default-active-key="activeTab">
-            <a-tab-pane key="userInfoTab" :title="t('profile.basicInfo')">
+            <a-tab-pane key="userInfoTab" :title="t('sys.user.basicInfo')">
               <UserInformation :user="userInfos" />
             </a-tab-pane>
-            <a-tab-pane key="resetPwd" :title="t('common.updatePwd')">
+            <a-tab-pane key="resetPwd" :title="t('sys.user.updatePwd')">
               <ResetPassword />
             </a-tab-pane>
           </a-tabs>

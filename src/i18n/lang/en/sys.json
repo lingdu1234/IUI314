@@ -1,8 +1,18 @@
 {
   "add": "Add",
+  "avatar": {
+    "edit": "Avatar editor",
+    "errorTip": "The format of the avatar file is incorrect",
+    "success": "Avatar updated successfully",
+    "title": "Avatar"
+  },
   "back": "Back",
   "clean": "Clean",
   "close": "Close",
+  "com": {
+    "close": "Close",
+    "save": "Save"
+  },
   "confirm2": "Are you sue to",
   "createTime": "CreateTime",
   "dataScope": "DataScope",
@@ -95,16 +105,25 @@
   "roleStatusValidateTip": "RoleStatus must be selected",
   "search": "Search",
   "select": "Select",
+  "sex": "Gender",
+  "sexV": {
+    "female": "female",
+    "male": "male",
+    "unknown": "unknown"
+  },
   "showSearch": "Show Search",
   "status": "Status",
+  "submit": "Submit",
   "submitInvalid": "submit invalid",
   "success": "success",
-  "tabCloseCurrentTab": "CloseCurrentTab",
-  "tabCloseLeftTab": "CloseLeftTabs",
-  "tabCloseOtherTab": "CloseOtherTabs",
-  "tabCloseRightTab": "CloseRightTabs",
-  "tabCloseAllTab": "CloseAllTabs",
-  "tabRefresh": "RefreshCurrentTab",
+  "tab": {
+    "closeAll": "CloseAllTabs",
+    "closeCurrent": "CloseCurrentTab",
+    "closeLeft": "CloseLeftTabs",
+    "closeOthers": "CloseOtherTabs",
+    "closeRight": "CloseRightTabs",
+    "refresh": "RefreshCurrentTab"
+  },
   "tipAddSuccess": "You have successfully added",
   "tipCancel": "You cancelled the operation",
   "tipDelete": "Are you sure to delete",
@@ -112,6 +131,18 @@
   "tipDeleteSuccess": "You have successfully deleted",
   "tipUpdateSuccess": "You have successfully updated",
   "update": "Update",
+  "user": {
+    "basicInfo": "Basic information",
+    "confirmPassword": "Confirm password",
+    "email": "Email",
+    "information": "User Information",
+    "name": "UserName",
+    "newPassword": "New password",
+    "nickName": "Nickname",
+    "oldPassword": "Old password",
+    "phone": "phone number",
+    "updatePwd": "Update password"
+  },
   "userName": "userName",
   "validateCode": "Verification code",
   "youSuccess": "You have succeed"
