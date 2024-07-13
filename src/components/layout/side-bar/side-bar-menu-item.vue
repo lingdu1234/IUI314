@@ -143,8 +143,8 @@ function resolvePath(routePath: string, routeQuery?: string): string {
 
 <style lang="scss" scoped>
 // 去掉菜单下划线
-.router-link-active,
-a {
-  text-decoration: none;
-}
+// .router-link-active,
+// a {
+//   text-decoration: none;
+// }
 </style>

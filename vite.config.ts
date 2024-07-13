@@ -59,8 +59,9 @@ export default ({ mode }: ConfigEnv) =>
       // open: true,
     },
     build: getBuild(),
-    json: {
-      // stringify: true,
+    esbuild: {
+      drop: ['console', 'debugger'],
+      sourcemap: false,
     },
   })
 

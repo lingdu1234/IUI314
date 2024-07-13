@@ -2,12 +2,11 @@ import { defineStore } from 'pinia'
 
 import { unref } from 'vue'
 import {
+  ErrorPageRoute,
   InnerLink,
   Layout,
-  NoPermissionRoute,
   NotFound,
   NotFoundRoute,
-  ServerErrorRoute,
 } from '@/router/constant'
 import { constantRoutes } from '@/router/router'
 import type { AppRouteRecordRaw, Component } from '@/types/base/router'
@@ -36,8 +35,7 @@ export const usePermissionStore = defineStore('permission', {
         ...constantRoutes,
         ...routes,
         NotFoundRoute,
-        NoPermissionRoute,
-        ServerErrorRoute,
+        ErrorPageRoute,
       ]
     },
     async generateRoutes() {

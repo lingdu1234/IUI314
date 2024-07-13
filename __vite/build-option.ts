@@ -26,6 +26,7 @@ export function getBuild(): BuildOptions {
         },
       },
     },
+
     terserOptions: {
       compress: {
         drop_console: true,
@@ -34,8 +35,6 @@ export function getBuild(): BuildOptions {
       sourceMap: false,
       format: {
         comments: false,
-        // quote_style: 1,
-        // 会导致程序无法启动
       },
     },
   }

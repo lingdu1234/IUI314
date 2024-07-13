@@ -41,7 +41,11 @@ export const useRequest = createFetch({
         data = data.data || {}
 
       if (status === 401)
+        // JWT未授权，跳转登录页
         await log_out()
+      if (status === 403)
+      // API未授权，跳转到403页面
+        await go_to_403()
 
       if (status === 500) {
         Message.error(data.msg)
@@ -71,6 +75,12 @@ async function log_out() {
   await useUserStore().frontEndLogout()
   setTimeout(() => {
     router.push('/login')
+  }, 500)
+}
+
+async function go_to_403() {
+  setTimeout(() => {
+    router.push({ name: '403' })
   }, 500)
 }
 

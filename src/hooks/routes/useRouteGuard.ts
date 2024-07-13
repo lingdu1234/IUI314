@@ -3,9 +3,8 @@ import type { RouteRecordRaw, Router } from 'vue-router'
 
 import { isHttp, setRouteEmitter, useToken } from '@/hooks'
 import {
-  NoPermissionRoute,
+  ErrorPageRoute,
   NotFoundRoute,
-  ServerErrorRoute,
 } from '@/router/constant'
 import { useAppStore, usePermissionStore, useUserStore } from '@/stores'
 
@@ -41,8 +40,7 @@ export async function useRouterGuard(router: Router) {
                 router.addRoute(aRoute as RouteRecordRaw)
             })
             router.addRoute(NotFoundRoute as RouteRecordRaw)
-            router.addRoute(NoPermissionRoute as RouteRecordRaw)
-            router.addRoute(ServerErrorRoute as RouteRecordRaw)
+            router.addRoute(ErrorPageRoute as RouteRecordRaw)
             permissionStore.setIsReloading(false)
             next({ ...to, replace: true })
           }

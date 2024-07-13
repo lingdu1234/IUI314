@@ -3,7 +3,7 @@ import type { AppRouteRecordRaw, TagProps } from '@/types/base/router'
 export const Layout = () => import('@/components/layout/Layout.vue')
 export const InnerLink = () => import('@/components/layout/inner-link.vue')
 export const NotFound = () => import('@/components/exception/404.vue')
-export const NoPermission = () => import('@/components/exception/401.vue')
+export const NoPermission = () => import('@/components/exception/403.vue')
 export const ServerError = () => import('@/components/exception/500.vue')
 
 export const REDIRECT_ROUTE_NAME = 'redirect' // 重定向
@@ -29,18 +29,28 @@ export const NotFoundRoute: AppRouteRecordRaw = {
   hidden: true,
 }
 
-export const NoPermissionRoute: AppRouteRecordRaw = {
-  path: '/401',
-  component: NoPermission,
-  name: '401',
+export const ErrorPageRoute: AppRouteRecordRaw = {
+  path: '/error',
+  component: Layout,
   hidden: true,
-}
+  children: [
+    {
+      path: '/403',
+      component: NoPermission,
+      name: '403',
+      meta: {
+        title: '403',
+      },
+      hidden: true,
+    },
+    {
+      path: '/500',
+      component: ServerError,
+      name: '401',
+      hidden: true,
+    },
+  ],
 
-export const ServerErrorRoute: AppRouteRecordRaw = {
-  path: '/500',
-  component: ServerError,
-  name: '500',
-  hidden: true,
 }
 
 export const DictDataRoute: AppRouteRecordRaw = {

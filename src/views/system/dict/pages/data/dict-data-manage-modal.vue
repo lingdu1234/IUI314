@@ -208,17 +208,17 @@ defineExpose({ handleAdd, handleUpdate })
     :default-col="1"
     @handle-ok="submitForm"
   >
-    <!--    <template #cssColor> -->
-    <!--      <a-input v-model="form.css_class" allow-clear> -->
-    <!--        <template #prepend> -->
-    <!--          <a-color-picker -->
-    <!--            v-model="form.css_class" -->
-    <!--            show-preset -->
-    <!--            show-history -->
-    <!--          /> -->
-    <!--        </template> -->
-    <!--      </a-input> -->
-    <!--    </template> -->
+    <template #cssColor>
+      <a-input v-model="form.css_class" allow-clear>
+        <template #prepend>
+          <a-color-picker
+            v-model="form.css_class"
+            show-preset
+            show-history
+          />
+        </template>
+      </a-input>
+    </template>
     <!--    先注释掉，这里会编译错误，本地编译可以添加index.css文件 -->
   </IuModal>
 </template>
