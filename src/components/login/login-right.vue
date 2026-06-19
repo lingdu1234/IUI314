@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import type { FieldRule, FormInstance } from '@arco-design/web-vue'
@@ -34,6 +34,9 @@ const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
 // 验证码获取
 const { data: captchaData, execute: getCaptcha } = useGet<codeData>(ApiSysLogin.getCaptcha, null, { immediate: true })
 
+// 验证码开关
+const captchaOnOff = computed(() => captchaData.value?.captcha_on_off ?? true)
+
 //  验证规则
 const loginRules = ref<{ [key: string]: FieldRule[] }>({
   user_name: [
@@ -55,7 +58,8 @@ loginForm.value.rememberMe = userStore.rememberMe
 async function submitLogin(formRef: FormInstance | undefined) {
   if (!(await formValidate(formRef)))
     return
-  loginForm.value.uuid = captchaData.value!.uuid
+  if (captchaOnOff.value)
+    loginForm.value.uuid = captchaData.value!.uuid
   await userStore.login(loginForm.value)
   const redirect = router.currentRoute.value.query.redirect
     ? (router.currentRoute.value.query.redirect as string)
@@ -130,6 +134,7 @@ getLocalUserInfo()
           </a-input>
         </a-form-item>
         <a-form-item
+          v-if="captchaOnOff"
           v-model="loginForm.code"
           field="code"
           validate-trigger="blur"
