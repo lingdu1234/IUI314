@@ -1,35 +1,36 @@
-<script lang="ts"  setup>
-import { ref } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import IuiIcon from '@/components/svg-icon/iui-icon.vue'
-import { useIuiIcons } from '@/components/svg-icon/useIuiIcons'
+import { useUserStore } from '@/stores'
 import type { MessageSchema } from '@/i18n'
 
-defineOptions({ name: 'AboutAbout' })
+defineOptions({ name: 'Dashboard' })
 
 const { t } = useI18n<{ message: MessageSchema }>({ useScope: 'global' })
-const { IuiIcons } = useIuiIcons()
+const userStore = useUserStore()
 
-const count = ref(0)
+const nickName = computed(() => userStore.user.name || '')
 </script>
 
 <template>
-  <div>
-    <IuiIcon name="bug" :size="32" spin />
-
-    <div>{{ t('app.hello') }}</div>
-    <div>{{ t('app.hello') }}</div>
-    <div>{{ t('app.hello') }}</div>
-    <div>{{ t('app.hello') }}</div>
-    <div>{{ t('app.hello') }}</div>
-
-    <div>{{ count }}</div>
-    <div>{{ IuiIcons }}</div>
-    <div>
-      <a-button @click="() => count++">
-        +++
-      </a-button>
-    </div>
+  <div class="dashboard">
+    <a-card>
+      <template #title>
+        <span>{{ t('app.title') }}</span>
+      </template>
+      <a-typography-title :heading="3">
+        {{ t('app.hello') }}，{{ nickName }}
+      </a-typography-title>
+      <a-typography-paragraph type="secondary">
+        欢迎
+      </a-typography-paragraph>
+    </a-card>
   </div>
 </template>
+
+<style scoped>
+.dashboard {
+  padding: 16px;
+}
+</style>
